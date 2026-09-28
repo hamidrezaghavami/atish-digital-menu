@@ -1,0 +1,216 @@
+{
+  "restaurant": {
+    "name": "آتیش",
+    "brandTitle": "آتیش | Menu",
+    "brandSubtitle": "طعم اصیل و لذیذ رستوران آتیش",
+    "tagline": "منوی دیجیتال آتیش",
+    "statusBadge": "هم‌اکنون باز است",
+    "statusNote": "پذیرش سفارشات حضوری و آنلاین",
+    "phone": "02122561949",
+    "phoneDisplay": "۰۲۱-۲۲۵۶۱۹۴۹",
+    "snappfoodUrl": "https://snappfood.irhttps://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/",
+    "workingHours": "همه روزه از ۹ صبح تا ۱۲ شب",
+    "address": "خیابان دولت تهران، محله دروس، خیابان کلاهدوز (دولت)، نبش کوچه خرداد، پلاک ۱۰۰ است",
+    "currency": "ریال"
+  },
+  "categories": [
+    {
+      "id": "burgers",
+      "name": "برگر ذغالی",
+      "icon": "🍔",
+      "title": "برگرهای ذغالی و آتشین",
+      "subtitle": "طعم اصیل گوشت خالص گریل شده روی ذغال چوب"
+    },
+    {
+      "id": "pizzas",
+      "name": "پیتزا ایتالیایی",
+      "icon": "🍕",
+      "title": "پیتزاهای تنوری ایتالیایی",
+      "subtitle": "خمیر دست‌ساز ناپلی، پخته شده در تنور سنگی هیزمی"
+    },
+    {
+      "id": "sides",
+      "name": "پیش‌غذا و ساید",
+      "icon": "🍟",
+      "title": "پیش‌غذا و ساید دیش‌ها",
+      "subtitle": "مقدمه‌ای لذیذ، کریسپی و سرشار از عطر و طعم"
+    },
+    {
+      "id": "drinks",
+      "name": "نوشیدنی‌ها",
+      "icon": "🥤",
+      "title": "نوشیدنی‌ها",
+      "subtitle": "طراوت‌بخش‌های طبیعی، خنک و دست‌ساز"
+    }
+  ],
+  "items": [
+    {
+      "id": "b-featured",
+      "categoryId": "burgers",
+      "isFeatured": true,
+      "title": "برگر مخصوص آتیش",
+      "tag": "امضای سرآشپز",
+      "badge": "🔥 محبوب‌ترین",
+      "price": 365000,
+      "ingredients": "دو لایه گوشت گوساله مرینیت‌شده، بیکن گوساله دودی، پنیر چدار، سس باربیکیو تند، پیاز کاراملی شیرین و سس مخصوص آتیش، نان بریوش کره خورده.",
+      "image": "",
+      "placeholderIcon": "🍔"
+    },
+    {
+      "id": "b-1",
+      "categoryId": "burgers",
+      "isFeatured": false,
+      "title": "آتیش برگر تند",
+      "tag": "🔥 تند",
+      "badge": null,
+      "price": 280000,
+      "ingredients": "گوشت برگر، پنیر چدار، سس هالوپینو تند، فلفل هالوپینو تازه، پنیر موزارلا.",
+      "image": "",
+      "placeholderIcon": "🍔"
+    },
+    {
+      "id": "b-2",
+      "categoryId": "burgers",
+      "isFeatured": false,
+      "title": "ماشروم اسمش برگر",
+      "tag": null,
+      "badge": null,
+      "price": 270000,
+      "ingredients": "قارچ تازه تفت‌داده با کره حیوانی، سس ترافل معطر، پتی دوبل اسمش‌شده، نان مک‌دونالدی.",
+      "image": "",
+      "placeholderIcon": "🍔"
+    },
+    {
+      "id": "b-3",
+      "categoryId": "burgers",
+      "isFeatured": false,
+      "title": "کلاسیک چیزبرگر",
+      "tag": null,
+      "badge": null,
+      "price": 240000,
+      "ingredients": "۱۵۰ گرم گوشت خالص گوساله، پنیر چدار، دوبل کاهو فرانسوی ترد، خیارشور و سس ویژه خانگی.",
+      "image": "",
+      "placeholderIcon": "🍔"
+    },
+    {
+      "id": "p-featured",
+      "categoryId": "pizzas",
+      "isFeatured": true,
+      "title": "پیتزا پپرونی آتیش",
+      "tag": "🍕 تنوری چوبی",
+      "badge": "🔥 تند و دودی",
+      "price": 390000,
+      "ingredients": "چهارشنبه‌های تند با پپرونی تودل، فلفل هالوپینو، زیتون تازه محلی، سس گوجه رومی خانگی و پنیر موزارلا کش‌آمد دست‌ساز.",
+      "image": "",
+      "placeholderIcon": "🍕"
+    },
+    {
+      "id": "p-1",
+      "categoryId": "pizzas",
+      "isFeatured": false,
+      "title": "پیتزا استیک و سیر",
+      "tag": null,
+      "badge": null,
+      "price": 360000,
+      "ingredients": "فیله گوساله مرینیت‌شده باریک، قارچ اسلایس، خمیر دست‌ساز ناپلی، لوم پنیر موزارلا و سس باربیکیو.",
+      "image": "",
+      "placeholderIcon": "🍕"
+    },
+    {
+      "id": "p-2",
+      "categoryId": "pizzas",
+      "isFeatured": false,
+      "title": "پیتزا مارگاریتا اصیل",
+      "tag": null,
+      "badge": null,
+      "price": 230000,
+      "ingredients": "پوره پخته گوجه فرنگی، روغن زیتون بکر، پنیر موزارلا تازه، ریحان، پنیر فتا و برگ‌های تازه ریحان ایتالیایی.",
+      "image": "",
+      "placeholderIcon": "🍕"
+    },
+    {
+      "id": "s-featured",
+      "categoryId": "sides",
+      "isFeatured": true,
+      "title": "فرایز بمب آتیش",
+      "tag": "⭐ بسیار محبوب",
+      "badge": "حجم دو نفره",
+      "price": 195000,
+      "ingredients": "سیب‌زمینی سرخ‌کرده طلایی و ترد کریسپی، دیپ پنیر چدار دوبل، سوسیس بیکن سوخاری، خردل دست‌ساز و پیازچه تازه معطر.",
+      "image": "",
+      "placeholderIcon": "🍟"
+    },
+    {
+      "id": "s-1",
+      "categoryId": "sides",
+      "isFeatured": false,
+      "title": "قارچ سوخاری با سس تارتار",
+      "tag": null,
+      "badge": null,
+      "price": 140000,
+      "ingredients": "قارچ تازه در پوشش پانکو ژاپنی طلایی همراه با دیپ تارتار دست‌ساز لیمویی.",
+      "image": "",
+      "placeholderIcon": "🍄"
+    },
+    {
+      "id": "s-2",
+      "categoryId": "sides",
+      "isFeatured": false,
+      "title": "سالاد سزار گریل با مرغ دودی",
+      "tag": null,
+      "badge": null,
+      "price": 220000,
+      "ingredients": "کاهو رسمی پرورده، فیله مرغ گریل دودی، کروتان سیر، پنیر پارمزان و سس سزار ویژه خانگی.",
+      "image": "",
+      "placeholderIcon": "🥗"
+    },
+    {
+      "id": "s-3",
+      "categoryId": "sides",
+      "isFeatured": false,
+      "title": "بال مرغ باربیکیو تند",
+      "tag": "🔥 تند",
+      "badge": null,
+      "price": 178000,
+      "ingredients": "۸ تکه بال و بازوی سوخاری غلتانیده‌شده در سس تند دودی چوب افرا، به همراه کاسه لیموترش دست‌چین.",
+      "image": "",
+      "placeholderIcon": "🍗"
+    },
+    {
+      "id": "d-1",
+      "categoryId": "drinks",
+      "isFeatured": false,
+      "title": "موهیتو طبیعی دست‌ساز",
+      "tag": null,
+      "badge": null,
+      "price": 85000,
+      "ingredients": "نعناع کوبیده‌شده تازه، لیمو ترش تازه، آب گازدار.",
+      "image": "",
+      "placeholderIcon": "🍹"
+    },
+    {
+      "id": "d-2",
+      "categoryId": "drinks",
+      "isFeatured": false,
+      "title": "لیموناد نعناع تازه",
+      "tag": null,
+      "badge": null,
+      "price": 70000,
+      "ingredients": "عصاره لیموی طبیعی و تخم شربتی خنک.",
+      "image": "",
+      "placeholderIcon": "🍋"
+    },
+    {
+      "id": "d-3",
+      "categoryId": "drinks",
+      "isFeatured": false,
+      "title": "نوشیدنی‌های قوطی",
+      "tag": null,
+      "badge": null,
+      "price": 35000,
+      "ingredients": "کوکاکولا، فانتا، اسپریت، کوکا زیرو.",
+      "image": "",
+      "placeholderIcon": "🥤"
+    }
+  ]
+}
