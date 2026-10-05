@@ -399,9 +399,11 @@ function renderFeaturedCard(item) {
 
         ${item.tag ? `<span class="absolute top-3 right-3 bg-red-600 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md z-10">${item.tag}</span>` : ''}
 
+        ${item.price ? `
         <div class="absolute bottom-3 left-3 bg-[#0e0e10]/85 border border-amber-500/40 backdrop-blur-md px-3 py-1.5 rounded-xl shadow-lg z-10">
           <span class="text-xs font-black text-amber-400">${formatPrice(item.price)}</span>
         </div>
+        ` : ''}
       </div>
 
       <div class="p-4 relative z-10">
@@ -409,7 +411,7 @@ function renderFeaturedCard(item) {
           <h3 class="text-base font-extrabold text-white group-hover:text-amber-400 transition-colors">${item.title}</h3>
           ${item.badge ? `<span class="text-amber-400 text-xs font-bold flex items-center gap-1">${item.badge}</span>` : ''}
         </div>
-        <p class="text-xs text-zinc-400 leading-relaxed font-light">${toPersianDigits(item.ingredients)}</p>
+        ${item.ingredients ? `<p class="text-xs text-zinc-400 leading-relaxed font-light">${toPersianDigits(item.ingredients)}</p>` : ''}
       </div>
     </article>
   `;
@@ -435,13 +437,15 @@ function renderCompactCard(item) {
             <h3 class="text-sm font-bold text-white group-hover:text-amber-400 transition-colors truncate">${item.title}</h3>
             ${item.tag ? `<span class="bg-red-950/60 text-red-400 border border-red-500/30 text-[10px] font-bold px-2 py-0.5 rounded-md flex-shrink-0">${item.tag}</span>` : ''}
           </div>
-          <p class="text-[11px] text-zinc-400 line-clamp-2 mt-1 leading-relaxed font-light">${toPersianDigits(item.ingredients)}</p>
+          ${item.ingredients ? `<p class="text-[11px] text-zinc-400 line-clamp-2 mt-1 leading-relaxed font-light">${toPersianDigits(item.ingredients)}</p>` : ''}
         </div>
 
+        ${item.price ? `
         <div class="mt-1.5 pt-1 border-t border-white/[0.04] flex items-center justify-between">
           <span class="text-[10px] text-zinc-500">قیمت:</span>
           <span class="text-xs font-black text-amber-400">${formatPrice(item.price)}</span>
         </div>
+        ` : ''}
       </div>
     </article>
   `;
@@ -494,17 +498,21 @@ function openModal(item) {
 
         <h2 class="text-xl font-black text-white mb-2">${item.title}</h2>
 
+        ${item.ingredients ? `
         <div class="my-4 p-3.5 bg-[#201f21] border border-white/[0.06] rounded-xl">
           <h4 class="text-xs font-bold text-zinc-300 mb-1.5 flex items-center gap-1">
             <span>🥗 ترکیبات و محتویات:</span>
           </h4>
           <p class="text-xs text-zinc-300 leading-relaxed">${toPersianDigits(item.ingredients)}</p>
         </div>
+        ` : ''}
 
+        ${item.price ? `
         <div class="flex items-center justify-between py-3 border-y border-white/[0.06] my-4">
           <span class="text-xs text-zinc-400">قیمت واحد:</span>
           <span class="text-base font-black text-amber-400">${formatPrice(item.price)}</span>
         </div>
+        ` : ''}
 
         <div class="grid grid-cols-2 gap-3 mt-4">
           <a href="tel:${restaurant.phone || CONFIG.phoneNumber}" class="flex items-center justify-center gap-2 bg-[#22C55E] hover:bg-[#16a34a] text-white py-3 px-4 rounded-xl text-xs font-bold transition shadow-fab-green">
