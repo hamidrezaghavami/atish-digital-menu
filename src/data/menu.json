@@ -453,7 +453,7 @@
       "badge": null,
       "price": null,
       "ingredients": "",
-      "image": "",
+      "image": "./src/assets/Fries-Special.jpg",
       "placeholderIcon": "🍟"
     },
     {
