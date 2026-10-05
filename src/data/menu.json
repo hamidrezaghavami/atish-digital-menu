@@ -453,7 +453,7 @@
       "badge": null,
       "price": null,
       "ingredients": "",
-      "image": "",
+      "image": "./src/assets/Big-Coke.jpg",
       "placeholderIcon": "🥤"
     },
     {
@@ -465,7 +465,7 @@
       "badge": null,
       "price": null,
       "ingredients": "",
-      "image": "",
+      "image": "./src/assets/Coke.jpg",
       "placeholderIcon": "🥤"
     },
     {
@@ -477,7 +477,7 @@
       "badge": null,
       "price": null,
       "ingredients": "",
-      "image": "",
+      "image": "./src/assets/Delester.jpg",
       "placeholderIcon": "🥤"
     },
     {
@@ -489,7 +489,7 @@
       "badge": null,
       "price": null,
       "ingredients": "",
-      "image": "",
+      "image": "./src/assets/Dogh.jpg",
       "placeholderIcon": "🥤"
     },
     {
@@ -501,7 +501,7 @@
       "badge": null,
       "price": null,
       "ingredients": "",
-      "image": "",
+      "image": "./src/assets/Water.jpg",
       "placeholderIcon": "💧"
     }
   ]
