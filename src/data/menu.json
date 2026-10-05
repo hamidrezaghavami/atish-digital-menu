@@ -417,7 +417,7 @@
       "badge": null,
       "price": null,
       "ingredients": "",
-      "image": "",
+      "image": "./src/assets/Crispy-Chicken-Tenders.jpg",
       "placeholderIcon": "🍗"
     },
     {
@@ -429,7 +429,7 @@
       "badge": null,
       "price": null,
       "ingredients": "",
-      "image": "",
+      "image": "./src/assets/Mashroom.jpg",
       "placeholderIcon": "🍄"
     },
     {
@@ -441,7 +441,7 @@
       "badge": null,
       "price": null,
       "ingredients": "",
-      "image": "",
+      "image": "./src/assets/French-Fries.jpg",
       "placeholderIcon": "🍟"
     },
     {
