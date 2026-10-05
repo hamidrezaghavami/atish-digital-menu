@@ -131,7 +131,7 @@ function renderApp() {
 
       <!-- Sticky Category Filter Pills -->
       <nav class="sticky top-[58px] z-30 bg-[#0e0e10]/95 backdrop-blur-md -mx-4 px-4 py-2 border-b border-white/[0.06] mb-5">
-        <div id="category-bar" class="flex items-center gap-2 overflow-x-auto no-scrollbar">
+        <div id="category-bar" class="flex items-center gap-2 overflow-x-auto no-scrollbar cursor-grab active:cursor-grabbing">
           ${categories.map(cat => {
             const isActive = currentCategory === cat.id;
             return `
@@ -290,6 +290,25 @@ function setupEventListeners() {
       }
     });
   });
+
+  // Drag to scroll for desktop testing
+  const slider = document.getElementById('category-bar');
+  let isDown = false, startX, scrollLeft;
+  
+  if (slider) {
+    slider.addEventListener('mousedown', (e) => { 
+      isDown = true; 
+      startX = e.pageX - slider.offsetLeft; 
+      scrollLeft = slider.scrollLeft; 
+    });
+    slider.addEventListener('mouseleave', () => isDown = false);
+    slider.addEventListener('mouseup', () => isDown = false);
+    slider.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      slider.scrollLeft = scrollLeft - ((e.pageX - slider.offsetLeft) - startX) * 2;
+    });
+  }
 
   document.getElementById('nav-menu-btn')?.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -521,7 +540,7 @@ function openModal(item) {
           </a>
           <a href="${restaurant.snappfoodUrl || CONFIG.snappfoodUrl}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 bg-[#FF00A6] hover:bg-[#e00092] text-white py-3 px-4 rounded-xl text-xs font-bold transition shadow-fab-pink">
             ${ICONS.scooter}
-            <span>اسنپ‌فود</span>
+            <span>اسنپ‌‌فود</span>
           </a>
         </div>
       </div>
