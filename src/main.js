@@ -30,7 +30,6 @@ const ICONS = {
   location: `<svg class="w-4 h-4 text-amber-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
   close: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>`,
   menuIcon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>`,
-  specialsIcon: `<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M12.395 2.553a1 1 0 00-1.45-.385c-.345.23-.614.558-.822.88-.527.82-1.11 2.01-1.729 3.49-.607 1.45-1.25 3.09-1.994 4.54a17.7 17.7 0 01-1.493 2.455c-.274.37-.565.733-.872 1.077a5.526 5.526 0 00-1.282 3.52c0 3.037 2.463 5.5 5.5 5.5s5.5-2.463 5.5-5.5c0-1.282-.44-2.464-1.182-3.414a16.89 16.89 0 00-1.572-1.748c-.687-.67-1.393-1.32-2.025-2.04-.543-.618-.99-1.332-1.3-2.12-.224-.567-.34-1.18-.344-1.815 0-.583.104-1.144.3-1.66.196-.514.48-1 .838-1.41.357-.41.79-.757 1.28-1.01a1 1 0 00.386-1.36z" clip-rule="evenodd"/></svg>`,
   infoIcon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>`
 };
 
@@ -45,7 +44,6 @@ function renderApp() {
     <!-- Top Mini App Bar -->
     <header class="sticky top-0 z-40 glass-header border-b border-white/[0.06] px-4 py-3">
       <div class="max-w-xl mx-auto flex items-center justify-between">
-        <!-- Right: Logo & Title -->
         <div class="flex items-center gap-2.5">
           <div class="w-10 h-10 flex-shrink-0 drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]">
             <img 
@@ -64,7 +62,6 @@ function renderApp() {
           </div>
         </div>
 
-        <!-- Left: Search Button -->
         <button 
           id="toggle-search-btn" 
           aria-label="جستجو"
@@ -219,13 +216,13 @@ function renderApp() {
       </a>
     </aside>
 
-    <!-- Bottom Navigation Bar -->
+    <!-- Bottom Navigation Bar (Centered Gap-24) -->
     <nav class="fixed bottom-0 left-0 right-0 z-40 glass-nav-bar border-t border-white/[0.08] h-16">
-      <div class="max-w-xl mx-auto h-full grid grid-cols-3">
+      <div class="max-w-xl mx-auto h-full flex items-center justify-center gap-24">
         <button id="nav-menu-btn" class="flex flex-col items-center justify-center gap-1 text-amber-400 transition">
           ${ICONS.menuIcon}
           <span class="text-[10px] font-bold">منو</span>
-        </button> 
+        </button>
 
         <button id="nav-about-btn" class="flex flex-col items-center justify-center gap-1 text-zinc-400 hover:text-amber-400 transition">
           ${ICONS.infoIcon}
@@ -319,11 +316,6 @@ function setupEventListeners() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  document.getElementById('nav-specials-btn')?.addEventListener('click', () => {
-    const featuredCard = document.querySelector('.hero-featured-card');
-    if (featuredCard) featuredCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  });
-
   document.getElementById('nav-about-btn')?.addEventListener('click', () => {
     const aboutSec = document.getElementById('about-section');
     if (aboutSec) aboutSec.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -363,7 +355,7 @@ function renderMenuItems() {
     }
 
     container.innerHTML = `
-      <div class="flex items-center justify-center gap-24">
+      <div class="grid grid-cols-2 gap-3">
         ${items.map(item => renderCompactCard(item)).join('')}
       </div>
     `;
@@ -398,7 +390,8 @@ function renderMenuItems() {
         </div>
         
         ${regularItems.length > 0 ? `
-        <div class="flex items-center justify-center gap-24">
+        <!-- Fixed Grid Layout -->
+        <div class="grid grid-cols-2 gap-3">
           ${regularItems.map(item => renderCompactCard(item)).join('')}
         </div>
         ` : ''}
@@ -442,12 +435,13 @@ function renderFeaturedCard(item) {
   `;
 }
 
+// Rock Solid Compact Card Layout
 function renderCompactCard(item) {
   const hasImage = Boolean(item.image);
 
   return `
     <article data-id="${item.id}" class="food-card bg-[#1b1b1d] border border-white/[0.06] hover:border-amber-500/30 rounded-2xl flex flex-col overflow-hidden cursor-pointer transition shadow-sm text-center group">
-      <div class="relative w-full aspect-square bg-[#2a2a2c] border-b border-white/[0.06] flex items-center justify-center overflow-hidden">
+      <div class="relative w-full h-36 sm:h-40 bg-[#2a2a2c] border-b border-white/[0.06] flex items-center justify-center overflow-hidden flex-shrink-0">
         ${hasImage ? `
           <img src="${item.image}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
           <span class="hidden text-4xl">${item.placeholderIcon || '🍔'}</span>
@@ -457,8 +451,8 @@ function renderCompactCard(item) {
         ${item.tag ? `<span class="absolute top-2 right-2 bg-red-950/80 backdrop-blur-sm text-red-400 border border-red-500/30 text-[10px] font-bold px-2 py-0.5 rounded-md z-10">${item.tag}</span>` : ''}
       </div>
 
-      <div class="p-3 flex flex-col items-center justify-center min-h-[56px]">
-        <h3 class="text-xs sm:text-sm font-bold text-white group-hover:text-amber-400 transition-colors line-clamp-2 leading-tight w-full">${item.title}</h3>
+      <div class="p-3 flex flex-col items-center justify-between flex-grow min-h-[60px]">
+        <h3 class="text-xs sm:text-sm font-bold text-white group-hover:text-amber-400 transition-colors line-clamp-2 leading-snug w-full">${item.title}</h3>
         ${item.ingredients ? `<p class="text-[10px] text-zinc-400 line-clamp-1 mt-1 font-light w-full">${toPersianDigits(item.ingredients)}</p>` : ''}
         ${item.price ? `<span class="text-xs font-black text-amber-400 mt-1.5">${formatPrice(item.price)}</span>` : ''}
       </div>
