@@ -405,7 +405,7 @@
       "badge": null,
       "price": null,
       "ingredients": "",
-      "image": "",
+      "image": "./src/assets/Crispy-Chicken-Tenders.jpg",
       "placeholderIcon": "🍗"
     },
     {

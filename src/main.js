@@ -44,7 +44,7 @@ function renderApp() {
     <!-- Top Mini App Bar -->
     <header class="sticky top-0 z-40 glass-header border-b border-white/[0.06] px-4 py-3">
       <div class="max-w-xl mx-auto flex items-center justify-between">
-        <!-- Right: Logo & Title (No Frame) -->
+        <!-- Right: Logo & Title -->
         <div class="flex items-center gap-2.5">
           <div class="w-10 h-10 flex-shrink-0 drop-shadow-[0_0_8px_rgba(245,158,11,0.5)]">
             <img 
@@ -99,8 +99,6 @@ function renderApp() {
     <div class="max-w-xl mx-auto px-4 pt-4 pb-36">
       <!-- Hero Restaurant Info Card -->
       <section class="bg-[#1b1b1d] border border-white/[0.08] rounded-2xl p-4 mb-5 relative overflow-hidden shadow-lg">
-        
-        <!-- Figma Soft Glow Texture behind logo -->
         <div class="absolute top-0 right-0 w-48 h-48 bg-orange-500/10 blur-[40px] rounded-full pointer-events-none"></div>
 
         <div class="flex items-center gap-3.5 relative z-10">
@@ -357,8 +355,9 @@ function renderMenuItems() {
       return;
     }
 
+    // Search results displayed in the new 2-column grid
     container.innerHTML = `
-      <div class="flex flex-col gap-3">
+      <div class="grid grid-cols-2 gap-3">
         ${items.map(item => renderCompactCard(item)).join('')}
       </div>
     `;
@@ -388,10 +387,16 @@ function renderMenuItems() {
           </span>
         </div>
 
-        <div class="flex flex-col gap-3">
+        <div class="flex flex-col gap-3 mb-3">
           ${featuredItem ? renderFeaturedCard(featuredItem) : ''}
+        </div>
+        
+        ${regularItems.length > 0 ? `
+        <!-- New 2-Column Grid Layout for regular items -->
+        <div class="grid grid-cols-2 gap-3">
           ${regularItems.map(item => renderCompactCard(item)).join('')}
         </div>
+        ` : ''}
       </section>
     `;
   }).join('');
@@ -403,15 +408,13 @@ function renderFeaturedCard(item) {
   const hasImage = Boolean(item.image);
 
   return `
-    <article data-id="${item.id}" class="hero-featured-card food-card bg-[#1b1b1d] border border-white/[0.06] rounded-2xl overflow-hidden cursor-pointer shadow-lg group text-right">
+    <article data-id="${item.id}" class="hero-featured-card food-card bg-[#1b1b1d] border border-white/[0.06] rounded-2xl overflow-hidden cursor-pointer shadow-lg group text-right flex flex-col">
       <div class="relative w-full h-48 sm:h-56 bg-[#201f21] overflow-hidden flex flex-col items-center justify-center">
         ${hasImage ? `
           <img src="${item.image}" alt="${item.title}" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-          <!-- Smooth gradient fade matching Figma -->
           <div class="absolute inset-0 bg-gradient-to-t from-[#1b1b1d] via-[#1b1b1d]/20 to-transparent pointer-events-none"></div>
           <div style="display: none;" class="w-full h-full items-center justify-center bg-[#201f21] text-4xl text-amber-500/50">${item.placeholderIcon || '🍔'}</div>
         ` : `
-          <!-- Flat placeholder matching Figma -->
           <span class="text-5xl mb-2 opacity-90">${item.placeholderIcon || '🍔'}</span>
           <span class="text-[11px] text-zinc-500 font-mono tracking-wider">[عکس غذای ویژه آتیش]</span>
         `}
@@ -425,46 +428,35 @@ function renderFeaturedCard(item) {
         ` : ''}
       </div>
 
-      <div class="p-4 relative z-10">
-        <div class="flex items-center justify-between gap-2 mb-1.5">
-          <h3 class="text-base font-extrabold text-white group-hover:text-amber-400 transition-colors">${item.title}</h3>
-          ${item.badge ? `<span class="text-amber-400 text-xs font-bold flex items-center gap-1">${item.badge}</span>` : ''}
-        </div>
-        ${item.ingredients ? `<p class="text-xs text-zinc-400 leading-relaxed font-light">${toPersianDigits(item.ingredients)}</p>` : ''}
+      <div class="p-4 relative z-10 text-center">
+        <h3 class="text-base font-extrabold text-white group-hover:text-amber-400 transition-colors">${item.title}</h3>
+        ${item.badge ? `<span class="inline-flex text-amber-400 text-xs font-bold items-center gap-1 mt-1">${item.badge}</span>` : ''}
+        ${item.ingredients ? `<p class="text-xs text-zinc-400 mt-2 leading-relaxed font-light">${toPersianDigits(item.ingredients)}</p>` : ''}
       </div>
     </article>
   `;
 }
 
+// Rewritten Compact Card for 2-Column Grid Layout
 function renderCompactCard(item) {
   const hasImage = Boolean(item.image);
 
   return `
-    <article data-id="${item.id}" class="food-card bg-[#1b1b1d] border border-white/[0.06] hover:border-amber-500/30 rounded-2xl p-3.5 flex gap-3 items-center cursor-pointer transition shadow-sm text-right group">
-      <div class="relative w-18 h-18 sm:w-20 sm:h-20 flex-shrink-0 rounded-xl overflow-hidden bg-[#2a2a2c] border border-white/[0.06] flex items-center justify-center">
+    <article data-id="${item.id}" class="food-card bg-[#1b1b1d] border border-white/[0.06] hover:border-amber-500/30 rounded-2xl flex flex-col overflow-hidden cursor-pointer transition shadow-sm text-center group">
+      <div class="relative w-full aspect-square bg-[#2a2a2c] border-b border-white/[0.06] flex items-center justify-center overflow-hidden">
         ${hasImage ? `
-          <img src="${item.image}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-          <span class="hidden text-2xl">${item.placeholderIcon || '🍔'}</span>
+          <img src="${item.image}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+          <span class="hidden text-4xl">${item.placeholderIcon || '🍔'}</span>
         ` : `
-          <span class="text-2xl opacity-90">${item.placeholderIcon || '🍔'}</span>
+          <span class="text-4xl opacity-90">${item.placeholderIcon || '🍔'}</span>
         `}
+        ${item.tag ? `<span class="absolute top-2 right-2 bg-red-950/80 backdrop-blur-sm text-red-400 border border-red-500/30 text-[10px] font-bold px-2 py-0.5 rounded-md z-10">${item.tag}</span>` : ''}
       </div>
 
-      <div class="flex-grow flex flex-col justify-between self-stretch min-w-0">
-        <div>
-          <div class="flex items-center justify-between gap-1.5">
-            <h3 class="text-sm font-bold text-white group-hover:text-amber-400 transition-colors truncate">${item.title}</h3>
-            ${item.tag ? `<span class="bg-red-950/60 text-red-400 border border-red-500/30 text-[10px] font-bold px-2 py-0.5 rounded-md flex-shrink-0">${item.tag}</span>` : ''}
-          </div>
-          ${item.ingredients ? `<p class="text-[11px] text-zinc-400 line-clamp-2 mt-1 leading-relaxed font-light">${toPersianDigits(item.ingredients)}</p>` : ''}
-        </div>
-
-        ${item.price ? `
-        <div class="mt-1.5 pt-1 border-t border-white/[0.04] flex items-center justify-between">
-          <span class="text-[10px] text-zinc-500">قیمت:</span>
-          <span class="text-xs font-black text-amber-400">${formatPrice(item.price)}</span>
-        </div>
-        ` : ''}
+      <div class="p-3 flex flex-col items-center justify-center min-h-[56px]">
+        <h3 class="text-xs sm:text-sm font-bold text-white group-hover:text-amber-400 transition-colors line-clamp-2 leading-tight w-full">${item.title}</h3>
+        ${item.ingredients ? `<p class="text-[10px] text-zinc-400 line-clamp-1 mt-1 font-light w-full">${toPersianDigits(item.ingredients)}</p>` : ''}
+        ${item.price ? `<span class="text-xs font-black text-amber-400 mt-1.5">${formatPrice(item.price)}</span>` : ''}
       </div>
     </article>
   `;
@@ -540,7 +532,7 @@ function openModal(item) {
           </a>
           <a href="${restaurant.snappfoodUrl || CONFIG.snappfoodUrl}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 bg-[#FF00A6] hover:bg-[#e00092] text-white py-3 px-4 rounded-xl text-xs font-bold transition shadow-fab-pink">
             ${ICONS.scooter}
-            <span>اسنپ‌‌فود</span>
+            <span>اسنپ‌فود</span>
           </a>
         </div>
       </div>
