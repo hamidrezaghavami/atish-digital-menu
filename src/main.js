@@ -225,12 +225,7 @@ function renderApp() {
         <button id="nav-menu-btn" class="flex flex-col items-center justify-center gap-1 text-amber-400 transition">
           ${ICONS.menuIcon}
           <span class="text-[10px] font-bold">منو</span>
-        </button>
-
-        <button id="nav-specials-btn" class="flex flex-col items-center justify-center gap-1 text-zinc-400 hover:text-amber-400 transition">
-          ${ICONS.specialsIcon}
-          <span class="text-[10px] font-bold">ویژه‌های آتیش</span>
-        </button>
+        </button> 
 
         <button id="nav-about-btn" class="flex flex-col items-center justify-center gap-1 text-zinc-400 hover:text-amber-400 transition">
           ${ICONS.infoIcon}
@@ -368,7 +363,7 @@ function renderMenuItems() {
     }
 
     container.innerHTML = `
-      <div class="grid grid-cols-2 gap-3">
+      <div class="flex items-center justify-center gap-24">
         ${items.map(item => renderCompactCard(item)).join('')}
       </div>
     `;
@@ -403,7 +398,7 @@ function renderMenuItems() {
         </div>
         
         ${regularItems.length > 0 ? `
-        <div class="grid grid-cols-2 gap-3">
+        <div class="flex items-center justify-center gap-24">
           ${regularItems.map(item => renderCompactCard(item)).join('')}
         </div>
         ` : ''}
