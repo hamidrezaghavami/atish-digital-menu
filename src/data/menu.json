@@ -62,6 +62,13 @@
       "icon": "🍟",
       "title": "ساید و پیش‌‌غذا",
       "subtitle": ""
+    },
+    {
+      "id": "drinks",
+      "name": "نوشیدنی‌ها",
+      "icon": "🥤",
+      "title": "نوشیدنی‌ها",
+      "subtitle": ""
     }
   ],
   "items": [
@@ -398,7 +405,7 @@
       "badge": null,
       "price": null,
       "ingredients": "",
-      "image": "./src/assets/Crispy-Chicken-Tenders.jpg",
+      "image": "",
       "placeholderIcon": "🍗"
     },
     {
@@ -410,7 +417,7 @@
       "badge": null,
       "price": null,
       "ingredients": "",
-      "image": "./src/assets/Crispy-Chicken-Tenders.jpg",
+      "image": "",
       "placeholderIcon": "🍗"
     },
     {
@@ -422,7 +429,7 @@
       "badge": null,
       "price": null,
       "ingredients": "",
-      "image": "./src/assets/Mashroom.jpg",
+      "image": "",
       "placeholderIcon": "🍄"
     },
     {
@@ -434,8 +441,68 @@
       "badge": null,
       "price": null,
       "ingredients": "",
-      "image": "./src/assets/French-Fries.jpg",
+      "image": "",
       "placeholderIcon": "🍟"
+    },
+    {
+      "id": "dr-1",
+      "categoryId": "drinks",
+      "isFeatured": true,
+      "title": "نوشابه خانواده",
+      "tag": null,
+      "badge": null,
+      "price": null,
+      "ingredients": "",
+      "image": "",
+      "placeholderIcon": "🥤"
+    },
+    {
+      "id": "dr-2",
+      "categoryId": "drinks",
+      "isFeatured": false,
+      "title": "نوشابه کوچک",
+      "tag": null,
+      "badge": null,
+      "price": null,
+      "ingredients": "",
+      "image": "",
+      "placeholderIcon": "🥤"
+    },
+    {
+      "id": "dr-3",
+      "categoryId": "drinks",
+      "isFeatured": false,
+      "title": "دلستر",
+      "tag": null,
+      "badge": null,
+      "price": null,
+      "ingredients": "",
+      "image": "",
+      "placeholderIcon": "🥤"
+    },
+    {
+      "id": "dr-4",
+      "categoryId": "drinks",
+      "isFeatured": false,
+      "title": "دوغ",
+      "tag": null,
+      "badge": null,
+      "price": null,
+      "ingredients": "",
+      "image": "",
+      "placeholderIcon": "🥤"
+    },
+    {
+      "id": "dr-5",
+      "categoryId": "drinks",
+      "isFeatured": false,
+      "title": "آب معدنی کوچک",
+      "tag": null,
+      "badge": null,
+      "price": null,
+      "ingredients": "",
+      "image": "",
+      "placeholderIcon": "💧"
     }
   ]
 }
