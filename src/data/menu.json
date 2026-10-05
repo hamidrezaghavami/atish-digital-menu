@@ -445,6 +445,18 @@
       "placeholderIcon": "🍟"
     },
     {
+      "id": "sd-2",
+      "categoryId": "sides",
+      "isFeatured": false,
+      "title": "سیب‌زمینی ویژه",
+      "tag": null,
+      "badge": null,
+      "price": null,
+      "ingredients": "",
+      "image": "",
+      "placeholderIcon": "🍟"
+    },
+    {
       "id": "dr-1",
       "categoryId": "drinks",
       "isFeatured": true,
