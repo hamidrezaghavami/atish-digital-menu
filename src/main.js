@@ -1,7 +1,7 @@
 import { CONFIG } from './config.js';
 import staticMenuData from './data/menu.json';
-import logoImg from './assets/logo.png';
 
+const logoImg = '/images/logo.png';
 let menuData = staticMenuData;
 
 export function toPersianDigits(num) {
