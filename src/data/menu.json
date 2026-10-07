@@ -58,9 +58,9 @@
     },
     {
       "id": "sides",
-      "name": "ساید و پیش‌غذا",
+      "name": "پیش‌ غذا",
       "icon": "🍟",
-      "title": "ساید و پیش‌‌غذا",
+      "title": "پیش‌ غذا",
       "subtitle": ""
     },
     {
@@ -417,7 +417,7 @@
       "badge": null,
       "price": null,
       "ingredients": "",
-      "image": "./src/assets/Crispy-Chicken-Tenders.jpg",
+      "image": "./src/assets/Crispe.jpg",
       "placeholderIcon": "🍗"
     },
     {
