@@ -1,5 +1,6 @@
 import { CONFIG } from './config.js';
 import staticMenuData from './data/menu.json';
+// pnpm run build && firebase deploy
 
 const logoImg = '/images/logo.webp';
 let menuData = staticMenuData;
