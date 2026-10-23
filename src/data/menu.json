@@ -116,7 +116,7 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "meat-American-Pizza.webp",
+      "ingredients": "./images/meat-American-Pizza.webp",
       "image": "",
       "placeholderIcon": "🍕"
     },
