@@ -97,3 +97,25 @@ export const CONFIG = {
 }
 ```
 قیمت‌ها به‌صورت خودکار با جداکننده ارقام و ارقام فارسی (مثلاً `۳۵۰,۰۰۰ تومان`) فرمت‌بندی می‌شوند.
+
+
+## Current release and deployment
+
+This is a display-only menu: food photos and names, with no prices or item popups.
+Contact, SnappFood and Instagram links are in the bottom bar. Delivery coverage is
+an approximate illustration configured in `src/data/delivery.json`.
+
+Use Node.js 22 or newer and pnpm 10.28.2:
+
+```bash
+corepack enable
+corepack prepare pnpm@10.28.2 --activate
+pnpm install --frozen-lockfile
+pnpm dev
+```
+
+For production, run `pnpm build` before `firebase deploy --only hosting`.
+Pushes to `main` also build and deploy automatically with GitHub Actions.
+The repository secret `FIREBASE_SERVICE_ACCOUNT_ATISHFOOD_DIGITAL_MENU` must contain
+a valid Firebase service-account key for `atishfood-digital-menu`.
+The committed `dist` files are a release snapshot; always rebuild after source changes.

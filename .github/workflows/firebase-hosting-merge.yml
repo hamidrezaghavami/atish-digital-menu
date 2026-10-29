@@ -6,15 +6,25 @@ on:
   push:
     branches:
       - main
+permissions:
+  contents: read
+concurrency:
+  group: firebase-production
+  cancel-in-progress: false
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: pnpm install && pnpm run build
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_ATISHFOOD_DIGITAL_MENU }}
           channelId: live
           projectId: atishfood-digital-menu

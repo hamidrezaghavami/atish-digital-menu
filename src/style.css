@@ -40,17 +40,68 @@
   -webkit-backdrop-filter: blur(20px);
 }
 
-.fab-bounce {
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+.category-nav {
+  top: var(--header-height, 64px);
 }
 
-.fab-bounce:active {
-  transform: scale(0.92);
+/* Preserve the complete food subject; never crop the original photographs. */
+.food-photo-frame {
+  aspect-ratio: 4 / 3;
 }
 
-.food-card {
-  transition: transform 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
+.compact-photo-frame {
+  aspect-ratio: 1;
 }
-.food-card:hover {
-  transform: translateY(-2px);
+
+.delivery-card { margin-top: 1.25rem; border: 1px solid rgba(255,255,255,.08); border-radius: 1rem; overflow: hidden; background: #1b1b1d; text-align: right; }
+.delivery-heading { display: flex; align-items: center; justify-content: space-between; gap: 1rem; padding: 1.25rem 1.25rem 0; }
+.delivery-eyebrow { font-size: .65rem; color: #b6a691; }
+.delivery-heading h2 { margin-top: .3rem; font-weight: 800; font-size: 1.15rem; color: #fafafa; }
+.delivery-approx { color: #ffc174; border: 1px solid #ffc17433; border-radius: 2rem; padding: .25rem .65rem; font-size: .65rem; }
+.delivery-intro { color: #a1a1aa; font-size: .75rem; padding: .65rem 1.25rem 1rem; line-height: 1.8; }
+.delivery-map { margin: 0 .75rem; border-radius: .75rem; overflow: hidden; border: 1px solid #ffffff08; }
+.delivery-map svg { width: 100%; height: auto; display: block; }
+.delivery-place-labels { fill: #b3b8b7; font-size: 15px; }
+.delivery-brand-label { fill: #ffc174; font-size: 18px; font-weight: 800; }
+.delivery-map-caption { fill: #82898a; font-size: 12px; direction: ltr; }
+.delivery-legend { padding: 1.15rem 1.25rem; display: grid; gap: 1rem; }
+.delivery-legend > div { display: flex; gap: .75rem; align-items: center; }
+.delivery-legend strong { display: block; font-size: .78rem; font-weight: 700; color: #e5e1e4; }
+.delivery-legend span:not(.delivery-key) { display: block; font-size: .68rem; color: #a1a1aa; margin-top: .2rem; }
+.delivery-key { width: 1.25rem; height: 1.25rem; border-radius: 50%; flex-shrink: 0; }
+.delivery-key-direct { border: 2px solid #f05b62; background: #f05b6220; }
+.delivery-key-snapp { border: 2px dashed #b8b0a4; }
+.delivery-note { border-top: 1px solid #ffffff0a; margin: 0 1.25rem; padding-top: 1rem; font-size: .7rem; color: #a1a1aa; line-height: 2; }
+.delivery-actions { padding: 1rem 1.25rem 1.25rem; display: grid; gap: .6rem; }
+.delivery-actions a { display: flex; align-items: center; justify-content: center; min-height: 44px; padding: .6rem; border: 1px solid #ffffff15; border-radius: .7rem; font-size: .72rem; color: #e5e1e4; font-weight: 600; }
+.delivery-actions a:first-child { background: #22c55e; color: #fff; border-color: transparent; }
+.delivery-actions a:hover { filter: brightness(1.1); }
+.delivery-actions a:focus-visible { outline: 2px solid #ffc174; outline-offset: 3px; }
+
+#delivery-area { scroll-margin-top: calc(var(--header-height, 64px) + 60px); }
+
+
+.family-pizza-card { display: flex; align-items: center; overflow: hidden; border: 1px solid #ffffff0f; border-radius: 1rem; background: #1b1b1d; }
+.family-pizza-photo { width: 38%; max-width: 12rem; aspect-ratio: 1; flex-shrink: 0; background: #201f21; }
+.family-pizza-copy { padding: 1rem; text-align: right; }
+.family-pizza-copy h3 { color: #fff; font-size: .9rem; font-weight: 800; line-height: 1.8; }
+.family-pizza-copy p { margin-top: .5rem; color: #a1a1aa; font-size: .72rem; line-height: 1.8; }
+
+/* A small pizza cursor for precise desktop pointers; touch stays native. */
+@media (hover: hover) and (pointer: fine) {
+  body { cursor: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%3E%3Cpath%20d%3D%22M4%203L12%2028L28%2010Z%22%20fill%3D%22%23ffd36a%22%20stroke%3D%22%23422916%22%20stroke-width%3D%221.5%22%20stroke-linejoin%3D%22round%22%2F%3E%3Cpath%20d%3D%22M4%203Q18%201%2028%2010L25%2014Q15%206%206%207Z%22%20fill%3D%22%23d48b40%22%20stroke%3D%22%23422916%22%20stroke-width%3D%221.5%22%2F%3E%3Cg%20fill%3D%22%23d94235%22%20stroke%3D%22%239a3028%22%20stroke-width%3D%22.7%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%222.5%22%2F%3E%3Ccircle%20cx%3D%2219%22%20cy%3D%2216%22%20r%3D%222.5%22%2F%3E%3Ccircle%20cx%3D%2213%22%20cy%3D%2222%22%20r%3D%222%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") 4 3, auto; }
+  a, button { cursor: pointer; }
+  input, textarea { cursor: text; }
 }
+
+
+.contact-nav { padding-bottom: env(safe-area-inset-bottom, 0px); }
+.contact-nav-inner { max-width: 36rem; margin-inline: auto; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); min-height: 68px; }
+.contact-nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; min-height: 60px; margin: 4px; border-radius: 12px; font-size: 11px; font-weight: 700; line-height: 1.5; }
+.contact-nav-item svg { width: 22px; height: 22px; }
+.contact-nav-menu { color: #fbbf24; }
+.contact-nav-call { color: #4ade80; }
+.contact-nav-snapp { color: #ff63bd; }
+.contact-nav-instagram { color: #e5e1e4; }
+.contact-nav-item:hover { background: #ffffff08; }
+.contact-nav-item:focus-visible { outline: 2px solid currentColor; outline-offset: -2px; }

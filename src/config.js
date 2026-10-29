@@ -10,7 +10,7 @@ export const CONFIG = {
   statusNote: "پذیرش سفارشات حضوری و آنلاین",
   phoneNumber: "02122561949",
   phoneNumberDisplay: "۰۲۱-۲۲۵۶۱۹۴۹",
-  snappfoodUrl: "https://snappfood.irhttps://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/",
+  snappfoodUrl: "https://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/",
   workingHours: "همه روزه از ۹ صبح تا ۱۲ شب",
   address: "خیابان دولت تهران، محله دروس، خیابان کلاهدوز (دولت)، نبش کوچه خرداد، پلاک ۱۰۰ است",
   currency: "ریال",

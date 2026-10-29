@@ -116,8 +116,8 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "./images/meat-American-Pizza.webp",
-      "image": "",
+      "ingredients": "",
+      "image": "./images/meat-American-Pizza.webp",
       "placeholderIcon": "🍕"
     },
     {
@@ -128,8 +128,8 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "./images/Sabzi-American.webp",
-      "image": "",
+      "ingredients": "",
+      "image": "./images/Sabzi-American.webp",
       "placeholderIcon": "🍕"
     },
     {
@@ -164,8 +164,8 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "./images/4F-Family.webp",
-      "image": "",
+      "ingredients": "",
+      "image": "./images/4F-Family.webp",
       "placeholderIcon": "🍕"
     },
     {
@@ -381,7 +381,7 @@
       "badge": null,
       "price": null,
       "ingredients": "",
-      "image": "./images/jambon-sandwich.webp",
+      "image": "./images/jambon-sandwhich.webp",
       "placeholderIcon": "🌭"
     },
     {

@@ -1,5 +1,6 @@
 import { CONFIG } from './config.js';
 import staticMenuData from './data/menu.json';
+import deliveryData from './data/delivery.json';
 // pnpm run build && firebase deploy
 
 const logoImg = '/images/logo.webp';
@@ -11,14 +12,7 @@ export function toPersianDigits(num) {
   return num.toString().replace(/\d/g, (x) => farsiDigits[parseInt(x, 10)]);
 }
 
-export function formatPrice(price) {
-  if (!price && price !== 0) return '';
-  const formatted = price.toLocaleString('en-US');
-  const currency = menuData?.restaurant?.currency || CONFIG.currency;
-  return `${toPersianDigits(formatted)} ${currency}`;
-}
-
-let currentCategory = 'burgers';
+let currentCategory = menuData.categories?.[0]?.id || '';
 let searchQuery = '';
 let searchActive = false;
 
@@ -33,6 +27,53 @@ const ICONS = {
   menuIcon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>`,
   infoIcon: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>`
 };
+
+function renderDeliveryArea(restaurant) {
+  const { restaurantArea, snappfoodArea, neighborhoods, note } = deliveryData;
+  return `
+    <section id="delivery-area" class="delivery-card" aria-labelledby="delivery-title">
+      <div class="delivery-heading">
+        <div><span class="delivery-eyebrow">از رستوران آتیش تا منزل شما</span>
+          <h2 id="delivery-title">محدوده ارسال</h2></div>
+        <span class="delivery-approx">تقریبی</span>
+      </div>
+      <p class="delivery-intro">در حوالی ما هستید؟ راه‌های ارسال را اینجا ببینید.</p>
+      <div class="delivery-map">
+        <svg viewBox="0 0 520 420" role="img" aria-labelledby="delivery-map-title delivery-map-desc">
+          <title id="delivery-map-title">نمای تقریبی محدوده ارسال آتیش در شمال تهران</title>
+          <desc id="delivery-map-desc">دایره قرمز محدوده تقریبی پیک رستوران و دایره خط‌چین محدوده فرضی و متغیر اسنپ‌فود را نشان می‌دهد. این نقشه برای تأیید پوشش یک آدرس قابل استفاده نیست.</desc>
+          <defs>
+            <pattern id="delivery-grid" width="42" height="42" patternUnits="userSpaceOnUse"><path d="M42 0H0V42" fill="none" stroke="#ffffff" stroke-opacity=".025"/></pattern>
+          </defs>
+          <rect width="520" height="420" fill="#171a1c"/>
+          <rect width="520" height="420" fill="url(#delivery-grid)"/>
+          <g fill="#21342e" opacity=".65"><path d="M0 0H177L160 35 100 54 59 102 0 83Z"/><path d="M360 0H520V100L476 85 438 36Z"/><path d="M16 330L81 317 114 377 83 420H0Z"/></g>
+          <g fill="none" stroke="#33383b" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M-20 120L126 103 251 119 390 93 545 117"/>
+            <path d="M-20 255L102 229 213 249 340 234 545 267"/>
+            <path d="M75 -10L108 110 148 220 145 335 190 440"/>
+            <path d="M385 -20L359 107 381 221 345 330 372 440"/>
+            <path d="M-10 362L140 339 274 353 411 333 535 352"/>
+          </g>
+          <g fill="none" stroke="#292e31" stroke-width="3"><path d="M0 177L520 163M0 304L520 295M217 0L221 420M301 0L286 420M455 0L468 420M45 0L51 420"/></g>
+          <circle cx="${snappfoodArea.cx}" cy="${snappfoodArea.cy}" r="${snappfoodArea.radius}" fill="#d5c7b2" fill-opacity=".035" stroke="#b8b0a4" stroke-width="2" stroke-dasharray="7 8"/>
+          <circle cx="${restaurantArea.cx}" cy="${restaurantArea.cy}" r="${restaurantArea.radius}" fill="#f05b62" fill-opacity=".12" stroke="#f05b62" stroke-width="2.5"/>
+          <g class="delivery-place-labels">${neighborhoods.map(place => `<text x="${place.x}" y="${place.y}" text-anchor="middle">${place.name}</text>`).join('')}</g>
+          <g transform="translate(260 210)"><circle r="27" fill="#f59e0b" fill-opacity=".12"/><circle r="15" fill="#ffc174" stroke="#171a1c" stroke-width="5"/><circle r="4" fill="#171a1c"/></g>
+          <text x="260" y="252" class="delivery-brand-label" text-anchor="middle">آتیش</text>
+          <text x="28" y="394" class="delivery-map-caption">نقشه تقریبی · بدون مقیاس</text>
+        </svg>
+      </div>
+      <div class="delivery-legend">
+        <div><span class="delivery-key delivery-key-direct" aria-hidden="true"></span><div><strong>پیک رستوران</strong><span>محدوده تقریبی ارسال مستقیم</span></div></div>
+        <div><span class="delivery-key delivery-key-snapp" aria-hidden="true"></span><div><strong>اسنپ‌فود</strong><span>محدوده فرضی؛ پوشش آدرس متغیر است</span></div></div>
+      </div>
+      <p class="delivery-note">${note}</p>
+      <div class="delivery-actions">
+        <a href="tel:${restaurant.phone || CONFIG.phoneNumber}">تماس برای تأیید محدوده</a>
+      </div>
+    </section>`;
+}
 
 function renderApp() {
   const app = document.getElementById('app');
@@ -127,7 +168,7 @@ function renderApp() {
       </section>
 
       <!-- Sticky Category Filter Pills -->
-      <nav class="sticky top-[58px] z-30 bg-[#0e0e10]/95 backdrop-blur-md -mx-4 px-4 py-2 border-b border-white/[0.06] mb-5">
+      <nav class="category-nav sticky z-30 bg-[#0e0e10]/95 backdrop-blur-md -mx-4 px-4 py-2 border-b border-white/[0.06] mb-5">
         <div id="category-bar" class="flex items-center gap-2 overflow-x-auto no-scrollbar cursor-grab active:cursor-grabbing">
           ${categories.map(cat => {
             const isActive = currentCategory === cat.id;
@@ -181,62 +222,27 @@ function renderApp() {
           </div>
         </div>
       </footer>
+
+      ${renderDeliveryArea(restaurant)}
     </div>
 
-    <!-- Floating Action Bubbles (FABs) -->
-    <aside class="fixed bottom-20 right-4 z-40 flex flex-col gap-3 items-end">
-      <!-- FAB 3: Instagram Button -->
-      <a 
-        href="https://instagram.com/atishfood" 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        title="اینستاگرام آتیش"
-        class="fab-bounce w-13 h-13 p-3.5 rounded-full bg-gradient-to-tr from-[#f09433] via-[#dc2743] to-[#bc1888] text-white shadow-[0_0_15px_rgba(220,39,67,0.4)] flex items-center justify-center focus:outline-none"
-      >
-        ${ICONS.instagram}
-      </a>
-
-      <!-- FAB 2: SnappFood Pink Button -->
-      <a 
-        href="${restaurant.snappfoodUrl || CONFIG.snappfoodUrl}" 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        title="سفارش آنلاین از اسنپ‌فود"
-        class="fab-bounce w-13 h-13 p-3.5 rounded-full bg-[#FF00A6] hover:bg-[#e00092] text-white shadow-fab-pink flex items-center justify-center focus:outline-none"
-      >
-        ${ICONS.scooter}
-      </a>
-
-      <!-- FAB 1: Call Green Button -->
-      <a 
-        href="tel:${restaurant.phone || CONFIG.phoneNumber}" 
-        title="تماس تلفنی با آتیش"
-        class="fab-bounce w-13 h-13 p-3.5 rounded-full bg-[#22C55E] hover:bg-[#16a34a] text-white shadow-fab-green flex items-center justify-center focus:outline-none"
-      >
-        ${ICONS.phone}
-      </a>
-    </aside>
-
-    <!-- Bottom Navigation Bar (Centered Gap-24) -->
-    <nav class="fixed bottom-0 left-0 right-0 z-40 glass-nav-bar border-t border-white/[0.08] h-16">
-      <div class="max-w-xl mx-auto h-full flex items-center justify-center gap-24">
-        <button id="nav-menu-btn" class="flex flex-col items-center justify-center gap-1 text-amber-400 transition">
-          ${ICONS.menuIcon}
-          <span class="text-[10px] font-bold">منو</span>
+    <nav class="contact-nav fixed bottom-0 left-0 right-0 z-40 glass-nav-bar border-t border-white/[0.08]" aria-label="دسترسی سریع">
+      <div class="contact-nav-inner">
+        <button id="nav-menu-btn" class="contact-nav-item contact-nav-menu">
+          ${ICONS.menuIcon}<span>منو</span>
         </button>
-
-        <button id="nav-about-btn" class="flex flex-col items-center justify-center gap-1 text-zinc-400 hover:text-amber-400 transition">
-          ${ICONS.infoIcon}
-          <span class="text-[10px] font-bold">درباره ما</span>
-        </button>
+        <a href="tel:${restaurant.phone || CONFIG.phoneNumber}" class="contact-nav-item contact-nav-call" aria-label="تماس تلفنی با آتیش">
+          ${ICONS.phone}<span>تماس</span>
+        </a>
+        <a href="${restaurant.snappfoodUrl || CONFIG.snappfoodUrl}" target="_blank" rel="noopener noreferrer" class="contact-nav-item contact-nav-snapp" aria-label="سفارش از اسنپ‌فود">
+          ${ICONS.scooter}<span>اسنپ‌فود</span>
+        </a>
+        <a href="https://instagram.com/atishfood" target="_blank" rel="noopener noreferrer" class="contact-nav-item contact-nav-instagram" aria-label="اینستاگرام آتیش">
+          ${ICONS.instagram}<span>اینستاگرام</span>
+        </a>
       </div>
     </nav>
 
-    <!-- Modal for Item Details -->
-    <div id="item-modal" style="display: none;" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity duration-300 opacity-0">
-      <div id="modal-content" class="w-full max-w-lg bg-[#18181c] border-t sm:border border-white/[0.08] rounded-t-3xl sm:rounded-2xl max-h-[90vh] overflow-y-auto transform translate-y-full sm:translate-y-0 transition-transform duration-300">
-      </div>
-    </div>
   `;
 
   setupEventListeners();
@@ -282,10 +288,18 @@ function setupEventListeners() {
       });
       btn.className = 'cat-btn flex-shrink-0 px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 flex items-center gap-1.5 bg-gradient-to-r from-amber-400 to-orange-500 text-zinc-950 shadow-amber-pill';
 
+      if (searchQuery) {
+        searchQuery = '';
+        if (searchInput) searchInput.value = '';
+        clearBtn?.classList.add('hidden');
+        renderMenuItems();
+      }
       currentCategory = btn.dataset.category;
       const targetSec = document.getElementById(`sec-${currentCategory}`);
       if (targetSec) {
-        const offset = 120;
+        const headerHeight = document.querySelector('header').getBoundingClientRect().height;
+        const categoryNav = slider.closest('nav');
+        const offset = headerHeight + categoryNav.getBoundingClientRect().height + 12;
         const bodyRect = document.body.getBoundingClientRect().top;
         const elementRect = targetSec.getBoundingClientRect().top;
         const elementPosition = elementRect - bodyRect;
@@ -293,6 +307,15 @@ function setupEventListeners() {
       }
     });
   });
+
+  const header = document.querySelector('header');
+  if (header) {
+    const updateHeaderHeight = () => {
+      document.documentElement.style.setProperty('--header-height', `${header.getBoundingClientRect().height}px`);
+    };
+    new ResizeObserver(updateHeaderHeight).observe(header);
+    updateHeaderHeight();
+  }
 
   // Drag to scroll for desktop testing
   const slider = document.getElementById('category-bar');
@@ -317,17 +340,9 @@ function setupEventListeners() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
-  document.getElementById('nav-about-btn')?.addEventListener('click', () => {
-    const aboutSec = document.getElementById('about-section');
-    if (aboutSec) aboutSec.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  });
 
-  const modal = document.getElementById('item-modal');
-  if (modal) {
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
-    });
-  }
+
+
 }
 
 function renderMenuItems() {
@@ -360,16 +375,12 @@ function renderMenuItems() {
         ${items.map(item => renderCompactCard(item)).join('')}
       </div>
     `;
-    attachCardListeners();
     return;
   }
 
   container.innerHTML = categories.map(category => {
     const categoryItems = items.filter(i => i.categoryId === category.id);
     if (categoryItems.length === 0) return '';
-
-    const featuredItem = categoryItems.find(i => i.isFeatured);
-    const regularItems = categoryItems.filter(i => !i.isFeatured);
 
     return `
       <section class="mb-8 scroll-mt-28" id="sec-${category.id}">
@@ -386,178 +397,49 @@ function renderMenuItems() {
           </span>
         </div>
 
-        <div class="flex flex-col gap-3 mb-3">
-          ${featuredItem ? renderFeaturedCard(featuredItem) : ''}
-        </div>
-        
-        ${regularItems.length > 0 ? `
-        <!-- Fixed Grid Layout -->
-        <div class="grid grid-cols-2 gap-3">
-          ${regularItems.map(item => renderCompactCard(item)).join('')}
-        </div>
-        ` : ''}
+        ${category.id === 'family-pizzas' && categoryItems.length === 1
+          ? renderFamilyCard(categoryItems[0])
+          : `<div class="grid grid-cols-2 gap-3">
+              ${categoryItems.map(item => renderCompactCard(item)).join('')}
+            </div>`}
       </section>
     `;
   }).join('');
 
-  attachCardListeners();
 }
 
-function renderFeaturedCard(item) {
-  const hasImage = Boolean(item.image);
-
+function renderFamilyCard(item) {
   return `
-    <article data-id="${item.id}" class="hero-featured-card food-card bg-[#1b1b1d] border border-white/[0.06] rounded-2xl overflow-hidden cursor-pointer shadow-lg group text-right flex flex-col">
-      <div class="relative w-full h-48 sm:h-56 bg-[#201f21] overflow-hidden flex flex-col items-center justify-center">
-        ${hasImage ? `
-          <img src="${item.image}" alt="${item.title}" loading="lazy" class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-          <div class="absolute inset-0 bg-gradient-to-t from-[#1b1b1d] via-[#1b1b1d]/20 to-transparent pointer-events-none"></div>
-          <div style="display: none;" class="w-full h-full items-center justify-center bg-[#201f21] text-4xl text-amber-500/50">${item.placeholderIcon || '🍔'}</div>
-        ` : `
-          <span class="text-5xl mb-2 opacity-90">${item.placeholderIcon || '🍔'}</span>
-          <span class="text-[11px] text-zinc-500 font-mono tracking-wider">[عکس غذای ویژه آتیش]</span>
-        `}
-
-        ${item.tag ? `<span class="absolute top-3 right-3 bg-red-600 text-white text-[11px] font-bold px-3 py-1 rounded-full shadow-md z-10">${item.tag}</span>` : ''}
-
-        ${item.price ? `
-        <div class="absolute bottom-3 left-3 bg-[#0e0e10]/85 border border-amber-500/40 backdrop-blur-md px-3 py-1.5 rounded-xl shadow-lg z-10">
-          <span class="text-xs font-black text-amber-400">${formatPrice(item.price)}</span>
-        </div>
-        ` : ''}
+    <article class="food-card family-pizza-card">
+      <div class="family-pizza-photo relative overflow-hidden">
+        ${renderFoodPhoto(item)}
       </div>
-
-      <div class="p-4 relative z-10 text-center">
-        <h3 class="text-base font-extrabold text-white group-hover:text-amber-400 transition-colors">${item.title}</h3>
-        ${item.badge ? `<span class="inline-flex text-amber-400 text-xs font-bold items-center gap-1 mt-1">${item.badge}</span>` : ''}
-        ${item.ingredients ? `<p class="text-xs text-zinc-400 mt-2 leading-relaxed font-light">${toPersianDigits(item.ingredients)}</p>` : ''}
+      <div class="family-pizza-copy">
+        <h3>${item.title}</h3>
+        <p>ترکیبی از طعم‌های مختلف</p>
       </div>
     </article>
   `;
 }
 
-// Rock Solid Compact Card Layout
 function renderCompactCard(item) {
-  const hasImage = Boolean(item.image);
-
   return `
-    <article data-id="${item.id}" class="food-card bg-[#1b1b1d] border border-white/[0.06] hover:border-amber-500/30 rounded-2xl flex flex-col overflow-hidden cursor-pointer transition shadow-sm text-center group">
-      <div class="relative w-full h-36 sm:h-40 bg-[#2a2a2c] border-b border-white/[0.06] flex items-center justify-center overflow-hidden flex-shrink-0">
-        ${hasImage ? `
-          <img src="${item.image}" alt="${item.title}" loading="lazy" class="w-full h-full object-cover group-hover:scale-105 transition duration-300" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-          <span class="hidden text-4xl">${item.placeholderIcon || '🍔'}</span>
-        ` : `
-          <span class="text-4xl opacity-90">${item.placeholderIcon || '🍔'}</span>
-        `}
-        ${item.tag ? `<span class="absolute top-2 right-2 bg-red-950/80 backdrop-blur-sm text-red-400 border border-red-500/30 text-[10px] font-bold px-2 py-0.5 rounded-md z-10">${item.tag}</span>` : ''}
+    <article class="food-card bg-[#1b1b1d] border border-white/[0.06] rounded-2xl flex flex-col overflow-hidden shadow-sm text-center">
+      <div class="food-photo-frame compact-photo-frame relative w-full bg-[#2a2a2c] border-b border-white/[0.06] flex items-center justify-center overflow-hidden flex-shrink-0">
+        ${renderFoodPhoto(item)}
       </div>
-
-      <div class="p-3 flex flex-col items-center justify-between flex-grow min-h-[60px]">
-        <h3 class="text-xs sm:text-sm font-bold text-white group-hover:text-amber-400 transition-colors line-clamp-2 leading-snug w-full">${item.title}</h3>
-        ${item.ingredients ? `<p class="text-[10px] text-zinc-400 line-clamp-1 mt-1 font-light w-full">${toPersianDigits(item.ingredients)}</p>` : ''}
-        ${item.price ? `<span class="text-xs font-black text-amber-400 mt-1.5">${formatPrice(item.price)}</span>` : ''}
+      <div class="px-2.5 py-2 flex items-center justify-center flex-grow min-h-[48px]">
+        <h3 class="text-xs sm:text-sm font-bold text-white leading-snug w-full">${item.title}</h3>
       </div>
     </article>
   `;
 }
 
-function attachCardListeners() {
-  document.querySelectorAll('.food-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const itemId = card.dataset.id;
-      const item = menuData?.items?.find(i => i.id === itemId);
-      if (item) openModal(item);
-    });
-  });
-}
-
-function openModal(item) {
-  const modal = document.getElementById('item-modal');
-  const modalContent = document.getElementById('modal-content');
-  if (!modal || !modalContent) return;
-
-  const restaurant = menuData?.restaurant || CONFIG;
-  const hasImage = Boolean(item.image);
-
-  modalContent.innerHTML = `
-    <div class="relative text-right">
-      <button id="close-modal-btn" class="absolute top-4 left-4 z-20 bg-black/70 hover:bg-black text-white p-2 rounded-full backdrop-blur-md transition">
-        ${ICONS.close}
-      </button>
-
-      <div class="relative w-full h-56 sm:h-64 bg-[#201f21] overflow-hidden">
-        ${hasImage ? `
-          <img src="${item.image}" alt="${item.title}" class="w-full h-full object-cover" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
-          <div style="display: none;" class="w-full h-full items-center justify-center bg-[#201f21] text-5xl">${item.placeholderIcon || '🍔'}</div>
-        ` : `
-          <div class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-[#2a2a2c] to-[#18181c]">
-            <span class="text-6xl mb-2 opacity-90">${item.placeholderIcon || '🍔'}</span>
-            <span class="text-xs text-zinc-500 font-mono">[محل قرارگیری عکس غذا]</span>
-          </div>
-        `}
-        <div class="absolute inset-0 bg-gradient-to-t from-[#18181c] via-transparent to-black/30"></div>
-      </div>
-
-      <div class="p-5 sm:p-6 -mt-6 relative z-10 bg-[#18181c] rounded-t-3xl sm:rounded-none">
-        <div class="flex items-center justify-between gap-2 mb-2">
-          <div class="flex items-center gap-1.5">
-            ${item.tag ? `<span class="bg-red-600/90 text-white text-xs font-bold px-2.5 py-1 rounded-md">${item.tag}</span>` : ''}
-            ${item.badge ? `<span class="text-amber-400 text-xs font-bold">${item.badge}</span>` : ''}
-          </div>
-        </div>
-
-        <h2 class="text-xl font-black text-white mb-2">${item.title}</h2>
-
-        ${item.ingredients ? `
-        <div class="my-4 p-3.5 bg-[#201f21] border border-white/[0.06] rounded-xl">
-          <h4 class="text-xs font-bold text-zinc-300 mb-1.5 flex items-center gap-1">
-            <span>🥗 ترکیبات و محتویات:</span>
-          </h4>
-          <p class="text-xs text-zinc-300 leading-relaxed">${toPersianDigits(item.ingredients)}</p>
-        </div>
-        ` : ''}
-
-        ${item.price ? `
-        <div class="flex items-center justify-between py-3 border-y border-white/[0.06] my-4">
-          <span class="text-xs text-zinc-400">قیمت واحد:</span>
-          <span class="text-base font-black text-amber-400">${formatPrice(item.price)}</span>
-        </div>
-        ` : ''}
-
-        <div class="grid grid-cols-2 gap-3 mt-4">
-          <a href="tel:${restaurant.phone || CONFIG.phoneNumber}" class="flex items-center justify-center gap-2 bg-[#22C55E] hover:bg-[#16a34a] text-white py-3 px-4 rounded-xl text-xs font-bold transition shadow-fab-green">
-            ${ICONS.phone}
-            <span>سفارش تلفنی</span>
-          </a>
-          <a href="${restaurant.snappfoodUrl || CONFIG.snappfoodUrl}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-2 bg-[#FF00A6] hover:bg-[#e00092] text-white py-3 px-4 rounded-xl text-xs font-bold transition shadow-fab-pink">
-            ${ICONS.scooter}
-            <span>اسنپ‌فود</span>
-          </a>
-        </div>
-      </div>
-    </div>
-  `;
-
-  modal.style.display = 'flex';
-  setTimeout(() => {
-    modal.classList.remove('opacity-0');
-    modalContent.classList.remove('translate-y-full');
-  }, 10);
-
-  document.getElementById('close-modal-btn')?.addEventListener('click', closeModal);
-}
-
-function closeModal() {
-  const modal = document.getElementById('item-modal');
-  const modalContent = document.getElementById('modal-content');
-  if (!modal || !modalContent) return;
-
-  modal.classList.add('opacity-0');
-  modalContent.classList.add('translate-y-full');
-  
-  setTimeout(() => {
-    modal.style.display = 'none';
-  }, 300);
+function renderFoodPhoto(item) {
+  return item.image ? `
+    <img src="${item.image}" alt="${item.title}" loading="lazy" class="absolute inset-0 w-full h-full object-contain" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+    <span style="display: none;" class="absolute inset-0 items-center justify-center text-4xl" aria-hidden="true">${item.placeholderIcon || '🍔'}</span>
+  ` : `<span class="text-5xl opacity-90" aria-hidden="true">${item.placeholderIcon || '🍔'}</span>`;
 }
 
 renderApp();
