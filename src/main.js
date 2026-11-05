@@ -226,7 +226,7 @@ function renderApp() {
       ${renderDeliveryArea(restaurant)}
     </div>
 
-    <nav class="contact-nav fixed bottom-0 left-0 right-0 z-40 glass-nav-bar border-t border-white/[0.08]" aria-label="دسترسی سریع">
+    <nav class="contact-nav" aria-label="دسترسی سریع">
       <div class="contact-nav-inner">
         <button id="nav-menu-btn" class="contact-nav-item contact-nav-menu">
           ${ICONS.menuIcon}<span>منو</span>
