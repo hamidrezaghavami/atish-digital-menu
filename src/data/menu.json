@@ -141,7 +141,7 @@
       "badge": null,
       "price": null,
       "ingredients": "",
-      "image": "",
+      "image": "./images/american-Sosis-mashroom.webp",
       "placeholderIcon": "🍕"
     },
     {
@@ -225,7 +225,7 @@
       "badge": null,
       "price": null,
       "ingredients": "",
-      "image": "",
+      "image": "./images/Steak-Italian-Pizza.webp",
       "placeholderIcon": "🍕"
     },
     {
@@ -285,7 +285,7 @@
       "badge": null,
       "price": null,
       "ingredients": "",
-      "image": "",
+      "image": "./images/double-cheese-burger.webp",
       "placeholderIcon": "🍔"
     },
     {
@@ -297,7 +297,7 @@
       "badge": null,
       "price": null,
       "ingredients": "",
-      "image": "",
+      "image": "./images/double-burger.webp",
       "placeholderIcon": "🍔"
     },
     {
@@ -309,7 +309,7 @@
       "badge": null,
       "price": null,
       "ingredients": "",
-      "image": "",
+      "image": "./images/double-Mashroom-burger.webp",
       "placeholderIcon": "🍔"
     },
     {
