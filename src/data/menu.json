@@ -357,7 +357,7 @@
       "badge": null,
       "price": null,
       "ingredients": "",
-      "image": "",
+      "image": "./images/RoastBeef.webp",
       "placeholderIcon": "🍔"
     },
     {
