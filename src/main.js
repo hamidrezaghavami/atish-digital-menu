@@ -135,21 +135,24 @@ function selectDeliveryNeighborhood(placeId) {
 
     const cardActions = document.getElementById('delivery-card-actions');
     if (cardActions) {
-      cardActions.innerHTML = `
-        <a id="delivery-call-link" href="tel:${restaurant.phone || CONFIG.phoneNumber}" class="flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold text-xs shadow-md transition">
-          ${ICONS.phone}
-          <span>سفارش تلفنی به ${place.name}</span>
-          <span dir="ltr" class="inline-flex items-center tracking-wider mr-1 text-[11px]">
-            (<span>۰۲۱</span><span>-</span><span>۲۲۵۶۱۹۴۹</span>)
-          </span>
-        </a>
-        ${!isDirect ? `
-          <a href="${restaurant.snappfoodUrl}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-pink-500/15 border border-pink-500/30 text-pink-400 hover:bg-pink-500/25 font-bold text-xs transition">
+      if (isDirect) {
+        cardActions.innerHTML = `
+          <a id="delivery-action-link" href="tel:${restaurant.phone || CONFIG.phoneNumber}" class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold text-xs sm:text-sm shadow-md transition active:scale-[0.98]">
+            ${ICONS.phone}
+            <span>سفارش تلفنی به ${place.name}</span>
+            <span dir="ltr" class="inline-flex items-center tracking-wider mr-1 text-[11px]">
+              (<span>۰۲۱</span><span>-</span><span>۲۲۵۶۱۹۴۹</span>)
+            </span>
+          </a>
+        `;
+      } else {
+        cardActions.innerHTML = `
+          <a id="delivery-action-link" href="${restaurant.snappfoodUrl}" target="_blank" rel="noopener noreferrer" class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#ff00a6] hover:bg-[#e00092] text-white font-bold text-xs sm:text-sm shadow-md shadow-pink-500/25 transition active:scale-[0.98]">
             ${ICONS.scooter}
             <span>سفارش در اسنپ‌فود</span>
           </a>
-        ` : ''}
-      `;
+        `;
+      }
     }
   }
 
@@ -324,21 +327,22 @@ function renderDeliveryArea(restaurant) {
               ${activePlace.desc}
             </p>
 
-            <!-- Actions -->
-            <div class="flex flex-col sm:flex-row gap-2" id="delivery-card-actions">
-              <a id="delivery-call-link" href="tel:${restaurant.phone || CONFIG.phoneNumber}" class="flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold text-xs shadow-md transition">
-                ${ICONS.phone}
-                <span>سفارش تلفنی به ${activePlace.name}</span>
-                <span dir="ltr" class="inline-flex items-center tracking-wider mr-1 text-[11px]">
-                  (<span>۰۲۱</span><span>-</span><span>۲۲۵۶۱۹۴۹</span>)
-                </span>
-              </a>
-              ${!isDirect ? `
-                <a href="${restaurant.snappfoodUrl}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-pink-500/15 border border-pink-500/30 text-pink-400 hover:bg-pink-500/25 font-bold text-xs transition">
+            <!-- Actions (Single Contextual Button: Green Phone for Direct, Pink Snappfood for Express) -->
+            <div class="flex gap-2" id="delivery-card-actions">
+              ${isDirect ? `
+                <a id="delivery-action-link" href="tel:${restaurant.phone || CONFIG.phoneNumber}" class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold text-xs sm:text-sm shadow-md transition active:scale-[0.98]">
+                  ${ICONS.phone}
+                  <span>سفارش تلفنی به ${activePlace.name}</span>
+                  <span dir="ltr" class="inline-flex items-center tracking-wider mr-1 text-[11px]">
+                    (<span>۰۲۱</span><span>-</span><span>۲۲۵۶۱۹۴۹</span>)
+                  </span>
+                </a>
+              ` : `
+                <a id="delivery-action-link" href="${restaurant.snappfoodUrl}" target="_blank" rel="noopener noreferrer" class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#ff00a6] hover:bg-[#e00092] text-white font-bold text-xs sm:text-sm shadow-md shadow-pink-500/25 transition active:scale-[0.98]">
                   ${ICONS.scooter}
                   <span>سفارش در اسنپ‌فود</span>
                 </a>
-              ` : ''}
+              `}
             </div>
           </div>
 
