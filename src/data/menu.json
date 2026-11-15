@@ -78,11 +78,29 @@
       "isFeatured": true,
       "title": "پیتزا آمریکایی مخصوص",
       "tag": null,
-      "badge": null,
+      "badge": "دارای طرح قلبی ❤️",
       "price": null,
-      "ingredients": "",
+      "ingredients": "خمیر پیتزا پنجره ای آمریکایی، مرغ، ژامبون گوشت 90%، قارچ، فلفل دلمه ای، پنیر پیتزا",
       "image": "./images/Makhsos-American.webp",
-      "placeholderIcon": "🍕"
+      "placeholderIcon": "🍕",
+      "shapes": [
+        {
+          "id": "normal",
+          "name": "مستطیل کلاسیک",
+          "shortName": "مستطیل",
+          "icon": "",
+          "image": "./images/Makhsos-American.webp",
+          "badge": null
+        },
+        {
+          "id": "heart",
+          "name": "طرح قلبی",
+          "shortName": "قلبی",
+          "icon": "",
+          "image": "images/heart-normal.webp",
+          "badge": "❤️ طرح قلبی"
+        }
+      ]
     },
     {
       "id": "ap-2",
@@ -90,11 +108,29 @@
       "isFeatured": false,
       "title": "پیتزا پپرونی",
       "tag": null,
-      "badge": null,
+      "badge": "دارای طرح قلبی ❤️",
       "price": null,
-      "ingredients": "",
+      "ingredients": "خمیر پیتزا پنجره ای آمریکایی، پپرونی 90%، فلفل دلمه ای، پنیر پیتزا",
       "image": "./images/Peperoni-American-Pizza.webp",
-      "placeholderIcon": "🍕"
+      "placeholderIcon": "🍕",
+      "shapes": [
+        {
+          "id": "normal",
+          "name": "مستطیل کلاسیک",
+          "shortName": "مستطیل",
+          "icon": "",
+          "image": "./images/Peperoni-American-Pizza.webp",
+          "badge": null
+        },
+        {
+          "id": "heart",
+          "name": "طرح قلبی",
+          "shortName": "قلبی",
+          "icon": "",
+          "image": "images/heart-peperoni.webp",
+          "badge": "❤️ طرح قلبی"
+        }
+      ]
     },
     {
       "id": "ap-3",
@@ -104,7 +140,7 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
+      "ingredients": "خمیر پیتزا پنجره ای آمریکایی، مرغ نگینی شده، قارچ، پنیر پیتزا",
       "image": "./images/Chicken-American-Pizza.webp",
       "placeholderIcon": "🍕"
     },
@@ -116,7 +152,7 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
+      "ingredients": "خمیر پیتزا پنجره ای آمریکایی، گوشت گوساله ریش ریش شده، قارچ، پنیر پیتزا",
       "image": "./images/meat-American-Pizza.webp",
       "placeholderIcon": "🍕"
     },
@@ -128,7 +164,7 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
+      "ingredients": "خمیر پیتزا آمریکایی، ذرت، نخود فرنگی، هویج، قارچ، فلفل دلمه ای، پنیر پیتزا",
       "image": "./images/Sabzi-American.webp",
       "placeholderIcon": "🍕"
     },
@@ -140,8 +176,8 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
-      "image": "./images/american-Sosis-mashroom.webp",
+      "ingredients": "خمیر آمریکایی ، قارچ ، سوسیس اسلایس ، پنیر میکس ، سس مخصوص آتیش",
+      "image": "images/american-Sosis-mashroom.webp",
       "placeholderIcon": "🍕"
     },
     {
@@ -152,7 +188,7 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
+      "ingredients": "خمیر پیتزا آمریکایی، قارچ، پنیر پیتزا",
       "image": "./images/Mashroom-Pizza.webp",
       "placeholderIcon": "🍕"
     },
@@ -164,7 +200,7 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
+      "ingredients": "ترکیبی از چهار طعم مختلف پیتزا با قابلیت انتخاب و تغییر طعم‌ها به سلیقه شما.",
       "image": "./images/4F-Family.webp",
       "placeholderIcon": "🍕"
     },
@@ -176,7 +212,7 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
+      "ingredients": "خمیر پیتزا ایتالیایی، مرغ، ژامبون گوشت 90%، قارچ، فلفل دلمه ای، زیتون، پنیر پیتزا",
       "image": "./images/Atish-Italian.webp",
       "placeholderIcon": "🍕"
     },
@@ -188,7 +224,7 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
+      "ingredients": "خمیر پیتزا ایتالیایی، پپرونی 90%، فلفل دلمه ای، پنیر پیتزا",
       "image": "./images/Peperoni-Italian.webp",
       "placeholderIcon": "🍕"
     },
@@ -200,20 +236,8 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
+      "ingredients": "خمیر پیتزا ایتالیایی، مرغ، قارچ، زیتون، فلفل دلمه ای، پنیر پیتزا",
       "image": "./images/Chicken-Italian.webp",
-      "placeholderIcon": "🍕"
-    },
-    {
-      "id": "ip-4",
-      "categoryId": "italian-pizzas",
-      "isFeatured": false,
-      "title": "پیتزا سبزیجات ایتالیایی",
-      "tag": null,
-      "badge": null,
-      "price": null,
-      "ingredients": "",
-      "image": "",
       "placeholderIcon": "🍕"
     },
     {
@@ -224,20 +248,8 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
-      "image": "./images/Steak-Italian-Pizza.webp",
-      "placeholderIcon": "🍕"
-    },
-    {
-      "id": "ip-6",
-      "categoryId": "italian-pizzas",
-      "isFeatured": false,
-      "title": "پیتزا قارچ و پنیر ایتالیایی",
-      "tag": null,
-      "badge": null,
-      "price": null,
-      "ingredients": "",
-      "image": "",
+      "ingredients": "خمیر پیتزا ایتالیایی، گوشت گوساله تکه ای، قارچ، زیتون، فلفل دلمه ای، پنیر پیتزا",
+      "image": "images/Steak-Italian-Pizza.webp",
       "placeholderIcon": "🍕"
     },
     {
@@ -248,8 +260,8 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
-      "image": "",
+      "ingredients": "یک عدد برگر دست ساز گوشت گوساله ۱۵۰ گرمی، گوجه، کاهو، خیارشور، پیاز، سس مخصوص، نان برگر",
+      "image": "images/burger.webp",
       "placeholderIcon": "🍔"
     },
     {
@@ -260,8 +272,8 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
-      "image": "",
+      "ingredients": "یک عدد برگر دست ساز گوشت گوساله ۱۵۰ گرمی، پنیر گودا، خیارشور، گوجه، کاهو، سس مخصوص، نان برگر",
+      "image": "images/cheese-burger.webp",
       "placeholderIcon": "🍔"
     },
     {
@@ -272,8 +284,8 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
-      "image": "",
+      "ingredients": "یک عدد برگر دست ساز گوشت گوساله ۱۵۰ گرمی، قارچ، پنیر، پیاز، گوجه، کاهو، خیارشور، نان برگر",
+      "image": "images/mashroom-burger.webp",
       "placeholderIcon": "🍔"
     },
     {
@@ -284,8 +296,8 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
-      "image": "./images/double-cheese-burger.webp",
+      "ingredients": "دو عدد گوشت برگر ۱۲۰ گرمی ، نان برگر ، پیاز ، کاهو ، گوجه ، خیار شور ، پنیر گودا ، سس ساندویچ",
+      "image": "images/double-cheese-burger.webp",
       "placeholderIcon": "🍔"
     },
     {
@@ -296,8 +308,8 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
-      "image": "./images/double-burger.webp",
+      "ingredients": "دو عدد برگر ۱۲۰ گرمی ، کاهو ، گوجه ، خیارشور ، نان برگر ، سس ساندویچ",
+      "image": "images/double-burger.webp",
       "placeholderIcon": "🍔"
     },
     {
@@ -308,8 +320,8 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
-      "image": "./images/double-Mashroom-burger.webp",
+      "ingredients": "دو عدد برگر ۱۲۰ گرمی ، پیاز ، قارچ ، پنیر گودا ، نان برگر ، سس مخصوص",
+      "image": "images/double-Mashroom-burger.webp",
       "placeholderIcon": "🍔"
     },
     {
@@ -320,8 +332,8 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
-      "image": "",
+      "ingredients": "یک عدد برگر دست ساز گوشت گوساله ۱۵۰ گرمی، ۱۵۰ گرم فیله مرغ گریل، پنیر گودا، خیارشور، گوجه، کاهو، سس مخصوص، نان برگر",
+      "image": "images/atish-burger.webp",
       "placeholderIcon": "🍔"
     },
     {
@@ -332,33 +344,33 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
-      "image": "",
+      "ingredients": "۱۳۰ گرم فیله مرغ سوخاری تند، کاهو، گوجه، سس مخصوص، نان برگر",
+      "image": "images/Zinger.webp",
       "placeholderIcon": "🍔"
     },
     {
       "id": "b-9",
-      "categoryId": "burgers",
+      "categoryId": "sandwiches",
       "isFeatured": false,
       "title": "گریل",
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
-      "image": "",
-      "placeholderIcon": "🍔"
+      "ingredients": "۱۶۰ گرم فیله مرغ گریل شده، پنیر گودا، قارچ، گوجه، کاهو، نان باگت",
+      "image": "images/Giril.webp",
+      "placeholderIcon": "🌭"
     },
     {
       "id": "b-10",
-      "categoryId": "burgers",
+      "categoryId": "sandwiches",
       "isFeatured": false,
       "title": "رست بیف",
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
-      "image": "./images/RoastBeef.webp",
-      "placeholderIcon": "🍔"
+      "ingredients": "کاهو ، گوجه ، خیارشور ، ۸۰ گرم گوشت گوساله مزه دار ، قارچ سس مخصوص و نان باگت",
+      "image": "images/RoastBeef.webp",
+      "placeholderIcon": "🌭"
     },
     {
       "id": "sw-1",
@@ -368,8 +380,8 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
-      "image": "",
+      "ingredients": "۱۲۰ گرم فیله مرغ سوخاری، پنیر گودا، گوجه، کاهو، نان باگت",
+      "image": "images/file.webp",
       "placeholderIcon": "🌭"
     },
     {
@@ -380,7 +392,7 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
+      "ingredients": "۱۲۰ گرم فیله مرغ سوخاری، ۲ ورق ژامبون گوشت ، پنیر گودا، کاهو، گوجه، نان باگت",
       "image": "./images/jambon-sandwhich.webp",
       "placeholderIcon": "🌭"
     },
@@ -392,8 +404,8 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
-      "image": "",
+      "ingredients": "یک عدد هات داگ ۹۰٪، قارچ، پنیر گودا، کاهو، گوجه، سس مخصوص، نان باگت",
+      "image": "images/Hotdog.webp",
       "placeholderIcon": "🌭"
     },
     {
@@ -404,7 +416,7 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
+      "ingredients": "۳ عدد فیله مرغ سوخاری، ۲۵۰ گرم سیب زمینی سرخ کرده، یک عدد نان بروتچن",
       "image": "./images/Crispy-Chicken-Tenders.webp",
       "placeholderIcon": "🍗"
     },
@@ -416,7 +428,7 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
+      "ingredients": "۴ عدد فیله مرغ سوخاری، ۲۵۰ گرم سیب زمینی سرخ کرده، یک عدد نان بروتچن",
       "image": "./images/4-Crispe.webp",
       "placeholderIcon": "🍗"
     },
@@ -428,7 +440,7 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
+      "ingredients": "۲۴۰ گرم قارچ سوخاری",
       "image": "./images/Mashroom.webp",
       "placeholderIcon": "🍄"
     },
@@ -440,7 +452,7 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
+      "ingredients": "۲۵۰ گرم سیب زمینی سرخ کرده",
       "image": "./images/French-Fries.webp",
       "placeholderIcon": "🍟"
     },
@@ -452,7 +464,7 @@
       "tag": null,
       "badge": null,
       "price": null,
-      "ingredients": "",
+      "ingredients": "۳۰۰ گرم سیب زمینی، ژامبون گوشت، قارچ، فلفل دلمه ای",
       "image": "./images/Fries-Special.webp",
       "placeholderIcon": "🍟"
     },
