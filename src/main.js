@@ -559,7 +559,7 @@ function renderApp() {
                 <span>${restaurant.statusBadge}</span>
               </span>
               <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-pink-500/15 border border-pink-500/30 text-pink-400">
-                ⭐ ۴.۸ در اسنپ‌فود
+                ⭐ ${restaurant.rating || '۴.۴'} در اسنپ‌فود
               </span>
               <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-amber-500/15 border border-amber-500/30 text-amber-300">
                 🛵 ارسال سریع دروس و دولت
