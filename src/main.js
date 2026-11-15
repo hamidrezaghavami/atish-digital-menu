@@ -2278,8 +2278,61 @@ function prewarmMenuImages() {
   }
 }
 
+// Greeting Mascot (Waves upon arrival and disappears, online only)
+function initGreetingMascot() {
+  // 1. Must NOT work in offline mode
+  if (typeof navigator !== 'undefined' && !navigator.onLine) return;
+
+  // 2. Only show once per session so it doesn't disturb repetitive navigation
+  if (sessionStorage.getItem('atish_mascot_shown')) return;
+
+  // Wait 1.2s after page load for smooth entry
+  setTimeout(() => {
+    // Re-check online status in case network dropped
+    if (!navigator.onLine) return;
+
+    const mascot = document.createElement('div');
+    mascot.id = 'atish-mascot-greeting';
+    mascot.className = 'mascot-container';
+    mascot.setAttribute('aria-label', 'خوش‌آمدگویی آتیش');
+    mascot.innerHTML = `
+      <img src="/images/atish-mascot.webp" alt="آتیش" class="mascot-avatar select-none" draggable="false" />
+      <div class="mascot-bubble select-none">
+        سلام! خوش اومدید 🔥
+      </div>
+    `;
+
+    document.body.appendChild(mascot);
+
+    // Trigger smooth slide in
+    requestAnimationFrame(() => {
+      mascot.classList.add('mascot-visible');
+    });
+
+    sessionStorage.setItem('atish_mascot_shown', 'true');
+
+    // Auto dismiss after 3.8s of waving
+    const dismissTimeout = setTimeout(() => {
+      dismissMascot();
+    }, 3800);
+
+    function dismissMascot() {
+      clearTimeout(dismissTimeout);
+      mascot.classList.remove('mascot-visible');
+      mascot.classList.add('mascot-leaving');
+      setTimeout(() => {
+        mascot.remove();
+      }, 600);
+    }
+
+    // Tapping also dismisses it immediately
+    mascot.addEventListener('click', dismissMascot);
+  }, 1200);
+}
+
 // Initialize Application
 renderApp();
 updateTrayUI();
 initPWA();
 prewarmMenuImages();
+initGreetingMascot();

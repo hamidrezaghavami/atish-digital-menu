@@ -213,3 +213,83 @@
 #toast-notification {
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
 }
+
+/* Greeting Mascot (Online-only visitor wave) */
+.mascot-container {
+  position: fixed;
+  bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+  left: 14px;
+  z-index: 50;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  pointer-events: auto;
+  cursor: pointer;
+  transform: translateY(140%) scale(0.65);
+  opacity: 0;
+  transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
+}
+
+@media (min-width: 640px) {
+  .mascot-container {
+    bottom: 24px;
+    left: 24px;
+  }
+}
+
+.mascot-container.mascot-visible {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.mascot-container.mascot-leaving {
+  transform: translateY(140%) scale(0.65);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
+}
+
+.mascot-avatar {
+  width: 64px;
+  height: 64px;
+  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 12px rgba(245, 158, 11, 0.4));
+  transform-origin: 50% 85%;
+}
+
+@media (min-width: 640px) {
+  .mascot-avatar {
+    width: 76px;
+    height: 76px;
+  }
+}
+
+.mascot-container.mascot-visible .mascot-avatar {
+  animation: mascotWaving 1.4s ease-in-out infinite alternate;
+}
+
+@keyframes mascotWaving {
+  0% { transform: rotate(-5deg); }
+  50% { transform: rotate(10deg); }
+  100% { transform: rotate(-7deg); }
+}
+
+.mascot-bubble {
+  background: rgba(24, 24, 28, 0.95);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  color: #fff;
+  padding: 6px 11px;
+  border-radius: 14px;
+  border-bottom-left-radius: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  animation: mascotBubblePop 0.4s ease-out 0.25s backwards;
+}
+
+@keyframes mascotBubblePop {
+  0% { opacity: 0; transform: scale(0.6) translateY(6px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); }
+}
