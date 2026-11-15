@@ -1566,7 +1566,7 @@ function openItemModal(item) {
     </div>
 
     <div class="p-4 text-right">
-      <div class="flex items-center justify-between gap-2 mb-2">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
         <h3 class="text-base sm:text-lg font-black text-white" id="modal-title-text">${item.title}</h3>
         <div class="flex items-center gap-1.5 flex-shrink-0">
           ${item.price ? `
@@ -1923,15 +1923,22 @@ function renderFoodCard(item, isTop = false) {
 
       <!-- Card Body (title + price + action) -->
       <div class="p-2.5 sm:p-3.5 flex flex-col flex-grow text-right">
-        <div class="flex items-baseline justify-between gap-1 mb-2">
-          <h3 class="text-xs sm:text-sm md:text-base font-black text-white group-hover:text-amber-400 transition-colors truncate">
-            ${item.title}
-          </h3>
+        <!-- Title: up to 2 lines, full card width, no overlap with price -->
+        <h3 
+          class="card-title-clamp text-xs sm:text-sm font-black text-white group-hover:text-amber-400 transition-colors min-h-[2rem] sm:min-h-[2.25rem] leading-snug mb-1.5"
+          title="${item.title}"
+        >
+          ${item.title}
+        </h3>
+
+        <!-- Dedicated Price Row: clean separation, fully visible -->
+        <div class="flex items-center justify-between gap-1 mb-2">
           ${item.price ? `
-            <span class="text-[10px] sm:text-xs font-black text-amber-400 whitespace-nowrap flex-shrink-0">
+            <span class="text-xs sm:text-sm font-black text-amber-400 whitespace-nowrap">
               ${formatPrice(item.price)}
             </span>
-          ` : ''}
+          ` : '<span class="text-[10px] text-zinc-500">-</span>'}
+          ${item.tag ? `<span class="text-[9px] font-bold text-red-400 bg-red-500/10 px-1.5 py-0.5 rounded-full border border-red-500/20">${item.tag}</span>` : ''}
         </div>
 
         <!-- Single "افزودن به لیست سفارش" button only -->

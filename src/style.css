@@ -30,6 +30,15 @@
   scrollbar-width: none;
 }
 
+/* 2-line title clamp for food cards */
+.card-title-clamp {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  word-break: break-word;
+}
+
 /* Glassmorphism Styles (Optimized for Mobile Performance) */
 .glass-header {
   background: rgba(16, 16, 18, 0.92);
