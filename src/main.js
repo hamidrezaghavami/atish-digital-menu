@@ -1446,17 +1446,17 @@ function openItemModal(item) {
         ${ICONS.close}
       </button>
 
-      <!-- Badges -->
-      <div class="absolute top-3 right-3 flex flex-col gap-1.5 items-end z-30 pointer-events-none">
+      <!-- Badges in Photo Top-Right -->
+      <div class="absolute top-3 right-3 flex flex-col gap-2 items-end z-30 pointer-events-none">
         ${item.isChefRecommendation ? `
-          <span class="bg-gradient-to-r from-amber-500 to-orange-500 text-black font-black text-[11px] px-2.5 py-0.5 rounded-lg shadow-lg flex items-center gap-1">
+          <span class="bg-gradient-to-r from-amber-500 to-orange-500 text-black font-black text-[10px] sm:text-[11px] px-2.5 py-1 rounded-lg shadow-lg flex items-center gap-1 whitespace-nowrap">
             <span>⭐</span>
             <span>پیشنهاد سرآشپز</span>
           </span>
         ` : ''}
         <span 
           id="modal-badge"
-          class="${(activeShape?.badge || item.badge) ? '' : 'hidden'} bg-amber-500/90 text-black font-black text-[11px] px-2.5 py-0.5 rounded-full shadow-lg backdrop-blur-sm"
+          class="${(activeShape?.badge || item.badge) ? '' : 'hidden'} bg-black/85 text-amber-300 border border-amber-500/30 text-[10px] sm:text-[11px] font-black px-2.5 py-1 rounded-lg shadow-lg whitespace-nowrap"
         >
           ${activeShape?.badge || item.badge || ''}
         </span>
@@ -1495,15 +1495,7 @@ function openItemModal(item) {
 
     <div class="p-4 text-right">
       <div class="flex items-center justify-between gap-2 mb-2">
-        <div class="flex items-center gap-2">
-          <h3 class="text-base font-black text-white" id="modal-title-text">${item.title}</h3>
-          ${item.isChefRecommendation ? `
-            <span class="text-[10px] font-black text-amber-300 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded-md flex items-center gap-1">
-              <span>⭐</span>
-              <span>پیشنهاد سرآشپز</span>
-            </span>
-          ` : ''}
-        </div>
+        <h3 class="text-base sm:text-lg font-black text-white" id="modal-title-text">${item.title}</h3>
         ${item.tag ? `<span class="text-[10px] font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded-full border border-red-500/20">${item.tag}</span>` : ''}
       </div>
 
@@ -1584,7 +1576,7 @@ function openItemModal(item) {
       if (badgeEl) {
         const text = activeShape.badge || item.badge || '';
         badgeEl.textContent = text;
-        badgeEl.className = text ? 'absolute top-3 right-3 bg-amber-500/90 text-black font-black text-[11px] px-2.5 py-0.5 rounded-full shadow-lg backdrop-blur-sm z-30' : 'hidden';
+        badgeEl.className = text ? 'bg-black/85 text-amber-300 border border-amber-500/30 text-[10px] sm:text-[11px] font-black px-2.5 py-1 rounded-lg shadow-lg whitespace-nowrap' : 'hidden';
       }
 
       // Update dots
