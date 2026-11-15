@@ -214,7 +214,7 @@
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
 }
 
-/* Greeting Mascot (Online-only visitor wave) */
+/* Greeting Mascot (Online-only visitor greeting: stands still, 3 messages, disappears) */
 .mascot-container {
   position: fixed;
   bottom: calc(76px + env(safe-area-inset-bottom, 0px));
@@ -227,7 +227,7 @@
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
-  animation: mascotSlideIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation: mascotSlideIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) both;
   transition: bottom 0.3s ease;
 }
 
@@ -243,13 +243,18 @@
   100% { transform: translateY(0) scale(1); opacity: 1; }
 }
 
+.mascot-container.mascot-leaving {
+  transform: translateY(140%) scale(0.6) !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease !important;
+}
+
 .mascot-avatar {
   width: 68px;
   height: 68px;
   object-fit: contain;
   filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 12px rgba(245, 158, 11, 0.5));
-  transform-origin: 50% 85%;
-  animation: mascotWaving 1.2s ease-in-out infinite alternate;
 }
 
 @media (min-width: 640px) {
@@ -257,18 +262,6 @@
     width: 82px;
     height: 82px;
   }
-}
-
-@keyframes mascotWaving {
-  0% { transform: rotate(-6deg) scale(1); }
-  50% { transform: rotate(14deg) scale(1.05); }
-  100% { transform: rotate(-8deg) scale(1); }
-}
-
-@keyframes mascotBounce {
-  0%, 100% { transform: scale(1); }
-  40% { transform: scale(1.2) translateY(-10px); }
-  70% { transform: scale(0.95) translateY(2px); }
 }
 
 .mascot-bubble {
@@ -287,7 +280,7 @@
   gap: 6px;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition: opacity 0.25s ease, transform 0.25s ease;
   animation: mascotBubblePop 0.4s ease-out 0.2s backwards;
 }
 

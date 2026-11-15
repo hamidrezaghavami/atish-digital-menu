@@ -1119,44 +1119,63 @@ function setupEventListeners() {
     }
   }, 30000);
 
-  // Mascot interactions & Offline protection
+  // Mascot: stands calmly (no waving), delivers 3 messages, then disappears
   const mascotEl = document.getElementById('atish-mascot-greeting');
   const mascotBubble = document.getElementById('mascot-speech-bubble');
   const closeMascotBubbleBtn = document.getElementById('close-mascot-bubble-btn');
 
   if (mascotEl && mascotBubble) {
-    // Auto fade speech bubble after 8 seconds of greeting
-    const bubbleTimer = setTimeout(() => {
-      mascotBubble.classList.add('bubble-hidden');
-    }, 8000);
+    const textSpan = mascotBubble.querySelector('span');
+    const messages = [
+      'سلام! خوش اومدید 🔥',
+      'منوی تازه و داغ آتیش رو ببینید 🍕',
+      'برای سفارش تلفنی یا اسنپ‌فود در خدمتیم 🛵'
+    ];
+
+    const timeouts = [];
+
+    // Helper to transition messages smoothly
+    const setMessage = (text) => {
+      mascotBubble.style.opacity = '0';
+      mascotBubble.style.transform = 'scale(0.85)';
+      setTimeout(() => {
+        if (textSpan) textSpan.textContent = text;
+        mascotBubble.style.opacity = '1';
+        mascotBubble.style.transform = 'scale(1)';
+      }, 200);
+    };
+
+    // Message 1 is shown initially in HTML
+
+    // Message 2 (at 4.5s)
+    timeouts.push(setTimeout(() => {
+      setMessage(messages[1]);
+    }, 4500));
+
+    // Message 3 (at 9.0s)
+    timeouts.push(setTimeout(() => {
+      setMessage(messages[2]);
+    }, 9000));
+
+    // Exit & disappear after 3 messages (at 14.5s)
+    const dismissMascot = () => {
+      timeouts.forEach(t => clearTimeout(t));
+      mascotEl.classList.add('mascot-leaving');
+      setTimeout(() => {
+        mascotEl.remove();
+      }, 700);
+    };
+
+    timeouts.push(setTimeout(() => {
+      dismissMascot();
+    }, 14500));
 
     closeMascotBubbleBtn?.addEventListener('click', (e) => {
       e.stopPropagation();
-      clearTimeout(bubbleTimer);
-      mascotBubble.classList.add('bubble-hidden');
+      dismissMascot();
     });
 
-    const greetings = [
-      'سلام! خوش اومدید 🔥',
-      'من آتیشم! بهترین پیتزا و برگر اینجاست 🍕',
-      'سفارشت رو توی پیش‌فاکتور جمع کن! 📋',
-      'نوش جان! طعم واقعی آتش و گریل ✨'
-    ];
-    let greetIdx = 0;
-
-    mascotEl.addEventListener('click', () => {
-      greetIdx = (greetIdx + 1) % greetings.length;
-      const textSpan = mascotBubble.querySelector('span');
-      if (textSpan) textSpan.textContent = greetings[greetIdx];
-      mascotBubble.classList.remove('bubble-hidden');
-
-      const avatar = mascotEl.querySelector('.mascot-avatar');
-      if (avatar) {
-        avatar.style.animation = 'none';
-        void avatar.offsetWidth;
-        avatar.style.animation = 'mascotBounce 0.5s ease, mascotWaving 1.2s ease-in-out infinite 0.5s alternate';
-      }
-    });
+    mascotEl.addEventListener('click', dismissMascot);
   }
 
   // Remove mascot immediately if device goes offline
