@@ -51,6 +51,22 @@ function getTrayTotalCount() {
   return Object.values(orderTray).reduce((acc, count) => acc + count, 0);
 }
 
+// Format price in Tomans with Persian digits
+function formatPrice(price) {
+  if (price === null || price === undefined || price === '' || isNaN(price)) return '';
+  const num = Number(price);
+  if (num === 0) return 'رایگان';
+  return `${toPersianDigits(num.toLocaleString('en-US'))} تومان`;
+}
+
+// Total price in tray
+function getTrayTotalPrice() {
+  return Object.entries(orderTray).reduce((acc, [id, count]) => {
+    const item = getTrayItemDetails(id);
+    return acc + (item && item.price ? Number(item.price) * count : 0);
+  }, 0);
+}
+
 // Save tray to storage
 function saveTray() {
   localStorage.setItem('atish_order_tray', JSON.stringify(orderTray));
@@ -127,7 +143,7 @@ function selectDeliveryNeighborhood(placeId) {
         ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-black shadow-md shadow-orange-500/30 scale-105' 
         : 'bg-white/[0.04] border border-white/[0.08] text-zinc-300 hover:bg-white/[0.08] hover:text-white'
     }`;
-    btn.innerHTML = `<span>📍</span><span>${thisName}</span>${isSel ? '<span class="text-xs">✓</span>' : ''}`;
+    btn.innerHTML = `<span>${isSel ? '✓' : '📍'}</span><span>${thisName}</span>`;
   });
 
   // Update dynamic status card
@@ -315,9 +331,8 @@ function renderDeliveryArea(restaurant) {
                       : 'bg-white/[0.04] border border-white/[0.08] text-zinc-300 hover:bg-white/[0.08] hover:text-white'
                   }"
                 >
-                  <span>📍</span>
+                  <span>${isSelected ? '✓' : '📍'}</span>
                   <span>${place.name}</span>
-                  ${isSelected ? '<span class="text-xs">✓</span>' : ''}
                 </button>
               `;
             }).join('')}
@@ -1204,14 +1219,27 @@ function renderTrayModal() {
     return;
   }
 
-  let orderSummaryText = `📋 لیست اقلام سفارش - فست‌فود آتیش:\n`;
-  itemIds.forEach(id => {
+  const totalPrice = getTrayTotalPrice();
+
+  let orderSummaryText = `📋 پیش‌فاکتور اقلام سفارش - فست‌فود و گریل آتیش:\n\n`;
+  let orderTotalSum = 0;
+  itemIds.forEach((id, idx) => {
     const item = getTrayItemDetails(id);
     if (item) {
-      orderSummaryText += `• ${item.title} (${toPersianDigits(orderTray[id])} عدد)\n`;
+      const qty = orderTray[id];
+      const itemPrice = item.price ? Number(item.price) : 0;
+      const subtotal = itemPrice * qty;
+      orderTotalSum += subtotal;
+      const priceText = itemPrice > 0 ? ` (${formatPrice(subtotal)})` : '';
+      orderSummaryText += `${toPersianDigits(idx + 1)}. ${item.title} × ${toPersianDigits(qty)}${priceText}\n`;
     }
   });
-  orderSummaryText += `\n📞 تلفن سفارش مستقیم: ۰۲۱-۲۲۵۶۱۹۴۹\n📍 دروس، خیابان شهید کلاهدوز (دولت)`;
+  if (orderTotalSum > 0) {
+    orderSummaryText += `\n💰 جمع کل سفارش: ${formatPrice(orderTotalSum)}\n`;
+  }
+  orderSummaryText += `\n📍 آدرس: خیابان دولت تهران، محله دروس، روبه‌روی بانک ملت بین کوچه خرداد و معتمدی، پلاک ۱۰۰\n`;
+  orderSummaryText += `📞 تلفن سفارش مستقیم: ۰۲۱-۲۲۵۶۱۹۴۹\n`;
+  orderSummaryText += `🛵 سفارش آنلاین در اسنپ‌فود: https://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/`;
 
   box.innerHTML = `
     <!-- Modal Header -->
@@ -1220,7 +1248,7 @@ function renderTrayModal() {
         <span class="text-xl">📋</span>
         <div>
           <h2 class="text-sm font-black text-white">لیست سفارش شما</h2>
-          <span class="text-[11px] text-amber-400">${toPersianDigits(totalCount)} قلم غذا آماده سفارش</span>
+          <span class="text-[11px] text-amber-400">${toPersianDigits(totalCount)} قلم غذا${totalPrice > 0 ? ` · ${formatPrice(totalPrice)}` : ''}</span>
         </div>
       </div>
       <button id="close-tray-btn" class="w-7 h-7 rounded-full bg-white/[0.08] flex items-center justify-center text-zinc-400 hover:text-white">
@@ -1228,11 +1256,11 @@ function renderTrayModal() {
       </button>
     </div>
 
-    <!-- Friendly Non-Payment Notice for Iranian Customers -->
+    <!-- Friendly Notice for Iranian Customers -->
     <div class="m-3 p-3 rounded-xl bg-amber-500/10 border border-amber-500/20 text-[11px] text-amber-300 leading-relaxed flex items-start gap-2">
       <span class="text-sm flex-shrink-0">💡</span>
       <p>
-        این لیست برای راحتی شما در آماده‌سازی سفارش ایجاد شده است. سفارش نهایی به صورت مستقیم از طریق تماس تلفنی یا اسنپ‌فود ثبت می‌شود.
+        لیست و قیمت‌های زیر برای آماده‌سازی سریع سفارش شماست. می‌توانید لیست را کپی کرده یا مستقیماً تماس بگیرید.
       </p>
     </div>
 
@@ -1242,16 +1270,26 @@ function renderTrayModal() {
         const item = getTrayItemDetails(id);
         if (!item) return '';
         const qty = orderTray[id];
-        const imgSrc = getImgSrc(item.image);
+        const imgSrc = getThumbSrc(item.image);
+        const itemPrice = item.price ? Number(item.price) : 0;
         return `
           <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06]">
-            <div class="flex items-center gap-2.5">
+            <div class="flex items-center gap-2.5 min-w-0">
               <div class="w-10 h-10 rounded-lg overflow-hidden bg-black/40 flex-shrink-0 border border-white/[0.08]">
                 <img src="${imgSrc}" alt="${item.title}" class="w-full h-full object-cover" onerror="this.src='/images/atish-burger.jpg'" />
               </div>
-              <div class="text-right">
-                <h4 class="text-xs font-bold text-white">${item.title}</h4>
-                <span class="text-[10px] text-zinc-400 font-light truncate max-w-[120px] block">${item.ingredients || 'آتیش'}</span>
+              <div class="text-right min-w-0">
+                <h4 class="text-xs font-bold text-white truncate">${item.title}</h4>
+                <div class="flex items-center gap-1.5 mt-0.5">
+                  ${itemPrice > 0 ? `
+                    <span class="text-[11px] font-black text-amber-400">
+                      ${formatPrice(itemPrice * qty)}
+                    </span>
+                    ${qty > 1 ? `<span class="text-[9px] text-zinc-400">(${formatPrice(itemPrice)} هر عدد)</span>` : ''}
+                  ` : `
+                    <span class="text-[10px] text-zinc-400 font-light truncate max-w-[120px] block">${item.ingredients || 'آتیش'}</span>
+                  `}
+                </div>
               </div>
             </div>
 
@@ -1296,6 +1334,22 @@ function renderTrayModal() {
         `;
       }).join('')}
     </div>
+
+    <!-- Total Price Summary Box -->
+    ${totalPrice > 0 ? `
+      <div class="mx-3 my-2 p-3 rounded-2xl bg-gradient-to-r from-amber-500/15 via-[#18181c] to-amber-500/10 border border-amber-500/30 flex items-center justify-between shadow-lg">
+        <div class="flex items-center gap-2">
+          <span class="text-base">💳</span>
+          <div>
+            <span class="text-xs font-black text-white block">مجموع مبلغ سفارش:</span>
+            <span class="text-[10px] text-zinc-400 font-light">${toPersianDigits(totalCount)} قلم غذا</span>
+          </div>
+        </div>
+        <div class="text-left">
+          <span class="text-sm sm:text-base font-black text-amber-400">${formatPrice(totalPrice)}</span>
+        </div>
+      </div>
+    ` : ''}
 
     <!-- Action Buttons (021 on LEFT) -->
     <div class="p-3 mt-auto border-t border-white/[0.08] flex flex-col gap-2">
@@ -1458,7 +1512,7 @@ function openItemModal(item) {
       </button>
 
       <!-- Badges in Photo Top-Right -->
-      <div class="absolute top-3 right-3 flex flex-col gap-2 items-end z-30 pointer-events-none">
+      <div class="absolute top-3 right-3 flex flex-col gap-2 items-start z-30 pointer-events-none">
         ${item.isChefRecommendation ? `
           <span class="bg-gradient-to-r from-amber-500 to-orange-500 text-black font-black text-[10px] sm:text-[11px] px-2.5 py-1 rounded-lg shadow-lg flex items-center gap-1 whitespace-nowrap">
             <span>⭐</span>
@@ -1507,7 +1561,14 @@ function openItemModal(item) {
     <div class="p-4 text-right">
       <div class="flex items-center justify-between gap-2 mb-2">
         <h3 class="text-base sm:text-lg font-black text-white" id="modal-title-text">${item.title}</h3>
-        ${item.tag ? `<span class="text-[10px] font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded-full border border-red-500/20">${item.tag}</span>` : ''}
+        <div class="flex items-center gap-1.5 flex-shrink-0">
+          ${item.price ? `
+            <span class="text-xs sm:text-sm font-black text-amber-400 bg-amber-500/10 border border-amber-500/25 px-2.5 py-1 rounded-xl whitespace-nowrap">
+              ${formatPrice(item.price)}
+            </span>
+          ` : ''}
+          ${item.tag ? `<span class="text-[10px] font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded-full border border-red-500/20">${item.tag}</span>` : ''}
+        </div>
       </div>
 
       ${hasShapes ? `
@@ -1818,7 +1879,7 @@ function renderFoodCard(item, isTop = false) {
         `}
 
         <!-- Top Badges -->
-        <div class="absolute top-2 right-2 flex flex-col gap-2 items-end pointer-events-none z-10">
+        <div class="absolute top-2 right-2 flex flex-col gap-1.5 items-start pointer-events-none z-10">
           ${isChef ? `
             <span class="bg-gradient-to-r from-amber-500 to-orange-500 text-black font-black text-[9px] md:text-[10px] px-2 py-0.5 rounded-lg shadow-md flex items-center gap-1 whitespace-nowrap">
               <span>⭐</span>
@@ -1853,11 +1914,18 @@ function renderFoodCard(item, isTop = false) {
         ` : ''}
       </div>
 
-      <!-- Card Body (title + action) -->
+      <!-- Card Body (title + price + action) -->
       <div class="p-2.5 sm:p-3.5 flex flex-col flex-grow text-right">
-        <h3 class="text-xs sm:text-sm md:text-base font-black text-white group-hover:text-amber-400 transition-colors mb-2 truncate">
-          ${item.title}
-        </h3>
+        <div class="flex items-baseline justify-between gap-1 mb-2">
+          <h3 class="text-xs sm:text-sm md:text-base font-black text-white group-hover:text-amber-400 transition-colors truncate">
+            ${item.title}
+          </h3>
+          ${item.price ? `
+            <span class="text-[10px] sm:text-xs font-black text-amber-400 whitespace-nowrap flex-shrink-0">
+              ${formatPrice(item.price)}
+            </span>
+          ` : ''}
+        </div>
 
         <!-- Single "افزودن به لیست سفارش" button only -->
         <div class="mt-auto pt-2 border-t border-white/[0.06]">
