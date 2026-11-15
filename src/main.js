@@ -21,6 +21,31 @@ export function toPersianDigits(num) {
   return num.toString().replace(/\d/g, (x) => farsiDigits[parseInt(x, 10)]);
 }
 
+// Persian text normalization for robust instant search
+export function normalizePersianText(str) {
+  if (!str) return '';
+  return String(str)
+    .toLowerCase()
+    .replace(/[ي]/g, 'ی')
+    .replace(/[ك]/g, 'ک')
+    .replace(/[آأإ]/g, 'ا')
+    .replace(/[ؤ]/g, 'و')
+    .replace(/[ة]/g, 'ه')
+    .replace(/[\u200c\s]+/g, ' ')
+    .trim();
+}
+
+export function escapeHtml(str) {
+  if (!str) return '';
+  return String(str).replace(/[&<>"']/g, m => ({
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#039;'
+  })[m]);
+}
+
 // Total items in tray
 function getTrayTotalCount() {
   return Object.values(orderTray).reduce((acc, count) => acc + count, 0);
@@ -417,9 +442,16 @@ function renderApp() {
               type="text" 
               id="desktop-search-input" 
               value="${searchQuery}"
-              placeholder="جستجوی پیتزا، برگر، ساندویچ، سوخاری..." 
-              class="w-full bg-[#18181c] border border-white/[0.1] hover:border-amber-500/40 text-white text-xs rounded-xl pr-10 pl-4 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500 placeholder-zinc-500 transition shadow-inner"
+              placeholder="جستجوی سریع (پیتزا، برگر، پپرونی، استیک...)" 
+              class="w-full bg-[#18181c] border border-white/[0.1] hover:border-amber-500/40 text-white text-xs rounded-xl pr-10 pl-9 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500 placeholder-zinc-500 transition shadow-inner"
             />
+            <button 
+              id="clear-desktop-search-btn" 
+              class="${searchQuery ? '' : 'hidden'} absolute inset-y-0 left-0 pl-3 flex items-center text-zinc-400 hover:text-white"
+              aria-label="پاک کردن جستجو"
+            >
+              ${ICONS.close}
+            </button>
           </div>
         </div>
 
@@ -897,40 +929,66 @@ function setupEventListeners() {
   const searchContainer = document.getElementById('search-container');
   const searchInput = document.getElementById('menu-search-input');
   const clearBtn = document.getElementById('clear-search-btn');
+  const desktopSearchInput = document.getElementById('desktop-search-input');
+  const desktopClearBtn = document.getElementById('clear-desktop-search-btn');
+
+  function updateSearchUI(query, shouldScroll = false) {
+    searchQuery = query;
+    if (desktopSearchInput) {
+      desktopSearchInput.value = query;
+      if (desktopClearBtn) desktopClearBtn.classList.toggle('hidden', query.length === 0);
+    }
+    if (searchInput) {
+      searchInput.value = query;
+      if (clearBtn) clearBtn.classList.toggle('hidden', query.length === 0);
+    }
+    renderMenuItems();
+
+    if (shouldScroll && query.length > 0) {
+      const menuSec = document.getElementById('categories-bar');
+      if (menuSec) {
+        const rect = menuSec.getBoundingClientRect();
+        if (rect.top > 250 || rect.bottom < 0) {
+          menuSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    }
+  }
+
+  function clearAllSearch() {
+    updateSearchUI('', false);
+  }
 
   if (toggleSearchBtn && searchContainer) {
     toggleSearchBtn.addEventListener('click', () => {
       searchActive = !searchActive;
       searchContainer.classList.toggle('hidden', !searchActive);
-      if (searchActive && searchInput) searchInput.focus();
+      if (searchActive && searchInput) {
+        searchInput.focus();
+        const menuSec = document.getElementById('categories-bar');
+        if (menuSec) menuSec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     });
   }
 
-  const desktopSearchInput = document.getElementById('desktop-search-input');
   if (desktopSearchInput) {
     desktopSearchInput.addEventListener('input', (e) => {
-      searchQuery = e.target.value.trim().toLowerCase();
-      if (searchInput) searchInput.value = searchQuery;
-      renderMenuItems();
+      updateSearchUI(e.target.value.trim(), true);
     });
   }
 
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
-      searchQuery = e.target.value.trim().toLowerCase();
-      if (desktopSearchInput) desktopSearchInput.value = searchQuery;
-      if (clearBtn) clearBtn.classList.toggle('hidden', searchQuery.length === 0);
-      renderMenuItems();
+      updateSearchUI(e.target.value.trim(), true);
     });
   }
 
   if (clearBtn) {
-    clearBtn.addEventListener('click', () => {
-      if (searchInput) searchInput.value = '';
-      searchQuery = '';
-      clearBtn.classList.add('hidden');
-      renderMenuItems();
-    });
+    clearBtn.addEventListener('click', () => clearAllSearch());
+  }
+
+  if (desktopClearBtn) {
+    desktopClearBtn.addEventListener('click', () => clearAllSearch());
   }
 
   const catButtons = document.querySelectorAll('.cat-btn');
@@ -942,10 +1000,7 @@ function setupEventListeners() {
       btn.className = 'cat-btn flex-shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold transition-all duration-200 flex items-center gap-1.5 bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 text-black shadow-md shadow-orange-500/30';
 
       if (searchQuery) {
-        searchQuery = '';
-        if (searchInput) searchInput.value = '';
-        clearBtn?.classList.add('hidden');
-        renderMenuItems();
+        clearAllSearch();
       }
 
       currentCategory = btn.dataset.category;
@@ -1390,13 +1445,21 @@ function openItemModal(item) {
         ${ICONS.close}
       </button>
 
-      <!-- Badge -->
-      <span 
-        id="modal-badge"
-        class="${(activeShape?.badge || item.badge) ? '' : 'hidden'} absolute top-3 right-3 bg-amber-500/90 text-black font-black text-[11px] px-2.5 py-0.5 rounded-full shadow-lg backdrop-blur-sm z-30"
-      >
-        ${activeShape?.badge || item.badge || ''}
-      </span>
+      <!-- Badges -->
+      <div class="absolute top-3 right-3 flex flex-col gap-1.5 items-end z-30 pointer-events-none">
+        ${item.isChefRecommendation ? `
+          <span class="bg-gradient-to-r from-amber-500 to-orange-500 text-black font-black text-[11px] px-2.5 py-0.5 rounded-lg shadow-lg flex items-center gap-1">
+            <span>⭐</span>
+            <span>پیشنهاد سرآشپز</span>
+          </span>
+        ` : ''}
+        <span 
+          id="modal-badge"
+          class="${(activeShape?.badge || item.badge) ? '' : 'hidden'} bg-amber-500/90 text-black font-black text-[11px] px-2.5 py-0.5 rounded-full shadow-lg backdrop-blur-sm"
+        >
+          ${activeShape?.badge || item.badge || ''}
+        </span>
+      </div>
 
       ${hasShapes ? `
         <!-- Next / Prev Arrows for 1-click Swapping -->
@@ -1431,7 +1494,15 @@ function openItemModal(item) {
 
     <div class="p-4 text-right">
       <div class="flex items-center justify-between gap-2 mb-2">
-        <h3 class="text-base font-black text-white" id="modal-title-text">${item.title}</h3>
+        <div class="flex items-center gap-2">
+          <h3 class="text-base font-black text-white" id="modal-title-text">${item.title}</h3>
+          ${item.isChefRecommendation ? `
+            <span class="text-[10px] font-black text-amber-300 bg-amber-500/15 border border-amber-500/30 px-2 py-0.5 rounded-md flex items-center gap-1">
+              <span>⭐</span>
+              <span>پیشنهاد سرآشپز</span>
+            </span>
+          ` : ''}
+        </div>
         ${item.tag ? `<span class="text-[10px] font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded-full border border-red-500/20">${item.tag}</span>` : ''}
       </div>
 
@@ -1596,28 +1667,70 @@ function renderMenuItems() {
   let items = menuData.items || [];
 
   if (searchQuery) {
+    const qNorm = normalizePersianText(searchQuery);
     items = items.filter(item => {
-      const matchTitle = item.title.toLowerCase().includes(searchQuery);
-      const matchIng = item.ingredients && item.ingredients.toLowerCase().includes(searchQuery);
-      return matchTitle || matchIng;
+      const matchTitle = normalizePersianText(item.title).includes(qNorm);
+      const matchIng = item.ingredients && normalizePersianText(item.ingredients).includes(qNorm);
+      const cat = categories.find(c => c.id === item.categoryId);
+      const matchCat = cat && normalizePersianText(cat.name + ' ' + (cat.title || '')).includes(qNorm);
+      return matchTitle || matchIng || matchCat;
     });
 
     if (items.length === 0) {
       container.innerHTML = `
-        <div class="flex flex-col items-center justify-center py-16 text-center text-zinc-500 glass-card rounded-2xl">
-          <span class="text-4xl mb-2">🔍</span>
-          <p class="text-sm font-bold text-zinc-200">غذایی پیدا نشد!</p>
-          <p class="text-xs text-zinc-400 mt-1">لطفاً عنوان دیگری جستجو فرمایید.</p>
+        <div class="flex flex-col items-center justify-center py-16 text-center text-zinc-400 glass-card rounded-2xl p-6">
+          <span class="text-5xl mb-3">🔍</span>
+          <p class="text-base font-black text-white">غذایی مطابق «${escapeHtml(searchQuery)}» پیدا نشد!</p>
+          <p class="text-xs text-zinc-400 mt-1 mb-4">می‌توانید کلمه دیگری مانند «پیتزا»، «برگر»، «پپرونی» یا «سوخاری» را جستجو فرمایید.</p>
+          <button id="reset-search-btn" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-black text-xs font-black hover:opacity-90 transition shadow-md">
+            نمایش کل منو
+          </button>
         </div>
       `;
+      document.getElementById('reset-search-btn')?.addEventListener('click', () => {
+        searchQuery = '';
+        const dInput = document.getElementById('desktop-search-input');
+        const mInput = document.getElementById('menu-search-input');
+        const clearM = document.getElementById('clear-search-btn');
+        const clearD = document.getElementById('clear-desktop-search-btn');
+        if (dInput) dInput.value = '';
+        if (mInput) mInput.value = '';
+        if (clearM) clearM.classList.add('hidden');
+        if (clearD) clearD.classList.add('hidden');
+        renderMenuItems();
+      });
       return;
     }
 
     container.innerHTML = `
+      <div class="flex items-center justify-between mb-4 p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs">
+        <div class="flex items-center gap-2 text-amber-300 font-bold">
+          <span>🔍</span>
+          <span>نتایج جستجو برای: «${escapeHtml(searchQuery)}»</span>
+          <span class="bg-amber-500 text-black font-black text-[10px] px-2 py-0.5 rounded-full mr-1">
+            ${toPersianDigits(items.length)} غذا
+          </span>
+        </div>
+        <button id="reset-search-btn-top" class="text-zinc-400 hover:text-white text-[11px] underline">
+          پاک کردن جستجو ✕
+        </button>
+      </div>
       <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
         ${items.map(item => renderFoodCard(item)).join('')}
       </div>
     `;
+    document.getElementById('reset-search-btn-top')?.addEventListener('click', () => {
+      searchQuery = '';
+      const dInput = document.getElementById('desktop-search-input');
+      const mInput = document.getElementById('menu-search-input');
+      const clearM = document.getElementById('clear-search-btn');
+      const clearD = document.getElementById('clear-desktop-search-btn');
+      if (dInput) dInput.value = '';
+      if (mInput) mInput.value = '';
+      if (clearM) clearM.classList.add('hidden');
+      if (clearD) clearD.classList.add('hidden');
+      renderMenuItems();
+    });
     attachCardEvents();
     return;
   }
@@ -1660,11 +1773,12 @@ function renderFoodCard(item) {
   const activeShape = hasShapes ? (item.shapes.find(s => s.id === activeShapeId) || item.shapes[0]) : null;
   const imgSrc = getImgSrc(activeShape ? activeShape.image : item.image);
   const badgeText = activeShape?.badge || item.badge;
+  const isChef = !!item.isChefRecommendation;
 
   return `
     <article 
       data-id="${item.id}" 
-      class="food-card glass-card rounded-2xl overflow-hidden shadow-sm flex flex-col group transition-all duration-300 hover:border-amber-500/40 hover:-translate-y-1 hover:shadow-xl cursor-pointer text-right"
+      class="food-card glass-card rounded-2xl overflow-hidden shadow-sm flex flex-col group transition-all duration-300 hover:border-amber-500/40 hover:-translate-y-1 hover:shadow-xl cursor-pointer text-right ${isChef ? 'border-amber-500/40 ring-1 ring-amber-500/25 shadow-amber-950/20' : ''}"
     >
       <!-- Food Image Container -->
       <div 
@@ -1693,6 +1807,12 @@ function renderFoodCard(item) {
 
         <!-- Top Badges -->
         <div class="absolute top-2 right-2 flex flex-col gap-1 items-end pointer-events-none z-10">
+          ${isChef ? `
+            <span class="bg-gradient-to-r from-amber-500 to-orange-500 text-black font-black text-[9px] md:text-[10px] px-2 py-0.5 rounded-lg shadow-md flex items-center gap-1">
+              <span>⭐</span>
+              <span>پیشنهاد سرآشپز</span>
+            </span>
+          ` : ''}
           <span 
             id="card-badge-${item.id}"
             class="${badgeText ? '' : 'hidden'} bg-black/80 backdrop-blur-md text-amber-300 border border-amber-500/30 text-[9px] md:text-[10px] font-black px-2 py-0.5 rounded-lg shadow-sm"
