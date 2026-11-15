@@ -1395,7 +1395,7 @@ function updateCardShapeUI(item, shapeId) {
   if (badgeEl) {
     const text = shape.badge || item.badge || '';
     badgeEl.textContent = text;
-    badgeEl.className = text ? 'bg-black/80 backdrop-blur-md text-amber-300 border border-amber-500/30 text-[9px] md:text-[10px] font-black px-2 py-0.5 rounded-lg shadow-sm' : 'hidden';
+    badgeEl.className = text ? 'bg-black/90 text-amber-300 border border-amber-500/30 text-[9px] md:text-[10px] font-black px-2 py-0.5 rounded-lg shadow-sm whitespace-nowrap' : 'hidden';
   }
 
   const btnText = document.getElementById(`card-btn-text-${item.id}`);
@@ -1808,16 +1808,16 @@ function renderFoodCard(item) {
         `}
 
         <!-- Top Badges -->
-        <div class="absolute top-2 right-2 flex flex-col gap-1 items-end pointer-events-none z-10">
+        <div class="absolute top-2 right-2 flex flex-col gap-2 items-end pointer-events-none z-10">
           ${isChef ? `
-            <span class="bg-gradient-to-r from-amber-500 to-orange-500 text-black font-black text-[9px] md:text-[10px] px-2 py-0.5 rounded-lg shadow-md flex items-center gap-1">
+            <span class="bg-gradient-to-r from-amber-500 to-orange-500 text-black font-black text-[9px] md:text-[10px] px-2 py-0.5 rounded-lg shadow-md flex items-center gap-1 whitespace-nowrap">
               <span>⭐</span>
               <span>پیشنهاد سرآشپز</span>
             </span>
           ` : ''}
           <span 
             id="card-badge-${item.id}"
-            class="${badgeText ? '' : 'hidden'} bg-black/80 backdrop-blur-md text-amber-300 border border-amber-500/30 text-[9px] md:text-[10px] font-black px-2 py-0.5 rounded-lg shadow-sm"
+            class="${badgeText ? '' : 'hidden'} bg-black/90 text-amber-300 border border-amber-500/30 text-[9px] md:text-[10px] font-black px-2 py-0.5 rounded-lg shadow-sm whitespace-nowrap"
           >
             ${badgeText || ''}
           </span>
