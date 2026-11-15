@@ -617,8 +617,8 @@ function renderApp() {
       <div id="pwa-install-banner" class="w-full max-w-7xl mx-auto rounded-3xl p-5 sm:p-6 bg-gradient-to-r from-amber-500/10 via-[#18181c] to-orange-500/10 border border-amber-500/20 shadow-xl mt-8 text-right">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div class="flex items-center gap-3.5">
-            <div class="w-14 h-14 rounded-2xl overflow-hidden border border-amber-500/30 flex-shrink-0 shadow-lg shadow-amber-500/15">
-              <img src="/icons/icon-192.png" alt="آتیش" class="w-full h-full object-cover" />
+            <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-[#0e0e10] border border-amber-500/30 p-2 flex-shrink-0 shadow-lg flex items-center justify-center">
+              <img src="/icons/icon-192.png" alt="آتیش" class="w-full h-full object-contain" />
             </div>
             <div>
               <div class="flex items-center gap-2">
@@ -795,8 +795,8 @@ function renderApp() {
       <div class="w-full max-w-md bg-[#18181c] border-t sm:border border-white/[0.12] rounded-t-3xl sm:rounded-3xl p-5 shadow-2xl text-right">
         <div class="flex items-center justify-between pb-3 border-b border-white/[0.08] mb-4">
           <div class="flex items-center gap-2.5">
-            <div class="w-9 h-9 rounded-xl overflow-hidden border border-amber-500/30 shadow-md">
-              <img src="/icons/icon-192.png" alt="آیکون آتیش" class="w-full h-full object-cover" />
+            <div class="w-9 h-9 rounded-xl bg-[#0e0e10] border border-amber-500/30 p-1 shadow-md flex items-center justify-center">
+              <img src="/icons/icon-192.png" alt="آیکون آتیش" class="w-full h-full object-contain" />
             </div>
             <h3 class="text-sm font-black text-white">راهنمای نصب در آیفون (iOS)</h3>
           </div>
