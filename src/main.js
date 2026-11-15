@@ -1494,14 +1494,16 @@ function openItemModal(item) {
   let activeShapeId = hasShapes ? (itemSelectedShape[item.id] || 'normal') : null;
   let activeShape = hasShapes ? (item.shapes.find(s => s.id === activeShapeId) || item.shapes[0]) : null;
   const initialImg = activeShape ? activeShape.image : item.image;
-  const imgSrc = getImgSrc(initialImg);
+  const thumbSrc = getThumbSrc(initialImg);
+  const fullSrc = getImgSrc(initialImg);
 
   box.innerHTML = `
     <!-- Modal Photo Container with Touch Swipe and Arrow Controls -->
     <div class="relative w-full h-64 bg-gradient-to-b from-[#24242c] to-[#141417] overflow-hidden flex items-center justify-center select-none" id="modal-photo-container">
       <img 
         id="modal-main-img"
-        src="${imgSrc}" 
+        src="${thumbSrc}" 
+        data-thumb="${thumbSrc}"
         alt="${item.title}" 
         decoding="async"
         class="w-full h-full object-cover transition-opacity duration-300"
@@ -1630,6 +1632,26 @@ function openItemModal(item) {
 
   modal.classList.remove('hidden');
 
+  // Progressive high-res background enhancement without blocking
+  if (fullSrc && fullSrc !== thumbSrc) {
+    const hiRes = new Image();
+    hiRes.src = fullSrc;
+    hiRes.onload = () => {
+      const cur = document.getElementById('modal-main-img');
+      if (cur && cur.dataset.thumb === thumbSrc) {
+        cur.src = fullSrc;
+      }
+    };
+  }
+
+  // Pre-warm other shapes so switching is 0ms instant
+  if (hasShapes) {
+    item.shapes.forEach(s => {
+      const pre = new Image();
+      pre.src = getThumbSrc(s.image);
+    });
+  }
+
   document.getElementById('close-item-modal-btn')?.addEventListener('click', () => {
     modal.classList.add('hidden');
   });
@@ -1640,14 +1662,27 @@ function openItemModal(item) {
       itemSelectedShape[item.id] = newShapeId;
       activeShape = item.shapes.find(s => s.id === newShapeId) || item.shapes[0];
 
-      // Update image
+      // Update image instantly using cached thumbnail, then upgrade to full
       const imgEl = document.getElementById('modal-main-img');
+      const shapeThumb = getThumbSrc(activeShape.image);
+      const shapeFull = getImgSrc(activeShape.image);
       if (imgEl) {
-        imgEl.style.opacity = '0.3';
+        imgEl.style.opacity = '0.5';
+        imgEl.dataset.thumb = shapeThumb;
         setTimeout(() => {
-          imgEl.src = getImgSrc(activeShape.image);
+          imgEl.src = shapeThumb;
           imgEl.style.opacity = '1';
-        }, 120);
+        }, 50);
+
+        if (shapeFull && shapeFull !== shapeThumb) {
+          const hiRes = new Image();
+          hiRes.src = shapeFull;
+          hiRes.onload = () => {
+            if (imgEl && imgEl.dataset.thumb === shapeThumb) {
+              imgEl.src = shapeFull;
+            }
+          };
+        }
       }
 
       // Update badge
