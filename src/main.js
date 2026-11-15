@@ -617,8 +617,8 @@ function renderApp() {
       <div id="pwa-install-banner" class="w-full max-w-7xl mx-auto rounded-3xl p-5 sm:p-6 bg-gradient-to-r from-amber-500/10 via-[#18181c] to-orange-500/10 border border-amber-500/20 shadow-xl mt-8 text-right">
         <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div class="flex items-center gap-3.5">
-            <div class="w-12 h-12 rounded-2xl bg-black/70 border border-amber-500/30 p-2 flex-shrink-0 shadow-lg flex items-center justify-center">
-              <img src="/icons/icon-192.png" alt="آتیش" class="w-full h-full object-contain" />
+            <div class="w-14 h-14 rounded-2xl overflow-hidden border border-amber-500/30 flex-shrink-0 shadow-lg shadow-amber-500/15">
+              <img src="/icons/icon-192.png" alt="آتیش" class="w-full h-full object-cover" />
             </div>
             <div>
               <div class="flex items-center gap-2">
@@ -794,8 +794,10 @@ function renderApp() {
     <div id="ios-install-modal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity">
       <div class="w-full max-w-md bg-[#18181c] border-t sm:border border-white/[0.12] rounded-t-3xl sm:rounded-3xl p-5 shadow-2xl text-right">
         <div class="flex items-center justify-between pb-3 border-b border-white/[0.08] mb-4">
-          <div class="flex items-center gap-2">
-            <span class="text-xl">📲</span>
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl overflow-hidden border border-amber-500/30 shadow-md">
+              <img src="/icons/icon-192.png" alt="آیکون آتیش" class="w-full h-full object-cover" />
+            </div>
             <h3 class="text-sm font-black text-white">راهنمای نصب در آیفون (iOS)</h3>
           </div>
           <button id="close-ios-modal-btn" class="w-7 h-7 rounded-full bg-white/[0.08] flex items-center justify-center text-zinc-400 hover:text-white">
