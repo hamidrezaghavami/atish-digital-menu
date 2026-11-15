@@ -546,6 +546,18 @@ function renderApp() {
             <span>اسنپ‌فود</span>
           </a>
 
+          <!-- Desktop Instagram Button -->
+          <a 
+            href="${restaurant.instagramUrl || CONFIG.instagramUrl || 'https://instagram.com/atishfood'}"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hidden md:flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-purple-500/15 border border-purple-500/30 text-pink-400 hover:bg-purple-500/25 text-xs font-bold transition flex-shrink-0"
+            title="صفحه رسمی اینستاگرام آتیش"
+          >
+            ${ICONS.instagram}
+            <span>اینستاگرام</span>
+          </a>
+
           <!-- PWA Install Button -->
           <button 
             id="btn-install-pwa" 
@@ -632,26 +644,9 @@ function renderApp() {
               طعم اصیل و لذیذ <span class="text-gradient-fire">پیتزا آتیش</span>
             </h1>
             
-            <p class="text-zinc-300 text-xs sm:text-sm lg:text-base leading-relaxed mb-5 font-light max-w-2xl">
+            <p class="text-zinc-300 text-xs sm:text-sm lg:text-base leading-relaxed font-light max-w-2xl">
               پیتزاهای پرملات آمریکایی و ایتالیایی پخته‌شده در فر لینکولن و برگرهای دست‌ساز با گوشت خالص. سفارش آنلاین دلیوری با اسنپ‌فود یا سفارش مستقیم تلفنی با پیک گرم.
             </p>
-
-            <!-- Signature Button in First Panel (Prominent Instagram) -->
-            <div class="flex flex-wrap items-center gap-3">
-              <a 
-                href="${restaurant.instagramUrl || CONFIG.instagramUrl || 'https://instagram.com/atishfood'}" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                class="py-3 px-5 rounded-2xl bg-gradient-to-r from-purple-600/20 to-pink-600/20 hover:from-purple-600/35 hover:to-pink-600/35 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2.5 border border-purple-500/40 hover:border-pink-400 transition shadow-lg shadow-pink-500/10"
-                title="صفحه رسمی اینستاگرام فست‌فود آتیش"
-              >
-                <span class="text-zinc-200 text-xs sm:text-sm font-bold">اینستاگرام آتیش</span>
-                <span dir="ltr" class="inline-flex items-center gap-1.5 text-pink-400 bg-pink-500/10 px-2 py-0.5 rounded-lg border border-pink-500/20">
-                  <span class="w-4 h-4 flex items-center justify-center text-pink-400">${ICONS.instagram}</span>
-                  <span class="font-bold tracking-wide text-white">@atishfood</span>
-                </span>
-              </a>
-            </div>
           </div>
 
           <!-- 3D Burger Artwork Showcase (5 cols on desktop, Left Side) -->
