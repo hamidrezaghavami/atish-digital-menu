@@ -82,12 +82,12 @@ atish-digital-menu/
 ## 📍 Restaurant Information
 
 * **Name**: فست‌فود و گریل آتیش (Atish Pizza & Gourmet Burgers)
-* **Location**: تهران، خیابان دولت (کلاهدوز)، محله دروس، بین معتمدی و خرداد، پلاک ۱۰۰
+* **Location**: خیابان دولت تهران، محله دروس، خیابان کلاهدوز (دولت)، روبه‌روی بانک ملت بین کوچه خرداد و معتمدی، پلاک ۱۰۰
 * **Phone**: `۰۲۱-۲۲۵۶۱۹۴۹` (`02122561949`)
 * **Snappfood Rating**: ⭐ **۴.۴**
 * **Snappfood Menu**: [پیتزا آتیش در اسنپ‌فود](https://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/)
 * **Instagram**: [@atishfood](https://instagram.com/atishfood)
-* **Working Hours**: همه روزه از ۹:۰۰ صبح الی ۲۴:۰۰ بامداد
+* **Working Hours**: همه روزه از ۱۱:۳۰ صبح الی ۲۳:۱۵ شب
 
 ---
 

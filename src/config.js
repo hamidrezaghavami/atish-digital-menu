@@ -12,8 +12,8 @@ export const CONFIG = {
   phoneNumberDisplay: "۰۲۱-۲۲۵۶۱۹۴۹",
   snappfoodUrl: "https://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/",
   instagramUrl: "https://instagram.com/atishfood",
-  workingHours: "همه روزه از ۹ صبح تا ۱۲ شب",
-  address: "تهران، خیابان دولت (کلاهدوز)، محله دروس، نبش کوچه خرداد، پلاک ۱۰۰",
+  workingHours: "همه روزه از ۱۱:۳۰ صبح تا ۲۳:۱۵ شب",
+  address: "خیابان دولت تهران، محله دروس، خیابان کلاهدوز (دولت)، روبه‌روی بانک ملت بین کوچه خرداد و معتمدی، پلاک ۱۰۰",
   currency: "تومان",
   logoPath: "/images/logo.webp",
   logoSvg: "/images/logo.webp"
