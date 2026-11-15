@@ -805,6 +805,17 @@ function renderApp() {
       </div>
     </nav>
 
+    <!-- Waving Mascot (Online Only) -->
+    ${(typeof navigator === 'undefined' || navigator.onLine !== false) ? `
+      <div id="atish-mascot-greeting" class="mascot-container" aria-label="شخصیت آتیش">
+        <div id="mascot-speech-bubble" class="mascot-bubble">
+          <span>سلام! خوش اومدید 🔥</span>
+          <button id="close-mascot-bubble-btn" class="mascot-bubble-close" aria-label="بستن پیام">✕</button>
+        </div>
+        <img src="/images/atish-mascot.webp" alt="شخصیت آتیش" class="mascot-avatar" draggable="false" />
+      </div>
+    ` : ''}
+
     <!-- Item Detail Sheet Modal -->
     <div id="item-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity">
       <div id="item-modal-box" class="w-full max-w-md bg-[#18181c] border-t sm:border border-white/[0.1] rounded-t-3xl sm:rounded-3xl max-h-[90vh] overflow-y-auto shadow-2xl transform transition-transform">
@@ -938,6 +949,15 @@ function updateTrayUI() {
       floatingTotal.textContent = totalPrice > 0 ? formatPrice(totalPrice) : '';
     }
     floatingBar.classList.toggle('hidden', count === 0);
+  }
+
+  const mascot = document.getElementById('atish-mascot-greeting');
+  if (mascot) {
+    if (count > 0) {
+      mascot.style.bottom = 'calc(140px + env(safe-area-inset-bottom, 0px))';
+    } else {
+      mascot.style.bottom = '';
+    }
   }
 
   const navBadge = document.getElementById('nav-tray-badge');
@@ -1098,6 +1118,51 @@ function setupEventListeners() {
       }
     }
   }, 30000);
+
+  // Mascot interactions & Offline protection
+  const mascotEl = document.getElementById('atish-mascot-greeting');
+  const mascotBubble = document.getElementById('mascot-speech-bubble');
+  const closeMascotBubbleBtn = document.getElementById('close-mascot-bubble-btn');
+
+  if (mascotEl && mascotBubble) {
+    // Auto fade speech bubble after 8 seconds of greeting
+    const bubbleTimer = setTimeout(() => {
+      mascotBubble.classList.add('bubble-hidden');
+    }, 8000);
+
+    closeMascotBubbleBtn?.addEventListener('click', (e) => {
+      e.stopPropagation();
+      clearTimeout(bubbleTimer);
+      mascotBubble.classList.add('bubble-hidden');
+    });
+
+    const greetings = [
+      'سلام! خوش اومدید 🔥',
+      'من آتیشم! بهترین پیتزا و برگر اینجاست 🍕',
+      'سفارشت رو توی پیش‌فاکتور جمع کن! 📋',
+      'نوش جان! طعم واقعی آتش و گریل ✨'
+    ];
+    let greetIdx = 0;
+
+    mascotEl.addEventListener('click', () => {
+      greetIdx = (greetIdx + 1) % greetings.length;
+      const textSpan = mascotBubble.querySelector('span');
+      if (textSpan) textSpan.textContent = greetings[greetIdx];
+      mascotBubble.classList.remove('bubble-hidden');
+
+      const avatar = mascotEl.querySelector('.mascot-avatar');
+      if (avatar) {
+        avatar.style.animation = 'none';
+        void avatar.offsetWidth;
+        avatar.style.animation = 'mascotBounce 0.5s ease, mascotWaving 1.2s ease-in-out infinite 0.5s alternate';
+      }
+    });
+  }
+
+  // Remove mascot immediately if device goes offline
+  window.addEventListener('offline', () => {
+    document.getElementById('atish-mascot-greeting')?.remove();
+  });
 
   trayModal?.addEventListener('click', (e) => {
     if (e.target === trayModal) {
@@ -2158,6 +2223,14 @@ function attachCardEvents() {
 // PWA Installation & Service Worker Setup
 function initPWA() {
   if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+    // When a new Service Worker takes over, reload once to ensure fresh assets
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!window._swReloading) {
+        window._swReloading = true;
+        window.location.reload();
+      }
+    });
+
     window.addEventListener('load', () => {
       navigator.serviceWorker.register('/sw.js').then(reg => {
         reg.update();
@@ -2280,63 +2353,8 @@ function prewarmMenuImages() {
   }
 }
 
-// Greeting Mascot (Waves upon arrival and disappears, online only)
-function initGreetingMascot() {
-  // 1. Must NOT work in offline mode
-  if (typeof navigator !== 'undefined' && navigator.onLine === false) return;
-
-  // 2. Pre-load image so it renders instantly with zero blank flash
-  const img = new Image();
-  img.src = '/images/atish-mascot.webp';
-
-  img.onload = () => {
-    // Re-check online status
-    if (typeof navigator !== 'undefined' && navigator.onLine === false) return;
-
-    // Remove any existing mascot element
-    document.getElementById('atish-mascot-greeting')?.remove();
-
-    const mascot = document.createElement('div');
-    mascot.id = 'atish-mascot-greeting';
-    mascot.className = 'mascot-container';
-    mascot.setAttribute('aria-label', 'خوش‌آمدگویی آتیش');
-    mascot.innerHTML = `
-      <img src="/images/atish-mascot.webp" alt="آتیش" class="mascot-avatar select-none" draggable="false" />
-      <div class="mascot-bubble select-none">
-        سلام! خوش اومدید 🔥
-      </div>
-    `;
-
-    document.body.appendChild(mascot);
-
-    // Force browser layout reflow, then animate slide-in
-    void mascot.offsetWidth;
-    setTimeout(() => {
-      mascot.classList.add('mascot-visible');
-    }, 60);
-
-    // Auto dismiss after 6 seconds of waving
-    const dismissTimeout = setTimeout(() => {
-      dismissMascot();
-    }, 6000);
-
-    function dismissMascot() {
-      clearTimeout(dismissTimeout);
-      mascot.classList.remove('mascot-visible');
-      mascot.classList.add('mascot-leaving');
-      setTimeout(() => {
-        mascot.remove();
-      }, 700);
-    }
-
-    // Tapping also dismisses it immediately
-    mascot.addEventListener('click', dismissMascot);
-  };
-}
-
 // Initialize Application
 renderApp();
 updateTrayUI();
 initPWA();
 prewarmMenuImages();
-initGreetingMascot();
