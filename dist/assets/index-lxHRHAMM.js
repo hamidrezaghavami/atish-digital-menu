@@ -626,10 +626,11 @@
           مشاهده منو و افزودن غذا
         </button>
       </div>
-    `,(s=document.getElementById("close-empty-tray-btn"))==null||s.addEventListener("click",()=>{var d;(d=document.getElementById("tray-modal"))==null||d.classList.add("hidden")});return}let r=`سلام، سفارش من از منوی دیجیتال آتیش:
+    `,(s=document.getElementById("close-empty-tray-btn"))==null||s.addEventListener("click",()=>{var d;(d=document.getElementById("tray-modal"))==null||d.classList.add("hidden")});return}let r=`📋 لیست اقلام سفارش - فست‌فود آتیش:
 `;t.forEach(d=>{const c=V(d);c&&(r+=`• ${c.title} (${h(f[d])} عدد)
 `)}),r+=`
-لطفاً هزینه و زمان ارسال را تأیید فرمایید.`,e.innerHTML=`
+📞 تلفن سفارش مستقیم: ۰۲۱-۲۲۵۶۱۹۴۹
+📍 دروس، خیابان شهید کلاهدوز (دولت)`,e.innerHTML=`
     <!-- Modal Header -->
     <div class="p-4 border-b border-white/[0.08] flex items-center justify-between">
       <div class="flex items-center gap-2">
@@ -714,7 +715,7 @@
           class="py-2 rounded-lg glass-pill text-[11px] font-bold text-zinc-300 hover:text-white flex items-center justify-center gap-1"
         >
           ${m.copy}
-          <span>کپی متن اقلام</span>
+          <span>کپی لیست سفارش</span>
         </button>
 
         <button 

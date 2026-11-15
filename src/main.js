@@ -1139,14 +1139,14 @@ function renderTrayModal() {
     return;
   }
 
-  let orderSummaryText = `سلام، سفارش من از منوی دیجیتال آتیش:\n`;
+  let orderSummaryText = `📋 لیست اقلام سفارش - فست‌فود آتیش:\n`;
   itemIds.forEach(id => {
     const item = getTrayItemDetails(id);
     if (item) {
       orderSummaryText += `• ${item.title} (${toPersianDigits(orderTray[id])} عدد)\n`;
     }
   });
-  orderSummaryText += `\nلطفاً هزینه و زمان ارسال را تأیید فرمایید.`;
+  orderSummaryText += `\n📞 تلفن سفارش مستقیم: ۰۲۱-۲۲۵۶۱۹۴۹\n📍 دروس، خیابان شهید کلاهدوز (دولت)`;
 
   box.innerHTML = `
     <!-- Modal Header -->
@@ -1239,7 +1239,7 @@ function renderTrayModal() {
           class="py-2 rounded-lg glass-pill text-[11px] font-bold text-zinc-300 hover:text-white flex items-center justify-center gap-1"
         >
           ${ICONS.copy}
-          <span>کپی متن اقلام</span>
+          <span>کپی لیست سفارش</span>
         </button>
 
         <button 
