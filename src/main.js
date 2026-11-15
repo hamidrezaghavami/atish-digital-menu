@@ -1152,7 +1152,7 @@ function getTrayItemDetails(key) {
       image: shape?.image || baseItem.image,
       ingredients: shape?.id === 'heart' ? 'خمیر پیتزا طرح قلبی، ' + (baseItem.ingredients || '') : baseItem.ingredients,
       placeholderIcon: '🍕',
-      price: baseItem.price
+      price: shape?.price || baseItem.price
     };
   }
   const item = menuData.items.find(i => i.id === key);
@@ -1475,6 +1475,13 @@ function updateCardShapeUI(item, shapeId) {
     btnText.textContent = `افزودن ${shape.shortName || shape.name}`;
   }
 
+  // Update card price dynamically if shape price differs
+  const cardPriceEl = document.getElementById(`card-price-${item.id}`);
+  if (cardPriceEl) {
+    const currentPrice = shape.price || item.price;
+    if (currentPrice) cardPriceEl.textContent = formatPrice(currentPrice);
+  }
+
   // Update card dots if present
   item.shapes?.forEach(s => {
     const dot = document.getElementById(`card-dot-${item.id}-${s.id}`);
@@ -1496,6 +1503,7 @@ function openItemModal(item) {
   const initialImg = activeShape ? activeShape.image : item.image;
   const thumbSrc = getThumbSrc(initialImg);
   const fullSrc = getImgSrc(initialImg);
+  const currentPrice = activeShape?.price || item.price;
 
   box.innerHTML = `
     <!-- Modal Photo Container with Touch Swipe and Arrow Controls -->
@@ -1537,24 +1545,6 @@ function openItemModal(item) {
       </div>
 
       ${hasShapes ? `
-        <!-- Next / Prev Arrows for 1-click Swapping -->
-        <button 
-          id="modal-prev-shape-btn" 
-          type="button" 
-          aria-label="عکس قبلی"
-          class="absolute left-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/85 text-white flex items-center justify-center border border-white/[0.2] shadow-lg z-20 backdrop-blur-sm transition"
-        >
-          ❮
-        </button>
-        <button 
-          id="modal-next-shape-btn" 
-          type="button" 
-          aria-label="عکس بعدی"
-          class="absolute right-2.5 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black/85 text-white flex items-center justify-center border border-white/[0.2] shadow-lg z-20 backdrop-blur-sm transition"
-        >
-          ❯
-        </button>
-
         <!-- Swipe Dots Indicator -->
         <div class="absolute bottom-3 inset-x-0 flex items-center justify-center gap-1.5 z-20 pointer-events-none">
           ${item.shapes.map(s => `
@@ -1571,9 +1561,9 @@ function openItemModal(item) {
       <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
         <h3 class="text-base sm:text-lg font-black text-white" id="modal-title-text">${item.title}</h3>
         <div class="flex items-center gap-1.5 flex-shrink-0">
-          ${item.price ? `
-            <span class="text-xs sm:text-sm font-black text-amber-400 bg-amber-500/10 border border-amber-500/25 px-2.5 py-1 rounded-xl whitespace-nowrap">
-              ${formatPrice(item.price)}
+          ${currentPrice ? `
+            <span id="modal-price-badge" class="text-xs sm:text-sm font-black text-amber-400 bg-amber-500/10 border border-amber-500/25 px-2.5 py-1 rounded-xl whitespace-nowrap">
+              ${formatPrice(currentPrice)}
             </span>
           ` : ''}
           ${item.tag ? `<span class="text-[10px] font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded-full border border-red-500/20">${item.tag}</span>` : ''}
@@ -1711,6 +1701,13 @@ function openItemModal(item) {
         btnLabel.textContent = `افزودن به لیست سفارش (${activeShape.name})`;
       }
 
+      // Update price badge if price differs per shape
+      const shapePrice = activeShape.price || item.price;
+      const modalPriceEl = document.getElementById('modal-price-badge');
+      if (modalPriceEl && shapePrice) {
+        modalPriceEl.textContent = formatPrice(shapePrice);
+      }
+
       // Also sync card on main grid
       updateCardShapeUI(item, newShapeId);
     };
@@ -1720,16 +1717,6 @@ function openItemModal(item) {
       const nextIndex = (currentIndex + 1) % item.shapes.length;
       updateModalShape(item.shapes[nextIndex].id);
     };
-
-    document.getElementById('modal-next-shape-btn')?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleModalNextShape();
-    });
-
-    document.getElementById('modal-prev-shape-btn')?.addEventListener('click', (e) => {
-      e.stopPropagation();
-      toggleModalNextShape();
-    });
 
     document.querySelectorAll('[data-modal-shape-btn]').forEach(btn => {
       btn.addEventListener('click', (e) => {

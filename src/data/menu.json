@@ -92,7 +92,8 @@
           "shortName": "مستطیل",
           "icon": "",
           "image": "./images/Makhsos-American.webp",
-          "badge": null
+          "badge": null,
+          "price": 749000
         },
         {
           "id": "heart",
@@ -100,7 +101,8 @@
           "shortName": "قلبی",
           "icon": "",
           "image": "images/heart-normal.webp",
-          "badge": "❤️ طرح قلبی"
+          "badge": "❤️ طرح قلبی",
+          "price": 749000
         }
       ]
     },
@@ -123,7 +125,8 @@
           "shortName": "مستطیل",
           "icon": "",
           "image": "./images/Peperoni-American-Pizza.webp",
-          "badge": null
+          "badge": null,
+          "price": 739000
         },
         {
           "id": "heart",
@@ -131,7 +134,8 @@
           "shortName": "قلبی",
           "icon": "",
           "image": "images/heart-peperoni.webp",
-          "badge": "❤️ طرح قلبی"
+          "badge": "❤️ طرح قلبی",
+          "price": 739000
         }
       ]
     },
