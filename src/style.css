@@ -30,31 +30,38 @@
   scrollbar-width: none;
 }
 
-/* Glassmorphism Styles */
+/* Glassmorphism Styles (Optimized for Mobile Performance) */
 .glass-header {
-  background: rgba(16, 16, 18, 0.85);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: rgba(16, 16, 18, 0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .glass-nav-bar {
   background: rgba(14, 14, 16, 0.94);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .glass-card {
-  background: rgba(24, 24, 28, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(24, 24, 28, 0.95);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glass-pill {
   background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 60FPS Hardware-Accelerated Food Cards (Zero GPU Fill-Rate Bottlenecks on Mobile) */
+.food-card {
+  content-visibility: auto;
+  contain-intrinsic-size: 1px 260px;
+  background: #18181c !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transform: translateZ(0);
 }
 
 /* Ember & Fire Glow Effects */

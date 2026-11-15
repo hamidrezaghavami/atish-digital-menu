@@ -767,6 +767,7 @@
         id="modal-main-img"
         src="${t}" 
         alt="${e.title}" 
+        decoding="async"
         class="w-full h-full object-cover transition-opacity duration-300"
         onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
       />
@@ -949,6 +950,7 @@
             src="${a}" 
             alt="${e.title}" 
             loading="lazy" 
+            decoding="async"
             class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300"
             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
           />
