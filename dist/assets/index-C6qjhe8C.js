@@ -180,20 +180,20 @@
       <div class="w-full max-w-7xl mx-auto flex items-center justify-between gap-4">
         
         <!-- Logo & Title -->
-        <a href="#" class="flex items-center gap-2.5 flex-shrink-0">
-          <div class="w-10 h-10 md:w-11 md:h-11 flex-shrink-0 drop-shadow-[0_0_12px_rgba(245,158,11,0.6)]">
+        <a href="#" class="flex items-center gap-2 min-w-0">
+          <div class="w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0 drop-shadow-[0_0_12px_rgba(245,158,11,0.6)]">
             <img 
               src="${pe}" 
               alt="${s.name}" 
               class="w-full h-full object-contain"
             />
           </div>
-          <div class="flex flex-col text-right">
-            <div class="text-sm md:text-base font-black text-white tracking-tight flex items-center gap-1.5">
+          <div class="flex flex-col text-right min-w-0">
+            <div class="text-xs sm:text-sm md:text-base font-black text-white tracking-tight flex items-center gap-1.5 truncate">
               <span>${s.brandTitle}</span>
-              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0"></span>
             </div>
-            <div class="text-[11px] md:text-xs text-amber-400 font-medium">
+            <div class="text-[10px] sm:text-[11px] md:text-xs text-amber-400 font-medium truncate hidden sm:block">
               ${s.brandSubtitle}
             </div>
           </div>
@@ -223,12 +223,12 @@
         </div>
 
         <!-- Header Actions -->
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
           
           <!-- Desktop Call Button (021 on left) -->
           <a 
             href="tel:${s.phone}"
-            class="hidden lg:flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/25 text-xs font-bold transition"
+            class="hidden lg:flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/25 text-xs font-bold transition flex-shrink-0"
             title="تماس تلفنی"
           >
             ${b.phone}
@@ -245,7 +245,7 @@
             href="${s.snappfoodUrl}"
             target="_blank"
             rel="noopener noreferrer"
-            class="hidden md:flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-pink-500/15 border border-pink-500/30 text-pink-400 hover:bg-pink-500/25 text-xs font-bold transition"
+            class="hidden md:flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-pink-500/15 border border-pink-500/30 text-pink-400 hover:bg-pink-500/25 text-xs font-bold transition flex-shrink-0"
             title="سفارش در اسنپ‌فود"
           >
             ${b.scooter}
@@ -255,7 +255,7 @@
           <!-- PWA Install Button -->
           <button 
             id="btn-install-pwa" 
-            class="hidden items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 hover:bg-amber-500/25 text-xs font-bold transition"
+            class="hidden items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 hover:bg-amber-500/25 text-xs font-bold transition flex-shrink-0"
             title="نصب اپلیکیشن منوی آتیش"
           >
             <span>📲</span>
@@ -267,7 +267,7 @@
           <button 
             id="toggle-search-btn" 
             aria-label="جستجوی غذا"
-            class="md:hidden w-9 h-9 rounded-full bg-[#1e1e24] border border-white/[0.1] hover:border-amber-400/50 flex items-center justify-center text-zinc-300 hover:text-white transition"
+            class="md:hidden w-9 h-9 rounded-full bg-[#1e1e24] border border-white/[0.1] hover:border-amber-400/50 flex items-center justify-center text-zinc-300 hover:text-white transition flex-shrink-0"
           >
             ${b.search}
           </button>
@@ -276,10 +276,10 @@
           <button 
             id="open-tray-btn" 
             aria-label="سبد سفارش"
-            class="relative px-3.5 h-9 rounded-full bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/40 text-amber-300 hover:text-white flex items-center gap-1.5 text-xs font-bold transition hover:bg-amber-500/30"
+            class="relative px-2.5 sm:px-3.5 h-9 rounded-full bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/40 text-amber-300 hover:text-white flex items-center gap-1.5 text-xs font-bold transition hover:bg-amber-500/30 flex-shrink-0"
           >
             ${b.tray}
-            <span>پیش‌فاکتور</span>
+            <span class="text-[11px] sm:text-xs">پیش‌فاکتور</span>
             <span id="header-tray-badge" class="${r>0?"":"hidden"} bg-amber-500 text-black font-black text-[10px] px-1.5 py-0.2 rounded-full min-w-[18px] text-center">
               ${v(r)}
             </span>
