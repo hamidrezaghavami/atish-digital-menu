@@ -1238,8 +1238,8 @@ function updateTrayModalInPlace(itemId) {
   if (subtotalEl) {
     if (itemPrice > 0) {
       subtotalEl.innerHTML = `
-        <span class="text-[11px] font-black text-amber-400">${formatPrice(itemPrice * qty)}</span>
-        ${qty > 1 ? `<span class="text-[9px] text-zinc-400">(${formatPrice(itemPrice)} هر عدد)</span>` : ''}
+        <span class="text-[11px] font-black text-amber-400 whitespace-nowrap">${formatPrice(itemPrice * qty)}</span>
+        ${qty > 1 ? `<span class="text-[9px] sm:text-[10px] text-zinc-400 whitespace-nowrap leading-tight">(${formatPrice(itemPrice)} هر عدد)</span>` : ''}
       `;
     } else {
       subtotalEl.innerHTML = `<span class="text-[10px] text-zinc-400 font-light truncate max-w-[120px] block">${item.ingredients || 'آتیش'}</span>`;
@@ -1403,12 +1403,12 @@ function renderTrayModal() {
               </div>
               <div class="text-right min-w-0">
                 <h4 class="text-xs font-bold text-white truncate">${item.title}</h4>
-                <div id="tray-item-subtotal-${id}" class="flex items-center gap-1.5 mt-0.5">
+                <div id="tray-item-subtotal-${id}" class="flex flex-col sm:flex-row sm:items-center items-start gap-0.5 sm:gap-1.5 mt-0.5">
                   ${itemPrice > 0 ? `
-                    <span class="text-[11px] font-black text-amber-400">
+                    <span class="text-[11px] font-black text-amber-400 whitespace-nowrap">
                       ${formatPrice(itemPrice * qty)}
                     </span>
-                    ${qty > 1 ? `<span class="text-[9px] text-zinc-400">(${formatPrice(itemPrice)} هر عدد)</span>` : ''}
+                    ${qty > 1 ? `<span class="text-[9px] sm:text-[10px] text-zinc-400 whitespace-nowrap leading-tight">(${formatPrice(itemPrice)} هر عدد)</span>` : ''}
                   ` : `
                     <span class="text-[10px] text-zinc-400 font-light truncate max-w-[120px] block">${item.ingredients || 'آتیش'}</span>
                   `}
