@@ -783,7 +783,7 @@ function renderApp() {
 
     <!-- Order Tray Drawer Modal -->
     <div id="tray-modal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity">
-      <div id="tray-modal-box" class="w-full max-w-md bg-[#18181c] border-t sm:border border-white/[0.12] rounded-t-3xl sm:rounded-3xl max-h-[92vh] overflow-y-auto shadow-2xl flex flex-col text-right">
+      <div id="tray-modal-box" class="w-full max-w-md bg-[#18181c] border-t sm:border border-white/[0.12] rounded-t-3xl sm:rounded-3xl max-h-[92vh] overflow-y-auto shadow-2xl flex flex-col text-right select-none" style="-webkit-tap-highlight-color: transparent;">
       </div>
     </div>
 
@@ -1168,23 +1168,85 @@ function getTrayItemDetails(key) {
   };
 }
 
+function updateTrayModalInPlace(itemId) {
+  const trayModal = document.getElementById('tray-modal');
+  if (!trayModal || trayModal.classList.contains('hidden')) return false;
+
+  const qtyEl = document.getElementById(`tray-item-qty-${itemId}`);
+  if (!qtyEl) return false;
+
+  const item = getTrayItemDetails(itemId);
+  if (!item) return false;
+
+  const qty = orderTray[itemId] || 0;
+  const itemPrice = item.price ? Number(item.price) : 0;
+  const totalCount = getTrayTotalCount();
+  const totalPrice = getTrayTotalPrice();
+
+  // 1. Update quantity
+  qtyEl.textContent = toPersianDigits(qty);
+
+  // 2. Update subtotal
+  const subtotalEl = document.getElementById(`tray-item-subtotal-${itemId}`);
+  if (subtotalEl) {
+    if (itemPrice > 0) {
+      subtotalEl.innerHTML = `
+        <span class="text-[11px] font-black text-amber-400">${formatPrice(itemPrice * qty)}</span>
+        ${qty > 1 ? `<span class="text-[9px] text-zinc-400">(${formatPrice(itemPrice)} هر عدد)</span>` : ''}
+      `;
+    } else {
+      subtotalEl.innerHTML = `<span class="text-[10px] text-zinc-400 font-light truncate max-w-[120px] block">${item.ingredients || 'آتیش'}</span>`;
+    }
+  }
+
+  // 3. Update modal header total
+  const headerTotals = document.getElementById('tray-header-totals');
+  if (headerTotals) {
+    headerTotals.textContent = `${toPersianDigits(totalCount)} قلم غذا${totalPrice > 0 ? ` · ${formatPrice(totalPrice)}` : ''}`;
+  }
+
+  // 4. Update total summary card
+  const totalCard = document.getElementById('tray-total-card');
+  if (totalCard) {
+    totalCard.className = `${totalPrice > 0 ? 'flex' : 'hidden'} mx-3 my-2 p-3 rounded-2xl bg-[#1b1b22] border border-amber-500/25 items-center justify-between shadow-md`;
+  }
+  const totalCountEl = document.getElementById('tray-total-card-count');
+  if (totalCountEl) {
+    totalCountEl.textContent = `${toPersianDigits(totalCount)} قلم غذا`;
+  }
+  const totalPriceEl = document.getElementById('tray-total-card-price');
+  if (totalPriceEl) {
+    totalPriceEl.textContent = formatPrice(totalPrice);
+  }
+
+  return true;
+}
+
 function addItemToTray(itemId) {
   orderTray[itemId] = (orderTray[itemId] || 0) + 1;
   saveTray();
   const trayModal = document.getElementById('tray-modal');
   if (trayModal && !trayModal.classList.contains('hidden')) {
-    renderTrayModal();
+    if (!updateTrayModalInPlace(itemId)) {
+      renderTrayModal();
+    }
   }
 }
 
 function removeItemFromTray(itemId) {
   if (!orderTray[itemId]) return;
   orderTray[itemId] -= 1;
-  if (orderTray[itemId] <= 0) {
+  const remaining = orderTray[itemId];
+  if (remaining <= 0) {
     delete orderTray[itemId];
+    saveTray();
+    renderTrayModal();
+    return;
   }
   saveTray();
-  renderTrayModal();
+  if (!updateTrayModalInPlace(itemId)) {
+    renderTrayModal();
+  }
 }
 
 function deleteItemFromTray(itemId) {
@@ -1197,6 +1259,30 @@ function clearTray() {
   orderTray = {};
   saveTray();
   renderTrayModal();
+}
+
+function getOrderSummaryText() {
+  const itemIds = Object.keys(orderTray);
+  let orderSummaryText = `📋 پیش‌فاکتور اقلام سفارش - فست‌فود و گریل آتیش:\n\n`;
+  let orderTotalSum = 0;
+  itemIds.forEach((id, idx) => {
+    const item = getTrayItemDetails(id);
+    if (item) {
+      const qty = orderTray[id];
+      const itemPrice = item.price ? Number(item.price) : 0;
+      const subtotal = itemPrice * qty;
+      orderTotalSum += subtotal;
+      const priceText = itemPrice > 0 ? ` (${formatPrice(subtotal)})` : '';
+      orderSummaryText += `${toPersianDigits(idx + 1)}. ${item.title} × ${toPersianDigits(qty)}${priceText}\n`;
+    }
+  });
+  if (orderTotalSum > 0) {
+    orderSummaryText += `\n💰 جمع کل سفارش: ${formatPrice(orderTotalSum)}\n`;
+  }
+  orderSummaryText += `\n📍 آدرس: خیابان دولت تهران، محله دروس، روبه‌روی بانک ملت بین کوچه خرداد و معتمدی، پلاک ۱۰۰\n`;
+  orderSummaryText += `📞 تلفن سفارش مستقیم: ۰۲۱-۲۲۵۶۱۹۴۹\n`;
+  orderSummaryText += `🛵 سفارش آنلاین در اسنپ‌فود: https://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/`;
+  return orderSummaryText;
 }
 
 function renderTrayModal() {
@@ -1231,37 +1317,17 @@ function renderTrayModal() {
 
   const totalPrice = getTrayTotalPrice();
 
-  let orderSummaryText = `📋 پیش‌فاکتور اقلام سفارش - فست‌فود و گریل آتیش:\n\n`;
-  let orderTotalSum = 0;
-  itemIds.forEach((id, idx) => {
-    const item = getTrayItemDetails(id);
-    if (item) {
-      const qty = orderTray[id];
-      const itemPrice = item.price ? Number(item.price) : 0;
-      const subtotal = itemPrice * qty;
-      orderTotalSum += subtotal;
-      const priceText = itemPrice > 0 ? ` (${formatPrice(subtotal)})` : '';
-      orderSummaryText += `${toPersianDigits(idx + 1)}. ${item.title} × ${toPersianDigits(qty)}${priceText}\n`;
-    }
-  });
-  if (orderTotalSum > 0) {
-    orderSummaryText += `\n💰 جمع کل سفارش: ${formatPrice(orderTotalSum)}\n`;
-  }
-  orderSummaryText += `\n📍 آدرس: خیابان دولت تهران، محله دروس، روبه‌روی بانک ملت بین کوچه خرداد و معتمدی، پلاک ۱۰۰\n`;
-  orderSummaryText += `📞 تلفن سفارش مستقیم: ۰۲۱-۲۲۵۶۱۹۴۹\n`;
-  orderSummaryText += `🛵 سفارش آنلاین در اسنپ‌فود: https://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/`;
-
   box.innerHTML = `
     <!-- Modal Header -->
-    <div class="p-4 border-b border-white/[0.08] flex items-center justify-between">
+    <div class="p-4 border-b border-white/[0.08] flex items-center justify-between bg-[#18181c]">
       <div class="flex items-center gap-2">
         <span class="text-xl">📋</span>
         <div>
           <h2 class="text-sm font-black text-white">لیست سفارش شما</h2>
-          <span class="text-[11px] text-amber-400">${toPersianDigits(totalCount)} قلم غذا${totalPrice > 0 ? ` · ${formatPrice(totalPrice)}` : ''}</span>
+          <span id="tray-header-totals" class="text-[11px] text-amber-400 font-bold">${toPersianDigits(totalCount)} قلم غذا${totalPrice > 0 ? ` · ${formatPrice(totalPrice)}` : ''}</span>
         </div>
       </div>
-      <button id="close-tray-btn" class="w-7 h-7 rounded-full bg-white/[0.08] flex items-center justify-center text-zinc-400 hover:text-white">
+      <button id="close-tray-btn" class="w-7 h-7 rounded-full bg-[#24242c] flex items-center justify-center text-zinc-400 hover:text-white transition">
         ${ICONS.close}
       </button>
     </div>
@@ -1283,14 +1349,14 @@ function renderTrayModal() {
         const imgSrc = getThumbSrc(item.image);
         const itemPrice = item.price ? Number(item.price) : 0;
         return `
-          <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/[0.03] border border-white/[0.06]">
+          <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#202026] border border-white/[0.06]">
             <div class="flex items-center gap-2.5 min-w-0">
               <div class="w-10 h-10 rounded-lg overflow-hidden bg-black/40 flex-shrink-0 border border-white/[0.08]">
                 <img src="${imgSrc}" alt="${item.title}" class="w-full h-full object-cover" onerror="this.src='/images/atish-burger.jpg'" />
               </div>
               <div class="text-right min-w-0">
                 <h4 class="text-xs font-bold text-white truncate">${item.title}</h4>
-                <div class="flex items-center gap-1.5 mt-0.5">
+                <div id="tray-item-subtotal-${id}" class="flex items-center gap-1.5 mt-0.5">
                   ${itemPrice > 0 ? `
                     <span class="text-[11px] font-black text-amber-400">
                       ${formatPrice(itemPrice * qty)}
@@ -1305,7 +1371,7 @@ function renderTrayModal() {
 
             <!-- Quantity Counter Controls -->
             <div class="flex items-center gap-1.5 flex-shrink-0">
-              <div class="flex items-center bg-[#222228] border border-white/[0.12] rounded-xl p-1 gap-1">
+              <div class="flex items-center bg-[#282832] border border-white/[0.12] rounded-xl p-1 gap-1">
                 <button 
                   type="button"
                   data-action="decrease" 
@@ -1315,7 +1381,7 @@ function renderTrayModal() {
                 >
                   <span class="pointer-events-none">${ICONS.minus}</span>
                 </button>
-                <span class="text-xs sm:text-sm font-black text-amber-400 px-1.5 min-w-[20px] text-center select-none pointer-events-none">
+                <span id="tray-item-qty-${id}" class="text-xs sm:text-sm font-black text-amber-400 px-1.5 min-w-[20px] text-center select-none pointer-events-none">
                   ${toPersianDigits(qty)}
                 </span>
                 <button 
@@ -1345,24 +1411,22 @@ function renderTrayModal() {
       }).join('')}
     </div>
 
-    <!-- Total Price Summary Box -->
-    ${totalPrice > 0 ? `
-      <div class="mx-3 my-2 p-3 rounded-2xl bg-gradient-to-r from-amber-500/15 via-[#18181c] to-amber-500/10 border border-amber-500/30 flex items-center justify-between shadow-lg">
-        <div class="flex items-center gap-2">
-          <span class="text-base">💳</span>
-          <div>
-            <span class="text-xs font-black text-white block">مجموع مبلغ سفارش:</span>
-            <span class="text-[10px] text-zinc-400 font-light">${toPersianDigits(totalCount)} قلم غذا</span>
-          </div>
-        </div>
-        <div class="text-left">
-          <span class="text-sm sm:text-base font-black text-amber-400">${formatPrice(totalPrice)}</span>
+    <!-- Total Price Summary Box: Solid dark theme with zero flicker -->
+    <div id="tray-total-card" class="${totalPrice > 0 ? 'flex' : 'hidden'} mx-3 my-2 p-3 rounded-2xl bg-[#1c1c22] border border-amber-500/30 items-center justify-between shadow-md">
+      <div class="flex items-center gap-2">
+        <span class="text-base">💳</span>
+        <div>
+          <span class="text-xs font-black text-white block">مجموع مبلغ سفارش:</span>
+          <span id="tray-total-card-count" class="text-[10px] text-zinc-400 font-light">${toPersianDigits(totalCount)} قلم غذا</span>
         </div>
       </div>
-    ` : ''}
+      <div class="text-left">
+        <span id="tray-total-card-price" class="text-sm sm:text-base font-black text-amber-400">${formatPrice(totalPrice)}</span>
+      </div>
+    </div>
 
-    <!-- Action Buttons: 2 buttons in one line side-by-side -->
-    <div class="p-3 mt-auto border-t border-white/[0.08] flex flex-col gap-2">
+    <!-- Action Buttons: Solid grounded dark footer with no shifting borders -->
+    <div class="p-3 mt-auto bg-[#131317] border-t border-white/[0.06] flex flex-col gap-2">
       <div class="grid grid-cols-2 gap-2">
         <a 
           href="tel:${restaurant.phone}"
@@ -1386,7 +1450,7 @@ function renderTrayModal() {
       <div class="grid grid-cols-2 gap-2 pt-0.5">
         <button 
           id="btn-copy-order" 
-          class="py-2 rounded-lg glass-pill text-[11px] font-bold text-zinc-300 hover:text-white flex items-center justify-center gap-1 active:scale-95 transition"
+          class="py-2 rounded-xl bg-[#202028] hover:bg-[#282834] border border-white/[0.08] text-[11px] font-bold text-zinc-300 hover:text-white flex items-center justify-center gap-1 active:scale-95 transition"
         >
           ${ICONS.copy}
           <span>کپی لیست سفارش</span>
@@ -1394,7 +1458,7 @@ function renderTrayModal() {
 
         <button 
           id="btn-clear-tray"
-          class="py-2 rounded-lg glass-pill text-[11px] font-bold text-red-400 hover:text-red-300 flex items-center justify-center gap-1 active:scale-95 transition"
+          class="py-2 rounded-xl bg-[#202028] hover:bg-red-500/10 border border-white/[0.08] hover:border-red-500/30 text-[11px] font-bold text-red-400 hover:text-red-300 flex items-center justify-center gap-1 active:scale-95 transition"
         >
           ${ICONS.trash}
           <span>خالی کردن لیست</span>
@@ -1420,7 +1484,7 @@ function renderTrayModal() {
   });
 
   document.getElementById('btn-copy-order')?.addEventListener('click', () => {
-    navigator.clipboard?.writeText(orderSummaryText).then(() => {
+    navigator.clipboard?.writeText(getOrderSummaryText()).then(() => {
       showToast('متن سفارش کپی شد');
     });
   });
