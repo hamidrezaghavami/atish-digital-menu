@@ -73,6 +73,51 @@ function saveTray() {
   updateTrayUI();
 }
 
+// Check restaurant open status based on Iran standard time (Asia/Tehran)
+// Hours: 11:30 AM to 23:15 PM daily
+function getRestaurantOpenStatus() {
+  try {
+    const now = new Date();
+    const tehranTimeStr = now.toLocaleTimeString('en-US', {
+      timeZone: 'Asia/Tehran',
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit'
+    });
+    const [h, m] = tehranTimeStr.split(':').map(Number);
+    const currentMins = h * 60 + m;
+    const openMins = 11 * 60 + 30; // 11:30 = 690 mins
+    const closeMins = 23 * 60 + 15; // 23:15 = 1395 mins
+    const isOpen = currentMins >= openMins && currentMins < closeMins;
+
+    if (isOpen) {
+      return {
+        isOpen: true,
+        text: 'هم‌اکنون باز است',
+        badgeClass: 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400',
+        dotClass: 'bg-emerald-400 animate-pulse',
+        tooltip: 'پذیرش سفارشات تلفنی و آنلاین اسنپ‌فود (۱۱:۳۰ تا ۲۳:۱۵)'
+      };
+    } else {
+      return {
+        isOpen: false,
+        text: 'هم‌اکنون بسته است',
+        badgeClass: 'bg-rose-500/15 border-rose-500/30 text-rose-400',
+        dotClass: 'bg-rose-400',
+        tooltip: 'ساعات کاری آتیش: همه روزه از ۱۱:۳۰ صبح تا ۲۳:۱۵ شب'
+      };
+    }
+  } catch (e) {
+    return {
+      isOpen: true,
+      text: 'هم‌اکنون باز است',
+      badgeClass: 'bg-emerald-500/15 border-emerald-500/30 text-emerald-400',
+      dotClass: 'bg-emerald-400 animate-pulse',
+      tooltip: 'پذیرش سفارشات تلفنی و آنلاین اسنپ‌فود'
+    };
+  }
+}
+
 // Icons dictionary
 const ICONS = {
   search: `<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>`,
@@ -421,6 +466,7 @@ function renderApp() {
   const restaurant = menuData?.restaurant || CONFIG;
   const categories = menuData?.categories || [];
   const trayCount = getTrayTotalCount();
+  const openStatus = getRestaurantOpenStatus();
 
   app.innerHTML = `
     <!-- Responsive Header (Mobile + Desktop) -->
@@ -439,7 +485,7 @@ function renderApp() {
           <div class="flex flex-col text-right min-w-0">
             <div class="text-xs sm:text-sm md:text-base font-black text-white tracking-tight flex items-center gap-1.5 truncate">
               <span>${restaurant.brandTitle}</span>
-              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse flex-shrink-0"></span>
+              <span id="header-status-dot" class="w-2 h-2 rounded-full ${openStatus.dotClass} flex-shrink-0" title="${openStatus.text}"></span>
             </div>
             <div class="text-[10px] sm:text-[11px] md:text-xs text-amber-400 font-medium truncate hidden sm:block">
               ${restaurant.brandSubtitle}
@@ -569,9 +615,9 @@ function renderApp() {
           <div class="md:col-span-7 flex flex-col justify-center order-2 md:order-1">
             <!-- Badges Bar -->
             <div class="flex flex-wrap items-center gap-2 mb-3">
-              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-emerald-500/15 border border-emerald-500/30 text-emerald-400">
-                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                <span>${restaurant.statusBadge}</span>
+              <span id="restaurant-status-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold ${openStatus.badgeClass}" title="${openStatus.tooltip}">
+                <span id="restaurant-status-dot" class="w-1.5 h-1.5 rounded-full ${openStatus.dotClass}"></span>
+                <span id="restaurant-status-text">${openStatus.text}</span>
               </span>
               <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold bg-pink-500/15 border border-pink-500/30 text-pink-400">
                 ⭐ ${restaurant.rating || '۴.۴'} در اسنپ‌فود
@@ -590,18 +636,10 @@ function renderApp() {
               پیتزاهای پرملات آمریکایی و ایتالیایی پخته‌شده در فر لینکولن و برگرهای دست‌ساز با گوشت خالص. سفارش آنلاین دلیوری با اسنپ‌فود یا سفارش مستقیم تلفنی با پیک گرم.
             </p>
 
-            <!-- Signature Buttons in First Panel (3D Anatomy + Prominent Instagram) -->
+            <!-- Signature Button in First Panel (Prominent Instagram) -->
             <div class="flex flex-wrap items-center gap-3">
-              <button 
-                id="btn-open-anatomy"
-                class="py-3 px-5 rounded-2xl bg-gradient-to-r from-amber-500/20 via-orange-500/20 to-red-500/20 hover:from-amber-500/30 hover:to-red-500/30 text-amber-300 hover:text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 border border-amber-500/40 hover:border-amber-400 transition shadow-lg shadow-amber-500/10"
-              >
-                ${ICONS.layers}
-                <span>آناتومی ۳ بعدی آتیش برگر ✨</span>
-              </button>
-
               <a 
-                href="https://instagram.com/atishfood" 
+                href="${restaurant.instagramUrl || CONFIG.instagramUrl || 'https://instagram.com/atishfood'}" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 class="py-3 px-5 rounded-2xl bg-gradient-to-r from-purple-600/20 to-pink-600/20 hover:from-purple-600/35 hover:to-pink-600/35 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2.5 border border-purple-500/40 hover:border-pink-400 transition shadow-lg shadow-pink-500/10"
@@ -757,15 +795,12 @@ function renderApp() {
     <!-- Floating Contact Bottom Pill Bar (MOBILE ONLY: md:hidden) -->
     <nav class="contact-nav md:hidden" aria-label="دسترسی سریع">
       <div class="contact-nav-inner">
-        <button id="nav-menu-btn" class="contact-nav-item contact-nav-menu">
+        <button id="nav-menu-btn" class="contact-nav-item contact-nav-menu" aria-label="منوی غذاها">
           ${ICONS.menuIcon}<span>منو</span>
         </button>
-        <button id="nav-tray-btn" class="contact-nav-item contact-nav-tray relative">
-          ${ICONS.tray}<span>پیش‌فاکتور</span>
-          <span id="nav-tray-badge" class="${trayCount > 0 ? '' : 'hidden'} absolute top-1 right-3 bg-amber-400 text-black text-[9px] font-black rounded-full w-4 h-4 flex items-center justify-center">
-            ${toPersianDigits(trayCount)}
-          </span>
-        </button>
+        <a href="${restaurant.instagramUrl || CONFIG.instagramUrl || 'https://instagram.com/atishfood'}" target="_blank" rel="noopener noreferrer" class="contact-nav-item contact-nav-instagram" aria-label="اینستاگرام آتیش">
+          ${ICONS.instagram}<span>اینستاگرام</span>
+        </a>
         <a href="tel:${restaurant.phone}" class="contact-nav-item contact-nav-call" aria-label="تماس با آتیش">
           ${ICONS.phone}<span>تماس</span>
         </a>
@@ -1040,7 +1075,6 @@ function setupEventListeners() {
 
   const openTrayBtn = document.getElementById('open-tray-btn');
   const floatingTrayBar = document.getElementById('floating-tray-bar');
-  const navTrayBtn = document.getElementById('nav-tray-btn');
   const trayModal = document.getElementById('tray-modal');
 
   const openTrayModal = () => {
@@ -1050,7 +1084,25 @@ function setupEventListeners() {
 
   openTrayBtn?.addEventListener('click', openTrayModal);
   floatingTrayBar?.addEventListener('click', openTrayModal);
-  navTrayBtn?.addEventListener('click', openTrayModal);
+
+  // Live updater for restaurant open/closed status based on Iran standard time
+  setInterval(() => {
+    const badgeEl = document.getElementById('restaurant-status-badge');
+    const textEl = document.getElementById('restaurant-status-text');
+    const dotEl = document.getElementById('restaurant-status-dot');
+    const headerDot = document.getElementById('header-status-dot');
+    if (badgeEl && textEl && dotEl) {
+      const st = getRestaurantOpenStatus();
+      badgeEl.className = `inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold ${st.badgeClass}`;
+      badgeEl.title = st.tooltip;
+      dotEl.className = `w-1.5 h-1.5 rounded-full ${st.dotClass}`;
+      textEl.textContent = st.text;
+      if (headerDot) {
+        headerDot.className = `w-2 h-2 rounded-full ${st.dotClass} flex-shrink-0`;
+        headerDot.title = st.text;
+      }
+    }
+  }, 30000);
 
   trayModal?.addEventListener('click', (e) => {
     if (e.target === trayModal) {

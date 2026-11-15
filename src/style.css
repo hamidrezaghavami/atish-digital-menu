@@ -185,9 +185,14 @@
 }
 
 .contact-nav-menu { color: #f59e0b; }
+.contact-nav-instagram { color: #e1306c; }
 .contact-nav-call { color: #22c55e; }
 .contact-nav-snapp { color: #ff00a6; }
 .contact-nav-tray { color: #38bdf8; }
+
+.contact-nav-instagram:hover {
+  color: #f43f5e;
+}
 
 .contact-nav-item:hover {
   background: rgba(255, 255, 255, 0.08);
