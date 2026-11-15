@@ -743,10 +743,13 @@ function renderApp() {
     >
       <div class="flex items-center gap-2">
         <span class="text-base">📋</span>
-        <span class="text-xs font-black">سفارش شما: <span id="floating-tray-count">${toPersianDigits(trayCount)}</span> قلم</span>
+        <div class="flex flex-col text-right leading-tight">
+          <span class="text-xs font-black">سفارش شما: <span id="floating-tray-count">${toPersianDigits(trayCount)}</span> قلم</span>
+          <span id="floating-tray-total" class="text-[10px] font-bold opacity-90">${getTrayTotalPrice() > 0 ? formatPrice(getTrayTotalPrice()) : ''}</span>
+        </div>
       </div>
       <div class="flex items-center gap-1 text-[11px] bg-black/20 px-2.5 py-1 rounded-xl">
-        <span>مشاهده و تماس</span>
+        <span>مشاهده لیست</span>
         <span>←</span>
       </div>
     </div>
@@ -897,8 +900,13 @@ function updateTrayUI() {
 
   const floatingBar = document.getElementById('floating-tray-bar');
   const floatingCount = document.getElementById('floating-tray-count');
+  const floatingTotal = document.getElementById('floating-tray-total');
+  const totalPrice = getTrayTotalPrice();
   if (floatingBar && floatingCount) {
     floatingCount.textContent = toPersianDigits(count);
+    if (floatingTotal) {
+      floatingTotal.textContent = totalPrice > 0 ? formatPrice(totalPrice) : '';
+    }
     floatingBar.classList.toggle('hidden', count === 0);
   }
 
@@ -1143,7 +1151,8 @@ function getTrayItemDetails(key) {
       title: `${baseItem.title} (${shape?.name || 'کلاسیک'})`,
       image: shape?.image || baseItem.image,
       ingredients: shape?.id === 'heart' ? 'خمیر پیتزا طرح قلبی، ' + (baseItem.ingredients || '') : baseItem.ingredients,
-      placeholderIcon: '🍕'
+      placeholderIcon: '🍕',
+      price: baseItem.price
     };
   }
   const item = menuData.items.find(i => i.id === key);
@@ -1154,7 +1163,8 @@ function getTrayItemDetails(key) {
     title: item.title,
     image: item.image,
     ingredients: item.ingredients,
-    placeholderIcon: item.placeholderIcon
+    placeholderIcon: item.placeholderIcon,
+    price: item.price
   };
 }
 
@@ -1351,35 +1361,32 @@ function renderTrayModal() {
       </div>
     ` : ''}
 
-    <!-- Action Buttons (021 on LEFT) -->
+    <!-- Action Buttons: 2 buttons in one line side-by-side -->
     <div class="p-3 mt-auto border-t border-white/[0.08] flex flex-col gap-2">
-      <a 
-        href="tel:${restaurant.phone}"
-        class="w-full py-3 rounded-xl bg-[#22c55e] hover:bg-[#16a34a] text-white font-black text-xs flex items-center justify-center gap-1.5 shadow-md shadow-emerald-500/25"
-      >
-        ${ICONS.phone}
-        <span class="flex items-center gap-1">
-          <span>تماس تلفنی و ثبت سفارش</span>
-          <span dir="ltr" class="inline-flex items-center font-bold tracking-wider">
-            (<span>۰۲۱</span><span>-</span><span>۲۲۵۶۱۹۴۹</span>)
-          </span>
-        </span>
-      </a>
+      <div class="grid grid-cols-2 gap-2">
+        <a 
+          href="tel:${restaurant.phone}"
+          class="py-2.5 px-2 rounded-xl bg-[#22c55e] hover:bg-[#16a34a] text-white font-black text-xs flex items-center justify-center gap-1.5 shadow-md shadow-emerald-500/25 active:scale-95 transition whitespace-nowrap"
+        >
+          ${ICONS.phone}
+          <span>تماس و سفارش</span>
+        </a>
 
-      <a 
-        href="${restaurant.snappfoodUrl}" 
-        target="_blank" 
-        rel="noopener noreferrer"
-        class="w-full py-2.5 rounded-xl bg-[#ff00a6] hover:bg-[#e00092] text-white font-black text-xs flex items-center justify-center gap-1.5 shadow-md shadow-pink-500/25"
-      >
-        ${ICONS.scooter}
-        <span>مشاهده قیمت روز و سفارش در اسنپ‌فود</span>
-      </a>
+        <a 
+          href="${restaurant.snappfoodUrl}" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="py-2.5 px-2 rounded-xl bg-[#ff00a6] hover:bg-[#e00092] text-white font-black text-xs flex items-center justify-center gap-1.5 shadow-md shadow-pink-500/25 active:scale-95 transition whitespace-nowrap"
+        >
+          ${ICONS.scooter}
+          <span>سفارش اسنپ‌فود</span>
+        </a>
+      </div>
 
       <div class="grid grid-cols-2 gap-2 pt-0.5">
         <button 
           id="btn-copy-order" 
-          class="py-2 rounded-lg glass-pill text-[11px] font-bold text-zinc-300 hover:text-white flex items-center justify-center gap-1"
+          class="py-2 rounded-lg glass-pill text-[11px] font-bold text-zinc-300 hover:text-white flex items-center justify-center gap-1 active:scale-95 transition"
         >
           ${ICONS.copy}
           <span>کپی لیست سفارش</span>
@@ -1387,7 +1394,7 @@ function renderTrayModal() {
 
         <button 
           id="btn-clear-tray"
-          class="py-2 rounded-lg glass-pill text-[11px] font-bold text-red-400 hover:text-red-300 flex items-center justify-center gap-1"
+          class="py-2 rounded-lg glass-pill text-[11px] font-bold text-red-400 hover:text-red-300 flex items-center justify-center gap-1 active:scale-95 transition"
         >
           ${ICONS.trash}
           <span>خالی کردن لیست</span>
