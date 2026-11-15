@@ -9,6 +9,9 @@ export default defineConfig({
   },
   build: {
     outDir: 'dist',
-    assetsDir: 'assets'
+    assetsDir: 'assets',
+    target: 'es2020',
+    cssMinify: true,
+    minify: 'esbuild'
   }
 });

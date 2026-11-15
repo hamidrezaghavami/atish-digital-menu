@@ -1376,6 +1376,17 @@ function getImgSrc(img) {
   return '/' + img;
 }
 
+function getThumbSrc(img) {
+  const full = getImgSrc(img);
+  if (!full) return '';
+  const filename = full.split('/').pop();
+  if (filename && filename !== 'logo.webp') {
+    const thumbName = filename.replace(/\.(jpg|jpeg|png)$/i, '.webp');
+    return `/images/thumbs/${thumbName}`;
+  }
+  return full;
+}
+
 function updateCardShapeUI(item, shapeId) {
   if (!item) return;
   itemSelectedShape[item.id] = shapeId;
@@ -1386,7 +1397,7 @@ function updateCardShapeUI(item, shapeId) {
   if (cardImg) {
     cardImg.style.opacity = '0.3';
     setTimeout(() => {
-      cardImg.src = getImgSrc(shape.image);
+      cardImg.src = getThumbSrc(shape.image);
       cardImg.style.opacity = '1';
     }, 120);
   }
@@ -1767,7 +1778,8 @@ function renderFoodCard(item, isTop = false) {
   const hasShapes = item.shapes && item.shapes.length > 1;
   const activeShapeId = itemSelectedShape[item.id] || 'normal';
   const activeShape = hasShapes ? (item.shapes.find(s => s.id === activeShapeId) || item.shapes[0]) : null;
-  const imgSrc = getImgSrc(activeShape ? activeShape.image : item.image);
+  const fullImgSrc = getImgSrc(activeShape ? activeShape.image : item.image);
+  const imgSrc = getThumbSrc(activeShape ? activeShape.image : item.image);
   const badgeText = activeShape?.badge || item.badge;
   const isChef = !!item.isChefRecommendation;
   const loadingAttrs = isTop 
@@ -1792,7 +1804,7 @@ function renderFoodCard(item, isTop = false) {
             ${loadingAttrs}
             decoding="async"
             class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300"
-            onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+            onerror="this.src='${fullImgSrc}';this.onerror=null;"
           />
           <div style="display:none;" class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-[#222228] to-[#16161a]">
             <span class="text-3xl filter drop-shadow">${item.placeholderIcon || '🍔'}</span>
@@ -2035,10 +2047,12 @@ function prewarmMenuImages() {
 
   const imagesToWarm = [];
   (restaurantMenuData.items || []).forEach(item => {
-    if (item.image) imagesToWarm.push(getImgSrc(item.image));
+    if (item.image) {
+      imagesToWarm.push(getThumbSrc(item.image));
+    }
     if (item.shapes) {
       item.shapes.forEach(s => {
-        if (s.image) imagesToWarm.push(getImgSrc(s.image));
+        if (s.image) imagesToWarm.push(getThumbSrc(s.image));
       });
     }
   });
@@ -2059,18 +2073,18 @@ function prewarmMenuImages() {
 
     if (idx < uniqueImages.length) {
       if ('requestIdleCallback' in window) {
-        requestIdleCallback(fetchNextChunk, { timeout: 1200 });
+        requestIdleCallback(fetchNextChunk, { timeout: 1000 });
       } else {
-        setTimeout(fetchNextChunk, 250);
+        setTimeout(fetchNextChunk, 200);
       }
     }
   }
 
   // Start pre-fetching after initial view is fully rendered
   if ('requestIdleCallback' in window) {
-    requestIdleCallback(fetchNextChunk, { timeout: 2000 });
+    requestIdleCallback(fetchNextChunk, { timeout: 1500 });
   } else {
-    setTimeout(fetchNextChunk, 500);
+    setTimeout(fetchNextChunk, 350);
   }
 }
 

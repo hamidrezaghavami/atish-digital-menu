@@ -1,4 +1,4 @@
-const CACHE_NAME = 'atish-menu-v4';
+const CACHE_NAME = 'atish-menu-v5';
 
 // Core shell assets to pre-cache immediately on install
 const PRECACHE_ASSETS = [
@@ -13,45 +13,45 @@ const PRECACHE_ASSETS = [
   '/images/atish-burger.jpg'
 ];
 
-// Menu food pictures to warm into offline CacheStorage in background
+// Menu food thumbnails to warm into offline CacheStorage in background (ultralight ~25KB each)
 const MENU_IMAGES = [
-  "/images/Makhsos-American.webp",
-  "/images/heart-normal.webp",
-  "/images/Peperoni-American-Pizza.webp",
-  "/images/heart-peperoni.webp",
-  "/images/Chicken-American-Pizza.webp",
-  "/images/meat-American-Pizza.webp",
-  "/images/Sabzi-American.webp",
-  "/images/american-Sosis-mashroom.webp",
-  "/images/Mashroom-Pizza.webp",
-  "/images/4F-Family.webp",
-  "/images/Atish-Italian.webp",
-  "/images/Peperoni-Italian.webp",
-  "/images/Chicken-Italian.webp",
-  "/images/Steak-Italian-Pizza.webp",
-  "/images/burger.webp",
-  "/images/cheese-burger.webp",
-  "/images/mashroom-burger.webp",
-  "/images/double-cheese-burger.webp",
-  "/images/double-burger.webp",
-  "/images/double-Mashroom-burger.webp",
-  "/images/atish-burger.webp",
-  "/images/Zinger.webp",
-  "/images/Giril.webp",
-  "/images/RoastBeef.webp",
-  "/images/file.webp",
-  "/images/jambon-sandwhich.webp",
-  "/images/Hotdog.webp",
-  "/images/Crispy-Chicken-Tenders.webp",
-  "/images/4-Crispe.webp",
-  "/images/Mashroom.webp",
-  "/images/French-Fries.webp",
-  "/images/Fries-Special.webp",
-  "/images/Big-Coke.webp",
-  "/images/Coke.webp",
-  "/images/Delester.webp",
-  "/images/Dogh.webp",
-  "/images/Water.webp"
+  "/images/thumbs/Makhsos-American.webp",
+  "/images/thumbs/heart-normal.webp",
+  "/images/thumbs/Peperoni-American-Pizza.webp",
+  "/images/thumbs/heart-peperoni.webp",
+  "/images/thumbs/Chicken-American-Pizza.webp",
+  "/images/thumbs/meat-American-Pizza.webp",
+  "/images/thumbs/Sabzi-American.webp",
+  "/images/thumbs/american-Sosis-mashroom.webp",
+  "/images/thumbs/Mashroom-Pizza.webp",
+  "/images/thumbs/4F-Family.webp",
+  "/images/thumbs/Atish-Italian.webp",
+  "/images/thumbs/Peperoni-Italian.webp",
+  "/images/thumbs/Chicken-Italian.webp",
+  "/images/thumbs/Steak-Italian-Pizza.webp",
+  "/images/thumbs/burger.webp",
+  "/images/thumbs/cheese-burger.webp",
+  "/images/thumbs/mashroom-burger.webp",
+  "/images/thumbs/double-cheese-burger.webp",
+  "/images/thumbs/double-burger.webp",
+  "/images/thumbs/double-Mashroom-burger.webp",
+  "/images/thumbs/atish-burger.webp",
+  "/images/thumbs/Zinger.webp",
+  "/images/thumbs/Giril.webp",
+  "/images/thumbs/RoastBeef.webp",
+  "/images/thumbs/file.webp",
+  "/images/thumbs/jambon-sandwhich.webp",
+  "/images/thumbs/Hotdog.webp",
+  "/images/thumbs/Crispy-Chicken-Tenders.webp",
+  "/images/thumbs/4-Crispe.webp",
+  "/images/thumbs/Mashroom.webp",
+  "/images/thumbs/French-Fries.webp",
+  "/images/thumbs/Fries-Special.webp",
+  "/images/thumbs/Big-Coke.webp",
+  "/images/thumbs/Coke.webp",
+  "/images/thumbs/Delester.webp",
+  "/images/thumbs/Dogh.webp",
+  "/images/thumbs/Water.webp"
 ];
 
 self.addEventListener('install', (event) => {
