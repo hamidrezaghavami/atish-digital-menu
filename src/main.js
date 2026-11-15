@@ -11,6 +11,8 @@ let searchQuery = '';
 let searchActive = false;
 let orderTray = JSON.parse(localStorage.getItem('atish_order_tray') || '{}');
 let activeAnatomyLayer = 3;
+let selectedNeighborhoodId = 'darrous';
+let deferredInstallPrompt = null;
 
 // Convert numbers to Persian digits
 export function toPersianDigits(num) {
@@ -82,8 +84,106 @@ const BURGER_LAYERS = [
   }
 ];
 
+function selectDeliveryNeighborhood(placeId) {
+  const restaurant = menuData?.restaurant || CONFIG;
+  const { neighborhoods } = deliveryData;
+  const place = neighborhoods.find(n => n.id === placeId);
+  if (!place) return;
+  selectedNeighborhoodId = placeId;
+  const isDirect = place.zone === 'direct';
+
+  // Update interactive chips
+  document.querySelectorAll('.delivery-chip-btn').forEach(btn => {
+    const isSel = btn.dataset.id === placeId;
+    const thisPlace = neighborhoods.find(n => n.id === btn.dataset.id);
+    const thisName = thisPlace ? thisPlace.name : '';
+    btn.className = `delivery-chip-btn text-[11px] px-3 py-1.5 rounded-xl font-bold transition flex items-center gap-1.5 ${
+      isSel 
+        ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-black shadow-md shadow-orange-500/30 scale-105' 
+        : 'bg-white/[0.04] border border-white/[0.08] text-zinc-300 hover:bg-white/[0.08] hover:text-white'
+    }`;
+    btn.innerHTML = `<span>📍</span><span>${thisName}</span>${isSel ? '<span class="text-xs">✓</span>' : ''}`;
+  });
+
+  // Update dynamic status card
+  const statusCard = document.getElementById('delivery-status-card');
+  if (statusCard) {
+    statusCard.className = `p-4 rounded-2xl border transition-all duration-300 mb-4 ${
+      isDirect 
+        ? 'bg-gradient-to-br from-emerald-950/40 via-[#18181c] to-emerald-950/20 border-emerald-500/40 shadow-lg shadow-emerald-950/30' 
+        : 'bg-gradient-to-br from-pink-950/40 via-[#18181c] to-pink-950/20 border-pink-500/40 shadow-lg shadow-pink-950/30'
+    }`;
+    
+    const cardTitle = document.getElementById('delivery-card-title');
+    if (cardTitle) cardTitle.textContent = `ارسال به ${place.name}`;
+
+    const cardBadge = document.getElementById('delivery-card-badge');
+    if (cardBadge) {
+      cardBadge.textContent = place.badge;
+      cardBadge.className = `text-[11px] font-bold px-2.5 py-1 rounded-full ${
+        isDirect 
+          ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' 
+          : 'bg-pink-500/20 text-pink-300 border border-pink-500/30'
+      }`;
+    }
+
+    const cardTime = document.getElementById('delivery-card-time');
+    if (cardTime) cardTime.textContent = place.time;
+
+    const cardDesc = document.getElementById('delivery-card-desc');
+    if (cardDesc) cardDesc.textContent = place.desc;
+
+    const cardActions = document.getElementById('delivery-card-actions');
+    if (cardActions) {
+      cardActions.innerHTML = `
+        <a id="delivery-call-link" href="tel:${restaurant.phone || CONFIG.phoneNumber}" class="flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold text-xs shadow-md transition">
+          ${ICONS.phone}
+          <span>سفارش تلفنی به ${place.name}</span>
+          <span dir="ltr" class="inline-flex items-center tracking-wider mr-1 text-[11px]">
+            (<span>۰۲۱</span><span>-</span><span>۲۲۵۶۱۹۴۹</span>)
+          </span>
+        </a>
+        ${!isDirect ? `
+          <a href="${restaurant.snappfoodUrl}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-pink-500/15 border border-pink-500/30 text-pink-400 hover:bg-pink-500/25 font-bold text-xs transition">
+            ${ICONS.scooter}
+            <span>سفارش در اسنپ‌فود</span>
+          </a>
+        ` : ''}
+      `;
+    }
+  }
+
+  // Update SVG active pulse position
+  const pulse = document.getElementById('delivery-active-pulse');
+  if (pulse) {
+    pulse.setAttribute('transform', `translate(${place.x} ${place.y})`);
+  }
+
+  // Update Map text labels active state
+  document.querySelectorAll('#delivery-map-text-labels text').forEach(t => {
+    const isSel = t.dataset.id === placeId;
+    t.classList.toggle('active-place', isSel);
+  });
+
+  // Update map pin markers
+  document.querySelectorAll('.delivery-pin-group').forEach(group => {
+    const isSel = group.dataset.id === placeId;
+    const circle = group.querySelector('circle');
+    if (circle) {
+      const p = neighborhoods.find(n => n.id === group.dataset.id);
+      circle.setAttribute('r', isSel ? '9' : '6');
+      circle.setAttribute('stroke-width', isSel ? '2.5' : '1.5');
+      circle.setAttribute('fill', isSel ? '#f59e0b' : (p?.zone === 'direct' ? '#ef4444' : '#ff00a6'));
+      circle.setAttribute('fill-opacity', isSel ? '1' : '0.85');
+    }
+  });
+}
+
 function renderDeliveryArea(restaurant) {
   const { restaurantArea, snappfoodArea, neighborhoods, note } = deliveryData;
+  const activePlace = neighborhoods.find(n => n.id === selectedNeighborhoodId) || neighborhoods[0];
+  const isDirect = activePlace.zone === 'direct';
+
   return `
     <section id="delivery-area" class="w-full max-w-7xl mx-auto rounded-3xl glass-card overflow-hidden mt-10 p-4 sm:p-6 lg:p-8 border border-white/[0.08] shadow-2xl text-right" aria-labelledby="delivery-title">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
@@ -91,9 +191,9 @@ function renderDeliveryArea(restaurant) {
         <!-- Radar Map (6 cols on lg desktop) -->
         <div class="lg:col-span-6 w-full flex justify-center">
           <div class="relative w-full max-w-[500px] rounded-2xl overflow-hidden border border-white/[0.1] bg-[#16181b] shadow-xl">
-            <svg viewBox="0 0 520 420" class="w-full h-auto block" role="img" aria-labelledby="delivery-map-title delivery-map-desc">
-              <title id="delivery-map-title">نمای تقریبی محدوده ارسال آتیش</title>
-              <desc id="delivery-map-desc">دایره قرمز محدوده پیک مستقیم و خط‌چین محدوده اسنپ‌فود است.</desc>
+            <svg id="delivery-radar-svg" viewBox="0 0 520 420" class="w-full h-auto block select-none" role="img" aria-labelledby="delivery-map-title delivery-map-desc">
+              <title id="delivery-map-title">نمای هوشمند محدوده ارسال آتیش</title>
+              <desc id="delivery-map-desc">دایره قرمز محدوده پیک مستقیم و خط‌چین صورتی محدوده اسنپ‌فود است.</desc>
               <defs>
                 <pattern id="delivery-grid" width="42" height="42" patternUnits="userSpaceOnUse">
                   <path d="M42 0H0V42" fill="none" stroke="#ffffff" stroke-opacity=".03"/>
@@ -113,18 +213,44 @@ function renderDeliveryArea(restaurant) {
                 <path d="M385 -20L359 107 381 221 345 330 372 440"/>
                 <path d="M-10 362L140 339 274 353 411 333 535 352"/>
               </g>
+              <!-- Snappfood Zone Radius -->
               <circle cx="${snappfoodArea.cx}" cy="${snappfoodArea.cy}" r="${snappfoodArea.radius}" fill="#ff00a6" fill-opacity=".04" stroke="#ff00a6" stroke-width="2" stroke-dasharray="8 8"/>
+              <!-- Direct Atish Delivery Zone Radius -->
               <circle cx="${restaurantArea.cx}" cy="${restaurantArea.cy}" r="${restaurantArea.radius}" fill="#ef4444" fill-opacity=".12" stroke="#ef4444" stroke-width="2.5"/>
-              <g class="delivery-place-labels">
-                ${neighborhoods.map(place => `<text x="${place.x}" y="${place.y}" text-anchor="middle">${place.name}</text>`).join('')}
+              
+              <!-- Neighborhood Pin Markers -->
+              <g id="delivery-map-pins">
+                ${neighborhoods.map(place => {
+                  const isSelected = place.id === selectedNeighborhoodId;
+                  return `
+                    <g class="delivery-pin-group cursor-pointer" data-id="${place.id}" transform="translate(${place.x} ${place.y})">
+                      <circle r="${isSelected ? '9' : '6'}" fill="${isSelected ? '#f59e0b' : (place.zone === 'direct' ? '#ef4444' : '#ff00a6')}" stroke="#ffffff" stroke-width="${isSelected ? '2.5' : '1.5'}" fill-opacity="${isSelected ? '1' : '0.85'}"/>
+                    </g>
+                  `;
+                }).join('')}
               </g>
+
+              <!-- Active Highlight Pin Pulse -->
+              <g id="delivery-active-pulse" transform="translate(${activePlace.x} ${activePlace.y})">
+                <circle r="22" fill="#f59e0b" fill-opacity=".35" class="animate-ping"/>
+              </g>
+
+              <!-- Neighborhood Labels -->
+              <g class="delivery-place-labels" id="delivery-map-text-labels">
+                ${neighborhoods.map(place => {
+                  const isSelected = place.id === selectedNeighborhoodId;
+                  return `<text x="${place.x}" y="${place.y - 12}" text-anchor="middle" data-id="${place.id}" class="${isSelected ? 'active-place' : ''}">${place.name}</text>`;
+                }).join('')}
+              </g>
+
+              <!-- Restaurant Center Marker -->
               <g transform="translate(260 210)">
                 <circle r="32" fill="#f59e0b" fill-opacity=".15" class="animate-pulse"/>
                 <circle r="16" fill="#f59e0b" stroke="#14171a" stroke-width="4"/>
                 <circle r="5" fill="#14171a"/>
               </g>
               <text x="260" y="256" class="delivery-brand-label" text-anchor="middle">🔥 آتیش</text>
-              <text x="28" y="394" class="delivery-map-caption">نقشه تقریبی دلیوری · بدون مقیاس</text>
+              <text x="28" y="394" class="delivery-map-caption">نقشه تعاملی دلیوری · کلیک روی محله</text>
             </svg>
           </div>
         </div>
@@ -132,55 +258,104 @@ function renderDeliveryArea(restaurant) {
         <!-- Info & Actions (6 cols on lg desktop) -->
         <div class="lg:col-span-6 flex flex-col justify-center">
           <div class="flex items-center justify-between gap-3 mb-2">
-            <span class="text-xs font-bold text-amber-400">🛵 از فست‌فود آتیش تا منزل شما</span>
+            <span class="text-xs font-bold text-amber-400">🛵 استعلام هوشمند محدوده پیک</span>
             <span class="text-[11px] font-bold text-amber-300 bg-amber-500/10 border border-amber-500/30 px-2.5 py-0.5 rounded-full">شمال تهران</span>
           </div>
-          <h2 id="delivery-title" class="text-xl lg:text-2xl font-black text-white mb-2">محدوده ارسال دلیوری</h2>
-          <p class="text-xs sm:text-sm text-zinc-300 leading-relaxed mb-4 font-light">
-            پیک مستقیم فست‌فود و سفارش اسنپ‌فود در محدوده محله‌های شمال تهران فعال است.
+          <h2 id="delivery-title" class="text-xl lg:text-2xl font-black text-white mb-2">محله خود را انتخاب کنید</h2>
+          <p class="text-xs sm:text-sm text-zinc-300 leading-relaxed mb-3 font-light">
+            با لمس هر محله، وضعیت ارسال، زمان تقریبی و نوع پیک (پیک مستقیم یا اسنپ‌فود) را استعلام کنید:
           </p>
 
-          <!-- Neighborhood badges -->
-          <div class="flex flex-wrap gap-1.5 mb-4">
-            ${neighborhoods.map(place => `
-              <span class="text-[11px] px-2.5 py-1 rounded-xl bg-white/[0.04] border border-white/[0.08] text-zinc-300 font-medium">
-                📍 ${place.name}
+          <!-- Interactive Neighborhood Filter Chips -->
+          <div class="flex flex-wrap gap-1.5 mb-4 max-h-36 overflow-y-auto p-1.5 rounded-2xl bg-black/30 border border-white/[0.06]" id="delivery-chips-container">
+            ${neighborhoods.map(place => {
+              const isSelected = place.id === selectedNeighborhoodId;
+              return `
+                <button 
+                  type="button" 
+                  data-id="${place.id}" 
+                  class="delivery-chip-btn text-[11px] px-3 py-1.5 rounded-xl font-bold transition flex items-center gap-1.5 ${
+                    isSelected 
+                      ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-black shadow-md shadow-orange-500/30 scale-105' 
+                      : 'bg-white/[0.04] border border-white/[0.08] text-zinc-300 hover:bg-white/[0.08] hover:text-white'
+                  }"
+                >
+                  <span>📍</span>
+                  <span>${place.name}</span>
+                  ${isSelected ? '<span class="text-xs">✓</span>' : ''}
+                </button>
+              `;
+            }).join('')}
+          </div>
+
+          <!-- Dynamic Result Card -->
+          <div id="delivery-status-card" class="p-4 rounded-2xl border transition-all duration-300 mb-4 ${
+            isDirect 
+              ? 'bg-gradient-to-br from-emerald-950/40 via-[#18181c] to-emerald-950/20 border-emerald-500/40 shadow-lg shadow-emerald-950/30' 
+              : 'bg-gradient-to-br from-pink-950/40 via-[#18181c] to-pink-950/20 border-pink-500/40 shadow-lg shadow-pink-950/30'
+          }">
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <div class="flex items-center gap-2">
+                <span class="text-base">${isDirect ? '⚡️' : '🛵'}</span>
+                <h3 class="text-sm sm:text-base font-black text-white" id="delivery-card-title">ارسال به ${activePlace.name}</h3>
+              </div>
+              <span id="delivery-card-badge" class="text-[11px] font-bold px-2.5 py-1 rounded-full ${
+                isDirect 
+                  ? 'bg-emerald-500/20 text-emerald-300 border border-emerald-500/30' 
+                  : 'bg-pink-500/20 text-pink-300 border border-pink-500/30'
+              }">
+                ${activePlace.badge}
               </span>
-            `).join('')}
+            </div>
+            
+            <div class="flex items-center gap-2 text-xs font-bold text-amber-400 mb-2">
+              <span>⏱ زمان تقریبی تحویل:</span>
+              <span class="text-white" id="delivery-card-time">${activePlace.time}</span>
+            </div>
+
+            <p class="text-xs text-zinc-300 leading-relaxed font-light mb-3" id="delivery-card-desc">
+              ${activePlace.desc}
+            </p>
+
+            <!-- Actions -->
+            <div class="flex flex-col sm:flex-row gap-2" id="delivery-card-actions">
+              <a id="delivery-call-link" href="tel:${restaurant.phone || CONFIG.phoneNumber}" class="flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold text-xs shadow-md transition">
+                ${ICONS.phone}
+                <span>سفارش تلفنی به ${activePlace.name}</span>
+                <span dir="ltr" class="inline-flex items-center tracking-wider mr-1 text-[11px]">
+                  (<span>۰۲۱</span><span>-</span><span>۲۲۵۶۱۹۴۹</span>)
+                </span>
+              </a>
+              ${!isDirect ? `
+                <a href="${restaurant.snappfoodUrl}" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-pink-500/15 border border-pink-500/30 text-pink-400 hover:bg-pink-500/25 font-bold text-xs transition">
+                  ${ICONS.scooter}
+                  <span>سفارش در اسنپ‌فود</span>
+                </a>
+              ` : ''}
+            </div>
           </div>
 
           <!-- Legend -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3.5 rounded-2xl bg-white/[0.03] border border-white/[0.06] mb-4 text-xs">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 p-3 rounded-2xl bg-white/[0.03] border border-white/[0.06] mb-3 text-xs">
             <div class="flex items-center gap-2.5">
-              <span class="w-4 h-4 rounded-full border-2 border-red-500 bg-red-500/20 flex-shrink-0"></span>
+              <span class="w-3.5 h-3.5 rounded-full border-2 border-red-500 bg-red-500/20 flex-shrink-0"></span>
               <div>
-                <strong class="text-white block font-bold">پیک اختصاصی رستوران</strong>
-                <span class="text-zinc-400 text-[11px]">دروس، دولت، قلهک، پاسداران</span>
+                <strong class="text-white block font-bold text-[11px]">پیک اختصاصی رستوران</strong>
+                <span class="text-zinc-400 text-[10px]">دروس، دولت، قلهک، پاسداران</span>
               </div>
             </div>
             <div class="flex items-center gap-2.5">
-              <span class="w-4 h-4 rounded-full border-2 border-dashed border-pink-500 bg-pink-500/20 flex-shrink-0"></span>
+              <span class="w-3.5 h-3.5 rounded-full border-2 border-dashed border-pink-500 bg-pink-500/20 flex-shrink-0"></span>
               <div>
-                <strong class="text-white block font-bold">اسنپ‌فود</strong>
-                <span class="text-zinc-400 text-[11px]">شعاع گسترده‌تر با پیک اکسپرس</span>
+                <strong class="text-white block font-bold text-[11px]">اسنپ‌فود و اکسپرس</strong>
+                <span class="text-zinc-400 text-[10px]">شعاع گسترده‌تر شمال تهران</span>
               </div>
             </div>
           </div>
 
-          <p class="text-[11px] text-zinc-400 leading-relaxed mb-5 border-t border-white/[0.06] pt-3">
+          <p class="text-[11px] text-zinc-400 leading-relaxed border-t border-white/[0.06] pt-2.5">
             ${note}
           </p>
-
-          <!-- Actions (Single Direct Call Button) -->
-          <div>
-            <a href="tel:${restaurant.phone || CONFIG.phoneNumber}" class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold text-xs shadow-lg shadow-emerald-500/20 transition">
-              ${ICONS.phone}
-              <span>تماس برای استعلام محدوده و سفارش</span>
-              <span dir="ltr" class="inline-flex items-center font-bold tracking-wider mr-1">
-                (<span>۰۲۱</span><span>-</span><span>۲۲۵۶۱۹۴۹</span>)
-              </span>
-            </a>
-          </div>
         </div>
 
       </div>
@@ -266,6 +441,17 @@ function renderApp() {
             ${ICONS.scooter}
             <span>اسنپ‌فود</span>
           </a>
+
+          <!-- PWA Install Button -->
+          <button 
+            id="btn-install-pwa" 
+            class="hidden items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 hover:bg-amber-500/25 text-xs font-bold transition"
+            title="نصب اپلیکیشن منوی آتیش"
+          >
+            <span>📲</span>
+            <span class="hidden sm:inline">نصب اپلیکیشن</span>
+            <span class="sm:hidden">نصب</span>
+          </button>
 
           <!-- Mobile Search Toggle Button -->
           <button 
@@ -420,6 +606,35 @@ function renderApp() {
       <!-- Delivery Area Radar Section (Responsive Split Card) -->
       ${renderDeliveryArea(restaurant)}
 
+      <!-- PWA Dedicated Install Banner -->
+      <div id="pwa-install-banner" class="w-full max-w-7xl mx-auto rounded-3xl p-5 sm:p-6 bg-gradient-to-r from-amber-500/10 via-[#18181c] to-orange-500/10 border border-amber-500/20 shadow-xl mt-8 text-right">
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div class="flex items-center gap-3.5">
+            <div class="w-12 h-12 rounded-2xl bg-black/70 border border-amber-500/30 p-2 flex-shrink-0 shadow-lg flex items-center justify-center">
+              <img src="/icons/icon-192.png" alt="آتیش" class="w-full h-full object-contain" />
+            </div>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-sm sm:text-base font-black text-white">نصب وب‌اپلیکیشن منوی آتیش</h3>
+                <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30">PWA</span>
+              </div>
+              <p class="text-xs text-zinc-400 mt-0.5 leading-relaxed">
+                دسترسی فوق‌سریع بدون فیلترشکن، عملکرد آفلاین و دسترسی مستقیم با یک لمس روی صفحه گوشی
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 w-full sm:w-auto">
+            <button id="pwa-banner-install-btn" class="flex-1 sm:flex-initial px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 text-black font-black text-xs shadow-md shadow-orange-500/30 flex items-center justify-center gap-2 hover:opacity-95 transition">
+              <span>📲</span>
+              <span>نصب آسان روی صفحه اصلی</span>
+            </button>
+            <button id="pwa-banner-close-btn" class="w-8 h-8 rounded-xl bg-white/[0.05] hover:bg-white/[0.1] text-zinc-400 hover:text-white flex items-center justify-center text-xs transition" title="بستن">
+              ✕
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- Restaurant Info Card (Responsive Footer Section) -->
       <footer id="about-section" class="w-full max-w-7xl mx-auto bg-[#141417] border border-white/[0.08] rounded-3xl p-6 lg:p-8 mt-10 text-right shadow-xl">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
@@ -564,6 +779,38 @@ function renderApp() {
         >
           ${ICONS.plus}
           <span>افزودن آتیش برگر به لیست سفارش</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- iOS PWA Install Guide Modal -->
+    <div id="ios-install-modal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity">
+      <div class="w-full max-w-md bg-[#18181c] border-t sm:border border-white/[0.12] rounded-t-3xl sm:rounded-3xl p-5 shadow-2xl text-right">
+        <div class="flex items-center justify-between pb-3 border-b border-white/[0.08] mb-4">
+          <div class="flex items-center gap-2">
+            <span class="text-xl">📲</span>
+            <h3 class="text-sm font-black text-white">راهنمای نصب در آیفون (iOS)</h3>
+          </div>
+          <button id="close-ios-modal-btn" class="w-7 h-7 rounded-full bg-white/[0.08] flex items-center justify-center text-zinc-400 hover:text-white">
+            ✕
+          </button>
+        </div>
+        <div class="space-y-3 mb-5 text-xs text-zinc-300">
+          <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
+            <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold flex-shrink-0 text-xs">۱</span>
+            <p class="leading-relaxed">در پایین مرورگر Safari، دکمه اشتراک‌گذاری <strong class="text-white">Share (⎋)</strong> را بزنید.</p>
+          </div>
+          <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
+            <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold flex-shrink-0 text-xs">۲</span>
+            <p class="leading-relaxed">در منوی باز شده به پایین اسکرول کرده و گزینه <strong class="text-white">«Add to Home Screen» (افزودن به صفحه اصلی)</strong> را انتخاب کنید.</p>
+          </div>
+          <div class="flex items-start gap-3 p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
+            <span class="w-6 h-6 rounded-full bg-amber-500/20 text-amber-300 flex items-center justify-center font-bold flex-shrink-0 text-xs">۳</span>
+            <p class="leading-relaxed">در بالای صفحه روی گزینه <strong class="text-amber-400 font-bold">Add</strong> ضربه بزنید تا آیکون به صفحه اصلی گوشی اضافه شود.</p>
+          </div>
+        </div>
+        <button id="confirm-ios-modal-btn" class="w-full py-2.5 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 font-bold text-xs hover:bg-amber-500/30 transition">
+          متوجه شدم
         </button>
       </div>
     </div>
@@ -765,6 +1012,25 @@ function setupEventListeners() {
 
   document.getElementById('nav-menu-btn')?.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // Interactive Delivery Neighborhood selection
+  document.querySelectorAll('.delivery-chip-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      selectDeliveryNeighborhood(btn.dataset.id);
+    });
+  });
+
+  document.querySelectorAll('.delivery-pin-group').forEach(pin => {
+    pin.addEventListener('click', () => {
+      selectDeliveryNeighborhood(pin.dataset.id);
+    });
+  });
+
+  document.querySelectorAll('#delivery-map-text-labels text').forEach(text => {
+    text.addEventListener('click', () => {
+      selectDeliveryNeighborhood(text.dataset.id);
+    });
   });
 }
 
@@ -1524,6 +1790,83 @@ function attachCardEvents() {
   });
 }
 
+// PWA Installation & Service Worker Setup
+function initPWA() {
+  if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(err => {
+        console.log('SW registration error:', err);
+      });
+    });
+  }
+
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+  if (isStandalone) {
+    return;
+  }
+
+  const isIOS = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
+  const headerInstallBtn = document.getElementById('btn-install-pwa');
+  const banner = document.getElementById('pwa-install-banner');
+  const bannerInstallBtn = document.getElementById('pwa-banner-install-btn');
+  const bannerCloseBtn = document.getElementById('pwa-banner-close-btn');
+  const iosModal = document.getElementById('ios-install-modal');
+  const closeIosBtn = document.getElementById('close-ios-modal-btn');
+  const confirmIosBtn = document.getElementById('confirm-ios-modal-btn');
+
+  // On iOS, show install buttons since beforeinstallprompt doesn't fire on iOS Safari
+  if (isIOS) {
+    headerInstallBtn?.classList.remove('hidden');
+    headerInstallBtn?.classList.add('flex');
+    banner?.classList.remove('hidden');
+  }
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredInstallPrompt = e;
+    headerInstallBtn?.classList.remove('hidden');
+    headerInstallBtn?.classList.add('flex');
+    banner?.classList.remove('hidden');
+  });
+
+  const handleInstallClick = async () => {
+    if (isIOS) {
+      iosModal?.classList.remove('hidden');
+      return;
+    }
+
+    if (deferredInstallPrompt) {
+      deferredInstallPrompt.prompt();
+      const { outcome } = await deferredInstallPrompt.userChoice;
+      if (outcome === 'accepted') {
+        headerInstallBtn?.classList.add('hidden');
+        banner?.classList.add('hidden');
+        showToast('اپلیکیشن با موفقیت نصب شد');
+      }
+      deferredInstallPrompt = null;
+    } else {
+      showToast('برای نصب، از منوی مرورگر گزینه Add to Home Screen را بزنید.');
+    }
+  };
+
+  headerInstallBtn?.addEventListener('click', handleInstallClick);
+  bannerInstallBtn?.addEventListener('click', handleInstallClick);
+  bannerCloseBtn?.addEventListener('click', () => {
+    banner?.classList.add('hidden');
+  });
+
+  closeIosBtn?.addEventListener('click', () => {
+    iosModal?.classList.add('hidden');
+  });
+  confirmIosBtn?.addEventListener('click', () => {
+    iosModal?.classList.add('hidden');
+  });
+  iosModal?.addEventListener('click', (e) => {
+    if (e.target === iosModal) iosModal.classList.add('hidden');
+  });
+}
+
 // Initialize Application
 renderApp();
 updateTrayUI();
+initPWA();

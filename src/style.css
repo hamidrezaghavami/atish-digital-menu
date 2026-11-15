@@ -84,9 +84,29 @@
 /* Delivery Radar Map SVG Typography */
 .delivery-place-labels {
   fill: #d1d5db;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
   font-family: 'Vazirmatn', sans-serif;
+}
+
+.delivery-place-labels text {
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.delivery-place-labels text:hover {
+  fill: #f59e0b;
+}
+
+.delivery-place-labels text.active-place {
+  fill: #f59e0b;
+  font-weight: 900;
+  font-size: 15px;
+}
+
+.delivery-pin-group {
+  cursor: pointer;
 }
 
 .delivery-brand-label {
