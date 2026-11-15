@@ -86,6 +86,7 @@
 
 .compact-photo-frame {
   aspect-ratio: 4 / 3;
+  background: linear-gradient(180deg, #22222a 0%, #16161b 100%);
 }
 
 /* Delivery Radar Map SVG Typography */

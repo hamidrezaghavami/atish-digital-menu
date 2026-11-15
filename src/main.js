@@ -1709,7 +1709,7 @@ function renderMenuItems() {
         </button>
       </div>
       <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
-        ${items.map(item => renderFoodCard(item)).join('')}
+        ${items.map((item, idx) => renderFoodCard(item, idx < 4)).join('')}
       </div>
     `;
     document.getElementById('reset-search-btn-top')?.addEventListener('click', () => {
@@ -1728,7 +1728,7 @@ function renderMenuItems() {
     return;
   }
 
-  container.innerHTML = categories.map(category => {
+  container.innerHTML = categories.map((category, catIdx) => {
     const categoryItems = items.filter(i => i.categoryId === category.id);
     if (categoryItems.length === 0) return '';
 
@@ -1750,7 +1750,10 @@ function renderMenuItems() {
 
         <!-- Food Grid (Responsive: 2 cols on mobile, 3 on tablet, 4 on desktop) -->
         <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
-          ${categoryItems.map(item => renderFoodCard(item)).join('')}
+          ${categoryItems.map((item, itemIdx) => {
+            const isTop = catIdx === 0 && itemIdx < 4;
+            return renderFoodCard(item, isTop);
+          }).join('')}
         </div>
       </section>
     `;
@@ -1759,7 +1762,7 @@ function renderMenuItems() {
   attachCardEvents();
 }
 
-function renderFoodCard(item) {
+function renderFoodCard(item, isTop = false) {
   const countInTray = getItemTrayCount(item);
   const hasShapes = item.shapes && item.shapes.length > 1;
   const activeShapeId = itemSelectedShape[item.id] || 'normal';
@@ -1767,6 +1770,9 @@ function renderFoodCard(item) {
   const imgSrc = getImgSrc(activeShape ? activeShape.image : item.image);
   const badgeText = activeShape?.badge || item.badge;
   const isChef = !!item.isChefRecommendation;
+  const loadingAttrs = isTop 
+    ? 'loading="eager" fetchpriority="high"' 
+    : 'loading="lazy"';
 
   return `
     <article 
@@ -1783,7 +1789,7 @@ function renderFoodCard(item) {
             id="card-img-${item.id}"
             src="${imgSrc}" 
             alt="${item.title}" 
-            loading="lazy" 
+            ${loadingAttrs}
             decoding="async"
             class="w-full h-full object-cover group-hover:scale-105 transition-all duration-300"
             onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
@@ -2023,7 +2029,53 @@ function initPWA() {
   });
 }
 
+// Progressive background image cache pre-warming for instant, zero-delay scrolling
+function prewarmMenuImages() {
+  if (typeof window === 'undefined') return;
+
+  const imagesToWarm = [];
+  (restaurantMenuData.items || []).forEach(item => {
+    if (item.image) imagesToWarm.push(getImgSrc(item.image));
+    if (item.shapes) {
+      item.shapes.forEach(s => {
+        if (s.image) imagesToWarm.push(getImgSrc(s.image));
+      });
+    }
+  });
+
+  const uniqueImages = [...new Set(imagesToWarm)];
+  let idx = 0;
+
+  function fetchNextChunk() {
+    if (idx >= uniqueImages.length) return;
+    const chunk = uniqueImages.slice(idx, idx + 4);
+    idx += 4;
+
+    chunk.forEach(url => {
+      const img = new Image();
+      img.decoding = 'async';
+      img.src = url;
+    });
+
+    if (idx < uniqueImages.length) {
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(fetchNextChunk, { timeout: 1200 });
+      } else {
+        setTimeout(fetchNextChunk, 250);
+      }
+    }
+  }
+
+  // Start pre-fetching after initial view is fully rendered
+  if ('requestIdleCallback' in window) {
+    requestIdleCallback(fetchNextChunk, { timeout: 2000 });
+  } else {
+    setTimeout(fetchNextChunk, 500);
+  }
+}
+
 // Initialize Application
 renderApp();
 updateTrayUI();
 initPWA();
+prewarmMenuImages();
