@@ -1566,7 +1566,6 @@ function openItemModal(item) {
   let activeShape = hasShapes ? (item.shapes.find(s => s.id === activeShapeId) || item.shapes[0]) : null;
   const initialImg = activeShape ? activeShape.image : item.image;
   const thumbSrc = getThumbSrc(initialImg);
-  const fullSrc = getImgSrc(initialImg);
   const currentPrice = activeShape?.price || item.price;
 
   box.innerHTML = `
@@ -1686,18 +1685,6 @@ function openItemModal(item) {
 
   modal.classList.remove('hidden');
 
-  // Progressive high-res background enhancement without blocking
-  if (fullSrc && fullSrc !== thumbSrc) {
-    const hiRes = new Image();
-    hiRes.src = fullSrc;
-    hiRes.onload = () => {
-      const cur = document.getElementById('modal-main-img');
-      if (cur && cur.dataset.thumb === thumbSrc) {
-        cur.src = fullSrc;
-      }
-    };
-  }
-
   // Pre-warm other shapes so switching is 0ms instant
   if (hasShapes) {
     item.shapes.forEach(s => {
@@ -1716,27 +1703,15 @@ function openItemModal(item) {
       itemSelectedShape[item.id] = newShapeId;
       activeShape = item.shapes.find(s => s.id === newShapeId) || item.shapes[0];
 
-      // Update image instantly using cached thumbnail, then upgrade to full
+      // Update image instantly using cached thumbnail
       const imgEl = document.getElementById('modal-main-img');
       const shapeThumb = getThumbSrc(activeShape.image);
-      const shapeFull = getImgSrc(activeShape.image);
       if (imgEl) {
         imgEl.style.opacity = '0.5';
-        imgEl.dataset.thumb = shapeThumb;
         setTimeout(() => {
           imgEl.src = shapeThumb;
           imgEl.style.opacity = '1';
         }, 50);
-
-        if (shapeFull && shapeFull !== shapeThumb) {
-          const hiRes = new Image();
-          hiRes.src = shapeFull;
-          hiRes.onload = () => {
-            if (imgEl && imgEl.dataset.thumb === shapeThumb) {
-              imgEl.src = shapeFull;
-            }
-          };
-        }
       }
 
       // Update badge
