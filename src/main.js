@@ -207,11 +207,18 @@ function renderDeliveryArea(restaurant) {
                 <path d="M16 330L81 317 114 377 83 420H0Z"/>
               </g>
               <g fill="none" stroke="#2b3135" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M-20 120L126 103 251 119 390 93 545 117"/>
-                <path d="M-20 255L102 229 213 249 340 234 545 267"/>
-                <path d="M75 -10L108 110 148 220 145 335 190 440"/>
-                <path d="M385 -20L359 107 381 221 345 330 372 440"/>
-                <path d="M-10 362L140 339 274 353 411 333 535 352"/>
+                <!-- بزرگراه صدر (Sadr Expressway) -->
+                <path d="M-20 115 L145 108 L260 116 L380 98 L545 115"/>
+                <!-- خیابان شهید کلاهدوز / دولت (Dowlat Street) -->
+                <path d="M-20 208 L140 206 L260 210 L370 212 L545 218"/>
+                <!-- خیابان شریعتی (Shariati Street) -->
+                <path d="M145 -10 L145 108 L140 206 L135 315 L130 430"/>
+                <!-- خیابان دیباجی (Dibaji Street) -->
+                <path d="M255 116 L255 210"/>
+                <!-- خیابان پاسداران (Pasdaran Avenue) -->
+                <path d="M375 -10 L375 100 L370 212 L365 315 L360 430"/>
+                <!-- بزرگراه همت / میرداماد (Southern Corridor) -->
+                <path d="M-20 345 L135 335 L260 348 L390 340 L545 352"/>
               </g>
               <!-- Snappfood Zone Radius -->
               <circle cx="${snappfoodArea.cx}" cy="${snappfoodArea.cy}" r="${snappfoodArea.radius}" fill="#ff00a6" fill-opacity=".04" stroke="#ff00a6" stroke-width="2" stroke-dasharray="8 8"/>
@@ -239,7 +246,7 @@ function renderDeliveryArea(restaurant) {
               <g class="delivery-place-labels" id="delivery-map-text-labels">
                 ${neighborhoods.map(place => {
                   const isSelected = place.id === selectedNeighborhoodId;
-                  return `<text x="${place.x}" y="${place.y - 12}" text-anchor="middle" data-id="${place.id}" class="${isSelected ? 'active-place' : ''}">${place.name}</text>`;
+                  return `<text x="${place.x}" y="${place.y - 11}" text-anchor="middle" data-id="${place.id}" class="${isSelected ? 'active-place' : ''}">${place.name}</text>`;
                 }).join('')}
               </g>
 
@@ -249,7 +256,7 @@ function renderDeliveryArea(restaurant) {
                 <circle r="16" fill="#f59e0b" stroke="#14171a" stroke-width="4"/>
                 <circle r="5" fill="#14171a"/>
               </g>
-              <text x="260" y="256" class="delivery-brand-label" text-anchor="middle">🔥 آتیش</text>
+              <text x="260" y="196" class="delivery-brand-label" text-anchor="middle">🔥 آتیش</text>
               <text x="28" y="394" class="delivery-map-caption">نقشه تعاملی دلیوری · کلیک روی محله</text>
             </svg>
           </div>
