@@ -2159,7 +2159,9 @@ function attachCardEvents() {
 function initPWA() {
   if ('serviceWorker' in navigator && window.location.protocol.startsWith('http')) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/sw.js').catch(err => {
+      navigator.serviceWorker.register('/sw.js').then(reg => {
+        reg.update();
+      }).catch(err => {
         console.log('SW registration error:', err);
       });
     });
@@ -2281,15 +2283,18 @@ function prewarmMenuImages() {
 // Greeting Mascot (Waves upon arrival and disappears, online only)
 function initGreetingMascot() {
   // 1. Must NOT work in offline mode
-  if (typeof navigator !== 'undefined' && !navigator.onLine) return;
+  if (typeof navigator !== 'undefined' && navigator.onLine === false) return;
 
-  // 2. Only show once per session so it doesn't disturb repetitive navigation
-  if (sessionStorage.getItem('atish_mascot_shown')) return;
+  // 2. Pre-load image so it renders instantly with zero blank flash
+  const img = new Image();
+  img.src = '/images/atish-mascot.webp';
 
-  // Wait 1.2s after page load for smooth entry
-  setTimeout(() => {
-    // Re-check online status in case network dropped
-    if (!navigator.onLine) return;
+  img.onload = () => {
+    // Re-check online status
+    if (typeof navigator !== 'undefined' && navigator.onLine === false) return;
+
+    // Remove any existing mascot element
+    document.getElementById('atish-mascot-greeting')?.remove();
 
     const mascot = document.createElement('div');
     mascot.id = 'atish-mascot-greeting';
@@ -2304,17 +2309,16 @@ function initGreetingMascot() {
 
     document.body.appendChild(mascot);
 
-    // Trigger smooth slide in
-    requestAnimationFrame(() => {
+    // Force browser layout reflow, then animate slide-in
+    void mascot.offsetWidth;
+    setTimeout(() => {
       mascot.classList.add('mascot-visible');
-    });
+    }, 60);
 
-    sessionStorage.setItem('atish_mascot_shown', 'true');
-
-    // Auto dismiss after 3.8s of waving
+    // Auto dismiss after 6 seconds of waving
     const dismissTimeout = setTimeout(() => {
       dismissMascot();
-    }, 3800);
+    }, 6000);
 
     function dismissMascot() {
       clearTimeout(dismissTimeout);
@@ -2322,12 +2326,12 @@ function initGreetingMascot() {
       mascot.classList.add('mascot-leaving');
       setTimeout(() => {
         mascot.remove();
-      }, 600);
+      }, 700);
     }
 
     // Tapping also dismisses it immediately
     mascot.addEventListener('click', dismissMascot);
-  }, 1200);
+  };
 }
 
 // Initialize Application

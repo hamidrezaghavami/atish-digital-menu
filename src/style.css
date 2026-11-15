@@ -217,15 +217,15 @@
 /* Greeting Mascot (Online-only visitor wave) */
 .mascot-container {
   position: fixed;
-  bottom: calc(82px + env(safe-area-inset-bottom, 0px));
+  bottom: calc(84px + env(safe-area-inset-bottom, 0px));
   left: 14px;
-  z-index: 50;
+  z-index: 999;
   display: flex;
   align-items: flex-end;
   gap: 8px;
   pointer-events: auto;
   cursor: pointer;
-  transform: translateY(140%) scale(0.65);
+  transform: translateY(160%) scale(0.65);
   opacity: 0;
   transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.5s ease;
 }
@@ -238,55 +238,56 @@
 }
 
 .mascot-container.mascot-visible {
-  transform: translateY(0) scale(1);
-  opacity: 1;
+  transform: translateY(0) scale(1) !important;
+  opacity: 1 !important;
 }
 
 .mascot-container.mascot-leaving {
-  transform: translateY(140%) scale(0.65);
-  opacity: 0;
+  transform: translateY(160%) scale(0.65) !important;
+  opacity: 0 !important;
   pointer-events: none;
   transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.4s ease;
 }
 
 .mascot-avatar {
-  width: 64px;
-  height: 64px;
-  filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.55)) drop-shadow(0 0 12px rgba(245, 158, 11, 0.4));
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 18px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 14px rgba(245, 158, 11, 0.5));
   transform-origin: 50% 85%;
 }
 
 @media (min-width: 640px) {
   .mascot-avatar {
-    width: 76px;
-    height: 76px;
+    width: 84px;
+    height: 84px;
   }
 }
 
 .mascot-container.mascot-visible .mascot-avatar {
-  animation: mascotWaving 1.4s ease-in-out infinite alternate;
+  animation: mascotWaving 1.3s ease-in-out infinite alternate;
 }
 
 @keyframes mascotWaving {
-  0% { transform: rotate(-5deg); }
-  50% { transform: rotate(10deg); }
-  100% { transform: rotate(-7deg); }
+  0% { transform: rotate(-6deg) scale(1); }
+  50% { transform: rotate(12deg) scale(1.05); }
+  100% { transform: rotate(-8deg) scale(1); }
 }
 
 .mascot-bubble {
-  background: rgba(24, 24, 28, 0.95);
-  border: 1px solid rgba(245, 158, 11, 0.45);
+  background: rgba(20, 20, 24, 0.96);
+  border: 1.5px solid rgba(245, 158, 11, 0.55);
   color: #fff;
-  padding: 6px 11px;
-  border-radius: 14px;
+  padding: 7px 12px;
+  border-radius: 16px;
   border-bottom-left-radius: 4px;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 800;
   white-space: nowrap;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.45);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.55), 0 0 10px rgba(245, 158, 11, 0.2);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  animation: mascotBubblePop 0.4s ease-out 0.25s backwards;
+  animation: mascotBubblePop 0.4s ease-out 0.2s backwards;
 }
 
 @keyframes mascotBubblePop {
