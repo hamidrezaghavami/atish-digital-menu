@@ -1087,6 +1087,10 @@ function getTrayItemDetails(key) {
 function addItemToTray(itemId) {
   orderTray[itemId] = (orderTray[itemId] || 0) + 1;
   saveTray();
+  const trayModal = document.getElementById('tray-modal');
+  if (trayModal && !trayModal.classList.contains('hidden')) {
+    renderTrayModal();
+  }
 }
 
 function removeItemFromTray(itemId) {
@@ -1193,16 +1197,40 @@ function renderTrayModal() {
             </div>
 
             <!-- Quantity Counter Controls -->
-            <div class="flex items-center gap-1.5 bg-[#222228] border border-white/[0.1] rounded-lg px-1.5 py-1">
-              <button data-action="decrease" data-id="${id}" class="w-5 h-5 rounded bg-white/[0.06] flex items-center justify-center text-zinc-300 hover:text-white">
-                ${ICONS.minus}
-              </button>
-              <span class="text-xs font-black text-amber-400 px-1 min-w-[16px] text-center">${toPersianDigits(qty)}</span>
-              <button data-action="increase" data-id="${id}" class="w-5 h-5 rounded bg-white/[0.06] flex items-center justify-center text-zinc-300 hover:text-white">
-                ${ICONS.plus}
-              </button>
-              <button data-action="delete" data-id="${id}" class="w-5 h-5 rounded text-red-400 hover:text-red-300 ml-0.5">
-                ${ICONS.trash}
+            <div class="flex items-center gap-1.5 flex-shrink-0">
+              <div class="flex items-center bg-[#222228] border border-white/[0.12] rounded-xl p-1 gap-1">
+                <button 
+                  type="button"
+                  data-action="decrease" 
+                  data-id="${id}" 
+                  class="w-7 h-7 rounded-lg bg-white/[0.06] hover:bg-white/[0.15] active:scale-90 flex items-center justify-center text-zinc-300 hover:text-white transition"
+                  aria-label="کاهش تعداد"
+                >
+                  <span class="pointer-events-none">${ICONS.minus}</span>
+                </button>
+                <span class="text-xs sm:text-sm font-black text-amber-400 px-1.5 min-w-[20px] text-center select-none pointer-events-none">
+                  ${toPersianDigits(qty)}
+                </span>
+                <button 
+                  type="button"
+                  data-action="increase" 
+                  data-id="${id}" 
+                  class="w-7 h-7 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 active:scale-90 flex items-center justify-center text-amber-300 hover:text-white transition"
+                  aria-label="افزایش تعداد"
+                >
+                  <span class="pointer-events-none">${ICONS.plus}</span>
+                </button>
+              </div>
+
+              <!-- Delete (Trash) Button -->
+              <button 
+                type="button"
+                data-action="delete" 
+                data-id="${id}" 
+                class="w-8 h-8 rounded-xl bg-red-500/10 hover:bg-red-500/20 border border-red-500/25 active:scale-90 flex items-center justify-center text-red-400 hover:text-red-300 transition"
+                aria-label="حذف این آیتم"
+              >
+                <span class="pointer-events-none">${ICONS.trash}</span>
               </button>
             </div>
           </div>
@@ -1260,7 +1288,9 @@ function renderTrayModal() {
   });
 
   box.querySelectorAll('button[data-action]').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
       const action = btn.dataset.action;
       const id = btn.dataset.id;
       if (action === 'increase') addItemToTray(id);
