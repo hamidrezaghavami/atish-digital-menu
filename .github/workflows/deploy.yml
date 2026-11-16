@@ -1,0 +1,66 @@
+name: Deploy to ArvanCloud Storage
+
+on:
+  push:
+    branches:
+      - main
+
+concurrency:
+  group: arvancloud-production
+  cancel-in-progress: false
+
+jobs:
+  build_and_deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build production site
+        run: pnpm run build
+
+      - name: Deploy static assets to ArvanCloud S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.ARVAN_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.ARVAN_SECRET_KEY }}
+          AWS_DEFAULT_REGION: ir-central1
+        run: |
+          # 1. Sync all assets & images with long-term immutable caching
+          aws s3 sync dist/ s3://pizzaatish \
+            --endpoint-url=https://s3.ir-central1.arvanstorage.ir \
+            --delete \
+            --acl public-read \
+            --cache-control "public, max-age=31536000, immutable" \
+            --exclude "index.html" \
+            --exclude "sw.js" \
+            --exclude "manifest.json"
+
+          # 2. Upload index.html with no-cache so users always get the freshest version
+          aws s3 cp dist/index.html s3://pizzaatish/index.html \
+            --endpoint-url=https://s3.ir-central1.arvanstorage.ir \
+            --acl public-read \
+            --cache-control "public, max-age=0, must-revalidate"
+
+          # 3. Upload Service Worker with no-cache
+          aws s3 cp dist/sw.js s3://pizzaatish/sw.js \
+            --endpoint-url=https://s3.ir-central1.arvanstorage.ir \
+            --acl public-read \
+            --cache-control "public, max-age=0, must-revalidate"
+
+          # 4. Upload manifest.json
+          aws s3 cp dist/manifest.json s3://pizzaatish/manifest.json \
+            --endpoint-url=https://s3.ir-central1.arvanstorage.ir \
+            --acl public-read \
+            --cache-control "public, max-age=86400, stale-while-revalidate=86400"
