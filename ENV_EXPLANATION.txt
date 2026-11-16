@@ -1,0 +1,40 @@
+================================================================================
+ATISH DIGITAL MENU - ENVIRONMENT & CONFIGURATION GUIDE
+================================================================================
+
+1. IS A .env FILE NEEDED?
+--------------------------------------------------------------------------------
+NO, you DO NOT need a .env file for this project.
+
+2. WHY IS THERE NO .env FILE?
+--------------------------------------------------------------------------------
+Atish Digital Menu is a pure Static PWA (Progressive Web Application). 
+Unlike backend servers (Node.js, Python, PHP) which need secret database passwords 
+or private API tokens at runtime, a frontend menu runs entirely in the customer's 
+browser.
+
+Putting secrets in a frontend .env file is actually a security hazard because 
+Vite/frontend tools compile environment variables directly into public JavaScript, 
+making them visible to anyone who visits the site.
+
+3. WHERE ARE ALL YOUR SETTINGS CONFIGURED?
+--------------------------------------------------------------------------------
+- Restaurant Info & Contacts:
+  -> src/config.js (Phone numbers, Instagram, Snappfood link, Address, Hours)
+
+- Menu Categories & Food Items:
+  -> src/data/menu.json (All items, prices, descriptions, ingredients, shapes)
+
+- Delivery Zones & Shipping Fees:
+  -> src/data/delivery.json (Neighborhoods, minimum orders, delivery costs)
+
+4. WHERE ARE DEPLOYMENT KEYS STORED?
+--------------------------------------------------------------------------------
+Your cloud deployment keys (ArvanCloud S3 Access Key & Secret Key) are stored 
+safely in:
+-> GitHub Repository -> Settings -> Secrets and variables -> Actions
+(ARVAN_ACCESS_KEY and ARVAN_SECRET_KEY)
+
+This is the industry-standard secure method. GitHub injects them temporarily 
+only during the build process, so they never leak into the repository code.
+================================================================================
