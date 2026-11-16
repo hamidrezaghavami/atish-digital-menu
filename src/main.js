@@ -2330,7 +2330,7 @@ function prewarmMenuImages() {
   if (typeof window === 'undefined') return;
 
   const imagesToWarm = [];
-  (restaurantMenuData.items || []).forEach(item => {
+  (menuData.items || []).forEach(item => {
     if (item.image) {
       imagesToWarm.push(getThumbSrc(item.image));
     }
