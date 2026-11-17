@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "node scripts/generate-thumbnails.js && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy:vouchers": "pnpm run build && git add src/data/voucher-hashes.json dist/ && git commit -m 'update vouchers' && git push origin main"
   },
   "devDependencies": {
     "autoprefixer": "^10.6.1",
