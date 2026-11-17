@@ -1364,6 +1364,18 @@ function sha256Sync(ascii) {
   return result;
 }
 
+const ATISH_OFFER_SALT = '430802b15c708a5315088e1bfa96046983a92af6ff3a558b';
+
+function computeChecksum9(payload) {
+  let h = 0x811c9dc5;
+  const str = `${payload.toUpperCase()}_${ATISH_OFFER_SALT}`;
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i);
+    h = Math.imul(h, 0x01000193);
+  }
+  return String(Math.abs(h) % 1000).padStart(3, '0');
+}
+
 function verifyVoucherCode(raw) {
   if (!raw) return { valid: false, reason: 'کدی وارد نشده است.' };
   
@@ -1381,8 +1393,17 @@ function verifyVoucherCode(raw) {
     const formatted = `${clean.slice(0, 3)}-${clean.slice(3, 6)}-${clean.slice(6, 9)}`;
     const inputHash = sha256Sync(formatted);
 
-    // Cryptographic one-way SHA-256 hash match (100% secure, zero secret key exposure in browser)
+    // 1. Primary check: SHA-256 hash match against active deployed list
     if (voucherHashes && voucherHashes.includes(inputHash)) {
+      return { valid: true, code: formatted };
+    }
+
+    // 2. Instant Mathematical Checksum Fallback:
+    // Ensures newly printed/scanned vouchers work IMMEDIATELY on any device,
+    // even before GitHub Actions finishes deploying or when browser serves cached bundle!
+    const payload = clean.slice(0, 6);
+    const checksum = clean.slice(6, 9);
+    if (computeChecksum9(payload) === checksum) {
       return { valid: true, code: formatted };
     }
   }
