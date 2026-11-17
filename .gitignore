@@ -1,3 +1,5 @@
 node_modules
 .firebase
+.env*
 scripts/generate-promo-qrs.js
+scripts/update-pin.js
