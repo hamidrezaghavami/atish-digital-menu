@@ -1,83 +1,77 @@
-# 🔥 Atish Digital Menu & Ordering WebApp
-### منوی دیجیتال و کاتالوگ آنلاین فست‌فود و گریل آتیش
+# 🔥 Atish Digital Menu & Guest Experience
+### منوی دیجیتال و کاتالوگ تعاملی فست‌فود و گریل آتیش
 
-[![Live Production](https://img.shields.io/badge/Live%20Production-pizzaatish-e11d48?style=for-the-badge&logo=fastapi&logoColor=white)](https://pizzaatish.s3-website.ir-central1.arvanstorage.ir)
-[![Cloud Infrastructure](https://img.shields.io/badge/Cloud%20CDN-ArvanCloud%20Tehran-00b4d8?style=for-the-badge&logo=cloudflare&logoColor=white)](https://pizzaatish.s3-website.ir-central1.arvanstorage.ir)
-[![PWA](https://img.shields.io/badge/PWA-Installable%20%26%20Offline-5A0FC8?style=for-the-badge&logo=pwa&logoColor=white)](https://pizzaatish.s3-website.ir-central1.arvanstorage.ir)
-[![Snappfood Rating](https://img.shields.io/badge/Snappfood-⭐%204.4%2F5-ff00a6?style=for-the-badge)](https://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/)
-[![Architecture](https://img.shields.io/badge/Architecture-100%25%20Client--Side-brightgreen?style=for-the-badge)](https://pizzaatish.s3-website.ir-central1.arvanstorage.ir)
+[![Live Menu](https://img.shields.io/badge/Official%20Menu-Atish%20Restaurant-e11d48?style=for-the-badge)](https://pizzaatish.s3-website.ir-central1.arvanstorage.ir)
+[![Snappfood Rating](https://img.shields.io/badge/Snappfood%20Rating-⭐%204.4%20%2F%205-ff00a6?style=for-the-badge)](https://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/)
+[![Location](https://img.shields.io/badge/Location-Tehran%20%7C%20Dowlat%20%26%20Darrous-00b4d8?style=for-the-badge)](https://pizzaatish.s3-website.ir-central1.arvanstorage.ir)
+[![Experience](https://img.shields.io/badge/Experience-Instant%20Mobile%20PWA-5A0FC8?style=for-the-badge)](https://pizzaatish.s3-website.ir-central1.arvanstorage.ir)
 
-A high-performance, mobile-first **Progressive Web Application (PWA)** custom-engineered for **Atish Fast Food & Grill (فست‌فود و گریل آتیش)** in North Tehran (Darrous / Dowlat). 
+Welcome to the official digital menu and interactive customer showcase for **Atish Fast Food & Grill (فست‌فود و گریل آتیش)** — a premier culinary destination in North Tehran renowned for flame-grilled gourmet burgers, oven-baked artisan pizzas, and handcrafted fast food.
 
-Designed for instant table-side QR code scanning, packaging inserts, social media bio integration, and online delivery ordering—delivering a native mobile app experience with **sub-second loading speeds**, **offline support**, and **zero backend dependencies**.
-
----
-
-## 🚀 Live Production Access
-
-* **Current Cloud Endpoint:** [https://pizzaatish.s3-website.ir-central1.arvanstorage.ir](https://pizzaatish.s3-website.ir-central1.arvanstorage.ir)
-* **Official Custom Domain:** `pizzaatish.ir` *(Coming soon)*
-* **Accessibility:** 100% available nationwide on all Iranian cellular and broadband carriers (Irancell, Hamrah Aval, RighTel, ADSL/VDSL/FTTH) without VPN or censorship interruptions.
+Crafted to provide a seamless, premium dining experience: scan a table QR code, browse high-definition food showcases, customize signature orders, and place direct delivery orders effortlessly.
 
 ---
 
-## 🌟 Commercial Highlights & Features
+## 🌐 Instant Online Access
 
-### 🍔 1. Interactive 3D Burger Anatomy Experience
-* Step-by-step exploded layer breakdown of the flagship **Atish Burger**.
-* Showcases commercial culinary preparation: authentic **Lincoln conveyor oven** baking, artisanal sesame brioche, 100% premium minced beef, melted Gouda cheese, sautéed mushrooms & caramelized onions, and secret house sauce (strictly halal, no bacon).
-* High user engagement designed to boost premium burger conversion rates.
-
-### 🍕 2. Dual-Shape Pizza Customizer (Classic & Heart ❤️)
-* Interactive shape switcher for signature menu pizzas.
-* Real-time visual photo swapping between traditional **Rectangle Window Style** and **Heart-Shaped (طرح قلبی)** pizzas with dynamic price and indicator synchronization.
-* Visual **Chef's Recommendation (⭐ پیشنهاد سرآشپز)** badges spotlighting flagship items.
-
-### 🔍 3. Instant Zero-Latency Live Search
-* Instantaneous client-side filtering across entire menus.
-* **Smart Persian Character Normalization**: Seamlessly handles Arabic/Persian letter variations (`ی`/`ي`, `ک`/`ك`, `آ`/`ا`, half-spaces, and diacritics).
-* Instant result counting with a quick-reset action.
-
-### 🛵 4. Smart Delivery Radar Map for North Tehran
-* Dynamic zone estimator tailored specifically to North Tehran neighborhoods:
-  * **Direct Courier Zones (`zone: 'direct'`)**: One-touch direct restaurant phone ordering (`۰۲۱-۲۲۵۶۱۹۴۹`) with estimated delivery timelines (Dowlat, Ekhtiarieh, Dibaji, Darrous, Pasdaran, Gholhak).
-  * **Express Courier Zones (`zone: 'express'`)**: Automatic contextual switch to Snappfood delivery for extended areas (Tajrish, Qeytarieh, Niavaran, Heravi, Seyedkhandan).
-  * Intelligent logic ensures zero conflicting call-to-actions.
-
-### 📋 5. Interactive Order Tray & Pre-Invoice (پیش‌فاکتور)
-* Frictionless item selection with tactile `+` / `−` quantity counters.
-* Calculates subtotal in real-time.
-* **One-Click Order Copying**: Formats a clean Persian order summary ready to paste into phone calls, SMS, or messaging apps.
-
-### 📲 6. PWA Installation & Offline Resilience
-* **Installable App**: Native prompt allowing customers to install the menu as an app on iOS (Safari Add to Home Screen) and Android (Chrome Web APK).
-* **Offline-First PWA Cache**: Service Worker intelligently caches the application shell and food photography, allowing the menu to open smoothly even in low-signal dining areas.
+* **Digital Menu Link:** [pizzaatish.s3-website.ir-central1.arvanstorage.ir](https://pizzaatish.s3-website.ir-central1.arvanstorage.ir)
+* **Official Web Domain:** `pizzaatish.ir` *(Coming soon)*
+* **Accessibility:** 100% accessible across all nationwide mobile networks and broadband providers without any interruption or VPN requirements.
 
 ---
 
-## ⚡ Performance & Enterprise Infrastructure
+## ✨ The Atish Guest Experience
 
-| Metric / Layer | Specification |
-| :--- | :--- |
-| **Hosting Platform** | **ArvanCloud S3 Object Storage & High-Speed CDN** (Tehran Datacenters) |
-| **Latency** | **< 15ms** ping across Tehran and nationwide within Iran |
-| **Network Resilience** | Fully operable under National Information Network (اینترنت ملی) |
-| **CI/CD Pipeline** | Automated GitHub Actions with S3 bucket syncing and cache-invalidation |
-| **Asset Optimization** | Automated WebP compression (71% file size reduction across 65+ food images) |
-| **Attack Surface** | **Zero backend vulnerabilities** (no SQL injection, zero server-side state breaches) |
+### 🍕 1. Signature Pizzas & Heart-Shaped Customizer
+* **Custom Baking Styles:** Guests can switch between classic **Crispy Rectangle Window-Cut** and romantic **Heart-Shaped (طرح قلبی)** pizzas with a single tap.
+* **Artisanal Quality:** Stone-oven baked with genuine mozzarella, gourmet toppings, and signature herb seasonings.
+* **Chef’s Picks:** Distinctive badges highlighting must-try signature dishes.
+
+### 🍔 2. The Legendary Atish Burger Story
+* **Deconstructed Layer Showcase:** An interactive visual journey revealing every artisanal element that makes the **Atish Burger** unique:
+  * Freshly baked sesame brioche bun
+  * Secret signature Atish house sauce
+  * Melted premium Gouda cheese
+  * 100% fresh gourmet minced beef patty cooked to juicy perfection
+  * Sautéed wild mushrooms and caramelized sweet onions
+  * Crisp lettuce, fresh garden tomatoes, and delicate dill pickles
+
+### 🎁 3. Chef’s Surprise VIP Gift Card & Loyalty Program
+* **Surprise Table Cards:** Exclusive packaging inserts and gift cards featuring quick-scan QR codes.
+* **Instant 20% Privilege:** Scanning the code unlocks an immediate 20% discount voucher with a live 48-hour countdown timer.
+* **Seamless Redemption:** Customers simply mention their code when placing a phone order or showing it at the counter.
+
+### 🛵 4. Smart North Tehran Delivery Concierge
+* Tailored specifically for rapid delivery across North Tehran neighborhoods:
+  * **Direct Neighborhood Delivery:** One-touch direct hotline call (`021-22561949`) with express courier dispatch to **Dowlat, Darrous, Pasdaran, Ekhtiarieh, Dibaji, and Gholhak**.
+  * **Extended Area Delivery:** One-tap connection to Snappfood delivery for **Tajrish, Qeytarieh, Niavaran, Heravi, and Seyedkhandan**.
+
+### 🛍️ 5. Interactive Order Tray & Smart Pre-Invoice
+* Customers select items with intuitive `+` and `−` quantity controls.
+* Calculates exact totals and discounts in real time.
+* **One-Click Order Copying:** Generates a clean Persian order summary ready to paste into phone calls, SMS, or WhatsApp.
+
+### 📲 6. Zero-Friction Mobile Web Experience
+* **No Download Required:** Opens instantly on any iPhone or Android camera scan without installing heavy apps from app stores.
+* **Offline Resilience:** Once opened, the menu stays accessible even in low-signal restaurant corners or parking basements.
+* **Home Screen Shortcut:** Customers can save the menu directly to their phone home screen just like a native mobile app.
 
 ---
 
-## 📍 Business & Store Information
+## 🍽️ About Atish Restaurant
 
-* **Brand**: فست‌فود و گریل آتیش (Atish Pizza & Gourmet Burgers)
-* **Location**: خیابان کلاهدوز (دولت)، محله دروس، روبه‌روی بانک ملت، بین کوچه خرداد و معتمدی، پلاک ۱۰۰
-* **Direct Order Hotline**: `۰۲۱-۲۲۵۶۱۹۴۹` (`02122561949`)
-* **Working Hours**: همه روزه از ۱۱:۳۰ صبح الی ۲۳:۱۵ شب
-* **Snappfood Store**: [پیتزا آتیش در اسنپ‌فود](https://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/) (Rating: ⭐ 4.4)
-* **Instagram**: [@atishfood](https://instagram.com/atishfood)
+Founded with a passion for genuine fire-grilled cuisine, **Atish Fast Food & Grill** combines time-honored baking techniques, top-grade meats, and authentic recipes in a welcoming, modern atmosphere.
+
+* **Address:** Tehran, Kolahdouz (Dowlat) St., Darrous District, Opposite Mellat Bank, Between Kheradmand & Motamedi, No. 100  
+  *(تهران، خیابان کلاهدوز (دولت)، محله دروس، روبه‌روی بانک ملت، بین کوچه خرداد و معتمدی، پلاک ۱۰۰)*
+* **Direct Order Hotline:** `۰۲۱-۲۲۵۶۱۹۴۹` / `02122561949`
+* **Operating Hours:** Open daily from 11:30 AM to 11:15 PM  
+  *(همه روزه از ساعت ۱۱:۳۰ صبح تا ۲۳:۱۵ شب)*
+* **Online Delivery:** [Order on Snappfood (⭐ 4.4)](https://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/)
+* **Official Instagram:** [@atishfood](https://instagram.com/atishfood)
 
 ---
 
-## 📄 License & Rights
-Commercial proprietary application developed for **Atish Fast Food & Grill**. All brand assets, menu designs, and media are copyrighted.
+## 📜 Proprietary Notice
+© 2026 Atish Fast Food & Grill. All rights reserved.  
+All culinary designs, brand assets, photography, and menu presentations are proprietary to Atish Restaurant.
