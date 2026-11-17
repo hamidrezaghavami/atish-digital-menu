@@ -1309,7 +1309,7 @@ function setupEventListeners() {
 // =========================================================================
 // ATISH VIP 20% SURPRISE OFFER & CASHIER VERIFICATION ENGINE
 // =========================================================================
-const CASHIER_PIN = '1394';
+const CASHIER_PIN_HASH = '48d3007452360e9b7e6b8ed5c7eab72c2e738bb48c43ffdbcb73ecc8550fd937';
 let vipTimerInterval = null;
 
 function sha256Sync(ascii) {
@@ -1612,7 +1612,7 @@ function initVipOfferSystem() {
         for (let i = 0; i < 10; i++) {
           pin = pin.replace(new RegExp(persianDigits[i], 'g'), String(i));
         }
-        if (pin === CASHIER_PIN) {
+        if (sha256Sync(pin) === CASHIER_PIN_HASH) {
           cashierAuthenticated = true;
           try { sessionStorage.setItem('atish_cashier_auth', 'true'); } catch (e) {}
           renderCashierState();
