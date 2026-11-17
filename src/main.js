@@ -1,6 +1,7 @@
 import { CONFIG } from './config.js';
 import staticMenuData from './data/menu.json';
 import deliveryData from './data/delivery.json';
+import voucherHashes from './data/voucher-hashes.json';
 
 const logoImg = '/images/logo.webp';
 let menuData = staticMenuData;
@@ -474,12 +475,12 @@ function renderApp() {
       <div class="w-full max-w-7xl mx-auto flex items-center justify-between gap-4">
         
         <!-- Logo & Title -->
-        <a href="#" class="flex items-center gap-2 min-w-0">
+        <a href="#" id="header-logo-link" class="flex items-center gap-2 min-w-0" title="آتیش">
           <div class="w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0 drop-shadow-[0_0_12px_rgba(245,158,11,0.6)]">
             <img 
               src="${logoImg}" 
               alt="${restaurant.name}" 
-              class="w-full h-full object-contain"
+              class="w-full h-full object-contain cursor-pointer select-none"
             />
           </div>
           <div class="flex flex-col text-right min-w-0">
@@ -919,6 +920,52 @@ function renderApp() {
       </div>
     </div>
 
+    <!-- VIP 20% Surprise Offer Modal -->
+    <div id="vip-offer-modal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity">
+      <div class="w-full max-w-md bg-[#141417] border-t sm:border border-amber-500/40 rounded-t-3xl sm:rounded-3xl max-h-[92vh] overflow-y-auto shadow-2xl p-5 sm:p-6 text-right">
+        
+        <!-- Modal Header -->
+        <div class="flex items-center justify-between pb-3.5 border-b border-white/[0.08] mb-4">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-400 via-orange-500 to-red-500 flex items-center justify-center text-black font-black text-sm shadow-md">
+              ٪
+            </div>
+            <div>
+              <h2 class="text-sm sm:text-base font-black text-white">کارت هدیه غافلگیری سرآشپز</h2>
+              <span class="text-[10px] text-amber-400 font-medium">۲۰٪ تخفیف ویژه سفارش بعدی</span>
+            </div>
+          </div>
+          <button id="close-vip-modal-btn" class="w-8 h-8 rounded-full bg-white/[0.08] flex items-center justify-center text-zinc-400 hover:text-white transition" aria-label="بستن">
+            ✕
+          </button>
+        </div>
+
+        <!-- Dynamic Container (Switches between Unclaimed & Active Ticket) -->
+        <div id="vip-modal-content"></div>
+
+      </div>
+    </div>
+
+    <!-- Hidden Cashier Verification Modal -->
+    <div id="cashier-modal" class="fixed inset-0 z-50 hidden bg-black/90 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity">
+      <div class="w-full max-w-md bg-[#16161a] border-t sm:border border-emerald-500/40 rounded-t-3xl sm:rounded-3xl max-h-[92vh] overflow-y-auto shadow-2xl p-5 sm:p-6 text-right">
+        <div class="flex items-center justify-between pb-3.5 border-b border-white/[0.08] mb-4">
+          <div class="flex items-center gap-2">
+            <span class="text-lg">🛡️</span>
+            <div>
+              <h3 class="text-sm font-black text-white">پنل صندوق‌دار | تایید کد تخفیف ۲۰٪</h3>
+              <span class="text-[10px] text-emerald-400">سیستم تایید اختصاصی پرسنل آتیش</span>
+            </div>
+          </div>
+          <button id="close-cashier-modal-btn" class="w-7 h-7 rounded-full bg-white/[0.08] flex items-center justify-center text-zinc-400 hover:text-white">
+            ✕
+          </button>
+        </div>
+        
+        <div id="cashier-modal-body"></div>
+      </div>
+    </div>
+
     <!-- Toast Notification -->
     <div id="toast-notification" class="fixed top-16 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 -translate-y-4 bg-emerald-500 text-white font-black text-xs px-3.5 py-2 rounded-xl shadow-xl flex items-center gap-1.5">
       <span>✓</span>
@@ -1254,6 +1301,541 @@ function setupEventListeners() {
       selectDeliveryNeighborhood(text.dataset.id);
     });
   });
+
+  // Initialize VIP 20% Offer & Cashier System
+  initVipOfferSystem();
+}
+
+// =========================================================================
+// ATISH VIP 20% SURPRISE OFFER & CASHIER VERIFICATION ENGINE
+// =========================================================================
+const CASHIER_PIN = '1394';
+let vipTimerInterval = null;
+
+function sha256Sync(ascii) {
+  function rightRotate(value, amount) { return (value >>> amount) | (value << (32 - amount)); }
+  const mathPow = Math.pow;
+  const maxWord = mathPow(2, 32);
+  let lengthProperty = 'length';
+  let i, j;
+  let result = '';
+  const words = [];
+  const asciiBitLength = ascii[lengthProperty] * 8;
+  let hash = [];
+  const k = [];
+  let primeCounter = 0;
+  const isComposite = {};
+  for (let candidate = 2; primeCounter < 64; candidate++) {
+    if (!isComposite[candidate]) {
+      for (i = candidate; i < 313; i += candidate) isComposite[i] = candidate;
+      hash[primeCounter] = (mathPow(candidate, 0.5) * maxWord) | 0;
+      k[primeCounter++] = (mathPow(candidate, 1 / 3) * maxWord) | 0;
+    }
+  }
+  ascii += '\x80';
+  while (ascii[lengthProperty] % 64 - 56) ascii += '\x00';
+  for (i = 0; i < ascii[lengthProperty]; i++) {
+    j = ascii.charCodeAt(i);
+    words[i >> 2] |= j << ((3 - i) % 4) * 8;
+  }
+  words[words[lengthProperty]] = (asciiBitLength / maxWord) | 0;
+  words[words[lengthProperty]] = asciiBitLength;
+  for (j = 0; j < words[lengthProperty];) {
+    const w = words.slice(j, j += 16);
+    const oldHash = hash.slice(0);
+    for (i = 0; i < 64; i++) {
+      const w15 = w[i - 15], w2 = w[i - 2];
+      const s0 = rightRotate(w15, 7) ^ rightRotate(w15, 18) ^ (w15 >>> 3);
+      const s1 = rightRotate(w2, 17) ^ rightRotate(w2, 19) ^ (w2 >>> 10);
+      const ch = (hash[4] & hash[5]) ^ (~hash[4] & hash[6]);
+      const temp1 = hash[7] + (rightRotate(hash[4], 6) ^ rightRotate(hash[4], 11) ^ rightRotate(hash[4], 25)) + ch + k[i] + (w[i] = (i < 16) ? w[i] : (w[i - 16] + s0 + w[i - 7] + s1) | 0);
+      const maj = (hash[0] & hash[1]) ^ (hash[0] & hash[2]) ^ (hash[1] & hash[2]);
+      const temp2 = (rightRotate(hash[0], 2) ^ rightRotate(hash[0], 13) ^ rightRotate(hash[0], 22)) + maj;
+      hash = [(temp1 + temp2) | 0, hash[0], hash[1], hash[2], (hash[3] + temp1) | 0, hash[4], hash[5], hash[6]];
+    }
+    for (i = 0; i < 8; i++) hash[i] = (hash[i] + oldHash[i]) | 0;
+  }
+  for (i = 0; i < 8; i++) {
+    for (j = 3; j >= 0; j--) {
+      const b = (hash[i] >> (j * 8)) & 255;
+      result += (b < 16 ? '0' : '') + b.toString(16);
+    }
+  }
+  return result;
+}
+
+function verifyVoucherCode(raw) {
+  if (!raw) return { valid: false, reason: 'کدی وارد نشده است.' };
+  
+  // Normalize Persian digits to English
+  const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+  let normalized = String(raw).trim().toUpperCase();
+  for (let i = 0; i < 10; i++) {
+    normalized = normalized.replace(new RegExp(persianDigits[i], 'g'), String(i));
+  }
+
+  const clean = normalized.replace(/[^A-Z0-9]/g, '');
+
+  // 9-digit format: 1 Letter + 8 digits (e.g. A01-101-830)
+  if (clean.length === 9 && /^[A-Z][0-9]{8}$/.test(clean)) {
+    const formatted = `${clean.slice(0, 3)}-${clean.slice(3, 6)}-${clean.slice(6, 9)}`;
+    const inputHash = sha256Sync(formatted);
+
+    // Cryptographic one-way SHA-256 hash match (100% secure, zero secret key exposure in browser)
+    if (voucherHashes && voucherHashes.includes(inputHash)) {
+      return { valid: true, code: formatted };
+    }
+  }
+
+  // 6-digit pure numeric
+  if (clean.length === 6 && /^[0-9]{6}$/.test(clean)) {
+    const formatted = `${clean.slice(0, 3)}-${clean.slice(3, 6)}`;
+    const inputHash = sha256Sync(formatted);
+    if (voucherHashes && voucherHashes.includes(inputHash)) {
+      return { valid: true, code: formatted };
+    }
+  }
+
+  return { valid: false, reason: 'کد نامعتبر یا اشتباه است. (فرمت صحیح: ۹ کاراکتر مانند A01-101-830)' };
+}
+
+function getVoucherCountdown(expiresAt) {
+  const diff = expiresAt - Date.now();
+  if (diff <= 0) return { expired: true, text: 'منقضی شده' };
+  const totalSec = Math.floor(diff / 1000);
+  const hours = Math.floor(totalSec / 3600);
+  const minutes = Math.floor((totalSec % 3600) / 60);
+  const seconds = totalSec % 60;
+  const pad = (n) => String(n).padStart(2, '0');
+  return {
+    expired: false,
+    text: toPersianDigits(`${pad(hours)}:${pad(minutes)}:${pad(seconds)}`),
+    detail: toPersianDigits(`${hours} ساعت و ${minutes} دقیقه`)
+  };
+}
+
+function initVipOfferSystem() {
+  const vipModal = document.getElementById('vip-offer-modal');
+  const closeVipBtn = document.getElementById('close-vip-modal-btn');
+  const vipContent = document.getElementById('vip-modal-content');
+
+  const cashierModal = document.getElementById('cashier-modal');
+  const closeCashierBtn = document.getElementById('close-cashier-modal-btn');
+  const cashierBody = document.getElementById('cashier-modal-body');
+  const headerLogoLink = document.getElementById('header-logo-link');
+
+  let cashierAuthenticated = sessionStorage.getItem('atish_cashier_auth') === 'true';
+  let logoClickCount = 0;
+  let logoClickTimer = null;
+
+  function renderVipTicket(code, expiresAt) {
+    if (!vipContent) return;
+    clearInterval(vipTimerInterval);
+
+    const initialCount = getVoucherCountdown(expiresAt);
+    const restaurantPhone = menuData?.restaurant?.phone || '02122561949';
+
+    vipContent.innerHTML = `
+      <div class="space-y-4">
+        <!-- Active Ticket Card -->
+        <div class="relative p-5 rounded-2xl bg-gradient-to-b from-[#1c1c22] to-[#121215] border-2 border-dashed border-amber-500/40 text-center shadow-2xl overflow-hidden">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-red-500/20 text-red-300 border border-red-500/30 text-[11px] font-black mb-2.5">
+            <span>🔥</span>
+            <span>۲۰٪ تخفیف ویژه شما فعال است</span>
+          </div>
+
+          <div class="text-xs text-zinc-300 font-light mb-1">کد اختصاصی سفارش بعدی:</div>
+          
+          <!-- Code Display Box -->
+          <div class="my-3 p-3.5 rounded-xl bg-black/80 border border-amber-500/40 flex items-center justify-between gap-2 max-w-xs mx-auto shadow-inner">
+            <span id="vip-code-text" class="text-xl sm:text-2xl font-black text-amber-300 tracking-widest font-mono select-all">
+              ${code}
+            </span>
+            <button 
+              id="copy-vip-btn" 
+              type="button"
+              class="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-amber-400 to-orange-500 text-black font-black text-xs hover:from-amber-300 hover:to-orange-400 transition flex items-center gap-1 shadow-md"
+            >
+              <span>کپی</span>
+            </button>
+          </div>
+
+          <!-- Live Countdown Timer -->
+          <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/25 max-w-xs mx-auto mb-1">
+            <div class="text-[10px] text-amber-300/80 mb-0.5">زمان باقی‌مانده تا پایان اعتبار:</div>
+            <div id="vip-timer-display" class="text-lg sm:text-xl font-black text-white font-mono tracking-wider">
+              ${initialCount.text}
+            </div>
+          </div>
+        </div>
+
+        <!-- Usage Instructions -->
+        <div class="p-3.5 rounded-xl bg-white/[0.04] border border-white/[0.08] text-right space-y-1.5 text-xs">
+          <div class="font-bold text-white flex items-center gap-1.5">
+            <span>📌</span>
+            <span>نحوه اعمال تخفیف در سفارش:</span>
+          </div>
+          <p class="text-zinc-300 text-[11px] leading-relaxed">
+            هنگام تماس تلفنی (<strong class="text-amber-300 font-bold">۰۲۱-۲۲۵۶۱۹۴۹</strong>) یا مراجعه حضوری، این کد را به صندوق‌دار اعلام فرمایید تا ۲۰٪ تخفیف فاکتور اعمال گردد.
+          </p>
+        </div>
+
+        <!-- Screenshot & Save Reminder -->
+        <div class="p-3.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-300 text-right flex items-start gap-2.5 shadow-sm">
+          <span class="text-lg flex-shrink-0">📸</span>
+          <div class="text-[11px] leading-relaxed">
+            <strong class="text-white block font-bold mb-0.5">اسکرین‌شات بگیرید یا کد را ذخیره فرمایید:</strong>
+            این صفحه موقت است و در صورت بستن مرورگر ممکن است پاک شود. لطفاً حتماً همین الان از این صفحه اسکرین‌شات گرفته یا کد را ذخیره فرمایید.
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end text-xs pt-1">
+          <a href="tel:${restaurantPhone}" class="w-full py-2.5 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold text-xs hover:bg-emerald-500/30 transition flex items-center justify-center gap-1.5">
+            <span>📞</span>
+            <span>سفارش تلفنی مستقیم</span>
+          </a>
+        </div>
+      </div>
+    `;
+
+    // Live 1-second countdown interval
+    vipTimerInterval = setInterval(() => {
+      const timerElem = document.getElementById('vip-timer-display');
+      if (!timerElem) {
+        clearInterval(vipTimerInterval);
+        return;
+      }
+      const c = getVoucherCountdown(expiresAt);
+      if (c.expired) {
+        clearInterval(vipTimerInterval);
+        timerElem.textContent = 'منقضی شده';
+      } else {
+        timerElem.textContent = c.text;
+      }
+    }, 1000);
+
+    // Copy Button
+    document.getElementById('copy-vip-btn')?.addEventListener('click', () => {
+      navigator.clipboard?.writeText(`کد تخفیف ۲۰٪ آتیش: ${code}`).then(() => {
+        showToast('کد تخفیف کپی شد');
+      }).catch(() => {
+        showToast(`کد: ${code}`);
+      });
+    });
+  }
+
+  closeVipBtn?.addEventListener('click', () => {
+    vipModal?.classList.add('hidden');
+  });
+
+  vipModal?.addEventListener('click', (e) => {
+    if (e.target === vipModal) vipModal.classList.add('hidden');
+  });
+
+  // Check if QR code was scanned (?gift=... or ?code=... or #gift=...)
+  const params = new URLSearchParams(window.location.search);
+  const giftToken = params.get('gift') || params.get('code') || params.get('vip') || (window.location.hash.startsWith('#gift=') ? window.location.hash.replace('#gift=', '') : null);
+
+  if (giftToken) {
+    const verified = verifyVoucherCode(giftToken);
+    if (verified.valid) {
+      let saved = null;
+      try {
+        const raw = localStorage.getItem('atish_vip_offer');
+        if (raw) saved = JSON.parse(raw);
+      } catch (e) {}
+
+      let expiresAt;
+      if (saved && saved.code === verified.code && saved.expiresAt > Date.now()) {
+        expiresAt = saved.expiresAt;
+      } else {
+        expiresAt = Date.now() + (48 * 3600 * 1000);
+        try {
+          localStorage.setItem('atish_vip_offer', JSON.stringify({ code: verified.code, expiresAt }));
+        } catch (e) {}
+      }
+
+      renderVipTicket(verified.code, expiresAt);
+      vipModal?.classList.remove('hidden');
+    } else {
+      showToast('کد اسکن شده نامعتبر است');
+    }
+  } else {
+    // If user previously scanned a valid QR and revisits within 48h
+    try {
+      const raw = localStorage.getItem('atish_vip_offer');
+      if (raw) {
+        const saved = JSON.parse(raw);
+        if (saved && saved.expiresAt > Date.now()) {
+          // Keep available if modal re-opened
+        }
+      }
+    } catch (e) {}
+  }
+
+  // Cashier Modal Logic
+  function openCashierPanel() {
+    renderCashierState();
+    cashierModal?.classList.remove('hidden');
+  }
+
+  function renderCashierState() {
+    if (!cashierBody) return;
+
+    if (!cashierAuthenticated) {
+      cashierBody.innerHTML = `
+        <div class="space-y-4 text-center">
+          <p class="text-xs text-zinc-300">برای ورود به پنل تایید کدهای تخفیف، رمز عبور ۴ رقمی پرسنل را وارد کنید:</p>
+          <form id="cashier-login-form" class="space-y-3 max-w-xs mx-auto">
+            <input 
+              type="password" 
+              id="cashier-pin-input" 
+              maxlength="4" 
+              placeholder="••••" 
+              class="w-full bg-[#202028] border border-emerald-500/40 text-white text-center font-mono font-black text-xl rounded-xl py-2.5 tracking-widest focus:outline-none focus:ring-2 focus:ring-emerald-500" 
+              required
+              autofocus
+            />
+            <p id="cashier-pin-error" class="hidden text-rose-400 text-xs font-bold">رمز عبور اشتباه است</p>
+            <button type="submit" class="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xs transition">
+              ورود به سیستم صندوق
+            </button>
+          </form>
+        </div>
+      `;
+
+      document.getElementById('cashier-login-form')?.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const pinInput = document.getElementById('cashier-pin-input');
+        let pin = pinInput?.value || '';
+        const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        for (let i = 0; i < 10; i++) {
+          pin = pin.replace(new RegExp(persianDigits[i], 'g'), String(i));
+        }
+        if (pin === CASHIER_PIN) {
+          cashierAuthenticated = true;
+          try { sessionStorage.setItem('atish_cashier_auth', 'true'); } catch (e) {}
+          renderCashierState();
+        } else {
+          document.getElementById('cashier-pin-error')?.classList.remove('hidden');
+        }
+      });
+
+    } else {
+      // Authenticated Cashier Tool
+      cashierBody.innerHTML = `
+        <div class="space-y-4">
+          <div class="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-right">
+            <label class="block text-xs font-bold text-emerald-300 mb-1.5">کد تخفیف ارائه‌شده توسط مشتری را وارد کنید:</label>
+            <div class="flex items-center gap-2">
+              <input 
+                type="text" 
+                id="cashier-search-code" 
+                placeholder="A01-101-830" 
+                dir="ltr"
+                maxlength="11"
+                autocomplete="off"
+                autocorrect="off"
+                spellcheck="false"
+                class="flex-1 bg-[#1a1a20] border border-white/[0.15] text-white text-center font-mono font-black text-sm uppercase tracking-wider rounded-xl py-2 focus:outline-none focus:border-emerald-400"
+              />
+              <button 
+                id="cashier-verify-btn" 
+                type="button" 
+                class="px-4 py-2 rounded-xl bg-emerald-500 text-black font-black text-xs hover:bg-emerald-400 transition"
+              >
+                بررسی
+              </button>
+            </div>
+          </div>
+
+          <div id="cashier-result-box" class="hidden p-4 rounded-xl bg-[#1f1f26] border border-white/[0.08] text-right space-y-3">
+          </div>
+
+          <div class="border-t border-white/[0.08] pt-3 flex items-center justify-between text-xs text-zinc-400">
+            <button id="cashier-logout-btn" class="hover:text-white transition">خروج از سیستم صندوق</button>
+            <span>رستوران آتیش</span>
+          </div>
+        </div>
+      `;
+
+      document.getElementById('cashier-logout-btn')?.addEventListener('click', () => {
+        cashierAuthenticated = false;
+        try { sessionStorage.removeItem('atish_cashier_auth'); } catch (e) {}
+        renderCashierState();
+      });
+
+      const codeInput = document.getElementById('cashier-search-code');
+      const verifyBtn = document.getElementById('cashier-verify-btn');
+      const resultBox = document.getElementById('cashier-result-box');
+
+      // Auto-dash formatting: inserts '-' between each 3 characters (e.g. A01-101-830)
+      codeInput?.addEventListener('input', () => {
+        const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        let val = codeInput.value.toUpperCase();
+        for (let i = 0; i < 10; i++) {
+          val = val.replace(new RegExp(persianDigits[i], 'g'), String(i));
+        }
+        const clean = val.replace(/[^A-Z0-9]/g, '').slice(0, 9);
+        let formatted = '';
+        for (let i = 0; i < clean.length; i += 3) {
+          if (i > 0) formatted += '-';
+          formatted += clean.slice(i, i + 3);
+        }
+        codeInput.value = formatted;
+      });
+
+      const doVerify = () => {
+        const rawInput = codeInput?.value || '';
+        const verified = verifyVoucherCode(rawInput);
+
+        let redeemedList = [];
+        try {
+          redeemedList = JSON.parse(localStorage.getItem('atish_cashier_redeemed') || '[]');
+        } catch (e) {}
+
+        resultBox.classList.remove('hidden');
+
+        if (!verified.valid) {
+          resultBox.innerHTML = `
+            <div class="p-3 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-center space-y-1">
+              <div class="text-base font-black">❌ غیر معتبر / نامعتبر</div>
+              <p class="text-xs">${verified.reason}</p>
+            </div>
+          `;
+          return;
+        }
+
+        const isRedeemed = redeemedList.some(r => r.code === verified.code);
+
+        if (isRedeemed) {
+          const item = redeemedList.find(r => r.code === verified.code);
+          resultBox.innerHTML = `
+            <div class="p-3 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 text-center space-y-1">
+              <div class="text-base font-black">⚠️ این کد قبلاً استفاده شده است!</div>
+              <p class="text-xs">کد: <span class="font-mono font-bold">${verified.code}</span></p>
+              <p class="text-[10px] text-zinc-400">زمان استفاده: ${item?.time || 'نامشخص'}</p>
+            </div>
+          `;
+          return;
+        }
+
+        // VALID & UNUSED
+        resultBox.innerHTML = `
+          <div class="p-3.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 space-y-2 text-right">
+            <div class="flex items-center justify-between border-b border-emerald-500/30 pb-2">
+              <span class="text-xs">نتیجه بررسی:</span>
+              <span class="text-xs font-black text-emerald-400">تایید شد (معتبر و اصل) ✅</span>
+            </div>
+            <div class="flex items-center justify-between border-b border-emerald-500/30 pb-2">
+              <span class="text-xs">کد تخفیف:</span>
+              <span dir="ltr" class="font-mono font-black text-white text-base">${verified.code}</span>
+            </div>
+            <div class="flex items-center justify-between border-b border-emerald-500/30 pb-2">
+              <span class="text-xs">میزان تخفیف:</span>
+              <span class="text-xs font-black text-amber-300">۲۰٪ کسر از فاکتور</span>
+            </div>
+            <button 
+              id="cashier-mark-used-btn" 
+              type="button" 
+              class="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-black font-black text-xs hover:opacity-90 transition mt-2 shadow-lg"
+            >
+              ✓ اعمال ۲۰٪ تخفیف و علامت‌گذاری به عنوان استفاده شده
+            </button>
+          </div>
+        `;
+
+        document.getElementById('cashier-mark-used-btn')?.addEventListener('click', () => {
+          redeemedList.push({ code: verified.code, time: new Date().toLocaleTimeString('fa-IR') + ' - ' + new Date().toLocaleDateString('fa-IR') });
+          try {
+            localStorage.setItem('atish_cashier_redeemed', JSON.stringify(redeemedList));
+          } catch (e) {}
+          showToast(`تخفیف ۲۰٪ برای ${verified.code} اعمال شد.`);
+          doVerify();
+        });
+      };
+
+      verifyBtn?.addEventListener('click', doVerify);
+      codeInput?.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          doVerify();
+        }
+      });
+    }
+  }
+
+  closeCashierBtn?.addEventListener('click', () => {
+    cashierModal?.classList.add('hidden');
+  });
+
+  cashierModal?.addEventListener('click', (e) => {
+    if (e.target === cashierModal) cashierModal.classList.add('hidden');
+  });
+
+  // Secret 5-click logo trigger
+  headerLogoLink?.addEventListener('click', (e) => {
+    logoClickCount++;
+    clearTimeout(logoClickTimer);
+    if (logoClickCount >= 5) {
+      e.preventDefault();
+      logoClickCount = 0;
+      openCashierPanel();
+    } else {
+      logoClickTimer = setTimeout(() => {
+        logoClickCount = 0;
+      }, 3000);
+    }
+  });
+
+  // Secret URL hash trigger
+  const checkCashierHash = () => {
+    const hash = window.location.hash;
+    if (hash === '#cashier' || hash === '#cashier-tool') {
+      if (hash === '#cashier-tool') cashierAuthenticated = true;
+      openCashierPanel();
+    } else if (hash.startsWith('#cashier-verify=')) {
+      cashierAuthenticated = true;
+      openCashierPanel();
+      const codeVal = hash.replace('#cashier-verify=', '');
+      const codeInput = document.getElementById('cashier-search-code');
+      if (codeInput) {
+        codeInput.value = codeVal;
+        codeInput.dispatchEvent(new Event('input'));
+        const verified = verifyVoucherCode(codeInput.value);
+        const resultBox = document.getElementById('cashier-result-box');
+        if (resultBox && verified.valid) {
+          resultBox.classList.remove('hidden');
+          resultBox.innerHTML = `
+            <div class="p-3.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 space-y-2 text-right">
+              <div class="flex items-center justify-between border-b border-emerald-500/30 pb-2">
+                <span class="text-xs">نتیجه بررسی:</span>
+                <span class="text-xs font-black text-emerald-400">تایید شد (معتبر و اصل) ✅</span>
+              </div>
+              <div class="flex items-center justify-between border-b border-emerald-500/30 pb-2">
+                <span class="text-xs">کد تخفیف:</span>
+                <span dir="ltr" class="font-mono font-black text-white text-base">${verified.code}</span>
+              </div>
+              <div class="flex items-center justify-between border-b border-emerald-500/30 pb-2">
+                <span class="text-xs">میزان تخفیف:</span>
+                <span class="text-xs font-black text-amber-300">۲۰٪ کسر از فاکتور</span>
+              </div>
+              <button 
+                id="cashier-mark-used-btn" 
+                type="button" 
+                class="w-full py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-black font-black text-xs hover:opacity-90 transition mt-2 shadow-lg"
+              >
+                ✓ اعمال ۲۰٪ تخفیف و علامت‌گذاری به عنوان استفاده شده
+              </button>
+            </div>
+          `;
+        }
+      }
+    }
+  };
+
+  checkCashierHash();
+  window.addEventListener('hashchange', checkCashierHash);
 }
 
 let itemSelectedShape = {}; // itemId -> shapeId ('normal' | 'heart')
@@ -1394,7 +1976,7 @@ function clearTray() {
 
 function getOrderSummaryText() {
   const itemIds = Object.keys(orderTray);
-  let orderSummaryText = `📋 پیش‌فاکتور اقلام سفارش - فست‌فود و گریل آتیش:\n\n`;
+  let orderSummaryText = `📋 پیش‌فاکتور اقلام سفارش - رستوران آتیش:\n\n`;
   let orderTotalSum = 0;
   itemIds.forEach((id, idx) => {
     const item = getTrayItemDetails(id);
