@@ -1,7 +1,8 @@
 import { CONFIG } from './config.js';
 import staticMenuData from './data/menu.json';
 import deliveryData from './data/delivery.json';
-import voucherHashes from './data/voucher-hashes.json';
+// [DISABLED UNTIL FURTHER NOTICE - QR Discount & Cashier System]
+// import voucherHashes from './data/voucher-hashes.json';
 
 const logoImg = '/images/logo.webp';
 let menuData = staticMenuData;
@@ -1101,6 +1102,7 @@ function renderApp() {
       </div>
     </div>
 
+    ${/* [DISABLED UNTIL FURTHER NOTICE - VIP 20% Surprise Offer & Hidden Cashier Modals]
     <!-- VIP 20% Surprise Offer Modal -->
     <div id="vip-offer-modal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity">
       <div class="w-full max-w-md bg-[#141417] border-t sm:border border-amber-500/40 rounded-t-3xl sm:rounded-3xl max-h-[92vh] overflow-y-auto shadow-2xl p-5 sm:p-6 text-right">
@@ -1146,6 +1148,7 @@ function renderApp() {
         <div id="cashier-modal-body"></div>
       </div>
     </div>
+    */ ''}
 
     <!-- Toast Notification -->
     <div id="toast-notification" class="fixed top-16 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 -translate-y-4 bg-emerald-500 text-white font-black text-xs px-3.5 py-2 rounded-xl shadow-xl flex items-center gap-1.5">
@@ -1502,10 +1505,11 @@ function setupEventListeners() {
   }
   window.addEventListener('resize', syncHeaderHeight, { passive: true });
 
-  // Initialize VIP 20% Offer & Cashier System
-  initVipOfferSystem();
+  // [DISABLED UNTIL FURTHER NOTICE - QR Discount & 5-Tap Cashier System]
+  // initVipOfferSystem();
 }
 
+/* [DISABLED UNTIL FURTHER NOTICE - Uncomment this block, the import at top, the modals in renderApp(), and initVipOfferSystem() above to re-enable]
 // =========================================================================
 // ATISH VIP 20% SURPRISE OFFER & CASHIER VERIFICATION ENGINE
 // =========================================================================
@@ -2058,6 +2062,7 @@ function initVipOfferSystem() {
   checkCashierHash();
   window.addEventListener('hashchange', checkCashierHash);
 }
+*/
 
 let itemSelectedShape = {}; // itemId -> shapeId ('normal' | 'heart')
 
