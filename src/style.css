@@ -411,13 +411,13 @@ html.theme-christmas .contact-nav {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  html.theme-christmas:not(.xmas-motion-paused) .xmas-bulb-a {
+  html.theme-christmas .xmas-bulb-a {
     animation: xmasWarmTwinkle 4.2s ease-in-out infinite;
   }
-  html.theme-christmas:not(.xmas-motion-paused) .xmas-bulb-b {
+  html.theme-christmas .xmas-bulb-b {
     animation: xmasWarmTwinkle 4.8s ease-in-out 1.4s infinite;
   }
-  html.theme-christmas:not(.xmas-motion-paused) .xmas-bulb-c {
+  html.theme-christmas .xmas-bulb-c {
     animation: xmasWarmTwinkle 5.4s ease-in-out 2.6s infinite;
   }
 }
@@ -477,13 +477,9 @@ html.theme-christmas .contact-nav {
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  html.theme-christmas:not(.xmas-motion-paused) .xmas-snowflake {
+  html.theme-christmas .xmas-snowflake {
     animation: xmasSnowFall var(--dur, 12s) linear var(--delay, 0s) infinite;
   }
-}
-
-html.xmas-motion-paused .xmas-snow-layer {
-  display: none;
 }
 
 @keyframes xmasSnowFall {

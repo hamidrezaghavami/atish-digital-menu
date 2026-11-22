@@ -1,11 +1,11 @@
-(function(){const a=document.createElement("link").relList;if(a&&a.supports&&a.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))n(s);new MutationObserver(s=>{for(const t of s)if(t.type==="childList")for(const o of t.addedNodes)o.tagName==="LINK"&&o.rel==="modulepreload"&&n(o)}).observe(document,{childList:!0,subtree:!0});function r(s){const t={};return s.integrity&&(t.integrity=s.integrity),s.referrerPolicy&&(t.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?t.credentials="include":s.crossOrigin==="anonymous"?t.credentials="omit":t.credentials="same-origin",t}function n(s){if(s.ep)return;s.ep=!0;const t=r(s);fetch(s.href,t)}})();const F={brandTitle:"فست‌فود آتیش",brandSubtitle:"طعم اصیل و لذیذ فست‌فود آتیش",tagline:"منوی دیجیتال و سفارش دلیوری فست‌فود آتیش",phoneNumber:"02122561949",snappfoodUrl:"https://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/",instagramUrl:"https://instagram.com/atishfood",workingHours:"همه روزه از ۱۱:۳۰ صبح تا ۲۳:۱۵ شب",address:"خیابان دولت تهران، محله دروس، خیابان کلاهدوز (دولت)، روبه‌روی بانک ملت بین کوچه خرداد و معتمدی، پلاک ۱۰۰"},fe={name:"آتیش",brandTitle:"آتیش | Menu",brandSubtitle:"طعم اصیل و لذیذ رستوران آتیش",tagline:"منوی دیجیتال آتیش",phone:"02122561949",snappfoodUrl:"https://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/",instagramUrl:"https://instagram.com/atishfood",workingHours:"همه روزه از ۱۱:۳۰ صبح تا ۲۳:۱۵ شب",address:"خیابان دولت تهران، محله دروس، خیابان کلاهدوز (دولت)، روبه‌روی بانک ملت بین کوچه خرداد و معتمدی، پلاک ۱۰۰",rating:"۴.۵"},he=[{id:"american-pizzas",name:"پیتزا آمریکایی",icon:"🍕",title:"پیتزاهای آمریکایی",subtitle:""},{id:"family-pizzas",name:"پیتزا خانواده",icon:"🍕",title:"پیتزاهای خانواده",subtitle:""},{id:"italian-pizzas",name:"پیتزا ایتالیایی",icon:"🍕",title:"پیتزاهای ایتالیایی",subtitle:""},{id:"burgers",name:"برگرها",icon:"🍔",title:"برگر",subtitle:""},{id:"sandwiches",name:"ساندویچ‌ها",icon:"🌭",title:"ساندویچ‌ها",subtitle:""},{id:"fried",name:"سوخاری‌ها",icon:"🍗",title:"مرغ و سوخاری",subtitle:""},{id:"sides",name:"پیش‌ غذا",icon:"🍟",title:"پیش‌ غذا",subtitle:""},{id:"drinks",name:"نوشیدنی‌ها",icon:"🥤",title:"نوشیدنی‌ها",subtitle:""}],ve=[{id:"ap-1",categoryId:"american-pizzas",isFeatured:!0,isChefRecommendation:!0,title:"پیتزا آمریکایی مخصوص",tag:null,badge:"دارای طرح قلبی ❤️",price:749e3,ingredients:"خمیر پیتزا پنجره ای آمریکایی، مرغ، ژامبون گوشت 90%، قارچ، فلفل دلمه ای، پنیر پیتزا",image:"./images/Makhsos-American.webp",placeholderIcon:"🍕",shapes:[{id:"normal",name:"مستطیل کلاسیک",shortName:"مستطیل",icon:"",image:"./images/Makhsos-American.webp",badge:null,price:749e3},{id:"heart",name:"طرح قلبی",shortName:"قلبی",icon:"",image:"images/heart-normal.webp",badge:"❤️ طرح قلبی",price:749e3}]},{id:"ap-2",categoryId:"american-pizzas",isFeatured:!1,isChefRecommendation:!0,title:"پیتزا پپرونی",tag:null,badge:"دارای طرح قلبی ❤️",price:739e3,ingredients:"خمیر پیتزا پنجره ای آمریکایی، پپرونی 90%، فلفل دلمه ای، پنیر پیتزا",image:"./images/Peperoni-American-Pizza.webp",placeholderIcon:"🍕",shapes:[{id:"normal",name:"مستطیل کلاسیک",shortName:"مستطیل",icon:"",image:"./images/Peperoni-American-Pizza.webp",badge:null,price:739e3},{id:"heart",name:"طرح قلبی",shortName:"قلبی",icon:"",image:"images/heart-peperoni.webp",badge:"❤️ طرح قلبی",price:739e3}]},{id:"ap-3",categoryId:"american-pizzas",isFeatured:!1,isChefRecommendation:!0,title:"پیتزا مرغ و قارچ",tag:null,badge:null,price:749e3,ingredients:"خمیر پیتزا پنجره ای آمریکایی، مرغ نگینی شده، قارچ، پنیر پیتزا",image:"./images/Chicken-American-Pizza.webp",placeholderIcon:"🍕"},{id:"ap-4",categoryId:"american-pizzas",isFeatured:!1,isChefRecommendation:!0,title:"پیتزا گوشت و قارچ",tag:null,badge:null,price:879e3,ingredients:"خمیر پیتزا پنجره ای آمریکایی، گوشت گوساله ریش ریش شده، قارچ، پنیر پیتزا",image:"./images/meat-American-Pizza.webp",placeholderIcon:"🍕"},{id:"ap-5",categoryId:"american-pizzas",isFeatured:!1,title:"پیتزا سبزیجات",tag:null,badge:null,price:599e3,ingredients:"خمیر پیتزا آمریکایی، ذرت، نخود فرنگی، هویج، قارچ، فلفل دلمه ای، پنیر پیتزا",image:"./images/Sabzi-American.webp",placeholderIcon:"🍕"},{id:"ap-6",categoryId:"american-pizzas",isFeatured:!1,title:"پیتزا قارچ و سوسیس",tag:null,badge:null,price:61e4,ingredients:"خمیر آمریکایی ، قارچ ، سوسیس اسلایس ، پنیر میکس ، سس مخصوص آتیش",image:"images/american-Sosis-mashroom.webp",placeholderIcon:"🍕"},{id:"ap-7",categoryId:"american-pizzas",isFeatured:!1,title:"پیتزا قارچ و پنیر",tag:null,badge:null,price:499e3,ingredients:"خمیر پیتزا آمریکایی، قارچ، پنیر پیتزا",image:"./images/Mashroom-Pizza.webp",placeholderIcon:"🍕"},{id:"fp-1",categoryId:"family-pizzas",isFeatured:!0,title:"پیتزا چهارطعم خانواده",tag:null,badge:null,price:1549e3,ingredients:"ترکیبی از چهار طعم مختلف پیتزا با قابلیت انتخاب و تغییر طعم‌ها به سلیقه شما.",image:"./images/4F-Family.webp",placeholderIcon:"🍕"},{id:"ip-1",categoryId:"italian-pizzas",isFeatured:!0,title:"پیتزا ایتالیایی آتیش",tag:null,badge:null,price:989e3,ingredients:"خمیر پیتزا ایتالیایی، مرغ، ژامبون گوشت 90%، قارچ، فلفل دلمه ای، زیتون، پنیر پیتزا",image:"./images/Atish-Italian.webp",placeholderIcon:"🍕"},{id:"ip-2",categoryId:"italian-pizzas",isFeatured:!1,title:"پیتزا پپرونی ایتالیایی",tag:null,badge:null,price:989e3,ingredients:"خمیر پیتزا ایتالیایی، پپرونی 90%، فلفل دلمه ای، پنیر پیتزا",image:"./images/Peperoni-Italian.webp",placeholderIcon:"🍕"},{id:"ip-3",categoryId:"italian-pizzas",isFeatured:!1,title:"پیتزا مرغ و قارچ ایتالیایی",tag:null,badge:null,price:979e3,ingredients:"خمیر پیتزا ایتالیایی، مرغ، قارچ، زیتون، فلفل دلمه ای، پنیر پیتزا",image:"./images/Chicken-Italian.webp",placeholderIcon:"🍕"},{id:"ip-5",categoryId:"italian-pizzas",isFeatured:!1,title:"پیتزا استیک ایتالیایی",tag:null,badge:null,price:1089e3,ingredients:"خمیر پیتزا ایتالیایی، گوشت گوساله تکه ای، قارچ، زیتون، فلفل دلمه ای، پنیر پیتزا",image:"images/Steak-Italian-Pizza.webp",placeholderIcon:"🍕"},{id:"b-1",categoryId:"burgers",isFeatured:!0,title:"همبرگر",tag:null,badge:null,price:629e3,ingredients:"یک عدد برگر دست ساز گوشت گوساله ۱۵۰ گرمی، گوجه، کاهو، خیارشور، پیاز، سس مخصوص، نان برگر",image:"images/burger.webp",placeholderIcon:"🍔"},{id:"b-2",categoryId:"burgers",isFeatured:!1,title:"چیزبرگر",tag:null,badge:null,price:649e3,ingredients:"یک عدد برگر دست ساز گوشت گوساله ۱۵۰ گرمی، پنیر گودا، خیارشور، گوجه، کاهو، سس مخصوص، نان برگر",image:"images/cheese-burger.webp",placeholderIcon:"🍔"},{id:"b-3",categoryId:"burgers",isFeatured:!1,title:"قارچ برگر",tag:null,badge:null,price:659e3,ingredients:"یک عدد برگر دست ساز گوشت گوساله ۱۵۰ گرمی، قارچ، پنیر، پیاز، گوجه، کاهو، خیارشور، نان برگر",image:"images/mashroom-burger.webp",placeholderIcon:"🍔"},{id:"b-4",categoryId:"burgers",isFeatured:!1,title:"دبل چیزبرگر",tag:null,badge:null,price:889e3,ingredients:"دو عدد گوشت برگر ۱۲۰ گرمی ، نان برگر ، پیاز ، کاهو ، گوجه ، خیار شور ، پنیر گودا ، سس ساندویچ",image:"images/double-cheese-burger.webp",placeholderIcon:"🍔"},{id:"b-5",categoryId:"burgers",isFeatured:!1,title:"دبل برگر",tag:null,badge:null,price:869e3,ingredients:"دو عدد برگر ۱۲۰ گرمی ، کاهو ، گوجه ، خیارشور ، نان برگر ، سس ساندویچ",image:"images/double-burger.webp",placeholderIcon:"🍔"},{id:"b-6",categoryId:"burgers",isFeatured:!1,title:"دبل ماشروم",tag:null,badge:null,price:899e3,ingredients:"دو عدد برگر ۱۲۰ گرمی ، پیاز ، قارچ ، پنیر گودا ، نان برگر ، سس مخصوص",image:"images/double-Mashroom-burger.webp",placeholderIcon:"🍔"},{id:"b-7",categoryId:"burgers",isFeatured:!1,title:"آتیش برگر",tag:null,badge:null,price:799e3,ingredients:"یک عدد برگر دست ساز گوشت گوساله ۱۵۰ گرمی، ۱۵۰ گرم فیله مرغ گریل، پنیر گودا، خیارشور، گوجه، کاهو، سس مخصوص، نان برگر",image:"images/atish-burger.webp",placeholderIcon:"🍔"},{id:"b-8",categoryId:"burgers",isFeatured:!1,title:"زینگر",tag:null,badge:null,price:599e3,ingredients:"۱۳۰ گرم فیله مرغ سوخاری تند، کاهو، گوجه، سس مخصوص، نان برگر",image:"images/Zinger.webp",placeholderIcon:"🍔"},{id:"b-9",categoryId:"sandwiches",isFeatured:!1,title:"گریل",tag:null,badge:null,price:649e3,ingredients:"۱۶۰ گرم فیله مرغ گریل شده، پنیر گودا، قارچ، گوجه، کاهو، نان باگت",image:"images/Giril.webp",placeholderIcon:"🌭"},{id:"b-10",categoryId:"sandwiches",isFeatured:!1,title:"رست بیف",tag:null,badge:null,price:699e3,ingredients:"کاهو ، گوجه ، خیارشور ، ۸۰ گرم گوشت گوساله مزه دار ، قارچ سس مخصوص و نان باگت",image:"images/RoastBeef.webp",placeholderIcon:"🌭"},{id:"sw-1",categoryId:"sandwiches",isFeatured:!0,title:"فیله سوخاری با پنیر",tag:null,badge:null,price:699e3,ingredients:"۱۲۰ گرم فیله مرغ سوخاری، پنیر گودا، گوجه، کاهو، نان باگت",image:"images/file.webp",placeholderIcon:"🌭"},{id:"sw-2",categoryId:"sandwiches",isFeatured:!1,title:"سوپرسوپریم",tag:null,badge:null,price:761e3,ingredients:"۱۲۰ گرم فیله مرغ سوخاری، ۲ ورق ژامبون گوشت ، پنیر گودا، کاهو، گوجه، نان باگت",image:"./images/jambon-sandwhich.webp",placeholderIcon:"🌭"},{id:"sw-3",categoryId:"sandwiches",isFeatured:!1,title:"هات داگ",tag:null,badge:null,price:529e3,ingredients:"یک عدد هات داگ ۹۰٪، قارچ، پنیر گودا، کاهو، گوجه، سس مخصوص، نان باگت",image:"images/Hotdog.webp",placeholderIcon:"🌭"},{id:"fr-1",categoryId:"fried",isFeatured:!0,title:"فیله سوخاری سه تیکه",tag:null,badge:null,price:789e3,ingredients:"۳ عدد فیله مرغ سوخاری، ۲۵۰ گرم سیب زمینی سرخ کرده، یک عدد نان بروتچن",image:"./images/Crispy-Chicken-Tenders.webp",placeholderIcon:"🍗"},{id:"fr-2",categoryId:"fried",isFeatured:!1,title:"فیله سوخاری چهار تیکه",tag:null,badge:null,price:899e3,ingredients:"۴ عدد فیله مرغ سوخاری، ۲۵۰ گرم سیب زمینی سرخ کرده، یک عدد نان بروتچن",image:"./images/4-Crispe.webp",placeholderIcon:"🍗"},{id:"fr-3",categoryId:"fried",isFeatured:!1,title:"قارچ سوخاری",tag:null,badge:null,price:349e3,ingredients:"۲۴۰ گرم قارچ سوخاری",image:"./images/Mashroom.webp",placeholderIcon:"🍄"},{id:"sd-1",categoryId:"sides",isFeatured:!0,title:"سیب زمینی سرخ‌کرده",tag:null,badge:null,price:339e3,ingredients:"۲۵۰ گرم سیب زمینی سرخ کرده",image:"./images/French-Fries.webp",placeholderIcon:"🍟"},{id:"sd-2",categoryId:"sides",isFeatured:!1,title:"سیب‌زمینی ویژه",tag:null,badge:null,price:469e3,ingredients:"۳۰۰ گرم سیب زمینی، ژامبون گوشت، قارچ، فلفل دلمه ای",image:"./images/Fries-Special.webp",placeholderIcon:"🍟"},{id:"dr-1",categoryId:"drinks",isFeatured:!0,title:"نوشابه خانواده",tag:null,badge:null,price:140400,ingredients:"",image:"./images/Big-Coke.webp",placeholderIcon:"🥤"},{id:"dr-2",categoryId:"drinks",isFeatured:!1,title:"نوشابه کوچک",tag:null,badge:null,price:92550,ingredients:"",image:"./images/Coke.webp",placeholderIcon:"🥤"},{id:"dr-3",categoryId:"drinks",isFeatured:!1,title:"دلستر",tag:null,badge:null,price:101e3,ingredients:"",image:"./images/Delester.webp",placeholderIcon:"🥤"},{id:"dr-4",categoryId:"drinks",isFeatured:!1,title:"دوغ",tag:null,badge:null,price:45e3,ingredients:"",image:"./images/Dogh.webp",placeholderIcon:"🥤"},{id:"dr-5",categoryId:"drinks",isFeatured:!1,title:"آب معدنی کوچک",tag:null,badge:null,price:25e3,ingredients:"",image:"./images/Water.webp",placeholderIcon:"💧"}],ye={restaurant:fe,categories:he,items:ve},we={cx:260,cy:210,radius:115},ke={cx:260,cy:210,radius:185},$e=[{id:"dowlat",name:"دولت (کلاهدوز)",zone:"direct",badge:"پیک اختصاصی آتیش ⚡️",time:"۱۵ تا ۲۰ دقیقه",desc:"محل استقرار رستوران در خیابان کلاهدوز — سریع‌ترین ارسال با پیک مستقیم آتیش",x:175,y:205},{id:"dibaji",name:"دیباجی",zone:"direct",badge:"پیک اختصاصی آتیش ⚡️",time:"۱۵ تا ۲۰ دقیقه",desc:"محدوده همجوار رستوران (دیباجی جنوبی و شمالی) — ارسال مستقیم و فوق‌سریع با پیک اختصاصی",x:250,y:145},{id:"ekhtiarieh",name:"اختیاریه",zone:"direct",badge:"پیک اختصاصی آتیش ⚡️",time:"۱۵ تا ۲۰ دقیقه",desc:"محدوده شمالی کلاهدوز تا بزرگراه صدر — ارسال سریع و مستقیم با پیک اختصاصی",x:320,y:145},{id:"darrous",name:"دروس",zone:"direct",badge:"پیک اختصاصی آتیش ⚡️",time:"۲۰ تا ۲۵ دقیقه",desc:"محدوده جنوبی رستوران (پایین خیابان دولت) — ارسال مستقیم و گرم با پیک اختصاصی آتیش",x:260,y:285},{id:"pasdaran",name:"پاسداران",zone:"direct",badge:"پیک اختصاصی آتیش ⚡️",time:"۲۰ تا ۲۵ دقیقه",desc:"ضلع شرقی رستوران — در محدوده تحت پوشش سریع پیک مستقیم آتیش",x:360,y:215},{id:"gholhak",name:"قلهک",zone:"direct",badge:"پیک اختصاصی آتیش ⚡️",time:"۳۰ تا ۳۵ دقیقه",desc:"ضلع غربی و محدوده خیابان شریعتی — در محدوده پوشش سریع پیک مستقیم رستوران",x:160,y:245},{id:"qeytarieh",name:"قیطریه / اندرزگو",zone:"express",badge:"اسنپ‌فود / اکسپرس 🛵",time:"۳۰ تا ۳۵ دقیقه",desc:"بالای بزرگراه صدر و همجوار تجریش — سفارش آنلاین و تحویل اکسپرس در اسنپ‌فود",x:185,y:85},{id:"tajrish",name:"تجریش",zone:"express",badge:"اسنپ‌فود / اکسپرس 🛵",time:"۴۰ تا ۵۰ دقیقه",desc:"محدوده شمال‌غرب و میدان تجریش — سفارش آنلاین و ارسال از طریق اسنپ‌فود",x:130,y:95},{id:"niavaran",name:"نیاوران",zone:"express",badge:"اسنپ‌فود / اکسپرس 🛵",time:"۳۰ تا ۳۵ دقیقه",desc:"شعاع اکسپرس شمال تهران — سفارش آنلاین و ارسال در اسنپ‌فود",x:315,y:55},{id:"heravi",name:"هروی",zone:"express",badge:"اسنپ‌فود / اکسپرس 🛵",time:"۴۰ تا ۵۰ دقیقه",desc:"ضلع جنوب‌شرق پاسداران — سفارش آنلاین و ارسال اکسپرس در اسنپ‌فود",x:415,y:275},{id:"seyedkhandan",name:"سیدخندان",zone:"express",badge:"اسنپ‌فود / اکسپرس 🛵",time:"۴۰ تا ۵۰ دقیقه",desc:"شعاع اکسپرس جنوب — سفارش آنلاین و ارسال در اسنپ‌فود",x:215,y:375}],Ie="این نقشه فقط نمایی تقریبی از محدوده ارسال است؛ مرزها و فاصله‌ها دقیق نیستند. برای استعلام دقیق آدرس خود، با شماره ۲۲۵۶۱۹۴۹ تماس حاصل فرمایید.",ce={restaurantArea:we,snappfoodArea:ke,neighborhoods:$e,note:Ie},X=["20dfd61e0cb3cd451d11597151d787b13f6ff0483cf1159cce00210c89921842","6c851276bdba79736d4dc111ba6061b77d862ed581c3657e170aee12631f5220","404d07aa99a8feec84c26688ce08d8454528e044dddce2ca8798d119c2d8bacd","d83d1f4e0c61d3274ad6608cd4e69f496eca6f1102a492fc75d697eefd3eec98","a6a7f34209fcc9b9fefc32580bca1741d5b780ec3d78a02ceb17c33fda347830","2eff9dea1c0ee35c7d0fe28f3af26c8562299fd417cd1e71a89188ae5bda364d","3dabf32eef9da2caf285ecc8221ef90c2a3d3309ebfdb38aa6e9fd33bd46d8c6","417c08b211db4425c5aeb5f0a0f90050aa5aa1c0b9f10475d8197f5d479345aa","df7cf129978c548b43d778f7b42da50370023c8bdeeabf1036071bf3fdf73bee","6dcc41265fc65b2b669f21237026a8bbda77bc37cde1590caf59159ab03520f0","6fcda36417001f8c5d74644427d99634b9a7185576443f5b73f887fbccdad74d","a2d6ea8c502784370e6bfa622d76ce95807c04a45d19546f7dd0e88eb847204b","2b11c2050ec85002d3c02f50a023579b64d0e1b835eadcce5623256750186d12","180d786fbd2a58c70c23efe68acc6f4d12bd63f2778d8f94e6a3e27e2f956172","163eb985597045d293af032488d44a37213ceb82966a9229b3cf35c624301a6f"],Ee="/images/logo.webp";let z=ye,ae=z.categories?.[0]?.id||"american-pizzas",M="",O=!1,B=JSON.parse(localStorage.getItem("atish_order_tray")||"{}"),A=3,U="darrous",_=null;function w(e){if(e==null)return"";const a=["۰","۱","۲","۳","۴","۵","۶","۷","۸","۹"];return e.toString().replace(/\d/g,r=>a[parseInt(r,10)])}function Z(e){return e?String(e).toLowerCase().replace(/[ي]/g,"ی").replace(/[ك]/g,"ک").replace(/[آأإ]/g,"ا").replace(/[ؤ]/g,"و").replace(/[ة]/g,"ه").replace(/[\u200c\s]+/g," ").trim():""}function re(e){return e?String(e).replace(/[&<>"']/g,a=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"})[a]):""}function J(){return Object.values(B).reduce((e,a)=>e+a,0)}function S(e){if(e==null||e===""||isNaN(e))return"";const a=Number(e);return a===0?"رایگان":`${w(a.toLocaleString("en-US"))} تومان`}function V(){return Object.entries(B).reduce((e,[a,r])=>{const n=Q(a);return e+(n&&n.price?Number(n.price)*r:0)},0)}function W(){localStorage.setItem("atish_order_tray",JSON.stringify(B)),be()}function pe(){const a=(typeof window<"u"?new URLSearchParams(window.location.search):null)?.get("theme")?.toLowerCase();let r,n,s,t=!1;if(typeof Temporal<"u"&&Temporal.Now&&Temporal.PlainMonthDay&&Temporal.PlainDate){const i=Temporal.Now.zonedDateTimeISO("Asia/Tehran").toPlainDate();r=i.year,n=i.month,s=i.day;const d=Temporal.PlainMonthDay.from({month:11,day:22,calendar:"iso8601"}).toPlainDate({year:r}),l=Temporal.PlainMonthDay.from({month:1,day:5,calendar:"iso8601"}).toPlainDate({year:r});t=Temporal.PlainDate.compare(i,d)>=0||Temporal.PlainDate.compare(i,l)<=0}else[r,n,s]=new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Tehran"}).format(new Date).split("-").map(Number),t=n===11&&s>=22||n===12||n===1&&s<=5;a==="christmas"&&(t=!0),a==="normal"&&(t=!1);let o="جشنواره زمستانی و کریسمس آتیش";if(t){const i=Date.UTC(r,n-1,s);if(n===11&&s>=22||n===12&&s<25){const d=Date.UTC(r,11,25),l=Math.max(0,Math.round((d-i)/864e5));o=`تا کریسمس ${w(l)} روز مانده`}else if(n===12&&s===25)o="کریسمس مبارک! با طعم گرم آتیش";else if(n===12&&s>25){const d=Date.UTC(r+1,0,1),l=Math.max(1,Math.round((d-i)/864e5));o=`تا سال نو میلادی ${w(l)} روز مانده`}else if(n===1&&s<=5){const d=Date.UTC(r,0,5),l=Math.max(0,Math.round((d-i)/864e5));o=l===0?"سال نو میلادی مبارک! آخرین روز تم زمستانی":`سال نو میلادی مبارک · ${w(l)} روز تا پایان فصل جشن`}}return{isActive:t,year:r,month:n,day:s,countdownText:o}}let q=pe(),C=localStorage.getItem("atish_xmas_motion_paused")==="true";const ie=`
+(function(){const a=document.createElement("link").relList;if(a&&a.supports&&a.supports("modulepreload"))return;for(const s of document.querySelectorAll('link[rel="modulepreload"]'))n(s);new MutationObserver(s=>{for(const t of s)if(t.type==="childList")for(const o of t.addedNodes)o.tagName==="LINK"&&o.rel==="modulepreload"&&n(o)}).observe(document,{childList:!0,subtree:!0});function r(s){const t={};return s.integrity&&(t.integrity=s.integrity),s.referrerPolicy&&(t.referrerPolicy=s.referrerPolicy),s.crossOrigin==="use-credentials"?t.credentials="include":s.crossOrigin==="anonymous"?t.credentials="omit":t.credentials="same-origin",t}function n(s){if(s.ep)return;s.ep=!0;const t=r(s);fetch(s.href,t)}})();const P={brandTitle:"فست‌فود آتیش",brandSubtitle:"طعم اصیل و لذیذ فست‌فود آتیش",tagline:"منوی دیجیتال و سفارش دلیوری فست‌فود آتیش",phoneNumber:"02122561949",snappfoodUrl:"https://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/",instagramUrl:"https://instagram.com/atishfood",workingHours:"همه روزه از ۱۱:۳۰ صبح تا ۲۳:۱۵ شب",address:"خیابان دولت تهران، محله دروس، خیابان کلاهدوز (دولت)، روبه‌روی بانک ملت بین کوچه خرداد و معتمدی، پلاک ۱۰۰"},xe={name:"آتیش",brandTitle:"آتیش | Menu",brandSubtitle:"طعم اصیل و لذیذ رستوران آتیش",tagline:"منوی دیجیتال آتیش",phone:"02122561949",snappfoodUrl:"https://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/",instagramUrl:"https://instagram.com/atishfood",workingHours:"همه روزه از ۱۱:۳۰ صبح تا ۲۳:۱۵ شب",address:"خیابان دولت تهران، محله دروس، خیابان کلاهدوز (دولت)، روبه‌روی بانک ملت بین کوچه خرداد و معتمدی، پلاک ۱۰۰",rating:"۴.۵"},ge=[{id:"american-pizzas",name:"پیتزا آمریکایی",icon:"🍕",title:"پیتزاهای آمریکایی",subtitle:""},{id:"family-pizzas",name:"پیتزا خانواده",icon:"🍕",title:"پیتزاهای خانواده",subtitle:""},{id:"italian-pizzas",name:"پیتزا ایتالیایی",icon:"🍕",title:"پیتزاهای ایتالیایی",subtitle:""},{id:"burgers",name:"برگرها",icon:"🍔",title:"برگر",subtitle:""},{id:"sandwiches",name:"ساندویچ‌ها",icon:"🌭",title:"ساندویچ‌ها",subtitle:""},{id:"fried",name:"سوخاری‌ها",icon:"🍗",title:"مرغ و سوخاری",subtitle:""},{id:"sides",name:"پیش‌ غذا",icon:"🍟",title:"پیش‌ غذا",subtitle:""},{id:"drinks",name:"نوشیدنی‌ها",icon:"🥤",title:"نوشیدنی‌ها",subtitle:""}],fe=[{id:"ap-1",categoryId:"american-pizzas",isFeatured:!0,isChefRecommendation:!0,title:"پیتزا آمریکایی مخصوص",tag:null,badge:"دارای طرح قلبی ❤️",price:749e3,ingredients:"خمیر پیتزا پنجره ای آمریکایی، مرغ، ژامبون گوشت 90%، قارچ، فلفل دلمه ای، پنیر پیتزا",image:"./images/Makhsos-American.webp",placeholderIcon:"🍕",shapes:[{id:"normal",name:"مستطیل کلاسیک",shortName:"مستطیل",icon:"",image:"./images/Makhsos-American.webp",badge:null,price:749e3},{id:"heart",name:"طرح قلبی",shortName:"قلبی",icon:"",image:"images/heart-normal.webp",badge:"❤️ طرح قلبی",price:749e3}]},{id:"ap-2",categoryId:"american-pizzas",isFeatured:!1,isChefRecommendation:!0,title:"پیتزا پپرونی",tag:null,badge:"دارای طرح قلبی ❤️",price:739e3,ingredients:"خمیر پیتزا پنجره ای آمریکایی، پپرونی 90%، فلفل دلمه ای، پنیر پیتزا",image:"./images/Peperoni-American-Pizza.webp",placeholderIcon:"🍕",shapes:[{id:"normal",name:"مستطیل کلاسیک",shortName:"مستطیل",icon:"",image:"./images/Peperoni-American-Pizza.webp",badge:null,price:739e3},{id:"heart",name:"طرح قلبی",shortName:"قلبی",icon:"",image:"images/heart-peperoni.webp",badge:"❤️ طرح قلبی",price:739e3}]},{id:"ap-3",categoryId:"american-pizzas",isFeatured:!1,isChefRecommendation:!0,title:"پیتزا مرغ و قارچ",tag:null,badge:null,price:749e3,ingredients:"خمیر پیتزا پنجره ای آمریکایی، مرغ نگینی شده، قارچ، پنیر پیتزا",image:"./images/Chicken-American-Pizza.webp",placeholderIcon:"🍕"},{id:"ap-4",categoryId:"american-pizzas",isFeatured:!1,isChefRecommendation:!0,title:"پیتزا گوشت و قارچ",tag:null,badge:null,price:879e3,ingredients:"خمیر پیتزا پنجره ای آمریکایی، گوشت گوساله ریش ریش شده، قارچ، پنیر پیتزا",image:"./images/meat-American-Pizza.webp",placeholderIcon:"🍕"},{id:"ap-5",categoryId:"american-pizzas",isFeatured:!1,title:"پیتزا سبزیجات",tag:null,badge:null,price:599e3,ingredients:"خمیر پیتزا آمریکایی، ذرت، نخود فرنگی، هویج، قارچ، فلفل دلمه ای، پنیر پیتزا",image:"./images/Sabzi-American.webp",placeholderIcon:"🍕"},{id:"ap-6",categoryId:"american-pizzas",isFeatured:!1,title:"پیتزا قارچ و سوسیس",tag:null,badge:null,price:61e4,ingredients:"خمیر آمریکایی ، قارچ ، سوسیس اسلایس ، پنیر میکس ، سس مخصوص آتیش",image:"images/american-Sosis-mashroom.webp",placeholderIcon:"🍕"},{id:"ap-7",categoryId:"american-pizzas",isFeatured:!1,title:"پیتزا قارچ و پنیر",tag:null,badge:null,price:499e3,ingredients:"خمیر پیتزا آمریکایی، قارچ، پنیر پیتزا",image:"./images/Mashroom-Pizza.webp",placeholderIcon:"🍕"},{id:"fp-1",categoryId:"family-pizzas",isFeatured:!0,title:"پیتزا چهارطعم خانواده",tag:null,badge:null,price:1549e3,ingredients:"ترکیبی از چهار طعم مختلف پیتزا با قابلیت انتخاب و تغییر طعم‌ها به سلیقه شما.",image:"./images/4F-Family.webp",placeholderIcon:"🍕"},{id:"ip-1",categoryId:"italian-pizzas",isFeatured:!0,title:"پیتزا ایتالیایی آتیش",tag:null,badge:null,price:989e3,ingredients:"خمیر پیتزا ایتالیایی، مرغ، ژامبون گوشت 90%، قارچ، فلفل دلمه ای، زیتون، پنیر پیتزا",image:"./images/Atish-Italian.webp",placeholderIcon:"🍕"},{id:"ip-2",categoryId:"italian-pizzas",isFeatured:!1,title:"پیتزا پپرونی ایتالیایی",tag:null,badge:null,price:989e3,ingredients:"خمیر پیتزا ایتالیایی، پپرونی 90%، فلفل دلمه ای، پنیر پیتزا",image:"./images/Peperoni-Italian.webp",placeholderIcon:"🍕"},{id:"ip-3",categoryId:"italian-pizzas",isFeatured:!1,title:"پیتزا مرغ و قارچ ایتالیایی",tag:null,badge:null,price:979e3,ingredients:"خمیر پیتزا ایتالیایی، مرغ، قارچ، زیتون، فلفل دلمه ای، پنیر پیتزا",image:"./images/Chicken-Italian.webp",placeholderIcon:"🍕"},{id:"ip-5",categoryId:"italian-pizzas",isFeatured:!1,title:"پیتزا استیک ایتالیایی",tag:null,badge:null,price:1089e3,ingredients:"خمیر پیتزا ایتالیایی، گوشت گوساله تکه ای، قارچ، زیتون، فلفل دلمه ای، پنیر پیتزا",image:"images/Steak-Italian-Pizza.webp",placeholderIcon:"🍕"},{id:"b-1",categoryId:"burgers",isFeatured:!0,title:"همبرگر",tag:null,badge:null,price:629e3,ingredients:"یک عدد برگر دست ساز گوشت گوساله ۱۵۰ گرمی، گوجه، کاهو، خیارشور، پیاز، سس مخصوص، نان برگر",image:"images/burger.webp",placeholderIcon:"🍔"},{id:"b-2",categoryId:"burgers",isFeatured:!1,title:"چیزبرگر",tag:null,badge:null,price:649e3,ingredients:"یک عدد برگر دست ساز گوشت گوساله ۱۵۰ گرمی، پنیر گودا، خیارشور، گوجه، کاهو، سس مخصوص، نان برگر",image:"images/cheese-burger.webp",placeholderIcon:"🍔"},{id:"b-3",categoryId:"burgers",isFeatured:!1,title:"قارچ برگر",tag:null,badge:null,price:659e3,ingredients:"یک عدد برگر دست ساز گوشت گوساله ۱۵۰ گرمی، قارچ، پنیر، پیاز، گوجه، کاهو، خیارشور، نان برگر",image:"images/mashroom-burger.webp",placeholderIcon:"🍔"},{id:"b-4",categoryId:"burgers",isFeatured:!1,title:"دبل چیزبرگر",tag:null,badge:null,price:889e3,ingredients:"دو عدد گوشت برگر ۱۲۰ گرمی ، نان برگر ، پیاز ، کاهو ، گوجه ، خیار شور ، پنیر گودا ، سس ساندویچ",image:"images/double-cheese-burger.webp",placeholderIcon:"🍔"},{id:"b-5",categoryId:"burgers",isFeatured:!1,title:"دبل برگر",tag:null,badge:null,price:869e3,ingredients:"دو عدد برگر ۱۲۰ گرمی ، کاهو ، گوجه ، خیارشور ، نان برگر ، سس ساندویچ",image:"images/double-burger.webp",placeholderIcon:"🍔"},{id:"b-6",categoryId:"burgers",isFeatured:!1,title:"دبل ماشروم",tag:null,badge:null,price:899e3,ingredients:"دو عدد برگر ۱۲۰ گرمی ، پیاز ، قارچ ، پنیر گودا ، نان برگر ، سس مخصوص",image:"images/double-Mashroom-burger.webp",placeholderIcon:"🍔"},{id:"b-7",categoryId:"burgers",isFeatured:!1,title:"آتیش برگر",tag:null,badge:null,price:799e3,ingredients:"یک عدد برگر دست ساز گوشت گوساله ۱۵۰ گرمی، ۱۵۰ گرم فیله مرغ گریل، پنیر گودا، خیارشور، گوجه، کاهو، سس مخصوص، نان برگر",image:"images/atish-burger.webp",placeholderIcon:"🍔"},{id:"b-8",categoryId:"burgers",isFeatured:!1,title:"زینگر",tag:null,badge:null,price:599e3,ingredients:"۱۳۰ گرم فیله مرغ سوخاری تند، کاهو، گوجه، سس مخصوص، نان برگر",image:"images/Zinger.webp",placeholderIcon:"🍔"},{id:"b-9",categoryId:"sandwiches",isFeatured:!1,title:"گریل",tag:null,badge:null,price:649e3,ingredients:"۱۶۰ گرم فیله مرغ گریل شده، پنیر گودا، قارچ، گوجه، کاهو، نان باگت",image:"images/Giril.webp",placeholderIcon:"🌭"},{id:"b-10",categoryId:"sandwiches",isFeatured:!1,title:"رست بیف",tag:null,badge:null,price:699e3,ingredients:"کاهو ، گوجه ، خیارشور ، ۸۰ گرم گوشت گوساله مزه دار ، قارچ سس مخصوص و نان باگت",image:"images/RoastBeef.webp",placeholderIcon:"🌭"},{id:"sw-1",categoryId:"sandwiches",isFeatured:!0,title:"فیله سوخاری با پنیر",tag:null,badge:null,price:699e3,ingredients:"۱۲۰ گرم فیله مرغ سوخاری، پنیر گودا، گوجه، کاهو، نان باگت",image:"images/file.webp",placeholderIcon:"🌭"},{id:"sw-2",categoryId:"sandwiches",isFeatured:!1,title:"سوپرسوپریم",tag:null,badge:null,price:761e3,ingredients:"۱۲۰ گرم فیله مرغ سوخاری، ۲ ورق ژامبون گوشت ، پنیر گودا، کاهو، گوجه، نان باگت",image:"./images/jambon-sandwhich.webp",placeholderIcon:"🌭"},{id:"sw-3",categoryId:"sandwiches",isFeatured:!1,title:"هات داگ",tag:null,badge:null,price:529e3,ingredients:"یک عدد هات داگ ۹۰٪، قارچ، پنیر گودا، کاهو، گوجه، سس مخصوص، نان باگت",image:"images/Hotdog.webp",placeholderIcon:"🌭"},{id:"fr-1",categoryId:"fried",isFeatured:!0,title:"فیله سوخاری سه تیکه",tag:null,badge:null,price:789e3,ingredients:"۳ عدد فیله مرغ سوخاری، ۲۵۰ گرم سیب زمینی سرخ کرده، یک عدد نان بروتچن",image:"./images/Crispy-Chicken-Tenders.webp",placeholderIcon:"🍗"},{id:"fr-2",categoryId:"fried",isFeatured:!1,title:"فیله سوخاری چهار تیکه",tag:null,badge:null,price:899e3,ingredients:"۴ عدد فیله مرغ سوخاری، ۲۵۰ گرم سیب زمینی سرخ کرده، یک عدد نان بروتچن",image:"./images/4-Crispe.webp",placeholderIcon:"🍗"},{id:"fr-3",categoryId:"fried",isFeatured:!1,title:"قارچ سوخاری",tag:null,badge:null,price:349e3,ingredients:"۲۴۰ گرم قارچ سوخاری",image:"./images/Mashroom.webp",placeholderIcon:"🍄"},{id:"sd-1",categoryId:"sides",isFeatured:!0,title:"سیب زمینی سرخ‌کرده",tag:null,badge:null,price:339e3,ingredients:"۲۵۰ گرم سیب زمینی سرخ کرده",image:"./images/French-Fries.webp",placeholderIcon:"🍟"},{id:"sd-2",categoryId:"sides",isFeatured:!1,title:"سیب‌زمینی ویژه",tag:null,badge:null,price:469e3,ingredients:"۳۰۰ گرم سیب زمینی، ژامبون گوشت، قارچ، فلفل دلمه ای",image:"./images/Fries-Special.webp",placeholderIcon:"🍟"},{id:"dr-1",categoryId:"drinks",isFeatured:!0,title:"نوشابه خانواده",tag:null,badge:null,price:140400,ingredients:"",image:"./images/Big-Coke.webp",placeholderIcon:"🥤"},{id:"dr-2",categoryId:"drinks",isFeatured:!1,title:"نوشابه کوچک",tag:null,badge:null,price:92550,ingredients:"",image:"./images/Coke.webp",placeholderIcon:"🥤"},{id:"dr-3",categoryId:"drinks",isFeatured:!1,title:"دلستر",tag:null,badge:null,price:101e3,ingredients:"",image:"./images/Delester.webp",placeholderIcon:"🥤"},{id:"dr-4",categoryId:"drinks",isFeatured:!1,title:"دوغ",tag:null,badge:null,price:45e3,ingredients:"",image:"./images/Dogh.webp",placeholderIcon:"🥤"},{id:"dr-5",categoryId:"drinks",isFeatured:!1,title:"آب معدنی کوچک",tag:null,badge:null,price:25e3,ingredients:"",image:"./images/Water.webp",placeholderIcon:"💧"}],he={restaurant:xe,categories:ge,items:fe},ve={cx:260,cy:210,radius:115},ye={cx:260,cy:210,radius:185},we=[{id:"dowlat",name:"دولت (کلاهدوز)",zone:"direct",badge:"پیک اختصاصی آتیش ⚡️",time:"۱۵ تا ۲۰ دقیقه",desc:"محل استقرار رستوران در خیابان کلاهدوز — سریع‌ترین ارسال با پیک مستقیم آتیش",x:175,y:205},{id:"dibaji",name:"دیباجی",zone:"direct",badge:"پیک اختصاصی آتیش ⚡️",time:"۱۵ تا ۲۰ دقیقه",desc:"محدوده همجوار رستوران (دیباجی جنوبی و شمالی) — ارسال مستقیم و فوق‌سریع با پیک اختصاصی",x:250,y:145},{id:"ekhtiarieh",name:"اختیاریه",zone:"direct",badge:"پیک اختصاصی آتیش ⚡️",time:"۱۵ تا ۲۰ دقیقه",desc:"محدوده شمالی کلاهدوز تا بزرگراه صدر — ارسال سریع و مستقیم با پیک اختصاصی",x:320,y:145},{id:"darrous",name:"دروس",zone:"direct",badge:"پیک اختصاصی آتیش ⚡️",time:"۲۰ تا ۲۵ دقیقه",desc:"محدوده جنوبی رستوران (پایین خیابان دولت) — ارسال مستقیم و گرم با پیک اختصاصی آتیش",x:260,y:285},{id:"pasdaran",name:"پاسداران",zone:"direct",badge:"پیک اختصاصی آتیش ⚡️",time:"۲۰ تا ۲۵ دقیقه",desc:"ضلع شرقی رستوران — در محدوده تحت پوشش سریع پیک مستقیم آتیش",x:360,y:215},{id:"gholhak",name:"قلهک",zone:"direct",badge:"پیک اختصاصی آتیش ⚡️",time:"۳۰ تا ۳۵ دقیقه",desc:"ضلع غربی و محدوده خیابان شریعتی — در محدوده پوشش سریع پیک مستقیم رستوران",x:160,y:245},{id:"qeytarieh",name:"قیطریه / اندرزگو",zone:"express",badge:"اسنپ‌فود / اکسپرس 🛵",time:"۳۰ تا ۳۵ دقیقه",desc:"بالای بزرگراه صدر و همجوار تجریش — سفارش آنلاین و تحویل اکسپرس در اسنپ‌فود",x:185,y:85},{id:"tajrish",name:"تجریش",zone:"express",badge:"اسنپ‌فود / اکسپرس 🛵",time:"۴۰ تا ۵۰ دقیقه",desc:"محدوده شمال‌غرب و میدان تجریش — سفارش آنلاین و ارسال از طریق اسنپ‌فود",x:130,y:95},{id:"niavaran",name:"نیاوران",zone:"express",badge:"اسنپ‌فود / اکسپرس 🛵",time:"۳۰ تا ۳۵ دقیقه",desc:"شعاع اکسپرس شمال تهران — سفارش آنلاین و ارسال در اسنپ‌فود",x:315,y:55},{id:"heravi",name:"هروی",zone:"express",badge:"اسنپ‌فود / اکسپرس 🛵",time:"۴۰ تا ۵۰ دقیقه",desc:"ضلع جنوب‌شرق پاسداران — سفارش آنلاین و ارسال اکسپرس در اسنپ‌فود",x:415,y:275},{id:"seyedkhandan",name:"سیدخندان",zone:"express",badge:"اسنپ‌فود / اکسپرس 🛵",time:"۴۰ تا ۵۰ دقیقه",desc:"شعاع اکسپرس جنوب — سفارش آنلاین و ارسال در اسنپ‌فود",x:215,y:375}],ke="این نقشه فقط نمایی تقریبی از محدوده ارسال است؛ مرزها و فاصله‌ها دقیق نیستند. برای استعلام دقیق آدرس خود، با شماره ۲۲۵۶۱۹۴۹ تماس حاصل فرمایید.",de={restaurantArea:ve,snappfoodArea:ye,neighborhoods:we,note:ke},V=["20dfd61e0cb3cd451d11597151d787b13f6ff0483cf1159cce00210c89921842","6c851276bdba79736d4dc111ba6061b77d862ed581c3657e170aee12631f5220","404d07aa99a8feec84c26688ce08d8454528e044dddce2ca8798d119c2d8bacd","d83d1f4e0c61d3274ad6608cd4e69f496eca6f1102a492fc75d697eefd3eec98","a6a7f34209fcc9b9fefc32580bca1741d5b780ec3d78a02ceb17c33fda347830","2eff9dea1c0ee35c7d0fe28f3af26c8562299fd417cd1e71a89188ae5bda364d","3dabf32eef9da2caf285ecc8221ef90c2a3d3309ebfdb38aa6e9fd33bd46d8c6","417c08b211db4425c5aeb5f0a0f90050aa5aa1c0b9f10475d8197f5d479345aa","df7cf129978c548b43d778f7b42da50370023c8bdeeabf1036071bf3fdf73bee","6dcc41265fc65b2b669f21237026a8bbda77bc37cde1590caf59159ab03520f0","6fcda36417001f8c5d74644427d99634b9a7185576443f5b73f887fbccdad74d","a2d6ea8c502784370e6bfa622d76ce95807c04a45d19546f7dd0e88eb847204b","2b11c2050ec85002d3c02f50a023579b64d0e1b835eadcce5623256750186d12","180d786fbd2a58c70c23efe68acc6f4d12bd63f2778d8f94e6a3e27e2f956172","163eb985597045d293af032488d44a37213ceb82966a9229b3cf35c624301a6f"],$e="/images/logo.webp";let C=he,ee=C.categories?.[0]?.id||"american-pizzas",z="",R=!1,L=JSON.parse(localStorage.getItem("atish_order_tray")||"{}"),j=3,O="darrous",H=null;function k(e){if(e==null)return"";const a=["۰","۱","۲","۳","۴","۵","۶","۷","۸","۹"];return e.toString().replace(/\d/g,r=>a[parseInt(r,10)])}function W(e){return e?String(e).toLowerCase().replace(/[ي]/g,"ی").replace(/[ك]/g,"ک").replace(/[آأإ]/g,"ا").replace(/[ؤ]/g,"و").replace(/[ة]/g,"ه").replace(/[\u200c\s]+/g," ").trim():""}function ne(e){return e?String(e).replace(/[&<>"']/g,a=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"})[a]):""}function G(){return Object.values(L).reduce((e,a)=>e+a,0)}function B(e){if(e==null||e===""||isNaN(e))return"";const a=Number(e);return a===0?"رایگان":`${k(a.toLocaleString("en-US"))} تومان`}function U(){return Object.entries(L).reduce((e,[a,r])=>{const n=Y(a);return e+(n&&n.price?Number(n.price)*r:0)},0)}function q(){localStorage.setItem("atish_order_tray",JSON.stringify(L)),pe()}function le(){const a=(typeof window<"u"?new URLSearchParams(window.location.search):null)?.get("theme")?.toLowerCase();let r,n,s,t=!1;if(typeof Temporal<"u"&&Temporal.Now&&Temporal.PlainMonthDay&&Temporal.PlainDate){const i=Temporal.Now.zonedDateTimeISO("Asia/Tehran").toPlainDate();r=i.year,n=i.month,s=i.day;const d=Temporal.PlainMonthDay.from({month:11,day:22,calendar:"iso8601"}).toPlainDate({year:r}),l=Temporal.PlainMonthDay.from({month:1,day:5,calendar:"iso8601"}).toPlainDate({year:r});t=Temporal.PlainDate.compare(i,d)>=0||Temporal.PlainDate.compare(i,l)<=0}else[r,n,s]=new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Tehran"}).format(new Date).split("-").map(Number),t=n===11&&s>=22||n===12||n===1&&s<=5;a==="christmas"&&(t=!0),a==="normal"&&(t=!1);let o="جشنواره زمستانی و کریسمس آتیش";if(t){const i=Date.UTC(r,n-1,s);if(n===11&&s>=22||n===12&&s<25){const d=Date.UTC(r,11,25),l=Math.max(0,Math.round((d-i)/864e5));o=`تا کریسمس ${k(l)} روز مانده`}else if(n===12&&s===25)o="کریسمس مبارک! با طعم گرم آتیش";else if(n===12&&s>25){const d=Date.UTC(r+1,0,1),l=Math.max(1,Math.round((d-i)/864e5));o=`تا سال نو میلادی ${k(l)} روز مانده`}else if(n===1&&s<=5){const d=Date.UTC(r,0,5),l=Math.max(0,Math.round((d-i)/864e5));o=l===0?"سال نو میلادی مبارک! آخرین روز تم زمستانی":`سال نو میلادی مبارک · ${k(l)} روز تا پایان فصل جشن`}}return{isActive:t,year:r,month:n,day:s,countdownText:o}}let _=le();const se=`
   <svg viewBox="0 0 64 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <path d="M10 38 C16 14, 38 6, 54 16 C48 16, 44 22, 46 30 C36 28, 22 31, 10 38 Z" fill="#dc2626"/>
     <path d="M18 35 C23 18, 38 11, 50 16 C42 14, 30 20, 24 34 Z" fill="#ef4444" opacity="0.65"/>
     <rect x="6" y="34" width="44" height="11" rx="5.5" fill="#f8fafc"/>
     <circle cx="55" cy="18" r="6" fill="#ffffff"/>
   </svg>
-`;function Le(){return`
+`;function Ie(){return`
     <div class="xmas-lights-bar" aria-hidden="true">
       <svg class="xmas-lights-svg" viewBox="0 0 1200 18" preserveAspectRatio="none">
         <path d="M0 3 Q75 14 150 4 T300 4 T450 4 T600 4 T750 4 T900 4 T1050 4 T1200 4" fill="none" stroke="rgba(161,161,170,0.42)" stroke-width="1.4"/>
@@ -18,20 +18,20 @@
         `).join("")}
       </svg>
     </div>
-  `}function Be(){const e=document.documentElement,a=document.querySelector('meta[name="theme-color"]');if(!q.isActive){e.classList.remove("theme-christmas","xmas-motion-paused"),document.getElementById("xmas-snow-layer")?.remove(),a&&a.setAttribute("content","#0e0e10");return}if(e.classList.add("theme-christmas"),e.classList.toggle("xmas-motion-paused",C),a&&a.setAttribute("content","#0d1311"),!document.getElementById("xmas-snow-layer")){const r=document.createElement("div");r.id="xmas-snow-layer",r.className="xmas-snow-layer",r.setAttribute("aria-hidden","true");const n=window.innerWidth<640?18:26,s=document.createDocumentFragment();for(let t=0;t<n;t++){const o=document.createElement("span");o.className="xmas-snowflake";const i=(t*37+11)%98+1,d=3+t%4*1.4,l=9+t%6*2.2,c=-(t*1.7%14),x=(t%2===0?1:-1)*(14+t%4*8),$=.4+t%4*.14;o.style.setProperty("--x",`${i}%`),o.style.setProperty("--size",`${d}px`),o.style.setProperty("--dur",`${l}s`),o.style.setProperty("--delay",`${c}s`),o.style.setProperty("--drift",`${x}px`),o.style.setProperty("--alpha",`${$.toFixed(2)}`),s.appendChild(o)}r.appendChild(s),document.body.appendChild(r)}}function me(){try{const a=new Date().toLocaleTimeString("en-US",{timeZone:"Asia/Tehran",hour12:!1,hour:"2-digit",minute:"2-digit"}),[r,n]=a.split(":").map(Number),s=r*60+n;return s>=690&&s<1395?{isOpen:!0,text:"هم‌اکنون باز است",badgeClass:"bg-emerald-500/15 border-emerald-500/30 text-emerald-400",dotClass:"bg-emerald-400 animate-pulse",tooltip:"پذیرش سفارشات تلفنی و آنلاین اسنپ‌فود (۱۱:۳۰ تا ۲۳:۱۵)"}:{isOpen:!1,text:"هم‌اکنون بسته است",badgeClass:"bg-rose-500/15 border-rose-500/30 text-rose-400",dotClass:"bg-rose-400",tooltip:"ساعات کاری آتیش: همه روزه از ۱۱:۳۰ صبح تا ۲۳:۱۵ شب"}}catch{return{isOpen:!0,text:"هم‌اکنون باز است",badgeClass:"bg-emerald-500/15 border-emerald-500/30 text-emerald-400",dotClass:"bg-emerald-400 animate-pulse",tooltip:"پذیرش سفارشات تلفنی و آنلاین اسنپ‌فود"}}}const f={search:'<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>',phone:'<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>',scooter:'<svg class="w-5 h-5 -scale-x-100" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 9h4l4 4v5h-3"/><circle stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" cx="19" cy="18" r="2"/><circle stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" cx="7" cy="18" r="2"/></svg>',instagram:'<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>',clock:'<svg class="w-4 h-4 text-amber-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',location:'<svg class="w-4 h-4 text-amber-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>',close:'<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M6 18L18 6M6 6l12 12"/></svg>',menuIcon:'<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 6h16M4 12h16M4 18h16"/></svg>',tray:'<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>',plus:'<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>',minus:'<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"/></svg>',trash:'<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>',copy:'<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/></svg>'},N=[{title:"نان کنجدی تازه",desc:"نان لطیف و معطر دست‌ساز با کنجد درجه یک.",icon:"🍞"},{title:"سس مخصوص آتیش",desc:"فرمول انحصاری و دست‌ساز فست‌فود آتیش با عطر ادویه‌جات ویژه و چاشنی دلپذیر.",icon:"🍯"},{title:"پنیر گودا",desc:"ورقه‌های پنیر گودا روی برگر گرم با طعم اصیل و لذیذ.",icon:"🧀"},{title:"گوشت خالص برگر دست‌ساز",desc:"۱۰۰٪ گوشت خالص و گرم گوساله با طبخ مخصوص و حفظ کامل آبدار بودن گوشت.",icon:"🥩"},{title:"قارچ و پیاز",desc:"ترکیب قارچ تفت‌داده و پیاز که طعم فوق‌العاده‌ای به آتیش برگر می‌بخشد.",icon:"🍄"},{title:"خیارشور و سبزیجات تازه",desc:"خیارشور تازه، کاهو پیچ ترد و گوجه فرنگی به همراه نان تازه کنجدی.",icon:"🥒"}];function ee(e){const a=z?.restaurant||F,{neighborhoods:r}=ce,n=r.find(i=>i.id===e);if(!n)return;U=e;const s=n.zone==="direct";document.querySelectorAll(".delivery-chip-btn").forEach(i=>{const d=i.dataset.id===e,l=r.find(x=>x.id===i.dataset.id),c=l?l.name:"";i.className=`delivery-chip-btn text-[11px] px-3 py-1.5 rounded-xl font-bold transition flex items-center gap-1.5 ${d?"bg-gradient-to-r from-amber-500 to-orange-500 text-black shadow-md shadow-orange-500/30 scale-105":"bg-white/[0.04] border border-white/[0.08] text-zinc-300 hover:bg-white/[0.08] hover:text-white"}`,i.innerHTML=`<span>${d?"✓":"📍"}</span><span>${c}</span>`});const t=document.getElementById("delivery-status-card");if(t){t.className=`p-4 rounded-2xl border transition-all duration-300 mb-4 ${s?"bg-gradient-to-br from-emerald-950/40 via-[#18181c] to-emerald-950/20 border-emerald-500/40 shadow-lg shadow-emerald-950/30":"bg-gradient-to-br from-pink-950/40 via-[#18181c] to-pink-950/20 border-pink-500/40 shadow-lg shadow-pink-950/30"}`;const i=document.getElementById("delivery-card-title");i&&(i.textContent=`ارسال به ${n.name}`);const d=document.getElementById("delivery-card-badge");d&&(d.textContent=n.badge,d.className=`text-[11px] font-bold px-2.5 py-1 rounded-full ${s?"bg-emerald-500/20 text-emerald-300 border border-emerald-500/30":"bg-pink-500/20 text-pink-300 border border-pink-500/30"}`);const l=document.getElementById("delivery-card-time");l&&(l.textContent=n.time);const c=document.getElementById("delivery-card-desc");c&&(c.textContent=n.desc);const x=document.getElementById("delivery-card-actions");x&&(s?x.innerHTML=`
-          <a id="delivery-action-link" href="tel:${a.phone||F.phoneNumber}" class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold text-xs sm:text-sm shadow-md transition active:scale-[0.98]">
-            ${f.phone}
+  `}function Ee(){const e=document.documentElement,a=document.querySelector('meta[name="theme-color"]');if(!_.isActive){e.classList.remove("theme-christmas"),document.getElementById("xmas-snow-layer")?.remove(),a&&a.setAttribute("content","#0e0e10");return}if(e.classList.add("theme-christmas"),a&&a.setAttribute("content","#0d1311"),!document.getElementById("xmas-snow-layer")){const r=document.createElement("div");r.id="xmas-snow-layer",r.className="xmas-snow-layer",r.setAttribute("aria-hidden","true");const n=window.innerWidth<640?18:26,s=document.createDocumentFragment();for(let t=0;t<n;t++){const o=document.createElement("span");o.className="xmas-snowflake";const i=(t*37+11)%98+1,d=3+t%4*1.4,l=9+t%6*2.2,c=-(t*1.7%14),u=(t%2===0?1:-1)*(14+t%4*8),I=.4+t%4*.14;o.style.setProperty("--x",`${i}%`),o.style.setProperty("--size",`${d}px`),o.style.setProperty("--dur",`${l}s`),o.style.setProperty("--delay",`${c}s`),o.style.setProperty("--drift",`${u}px`),o.style.setProperty("--alpha",`${I.toFixed(2)}`),s.appendChild(o)}r.appendChild(s),document.body.appendChild(r)}}function ce(){try{const a=new Date().toLocaleTimeString("en-US",{timeZone:"Asia/Tehran",hour12:!1,hour:"2-digit",minute:"2-digit"}),[r,n]=a.split(":").map(Number),s=r*60+n;return s>=690&&s<1395?{isOpen:!0,text:"هم‌اکنون باز است",badgeClass:"bg-emerald-500/15 border-emerald-500/30 text-emerald-400",dotClass:"bg-emerald-400 animate-pulse",tooltip:"پذیرش سفارشات تلفنی و آنلاین اسنپ‌فود (۱۱:۳۰ تا ۲۳:۱۵)"}:{isOpen:!1,text:"هم‌اکنون بسته است",badgeClass:"bg-rose-500/15 border-rose-500/30 text-rose-400",dotClass:"bg-rose-400",tooltip:"ساعات کاری آتیش: همه روزه از ۱۱:۳۰ صبح تا ۲۳:۱۵ شب"}}catch{return{isOpen:!0,text:"هم‌اکنون باز است",badgeClass:"bg-emerald-500/15 border-emerald-500/30 text-emerald-400",dotClass:"bg-emerald-400 animate-pulse",tooltip:"پذیرش سفارشات تلفنی و آنلاین اسنپ‌فود"}}}const g={search:'<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>',phone:'<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>',scooter:'<svg class="w-5 h-5 -scale-x-100" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M5 18H3c-.6 0-1-.4-1-1V7c0-.6.4-1 1-1h10c.6 0 1 .4 1 1v11"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M14 9h4l4 4v5h-3"/><circle stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" cx="19" cy="18" r="2"/><circle stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" cx="7" cy="18" r="2"/></svg>',instagram:'<svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>',clock:'<svg class="w-4 h-4 text-amber-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>',location:'<svg class="w-4 h-4 text-amber-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>',close:'<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M6 18L18 6M6 6l12 12"/></svg>',menuIcon:'<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 6h16M4 12h16M4 18h16"/></svg>',tray:'<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>',plus:'<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>',minus:'<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4"/></svg>',trash:'<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>',copy:'<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"/></svg>'},D=[{title:"نان کنجدی تازه",desc:"نان لطیف و معطر دست‌ساز با کنجد درجه یک.",icon:"🍞"},{title:"سس مخصوص آتیش",desc:"فرمول انحصاری و دست‌ساز فست‌فود آتیش با عطر ادویه‌جات ویژه و چاشنی دلپذیر.",icon:"🍯"},{title:"پنیر گودا",desc:"ورقه‌های پنیر گودا روی برگر گرم با طعم اصیل و لذیذ.",icon:"🧀"},{title:"گوشت خالص برگر دست‌ساز",desc:"۱۰۰٪ گوشت خالص و گرم گوساله با طبخ مخصوص و حفظ کامل آبدار بودن گوشت.",icon:"🥩"},{title:"قارچ و پیاز",desc:"ترکیب قارچ تفت‌داده و پیاز که طعم فوق‌العاده‌ای به آتیش برگر می‌بخشد.",icon:"🍄"},{title:"خیارشور و سبزیجات تازه",desc:"خیارشور تازه، کاهو پیچ ترد و گوجه فرنگی به همراه نان تازه کنجدی.",icon:"🥒"}];function Q(e){const a=C?.restaurant||P,{neighborhoods:r}=de,n=r.find(i=>i.id===e);if(!n)return;O=e;const s=n.zone==="direct";document.querySelectorAll(".delivery-chip-btn").forEach(i=>{const d=i.dataset.id===e,l=r.find(u=>u.id===i.dataset.id),c=l?l.name:"";i.className=`delivery-chip-btn text-[11px] px-3 py-1.5 rounded-xl font-bold transition flex items-center gap-1.5 ${d?"bg-gradient-to-r from-amber-500 to-orange-500 text-black shadow-md shadow-orange-500/30 scale-105":"bg-white/[0.04] border border-white/[0.08] text-zinc-300 hover:bg-white/[0.08] hover:text-white"}`,i.innerHTML=`<span>${d?"✓":"📍"}</span><span>${c}</span>`});const t=document.getElementById("delivery-status-card");if(t){t.className=`p-4 rounded-2xl border transition-all duration-300 mb-4 ${s?"bg-gradient-to-br from-emerald-950/40 via-[#18181c] to-emerald-950/20 border-emerald-500/40 shadow-lg shadow-emerald-950/30":"bg-gradient-to-br from-pink-950/40 via-[#18181c] to-pink-950/20 border-pink-500/40 shadow-lg shadow-pink-950/30"}`;const i=document.getElementById("delivery-card-title");i&&(i.textContent=`ارسال به ${n.name}`);const d=document.getElementById("delivery-card-badge");d&&(d.textContent=n.badge,d.className=`text-[11px] font-bold px-2.5 py-1 rounded-full ${s?"bg-emerald-500/20 text-emerald-300 border border-emerald-500/30":"bg-pink-500/20 text-pink-300 border border-pink-500/30"}`);const l=document.getElementById("delivery-card-time");l&&(l.textContent=n.time);const c=document.getElementById("delivery-card-desc");c&&(c.textContent=n.desc);const u=document.getElementById("delivery-card-actions");u&&(s?u.innerHTML=`
+          <a id="delivery-action-link" href="tel:${a.phone||P.phoneNumber}" class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold text-xs sm:text-sm shadow-md transition active:scale-[0.98]">
+            ${g.phone}
             <span>سفارش تلفنی به ${n.name}</span>
             <span dir="ltr" class="inline-flex items-center tracking-wider mr-1 text-[11px]">
               (<span>۰۲۱</span><span>-</span><span>۲۲۵۶۱۹۴۹</span>)
             </span>
           </a>
-        `:x.innerHTML=`
+        `:u.innerHTML=`
           <a id="delivery-action-link" href="${a.snappfoodUrl}" target="_blank" rel="noopener noreferrer" class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#ff00a6] hover:bg-[#e00092] text-white font-bold text-xs sm:text-sm shadow-md shadow-pink-500/25 transition active:scale-[0.98]">
-            ${f.scooter}
+            ${g.scooter}
             <span>سفارش در اسنپ‌فود</span>
           </a>
-        `)}const o=document.getElementById("delivery-active-pulse");o&&o.setAttribute("transform",`translate(${n.x} ${n.y})`),document.querySelectorAll("#delivery-map-text-labels text").forEach(i=>{const d=i.dataset.id===e;i.classList.toggle("active-place",d)}),document.querySelectorAll(".delivery-pin-group").forEach(i=>{const d=i.dataset.id===e,l=i.querySelector("circle");if(l){const c=r.find(x=>x.id===i.dataset.id);l.setAttribute("r",d?"9":"6"),l.setAttribute("stroke-width",d?"2.5":"1.5"),l.setAttribute("fill",d?"#f59e0b":c?.zone==="direct"?"#ef4444":"#ff00a6"),l.setAttribute("fill-opacity",d?"1":"0.85")}})}function Se(e){const{restaurantArea:a,snappfoodArea:r,neighborhoods:n,note:s}=ce,t=n.find(i=>i.id===U)||n[0],o=t.zone==="direct";return`
+        `)}const o=document.getElementById("delivery-active-pulse");o&&o.setAttribute("transform",`translate(${n.x} ${n.y})`),document.querySelectorAll("#delivery-map-text-labels text").forEach(i=>{const d=i.dataset.id===e;i.classList.toggle("active-place",d)}),document.querySelectorAll(".delivery-pin-group").forEach(i=>{const d=i.dataset.id===e,l=i.querySelector("circle");if(l){const c=r.find(u=>u.id===i.dataset.id);l.setAttribute("r",d?"9":"6"),l.setAttribute("stroke-width",d?"2.5":"1.5"),l.setAttribute("fill",d?"#f59e0b":c?.zone==="direct"?"#ef4444":"#ff00a6"),l.setAttribute("fill-opacity",d?"1":"0.85")}})}function Le(e){const{restaurantArea:a,snappfoodArea:r,neighborhoods:n,note:s}=de,t=n.find(i=>i.id===O)||n[0],o=t.zone==="direct";return`
     <section id="delivery-area" class="w-full max-w-7xl mx-auto rounded-3xl glass-card overflow-hidden mt-10 p-4 sm:p-6 lg:p-8 border border-white/[0.08] shadow-2xl text-right" aria-labelledby="delivery-title">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-center">
         
@@ -74,7 +74,7 @@
               
               <!-- Neighborhood Pin Markers -->
               <g id="delivery-map-pins">
-                ${n.map(i=>{const d=i.id===U;return`
+                ${n.map(i=>{const d=i.id===O;return`
                     <g class="delivery-pin-group cursor-pointer" data-id="${i.id}" transform="translate(${i.x} ${i.y})">
                       <circle r="${d?"9":"6"}" fill="${d?"#f59e0b":i.zone==="direct"?"#ef4444":"#ff00a6"}" stroke="#ffffff" stroke-width="${d?"2.5":"1.5"}" fill-opacity="${d?"1":"0.85"}"/>
                     </g>
@@ -88,7 +88,7 @@
 
               <!-- Neighborhood Labels -->
               <g class="delivery-place-labels" id="delivery-map-text-labels">
-                ${n.map(i=>{const d=i.id===U;return`<text x="${i.x}" y="${i.y-11}" text-anchor="middle" data-id="${i.id}" class="${d?"active-place":""}">${i.name}</text>`}).join("")}
+                ${n.map(i=>{const d=i.id===O;return`<text x="${i.x}" y="${i.y-11}" text-anchor="middle" data-id="${i.id}" class="${d?"active-place":""}">${i.name}</text>`}).join("")}
               </g>
 
               <!-- Restaurant Center Marker -->
@@ -116,7 +116,7 @@
 
           <!-- Interactive Neighborhood Filter Chips -->
           <div class="flex flex-wrap gap-1.5 mb-4 max-h-36 overflow-y-auto p-1.5 rounded-2xl bg-black/30 border border-white/[0.06]" id="delivery-chips-container">
-            ${n.map(i=>{const d=i.id===U;return`
+            ${n.map(i=>{const d=i.id===O;return`
                 <button 
                   type="button" 
                   data-id="${i.id}" 
@@ -152,8 +152,8 @@
             <!-- Actions (Single Contextual Button: Green Phone for Direct, Pink Snappfood for Express) -->
             <div class="flex gap-2" id="delivery-card-actions">
               ${o?`
-                <a id="delivery-action-link" href="tel:${e.phone||F.phoneNumber}" class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold text-xs sm:text-sm shadow-md transition active:scale-[0.98]">
-                  ${f.phone}
+                <a id="delivery-action-link" href="tel:${e.phone||P.phoneNumber}" class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#22c55e] hover:bg-[#16a34a] text-white font-bold text-xs sm:text-sm shadow-md transition active:scale-[0.98]">
+                  ${g.phone}
                   <span>سفارش تلفنی به ${t.name}</span>
                   <span dir="ltr" class="inline-flex items-center tracking-wider mr-1 text-[11px]">
                     (<span>۰۲۱</span><span>-</span><span>۲۲۵۶۱۹۴۹</span>)
@@ -161,7 +161,7 @@
                 </a>
               `:`
                 <a id="delivery-action-link" href="${e.snappfoodUrl}" target="_blank" rel="noopener noreferrer" class="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#ff00a6] hover:bg-[#e00092] text-white font-bold text-xs sm:text-sm shadow-md shadow-pink-500/25 transition active:scale-[0.98]">
-                  ${f.scooter}
+                  ${g.scooter}
                   <span>سفارش در اسنپ‌فود</span>
                 </a>
               `}
@@ -193,21 +193,21 @@
 
       </div>
     </section>
-  `}function Ce(){const e=document.getElementById("app");if(!e)return;q=pe(),Be();const a=z?.restaurant||F,r=z?.categories||[],n=J(),s=me(),t=q.isActive;e.innerHTML=`
+  `}function Be(){const e=document.getElementById("app");if(!e)return;_=le(),Ee();const a=C?.restaurant||P,r=C?.categories||[],n=G(),s=ce(),t=_.isActive;e.innerHTML=`
     <!-- Responsive Header (Mobile + Desktop) -->
     <header class="sticky top-0 z-40 glass-header border-b border-white/[0.08] px-4 sm:px-6 lg:px-8 py-3">
-      ${t?Le():""}
+      ${t?Ie():""}
       <div class="w-full max-w-7xl mx-auto flex items-center justify-between gap-4">
         
         <!-- Logo & Title -->
         <a href="#" id="header-logo-link" class="flex items-center gap-2 min-w-0" title="آتیش">
           <div class="xmas-logo-wrap w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0 drop-shadow-[0_0_12px_rgba(245,158,11,0.6)]">
             <img 
-              src="${Ee}" 
+              src="${$e}" 
               alt="${a.name}" 
               class="w-full h-full object-contain cursor-pointer select-none"
             />
-            ${t?`<span class="xmas-santa-hat">${ie}</span>`:""}
+            ${t?`<span class="xmas-santa-hat">${se}</span>`:""}
           </div>
           <div class="flex flex-col text-right min-w-0">
             <div class="text-xs sm:text-sm md:text-base font-black text-white tracking-tight flex items-center gap-1.5 truncate">
@@ -224,21 +224,21 @@
         <div class="hidden md:flex flex-1 max-w-md mx-4">
           <div class="relative w-full">
             <span class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-zinc-400">
-              ${f.search}
+              ${g.search}
             </span>
             <input 
               type="text" 
               id="desktop-search-input" 
-              value="${M}"
+              value="${z}"
               placeholder="جستجوی سریع (پیتزا، برگر، پپرونی، استیک...)" 
               class="w-full bg-[#18181c] border border-white/[0.1] hover:border-amber-500/40 text-white text-xs rounded-xl pr-10 pl-9 py-2 focus:outline-none focus:ring-2 focus:ring-amber-500 placeholder-zinc-500 transition shadow-inner"
             />
             <button 
               id="clear-desktop-search-btn" 
-              class="${M?"":"hidden"} absolute inset-y-0 left-0 pl-3 flex items-center text-zinc-400 hover:text-white"
+              class="${z?"":"hidden"} absolute inset-y-0 left-0 pl-3 flex items-center text-zinc-400 hover:text-white"
               aria-label="پاک کردن جستجو"
             >
-              ${f.close}
+              ${g.close}
             </button>
           </div>
         </div>
@@ -252,7 +252,7 @@
             class="hidden lg:flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/25 text-xs font-bold transition flex-shrink-0"
             title="تماس تلفنی"
           >
-            ${f.phone}
+            ${g.phone}
             <span class="flex items-center gap-1">
               <span>سفارش:</span>
               <span dir="ltr" class="inline-flex items-center tracking-wider font-semibold">
@@ -269,35 +269,21 @@
             class="hidden md:flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-pink-500/15 border border-pink-500/30 text-pink-400 hover:bg-pink-500/25 text-xs font-bold transition flex-shrink-0"
             title="سفارش در اسنپ‌فود"
           >
-            ${f.scooter}
+            ${g.scooter}
             <span>اسنپ‌فود</span>
           </a>
 
           <!-- Desktop Instagram Button -->
           <a 
-            href="${a.instagramUrl||F.instagramUrl||"https://instagram.com/atishfood"}"
+            href="${a.instagramUrl||P.instagramUrl||"https://instagram.com/atishfood"}"
             target="_blank"
             rel="noopener noreferrer"
             class="hidden md:flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-purple-500/15 border border-purple-500/30 text-pink-400 hover:bg-purple-500/25 text-xs font-bold transition flex-shrink-0"
             title="صفحه رسمی اینستاگرام آتیش"
           >
-            ${f.instagram}
+            ${g.instagram}
             <span>اینستاگرام</span>
           </a>
-
-          ${t?`
-          <!-- Christmas Snow & Lights Pause/Play Control (WCAG 2.2.2) -->
-          <button
-            type="button"
-            id="btn-toggle-xmas-motion"
-            aria-label="${C?"پخش افکت برف و چراغ‌های کریسمس":"توقف افکت برف و چراغ‌های کریسمس"}"
-            title="${C?"پخش برف و چراغانی":"توقف برف و چراغانی"}"
-            class="h-9 px-2.5 rounded-full bg-red-500/15 border border-amber-400/35 text-amber-200 hover:bg-red-500/25 hover:text-white flex items-center gap-1 text-[11px] font-bold transition flex-shrink-0"
-          >
-            <span aria-hidden="true">${C?"❄️":"✨"}</span>
-            <span class="hidden sm:inline" id="xmas-motion-label">${C?"پخش برف":"توقف برف"}</span>
-          </button>
-          `:""}
 
           <!-- PWA Install Button -->
           <button 
@@ -316,7 +302,7 @@
             aria-label="جستجوی غذا"
             class="md:hidden w-9 h-9 rounded-full bg-[#1e1e24] border border-white/[0.1] hover:border-amber-400/50 flex items-center justify-center text-zinc-300 hover:text-white transition flex-shrink-0"
           >
-            ${f.search}
+            ${g.search}
           </button>
 
           <!-- Order Tray (List) Button -->
@@ -325,33 +311,33 @@
             aria-label="سبد سفارش"
             class="relative px-2.5 sm:px-3.5 h-9 rounded-full bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/40 text-amber-300 hover:text-white flex items-center gap-1.5 text-xs font-bold transition hover:bg-amber-500/30 flex-shrink-0"
           >
-            ${f.tray}
+            ${g.tray}
             <span class="text-[11px] sm:text-xs">پیش‌فاکتور</span>
             <span id="header-tray-badge" class="${n>0?"":"hidden"} bg-amber-500 text-black font-black text-[10px] px-1.5 py-0.2 rounded-full min-w-[18px] text-center">
-              ${w(n)}
+              ${k(n)}
             </span>
           </button>
         </div>
       </div>
 
       <!-- Mobile Expandable Search Input -->
-      <div id="search-container" class="${O?"":"hidden"} md:hidden w-full max-w-md mx-auto pt-3">
+      <div id="search-container" class="${R?"":"hidden"} md:hidden w-full max-w-md mx-auto pt-3">
         <div class="relative">
           <span class="absolute inset-y-0 right-0 pr-3.5 flex items-center pointer-events-none text-zinc-400">
-            ${f.search}
+            ${g.search}
           </span>
           <input 
             type="text" 
             id="menu-search-input" 
-            value="${M}"
+            value="${z}"
             placeholder="جستجوی پیتزا، برگر، ساندویچ، سوخاری..." 
             class="w-full bg-[#18181c] border border-amber-500/50 text-white text-xs rounded-xl pr-10 pl-9 py-2.5 focus:outline-none focus:ring-2 focus:ring-amber-500 placeholder-zinc-500 shadow-inner"
           />
           <button 
             id="clear-search-btn" 
-            class="${M?"":"hidden"} absolute inset-y-0 left-0 pl-3 flex items-center text-zinc-400 hover:text-white"
+            class="${z?"":"hidden"} absolute inset-y-0 left-0 pl-3 flex items-center text-zinc-400 hover:text-white"
           >
-            ${f.close}
+            ${g.close}
           </button>
         </div>
       </div>
@@ -370,7 +356,7 @@
             <!-- Yearly Christmas Season Banner (Auto-Active: Nov 22 – Jan 5) -->
             <div class="xmas-season-banner inline-flex flex-wrap items-center gap-2 self-start px-3.5 py-1.5 rounded-2xl mb-3">
               <span class="text-sm" aria-hidden="true">🎄</span>
-              <span class="text-[11px] sm:text-xs font-black text-amber-200">${q.countdownText}</span>
+              <span class="text-[11px] sm:text-xs font-black text-amber-200">${_.countdownText}</span>
               <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-500/25 border border-red-400/35 text-red-200">۱ آذر تا ۱۵ دی</span>
             </div>
             `:""}
@@ -427,7 +413,7 @@
       <!-- Sticky Category Bar (Responsive: scrollable on mobile, centered/wrap on desktop) -->
       <nav class="sticky top-[58px] md:top-[65px] z-30 bg-[#0c0c0e]/95 backdrop-blur-md -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 border-y border-white/[0.08] mb-6">
         <div id="category-bar" class="w-full max-w-7xl mx-auto flex items-center gap-2 overflow-x-auto no-scrollbar md:flex-wrap md:justify-center">
-          ${r.map(o=>{const i=ae===o.id;return`
+          ${r.map(o=>{const i=ee===o.id;return`
               <button 
                 data-category="${o.id}" 
                 class="cat-btn flex-shrink-0 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 flex items-center gap-2 ${i?"cat-btn-active bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 text-black shadow-md shadow-orange-500/30":"bg-[#18181c] text-zinc-300 border border-white/[0.08] hover:bg-[#24242a] hover:text-white"}"
@@ -443,7 +429,7 @@
       <main id="menu-container"></main>
 
       <!-- Delivery Area Radar Section (Responsive Split Card) -->
-      ${Se(a)}
+      ${Le(a)}
 
       <!-- PWA Dedicated Install Banner -->
       <div id="pwa-install-banner" class="w-full max-w-7xl mx-auto rounded-3xl p-5 sm:p-6 bg-gradient-to-r from-amber-500/10 via-[#18181c] to-orange-500/10 border border-amber-500/20 shadow-xl mt-8 text-right">
@@ -497,18 +483,18 @@
           <!-- Column 2: Hours & Address -->
           <div class="flex flex-col gap-2.5 text-xs text-zinc-300">
             <div class="flex items-start gap-2">
-              ${f.clock}
+              ${g.clock}
               <div>
                 <span class="text-zinc-400 font-normal">ساعات کاری:</span>
-                <span class="text-zinc-100 font-bold mr-1">${w(a.workingHours)}</span>
+                <span class="text-zinc-100 font-bold mr-1">${k(a.workingHours)}</span>
               </div>
             </div>
 
             <div class="flex items-start gap-2">
-              ${f.location}
+              ${g.location}
               <div>
                 <span class="text-zinc-400 font-normal">آدرس:</span>
-                <span class="text-zinc-100 font-bold mr-1">${w(a.address)}</span>
+                <span class="text-zinc-100 font-bold mr-1">${k(a.address)}</span>
               </div>
             </div>
           </div>
@@ -525,8 +511,8 @@
       <div class="flex items-center gap-2">
         <span class="text-base">📋</span>
         <div class="flex flex-col text-right leading-tight">
-          <span class="text-xs font-black">سفارش شما: <span id="floating-tray-count">${w(n)}</span> قلم</span>
-          <span id="floating-tray-total" class="text-[10px] font-bold opacity-90">${V()>0?S(V()):""}</span>
+          <span class="text-xs font-black">سفارش شما: <span id="floating-tray-count">${k(n)}</span> قلم</span>
+          <span id="floating-tray-total" class="text-[10px] font-bold opacity-90">${U()>0?B(U()):""}</span>
         </div>
       </div>
       <div class="flex items-center gap-1 text-[11px] bg-black/20 px-2.5 py-1 rounded-xl">
@@ -539,16 +525,16 @@
     <nav class="contact-nav md:hidden" aria-label="دسترسی سریع">
       <div class="contact-nav-inner">
         <button id="nav-menu-btn" class="contact-nav-item contact-nav-menu" aria-label="منوی غذاها">
-          ${f.menuIcon}<span>منو</span>
+          ${g.menuIcon}<span>منو</span>
         </button>
-        <a href="${a.instagramUrl||F.instagramUrl||"https://instagram.com/atishfood"}" target="_blank" rel="noopener noreferrer" class="contact-nav-item contact-nav-instagram" aria-label="اینستاگرام آتیش">
-          ${f.instagram}<span>اینستاگرام</span>
+        <a href="${a.instagramUrl||P.instagramUrl||"https://instagram.com/atishfood"}" target="_blank" rel="noopener noreferrer" class="contact-nav-item contact-nav-instagram" aria-label="اینستاگرام آتیش">
+          ${g.instagram}<span>اینستاگرام</span>
         </a>
         <a href="tel:${a.phone}" class="contact-nav-item contact-nav-call" aria-label="تماس با آتیش">
-          ${f.phone}<span>تماس</span>
+          ${g.phone}<span>تماس</span>
         </a>
         <a href="${a.snappfoodUrl}" target="_blank" rel="noopener noreferrer" class="contact-nav-item contact-nav-snapp" aria-label="اسنپ‌فود">
-          ${f.scooter}<span>اسنپ‌فود</span>
+          ${g.scooter}<span>اسنپ‌فود</span>
         </a>
       </div>
     </nav>
@@ -562,7 +548,7 @@
         </div>
         <div class="relative">
           <img src="/images/atish-mascot.webp" alt="شخصیت آتیش" class="mascot-avatar" draggable="false" />
-          ${t?`<span class="xmas-mascot-hat">${ie}</span>`:""}
+          ${t?`<span class="xmas-mascot-hat">${se}</span>`:""}
         </div>
       </div>
     `:""}
@@ -588,7 +574,7 @@
             <h2 class="text-sm font-black text-white">آناتومی و راز طعم آتیش برگر</h2>
           </div>
           <button id="close-anatomy-btn" class="w-7 h-7 rounded-full bg-white/[0.08] flex items-center justify-center text-zinc-400 hover:text-white">
-            ${f.close}
+            ${g.close}
           </button>
         </div>
 
@@ -600,13 +586,13 @@
 
         <!-- Layer Selector Tabs -->
         <div class="grid grid-cols-3 sm:grid-cols-6 gap-1 mb-4" id="anatomy-layers-tabs">
-          ${N.map((o,i)=>`
+          ${D.map((o,i)=>`
             <button 
               data-layer="${i}" 
-              class="anatomy-tab-btn p-1.5 rounded-xl border text-center text-xs font-bold transition ${i===A?"bg-amber-500/20 border-amber-500 text-amber-300":"bg-white/[0.04] border-white/[0.08] text-zinc-400 hover:text-white"}"
+              class="anatomy-tab-btn p-1.5 rounded-xl border text-center text-xs font-bold transition ${i===j?"bg-amber-500/20 border-amber-500 text-amber-300":"bg-white/[0.04] border-white/[0.08] text-zinc-400 hover:text-white"}"
             >
               <div class="text-sm mb-0.5">${o.icon}</div>
-              <div class="truncate text-[9px]">لایه ${w(i+1)}</div>
+              <div class="truncate text-[9px]">لایه ${k(i+1)}</div>
             </button>
           `).join("")}
         </div>
@@ -614,11 +600,11 @@
         <!-- Layer Details Box -->
         <div id="anatomy-details-box" class="bg-[#1c1c22] border border-amber-500/20 rounded-xl p-3.5 mb-4">
           <div class="flex items-center gap-2 mb-1.5">
-            <span id="anatomy-icon" class="text-xl">${N[A].icon}</span>
-            <h3 id="anatomy-title" class="text-sm font-black text-amber-400">${N[A].title}</h3>
+            <span id="anatomy-icon" class="text-xl">${D[j].icon}</span>
+            <h3 id="anatomy-title" class="text-sm font-black text-amber-400">${D[j].title}</h3>
           </div>
           <p id="anatomy-desc" class="text-xs text-zinc-300 leading-relaxed font-light">
-            ${N[A].desc}
+            ${D[j].desc}
           </p>
         </div>
 
@@ -626,7 +612,7 @@
           id="anatomy-add-btn"
           class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-black font-black text-xs shadow-md shadow-orange-500/30 flex items-center justify-center gap-1.5"
         >
-          ${f.plus}
+          ${g.plus}
           <span>افزودن آتیش برگر به لیست سفارش</span>
         </button>
       </div>
@@ -717,7 +703,7 @@
       <span>✓</span>
       <span id="toast-text">به لیست سفارش اضافه شد</span>
     </div>
-  `,ze(),Y()}function be(){const e=J(),a=document.getElementById("header-tray-badge");a&&(a.textContent=w(e),a.classList.toggle("hidden",e===0));const r=document.getElementById("floating-tray-bar"),n=document.getElementById("floating-tray-count"),s=document.getElementById("floating-tray-total"),t=V();r&&n&&(n.textContent=w(e),s&&(s.textContent=t>0?S(t):""),r.classList.toggle("hidden",e===0));const o=document.getElementById("atish-mascot-greeting");o&&(e>0?o.style.bottom="calc(140px + env(safe-area-inset-bottom, 0px))":o.style.bottom="");const i=document.getElementById("nav-tray-badge");i&&(i.textContent=w(e),i.classList.toggle("hidden",e===0)),z.items?.forEach(d=>{const l=document.getElementById(`card-tray-count-${d.id}`);if(l){const c=ue(d);c>0?(l.textContent=w(c),l.classList.remove("hidden"),l.classList.add("flex")):(l.classList.add("hidden"),l.classList.remove("flex"))}})}function j(e){const a=document.getElementById("toast-notification"),r=document.getElementById("toast-text");!a||!r||(r.textContent=e,a.classList.remove("opacity-0","-translate-y-4"),a.classList.add("opacity-100","translate-y-0"),setTimeout(()=>{a.classList.add("opacity-0","-translate-y-4"),a.classList.remove("opacity-100","translate-y-0")},2200))}function ze(){const e=document.getElementById("toggle-search-btn"),a=document.getElementById("search-container"),r=document.getElementById("menu-search-input"),n=document.getElementById("clear-search-btn"),s=document.getElementById("desktop-search-input"),t=document.getElementById("clear-desktop-search-btn");function o(p,y=!1){if(M=p,s&&(s.value=p,t&&t.classList.toggle("hidden",p.length===0)),r&&(r.value=p,n&&n.classList.toggle("hidden",p.length===0)),Y(),y&&p.length>0){const I=document.getElementById("categories-bar");if(I){const h=I.getBoundingClientRect();(h.top>250||h.bottom<0)&&I.scrollIntoView({behavior:"smooth",block:"start"})}}}function i(){o("",!1)}e&&a&&e.addEventListener("click",()=>{if(O=!O,a.classList.toggle("hidden",!O),O&&r){r.focus();const p=document.getElementById("categories-bar");p&&p.scrollIntoView({behavior:"smooth",block:"start"})}}),s&&s.addEventListener("input",p=>{o(p.target.value.trim(),!0)}),r&&r.addEventListener("input",p=>{o(p.target.value.trim(),!0)}),n&&n.addEventListener("click",()=>i()),t&&t.addEventListener("click",()=>i());const d=document.querySelectorAll(".cat-btn");d.forEach(p=>{p.addEventListener("click",()=>{d.forEach(I=>{I.className="cat-btn flex-shrink-0 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 flex items-center gap-2 bg-[#18181c] text-zinc-300 border border-white/[0.08] hover:bg-[#24242a] hover:text-white"}),p.className="cat-btn cat-btn-active flex-shrink-0 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 flex items-center gap-2 bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 text-black shadow-md shadow-orange-500/30",M&&i(),ae=p.dataset.category;const y=document.getElementById(`sec-${ae}`);if(y){const h=document.body.getBoundingClientRect().top,D=y.getBoundingClientRect().top-h;window.scrollTo({top:D-120,behavior:"smooth"})}})});const l=document.getElementById("btn-toggle-xmas-motion");l?.addEventListener("click",()=>{C=!C;try{localStorage.setItem("atish_xmas_motion_paused",String(C))}catch{}document.documentElement.classList.toggle("xmas-motion-paused",C);const p=l.querySelector('span[aria-hidden="true"]'),y=document.getElementById("xmas-motion-label");p&&(p.textContent=C?"❄️":"✨"),y&&(y.textContent=C?"پخش برف":"توقف برف"),l.setAttribute("aria-label",C?"پخش افکت برف و چراغ‌های کریسمس":"توقف افکت برف و چراغ‌های کریسمس"),l.setAttribute("title",C?"پخش برف و چراغانی":"توقف برف و چراغانی"),j(C?"افکت برف و چراغانی متوقف شد":"افکت برف و چراغانی فعال شد ❄️")});const c=document.getElementById("open-tray-btn"),x=document.getElementById("floating-tray-bar"),$=document.getElementById("tray-modal"),v=()=>{R(),$?.classList.remove("hidden")};c?.addEventListener("click",v),x?.addEventListener("click",v),setInterval(()=>{const p=document.getElementById("restaurant-status-badge"),y=document.getElementById("restaurant-status-text"),I=document.getElementById("restaurant-status-dot"),h=document.getElementById("header-status-dot");if(p&&y&&I){const T=me();p.className=`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold ${T.badgeClass}`,p.title=T.tooltip,I.className=`w-1.5 h-1.5 rounded-full ${T.dotClass}`,y.textContent=T.text,h&&(h.className=`w-2 h-2 rounded-full ${T.dotClass} flex-shrink-0`,h.title=T.text)}},3e4);const b=document.getElementById("atish-mascot-greeting"),L=document.getElementById("mascot-speech-bubble"),m=document.getElementById("close-mascot-bubble-btn");if(b&&L){const p=L.querySelector("span"),y=q.isActive?["سلام! زمستون و کریسمستون گرم و دلچسب 🎄🔥","پیتزاهای داغ آتیش تو هوای سرد می‌چسبه ❄️🍕","برای سفارش گرم تلفنی یا اسنپ‌فود در خدمتیم 🎅🛵"]:["سلام! خوش اومدید 🔥","منوی تازه و داغ آتیش رو ببینید 🍕","برای سفارش تلفنی یا اسنپ‌فود در خدمتیم 🛵"],I=[],h=D=>{L.style.opacity="0",L.style.transform="scale(0.85)",setTimeout(()=>{p&&(p.textContent=D),L.style.opacity="1",L.style.transform="scale(1)"},200)};I.push(setTimeout(()=>{h(y[1])},4500)),I.push(setTimeout(()=>{h(y[2])},9e3));const T=()=>{I.forEach(D=>clearTimeout(D)),b.classList.add("mascot-leaving"),setTimeout(()=>{b.remove()},700)};I.push(setTimeout(()=>{T()},14500)),m?.addEventListener("click",D=>{D.stopPropagation(),T()}),b.addEventListener("click",T)}window.addEventListener("offline",()=>{document.getElementById("atish-mascot-greeting")?.remove()}),$?.addEventListener("click",p=>{p.target===$&&$.classList.add("hidden")});const k=document.getElementById("btn-open-anatomy"),g=document.getElementById("anatomy-modal"),E=document.getElementById("close-anatomy-btn");k?.addEventListener("click",()=>{g?.classList.remove("hidden")}),E?.addEventListener("click",()=>{g?.classList.add("hidden")}),g?.addEventListener("click",p=>{p.target===g&&g.classList.add("hidden")}),document.querySelectorAll(".anatomy-tab-btn").forEach(p=>{p.addEventListener("click",()=>{A=parseInt(p.dataset.layer,10),document.querySelectorAll(".anatomy-tab-btn").forEach((y,I)=>{y.className=`anatomy-tab-btn p-1.5 rounded-xl border text-center text-xs font-bold transition ${I===A?"bg-amber-500/20 border-amber-500 text-amber-300":"bg-white/[0.04] border-white/[0.08] text-zinc-400 hover:text-white"}`}),document.getElementById("anatomy-icon").textContent=N[A].icon,document.getElementById("anatomy-title").textContent=N[A].title,document.getElementById("anatomy-desc").textContent=N[A].desc})}),document.getElementById("anatomy-add-btn")?.addEventListener("click",()=>{K("b-7"),g?.classList.add("hidden"),j("آتیش برگر به لیست اضافه شد")});const u=document.getElementById("item-modal");u?.addEventListener("click",p=>{p.target===u&&u.classList.add("hidden")}),document.getElementById("nav-menu-btn")?.addEventListener("click",()=>{window.scrollTo({top:0,behavior:"smooth"})}),document.querySelectorAll(".delivery-chip-btn").forEach(p=>{p.addEventListener("click",()=>{ee(p.dataset.id)})}),document.querySelectorAll(".delivery-pin-group").forEach(p=>{p.addEventListener("click",()=>{ee(p.dataset.id)})}),document.querySelectorAll("#delivery-map-text-labels text").forEach(p=>{p.addEventListener("click",()=>{ee(p.dataset.id)})}),Ae()}const Te="48d3007452360e9b7e6b8ed5c7eab72c2e738bb48c43ffdbcb73ecc8550fd937";let G=null;function ne(e){function a(b,L){return b>>>L|b<<32-L}const r=Math.pow,n=r(2,32);let s="length",t,o,i="";const d=[],l=e[s]*8;let c=[];const x=[];let $=0;const v={};for(let b=2;$<64;b++)if(!v[b]){for(t=b;t<313;t+=b)v[t]=b;c[$]=r(b,.5)*n|0,x[$++]=r(b,1/3)*n|0}for(e+="";e[s]%64-56;)e+="\0";for(t=0;t<e[s];t++)o=e.charCodeAt(t),d[t>>2]|=o<<(3-t)%4*8;for(d[d[s]]=l/n|0,d[d[s]]=l,o=0;o<d[s];){const b=d.slice(o,o+=16),L=c.slice(0);for(t=0;t<64;t++){const m=b[t-15],k=b[t-2],g=a(m,7)^a(m,18)^m>>>3,E=a(k,17)^a(k,19)^k>>>10,u=c[4]&c[5]^~c[4]&c[6],p=c[7]+(a(c[4],6)^a(c[4],11)^a(c[4],25))+u+x[t]+(b[t]=t<16?b[t]:b[t-16]+g+b[t-7]+E|0),y=c[0]&c[1]^c[0]&c[2]^c[1]&c[2],I=(a(c[0],2)^a(c[0],13)^a(c[0],22))+y;c=[p+I|0,c[0],c[1],c[2],c[3]+p|0,c[4],c[5],c[6]]}for(t=0;t<8;t++)c[t]=c[t]+L[t]|0}for(t=0;t<8;t++)for(o=3;o>=0;o--){const b=c[t]>>o*8&255;i+=(b<16?"0":"")+b.toString(16)}return i}const Me="430802b15c708a5315088e1bfa96046983a92af6ff3a558b";function je(e){let a=2166136261;const r=`${e.toUpperCase()}_${Me}`;for(let n=0;n<r.length;n++)a^=r.charCodeAt(n),a=Math.imul(a,16777619);return String(Math.abs(a)%1e3).padStart(3,"0")}function te(e){if(!e)return{valid:!1,reason:"کدی وارد نشده است."};const a=["۰","۱","۲","۳","۴","۵","۶","۷","۸","۹"];let r=String(e).trim().toUpperCase();for(let s=0;s<10;s++)r=r.replace(new RegExp(a[s],"g"),String(s));const n=r.replace(/[^A-Z0-9]/g,"");if(n.length===9&&/^[A-Z][0-9]{8}$/.test(n)){const s=`${n.slice(0,3)}-${n.slice(3,6)}-${n.slice(6,9)}`,t=ne(s);if(X&&X.includes(t))return{valid:!0,code:s};const o=n.slice(0,6),i=n.slice(6,9);if(je(o)===i)return{valid:!0,code:s}}if(n.length===6&&/^[0-9]{6}$/.test(n)){const s=`${n.slice(0,3)}-${n.slice(3,6)}`,t=ne(s);if(X&&X.includes(t))return{valid:!0,code:s}}return{valid:!1,reason:"کد نامعتبر یا اشتباه است. (فرمت صحیح: ۹ کاراکتر مانند A01-101-830)"}}function oe(e){const a=e-Date.now();if(a<=0)return{expired:!0,text:"منقضی شده"};const r=Math.floor(a/1e3),n=Math.floor(r/3600),s=Math.floor(r%3600/60),t=r%60,o=i=>String(i).padStart(2,"0");return{expired:!1,text:w(`${o(n)}:${o(s)}:${o(t)}`),detail:w(`${n} ساعت و ${s} دقیقه`)}}function Ae(){const e=document.getElementById("vip-offer-modal"),a=document.getElementById("close-vip-modal-btn"),r=document.getElementById("vip-modal-content"),n=document.getElementById("cashier-modal"),s=document.getElementById("close-cashier-modal-btn"),t=document.getElementById("cashier-modal-body"),o=document.getElementById("header-logo-link");let i=sessionStorage.getItem("atish_cashier_auth")==="true",d=0,l=null;function c(m,k){if(!r)return;clearInterval(G);const g=oe(k),E=z?.restaurant?.phone;r.innerHTML=`
+  `,Se(),Z()}function pe(){const e=G(),a=document.getElementById("header-tray-badge");a&&(a.textContent=k(e),a.classList.toggle("hidden",e===0));const r=document.getElementById("floating-tray-bar"),n=document.getElementById("floating-tray-count"),s=document.getElementById("floating-tray-total"),t=U();r&&n&&(n.textContent=k(e),s&&(s.textContent=t>0?B(t):""),r.classList.toggle("hidden",e===0));const o=document.getElementById("atish-mascot-greeting");o&&(e>0?o.style.bottom="calc(140px + env(safe-area-inset-bottom, 0px))":o.style.bottom="");const i=document.getElementById("nav-tray-badge");i&&(i.textContent=k(e),i.classList.toggle("hidden",e===0)),C.items?.forEach(d=>{const l=document.getElementById(`card-tray-count-${d.id}`);if(l){const c=me(d);c>0?(l.textContent=k(c),l.classList.remove("hidden"),l.classList.add("flex")):(l.classList.add("hidden"),l.classList.remove("flex"))}})}function T(e){const a=document.getElementById("toast-notification"),r=document.getElementById("toast-text");!a||!r||(r.textContent=e,a.classList.remove("opacity-0","-translate-y-4"),a.classList.add("opacity-100","translate-y-0"),setTimeout(()=>{a.classList.add("opacity-0","-translate-y-4"),a.classList.remove("opacity-100","translate-y-0")},2200))}function Se(){const e=document.getElementById("toggle-search-btn"),a=document.getElementById("search-container"),r=document.getElementById("menu-search-input"),n=document.getElementById("clear-search-btn"),s=document.getElementById("desktop-search-input"),t=document.getElementById("clear-desktop-search-btn");function o(p,x=!1){if(z=p,s&&(s.value=p,t&&t.classList.toggle("hidden",p.length===0)),r&&(r.value=p,n&&n.classList.toggle("hidden",p.length===0)),Z(),x&&p.length>0){const w=document.getElementById("categories-bar");if(w){const E=w.getBoundingClientRect();(E.top>250||E.bottom<0)&&w.scrollIntoView({behavior:"smooth",block:"start"})}}}function i(){o("",!1)}e&&a&&e.addEventListener("click",()=>{if(R=!R,a.classList.toggle("hidden",!R),R&&r){r.focus();const p=document.getElementById("categories-bar");p&&p.scrollIntoView({behavior:"smooth",block:"start"})}}),s&&s.addEventListener("input",p=>{o(p.target.value.trim(),!0)}),r&&r.addEventListener("input",p=>{o(p.target.value.trim(),!0)}),n&&n.addEventListener("click",()=>i()),t&&t.addEventListener("click",()=>i());const d=document.querySelectorAll(".cat-btn");d.forEach(p=>{p.addEventListener("click",()=>{d.forEach(w=>{w.className="cat-btn flex-shrink-0 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 flex items-center gap-2 bg-[#18181c] text-zinc-300 border border-white/[0.08] hover:bg-[#24242a] hover:text-white"}),p.className="cat-btn cat-btn-active flex-shrink-0 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 flex items-center gap-2 bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 text-black shadow-md shadow-orange-500/30",z&&i(),ee=p.dataset.category;const x=document.getElementById(`sec-${ee}`);if(x){const E=document.body.getBoundingClientRect().top,M=x.getBoundingClientRect().top-E;window.scrollTo({top:M-120,behavior:"smooth"})}})});const l=document.getElementById("open-tray-btn"),c=document.getElementById("floating-tray-bar"),u=document.getElementById("tray-modal"),I=()=>{F(),u?.classList.remove("hidden")};l?.addEventListener("click",I),c?.addEventListener("click",I),setInterval(()=>{const p=document.getElementById("restaurant-status-badge"),x=document.getElementById("restaurant-status-text"),w=document.getElementById("restaurant-status-dot"),E=document.getElementById("header-status-dot");if(p&&x&&w){const v=ce();p.className=`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold ${v.badgeClass}`,p.title=v.tooltip,w.className=`w-1.5 h-1.5 rounded-full ${v.dotClass}`,x.textContent=v.text,E&&(E.className=`w-2 h-2 rounded-full ${v.dotClass} flex-shrink-0`,E.title=v.text)}},3e4);const h=document.getElementById("atish-mascot-greeting"),m=document.getElementById("mascot-speech-bubble"),S=document.getElementById("close-mascot-bubble-btn");if(h&&m){const p=m.querySelector("span"),x=_.isActive?["سلام! زمستون و کریسمستون گرم و دلچسب 🎄🔥","پیتزاهای داغ آتیش تو هوای سرد می‌چسبه ❄️🍕","برای سفارش گرم تلفنی یا اسنپ‌فود در خدمتیم 🎅🛵"]:["سلام! خوش اومدید 🔥","منوی تازه و داغ آتیش رو ببینید 🍕","برای سفارش تلفنی یا اسنپ‌فود در خدمتیم 🛵"],w=[],E=M=>{m.style.opacity="0",m.style.transform="scale(0.85)",setTimeout(()=>{p&&(p.textContent=M),m.style.opacity="1",m.style.transform="scale(1)"},200)};w.push(setTimeout(()=>{E(x[1])},4500)),w.push(setTimeout(()=>{E(x[2])},9e3));const v=()=>{w.forEach(M=>clearTimeout(M)),h.classList.add("mascot-leaving"),setTimeout(()=>{h.remove()},700)};w.push(setTimeout(()=>{v()},14500)),S?.addEventListener("click",M=>{M.stopPropagation(),v()}),h.addEventListener("click",v)}window.addEventListener("offline",()=>{document.getElementById("atish-mascot-greeting")?.remove()}),u?.addEventListener("click",p=>{p.target===u&&u.classList.add("hidden")});const b=document.getElementById("btn-open-anatomy"),f=document.getElementById("anatomy-modal"),y=document.getElementById("close-anatomy-btn");b?.addEventListener("click",()=>{f?.classList.remove("hidden")}),y?.addEventListener("click",()=>{f?.classList.add("hidden")}),f?.addEventListener("click",p=>{p.target===f&&f.classList.add("hidden")}),document.querySelectorAll(".anatomy-tab-btn").forEach(p=>{p.addEventListener("click",()=>{j=parseInt(p.dataset.layer,10),document.querySelectorAll(".anatomy-tab-btn").forEach((x,w)=>{x.className=`anatomy-tab-btn p-1.5 rounded-xl border text-center text-xs font-bold transition ${w===j?"bg-amber-500/20 border-amber-500 text-amber-300":"bg-white/[0.04] border-white/[0.08] text-zinc-400 hover:text-white"}`}),document.getElementById("anatomy-icon").textContent=D[j].icon,document.getElementById("anatomy-title").textContent=D[j].title,document.getElementById("anatomy-desc").textContent=D[j].desc})}),document.getElementById("anatomy-add-btn")?.addEventListener("click",()=>{J("b-7"),f?.classList.add("hidden"),T("آتیش برگر به لیست اضافه شد")});const $=document.getElementById("item-modal");$?.addEventListener("click",p=>{p.target===$&&$.classList.add("hidden")}),document.getElementById("nav-menu-btn")?.addEventListener("click",()=>{window.scrollTo({top:0,behavior:"smooth"})}),document.querySelectorAll(".delivery-chip-btn").forEach(p=>{p.addEventListener("click",()=>{Q(p.dataset.id)})}),document.querySelectorAll(".delivery-pin-group").forEach(p=>{p.addEventListener("click",()=>{Q(p.dataset.id)})}),document.querySelectorAll("#delivery-map-text-labels text").forEach(p=>{p.addEventListener("click",()=>{Q(p.dataset.id)})}),Me()}const Ce="48d3007452360e9b7e6b8ed5c7eab72c2e738bb48c43ffdbcb73ecc8550fd937";let X=null;function te(e){function a(m,S){return m>>>S|m<<32-S}const r=Math.pow,n=r(2,32);let s="length",t,o,i="";const d=[],l=e[s]*8;let c=[];const u=[];let I=0;const h={};for(let m=2;I<64;m++)if(!h[m]){for(t=m;t<313;t+=m)h[t]=m;c[I]=r(m,.5)*n|0,u[I++]=r(m,1/3)*n|0}for(e+="";e[s]%64-56;)e+="\0";for(t=0;t<e[s];t++)o=e.charCodeAt(t),d[t>>2]|=o<<(3-t)%4*8;for(d[d[s]]=l/n|0,d[d[s]]=l,o=0;o<d[s];){const m=d.slice(o,o+=16),S=c.slice(0);for(t=0;t<64;t++){const b=m[t-15],f=m[t-2],y=a(b,7)^a(b,18)^b>>>3,$=a(f,17)^a(f,19)^f>>>10,p=c[4]&c[5]^~c[4]&c[6],x=c[7]+(a(c[4],6)^a(c[4],11)^a(c[4],25))+p+u[t]+(m[t]=t<16?m[t]:m[t-16]+y+m[t-7]+$|0),w=c[0]&c[1]^c[0]&c[2]^c[1]&c[2],E=(a(c[0],2)^a(c[0],13)^a(c[0],22))+w;c=[x+E|0,c[0],c[1],c[2],c[3]+x|0,c[4],c[5],c[6]]}for(t=0;t<8;t++)c[t]=c[t]+S[t]|0}for(t=0;t<8;t++)for(o=3;o>=0;o--){const m=c[t]>>o*8&255;i+=(m<16?"0":"")+m.toString(16)}return i}const ze="430802b15c708a5315088e1bfa96046983a92af6ff3a558b";function Te(e){let a=2166136261;const r=`${e.toUpperCase()}_${ze}`;for(let n=0;n<r.length;n++)a^=r.charCodeAt(n),a=Math.imul(a,16777619);return String(Math.abs(a)%1e3).padStart(3,"0")}function K(e){if(!e)return{valid:!1,reason:"کدی وارد نشده است."};const a=["۰","۱","۲","۳","۴","۵","۶","۷","۸","۹"];let r=String(e).trim().toUpperCase();for(let s=0;s<10;s++)r=r.replace(new RegExp(a[s],"g"),String(s));const n=r.replace(/[^A-Z0-9]/g,"");if(n.length===9&&/^[A-Z][0-9]{8}$/.test(n)){const s=`${n.slice(0,3)}-${n.slice(3,6)}-${n.slice(6,9)}`,t=te(s);if(V&&V.includes(t))return{valid:!0,code:s};const o=n.slice(0,6),i=n.slice(6,9);if(Te(o)===i)return{valid:!0,code:s}}if(n.length===6&&/^[0-9]{6}$/.test(n)){const s=`${n.slice(0,3)}-${n.slice(3,6)}`,t=te(s);if(V&&V.includes(t))return{valid:!0,code:s}}return{valid:!1,reason:"کد نامعتبر یا اشتباه است. (فرمت صحیح: ۹ کاراکتر مانند A01-101-830)"}}function re(e){const a=e-Date.now();if(a<=0)return{expired:!0,text:"منقضی شده"};const r=Math.floor(a/1e3),n=Math.floor(r/3600),s=Math.floor(r%3600/60),t=r%60,o=i=>String(i).padStart(2,"0");return{expired:!1,text:k(`${o(n)}:${o(s)}:${o(t)}`),detail:k(`${n} ساعت و ${s} دقیقه`)}}function Me(){const e=document.getElementById("vip-offer-modal"),a=document.getElementById("close-vip-modal-btn"),r=document.getElementById("vip-modal-content"),n=document.getElementById("cashier-modal"),s=document.getElementById("close-cashier-modal-btn"),t=document.getElementById("cashier-modal-body"),o=document.getElementById("header-logo-link");let i=sessionStorage.getItem("atish_cashier_auth")==="true",d=0,l=null;function c(b,f){if(!r)return;clearInterval(X);const y=re(f),$=C?.restaurant?.phone;r.innerHTML=`
       <div class="space-y-4">
         <!-- Active Ticket Card -->
         <div class="relative p-5 rounded-2xl bg-gradient-to-b from-[#1c1c22] to-[#121215] border-2 border-dashed border-amber-500/40 text-center shadow-2xl overflow-hidden">
@@ -731,7 +717,7 @@
           <!-- Code Display Box -->
           <div class="my-3 p-3.5 rounded-xl bg-black/80 border border-amber-500/40 flex items-center justify-between gap-2 max-w-xs mx-auto shadow-inner">
             <span id="vip-code-text" class="text-xl sm:text-2xl font-black text-amber-300 tracking-widest font-mono select-all">
-              ${m}
+              ${b}
             </span>
             <button 
               id="copy-vip-btn" 
@@ -746,7 +732,7 @@
           <div class="p-3 rounded-xl bg-amber-500/10 border border-amber-500/25 max-w-xs mx-auto mb-1">
             <div class="text-[10px] text-amber-300/80 mb-0.5">زمان باقی‌مانده تا پایان اعتبار:</div>
             <div id="vip-timer-display" class="text-lg sm:text-xl font-black text-white font-mono tracking-wider">
-              ${g.text}
+              ${y.text}
             </div>
           </div>
         </div>
@@ -772,13 +758,13 @@
         </div>
 
         <div class="flex items-center justify-end text-xs pt-1">
-          <a href="tel:${E}" class="w-full py-2.5 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold text-xs hover:bg-emerald-500/30 transition flex items-center justify-center gap-1.5">
+          <a href="tel:${$}" class="w-full py-2.5 rounded-xl bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold text-xs hover:bg-emerald-500/30 transition flex items-center justify-center gap-1.5">
             <span>📞</span>
             <span>سفارش تلفنی مستقیم</span>
           </a>
         </div>
       </div>
-    `,G=setInterval(()=>{const u=document.getElementById("vip-timer-display");if(!u){clearInterval(G);return}const p=oe(k);p.expired?(clearInterval(G),u.textContent="منقضی شده"):u.textContent=p.text},1e3),document.getElementById("copy-vip-btn")?.addEventListener("click",()=>{navigator.clipboard?.writeText(`کد تخفیف ۲۰٪ آتیش: ${m}`).then(()=>{j("کد تخفیف کپی شد")}).catch(()=>{j(`کد: ${m}`)})})}a?.addEventListener("click",()=>{e?.classList.add("hidden")}),e?.addEventListener("click",m=>{m.target===e&&e.classList.add("hidden")});const x=new URLSearchParams(window.location.search),$=x.get("gift")||x.get("code")||x.get("vip")||(window.location.hash.startsWith("#gift=")?window.location.hash.replace("#gift=",""):null);if($){const m=te($);if(m.valid){let k=null;try{const E=localStorage.getItem("atish_vip_offer");E&&(k=JSON.parse(E))}catch{}let g;if(k&&k.code===m.code&&k.expiresAt>Date.now())g=k.expiresAt;else{g=Date.now()+48*3600*1e3;try{localStorage.setItem("atish_vip_offer",JSON.stringify({code:m.code,expiresAt:g}))}catch{}}c(m.code,g),e?.classList.remove("hidden")}else j("کد اسکن شده نامعتبر است")}else try{const m=localStorage.getItem("atish_vip_offer");if(m){const k=JSON.parse(m);k&&k.expiresAt>Date.now()}}catch{}function v(){b(),n?.classList.remove("hidden")}function b(){if(t)if(!i)t.innerHTML=`
+    `,X=setInterval(()=>{const p=document.getElementById("vip-timer-display");if(!p){clearInterval(X);return}const x=re(f);x.expired?(clearInterval(X),p.textContent="منقضی شده"):p.textContent=x.text},1e3),document.getElementById("copy-vip-btn")?.addEventListener("click",()=>{navigator.clipboard?.writeText(`کد تخفیف ۲۰٪ آتیش: ${b}`).then(()=>{T("کد تخفیف کپی شد")}).catch(()=>{T(`کد: ${b}`)})})}a?.addEventListener("click",()=>{e?.classList.add("hidden")}),e?.addEventListener("click",b=>{b.target===e&&e.classList.add("hidden")});const u=new URLSearchParams(window.location.search),I=u.get("gift")||u.get("code")||u.get("vip")||(window.location.hash.startsWith("#gift=")?window.location.hash.replace("#gift=",""):null);if(I){const b=K(I);if(b.valid){let f=null;try{const $=localStorage.getItem("atish_vip_offer");$&&(f=JSON.parse($))}catch{}let y;if(f&&f.code===b.code&&f.expiresAt>Date.now())y=f.expiresAt;else{y=Date.now()+48*3600*1e3;try{localStorage.setItem("atish_vip_offer",JSON.stringify({code:b.code,expiresAt:y}))}catch{}}c(b.code,y),e?.classList.remove("hidden")}else T("کد اسکن شده نامعتبر است")}else try{const b=localStorage.getItem("atish_vip_offer");if(b){const f=JSON.parse(b);f&&f.expiresAt>Date.now()}}catch{}function h(){m(),n?.classList.remove("hidden")}function m(){if(t)if(!i)t.innerHTML=`
         <div class="space-y-4 text-center">
           <p class="text-xs text-zinc-300">برای ورود به پنل تایید کدهای تخفیف، رمز عبور ۴ رقمی پرسنل را وارد کنید:</p>
           <form id="cashier-login-form" class="space-y-3 max-w-xs mx-auto">
@@ -797,7 +783,7 @@
             </button>
           </form>
         </div>
-      `,document.getElementById("cashier-login-form")?.addEventListener("submit",m=>{m.preventDefault();let g=document.getElementById("cashier-pin-input")?.value||"";const E=["۰","۱","۲","۳","۴","۵","۶","۷","۸","۹"];for(let u=0;u<10;u++)g=g.replace(new RegExp(E[u],"g"),String(u));if(ne(g)===Te){i=!0;try{sessionStorage.setItem("atish_cashier_auth","true")}catch{}b()}else document.getElementById("cashier-pin-error")?.classList.remove("hidden")});else{t.innerHTML=`
+      `,document.getElementById("cashier-login-form")?.addEventListener("submit",b=>{b.preventDefault();let y=document.getElementById("cashier-pin-input")?.value||"";const $=["۰","۱","۲","۳","۴","۵","۶","۷","۸","۹"];for(let p=0;p<10;p++)y=y.replace(new RegExp($[p],"g"),String(p));if(te(y)===Ce){i=!0;try{sessionStorage.setItem("atish_cashier_auth","true")}catch{}m()}else document.getElementById("cashier-pin-error")?.classList.remove("hidden")});else{t.innerHTML=`
         <div class="space-y-4">
           <div class="p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-right">
             <label class="block text-xs font-bold text-emerald-300 mb-1.5">کد تخفیف ارائه‌شده توسط مشتری را وارد کنید:</label>
@@ -831,18 +817,18 @@
             <span>رستوران آتیش</span>
           </div>
         </div>
-      `,document.getElementById("cashier-logout-btn")?.addEventListener("click",()=>{i=!1;try{sessionStorage.removeItem("atish_cashier_auth")}catch{}b()});const m=document.getElementById("cashier-search-code"),k=document.getElementById("cashier-verify-btn"),g=document.getElementById("cashier-result-box");m?.addEventListener("input",()=>{const u=["۰","۱","۲","۳","۴","۵","۶","۷","۸","۹"];let p=m.value.toUpperCase();for(let h=0;h<10;h++)p=p.replace(new RegExp(u[h],"g"),String(h));const y=p.replace(/[^A-Z0-9]/g,"").slice(0,9);let I="";for(let h=0;h<y.length;h+=3)h>0&&(I+="-"),I+=y.slice(h,h+3);m.value=I});const E=()=>{const u=m?.value||"",p=te(u);let y=[];try{y=JSON.parse(localStorage.getItem("atish_cashier_redeemed")||"[]")}catch{}if(g.classList.remove("hidden"),!p.valid){g.innerHTML=`
+      `,document.getElementById("cashier-logout-btn")?.addEventListener("click",()=>{i=!1;try{sessionStorage.removeItem("atish_cashier_auth")}catch{}m()});const b=document.getElementById("cashier-search-code"),f=document.getElementById("cashier-verify-btn"),y=document.getElementById("cashier-result-box");b?.addEventListener("input",()=>{const p=["۰","۱","۲","۳","۴","۵","۶","۷","۸","۹"];let x=b.value.toUpperCase();for(let v=0;v<10;v++)x=x.replace(new RegExp(p[v],"g"),String(v));const w=x.replace(/[^A-Z0-9]/g,"").slice(0,9);let E="";for(let v=0;v<w.length;v+=3)v>0&&(E+="-"),E+=w.slice(v,v+3);b.value=E});const $=()=>{const p=b?.value||"",x=K(p);let w=[];try{w=JSON.parse(localStorage.getItem("atish_cashier_redeemed")||"[]")}catch{}if(y.classList.remove("hidden"),!x.valid){y.innerHTML=`
             <div class="p-3 rounded-xl bg-rose-500/15 border border-rose-500/30 text-rose-300 text-center space-y-1">
               <div class="text-base font-black">❌ غیر معتبر / نامعتبر</div>
-              <p class="text-xs">${p.reason}</p>
+              <p class="text-xs">${x.reason}</p>
             </div>
-          `;return}if(y.some(h=>h.code===p.code)){const h=y.find(T=>T.code===p.code);g.innerHTML=`
+          `;return}if(w.some(v=>v.code===x.code)){const v=w.find(M=>M.code===x.code);y.innerHTML=`
             <div class="p-3 rounded-xl bg-amber-500/15 border border-amber-500/30 text-amber-300 text-center space-y-1">
               <div class="text-base font-black">⚠️ این کد قبلاً استفاده شده است!</div>
-              <p class="text-xs">کد: <span class="font-mono font-bold">${p.code}</span></p>
-              <p class="text-[10px] text-zinc-400">زمان استفاده: ${h?.time||"نامشخص"}</p>
+              <p class="text-xs">کد: <span class="font-mono font-bold">${x.code}</span></p>
+              <p class="text-[10px] text-zinc-400">زمان استفاده: ${v?.time||"نامشخص"}</p>
             </div>
-          `;return}g.innerHTML=`
+          `;return}y.innerHTML=`
           <div class="p-3.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 space-y-2 text-right">
             <div class="flex items-center justify-between border-b border-emerald-500/30 pb-2">
               <span class="text-xs">نتیجه بررسی:</span>
@@ -850,7 +836,7 @@
             </div>
             <div class="flex items-center justify-between border-b border-emerald-500/30 pb-2">
               <span class="text-xs">کد تخفیف:</span>
-              <span dir="ltr" class="font-mono font-black text-white text-base">${p.code}</span>
+              <span dir="ltr" class="font-mono font-black text-white text-base">${x.code}</span>
             </div>
             <div class="flex items-center justify-between border-b border-emerald-500/30 pb-2">
               <span class="text-xs">میزان تخفیف:</span>
@@ -864,7 +850,7 @@
               ✓ اعمال ۲۰٪ تخفیف و علامت‌گذاری به عنوان استفاده شده
             </button>
           </div>
-        `,document.getElementById("cashier-mark-used-btn")?.addEventListener("click",()=>{y.push({code:p.code,time:new Date().toLocaleTimeString("fa-IR")+" - "+new Date().toLocaleDateString("fa-IR")});try{localStorage.setItem("atish_cashier_redeemed",JSON.stringify(y))}catch{}j(`تخفیف ۲۰٪ برای ${p.code} اعمال شد.`),E()})};k?.addEventListener("click",E),m?.addEventListener("keydown",u=>{u.key==="Enter"&&(u.preventDefault(),E())})}}s?.addEventListener("click",()=>{n?.classList.add("hidden")}),n?.addEventListener("click",m=>{m.target===n&&n.classList.add("hidden")}),o?.addEventListener("click",m=>{d++,clearTimeout(l),d>=5?(m.preventDefault(),d=0,v()):l=setTimeout(()=>{d=0},3e3)});const L=()=>{const m=window.location.hash;if(m==="#cashier"||m==="#cashier-tool")m==="#cashier-tool"&&(i=!0),v();else if(m.startsWith("#cashier-verify=")){i=!0,v();const k=m.replace("#cashier-verify=",""),g=document.getElementById("cashier-search-code");if(g){g.value=k,g.dispatchEvent(new Event("input"));const E=te(g.value),u=document.getElementById("cashier-result-box");u&&E.valid&&(u.classList.remove("hidden"),u.innerHTML=`
+        `,document.getElementById("cashier-mark-used-btn")?.addEventListener("click",()=>{w.push({code:x.code,time:new Date().toLocaleTimeString("fa-IR")+" - "+new Date().toLocaleDateString("fa-IR")});try{localStorage.setItem("atish_cashier_redeemed",JSON.stringify(w))}catch{}T(`تخفیف ۲۰٪ برای ${x.code} اعمال شد.`),$()})};f?.addEventListener("click",$),b?.addEventListener("keydown",p=>{p.key==="Enter"&&(p.preventDefault(),$())})}}s?.addEventListener("click",()=>{n?.classList.add("hidden")}),n?.addEventListener("click",b=>{b.target===n&&n.classList.add("hidden")}),o?.addEventListener("click",b=>{d++,clearTimeout(l),d>=5?(b.preventDefault(),d=0,h()):l=setTimeout(()=>{d=0},3e3)});const S=()=>{const b=window.location.hash;if(b==="#cashier"||b==="#cashier-tool")b==="#cashier-tool"&&(i=!0),h();else if(b.startsWith("#cashier-verify=")){i=!0,h();const f=b.replace("#cashier-verify=",""),y=document.getElementById("cashier-search-code");if(y){y.value=f,y.dispatchEvent(new Event("input"));const $=K(y.value),p=document.getElementById("cashier-result-box");p&&$.valid&&(p.classList.remove("hidden"),p.innerHTML=`
             <div class="p-3.5 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 space-y-2 text-right">
               <div class="flex items-center justify-between border-b border-emerald-500/30 pb-2">
                 <span class="text-xs">نتیجه بررسی:</span>
@@ -872,7 +858,7 @@
               </div>
               <div class="flex items-center justify-between border-b border-emerald-500/30 pb-2">
                 <span class="text-xs">کد تخفیف:</span>
-                <span dir="ltr" class="font-mono font-black text-white text-base">${E.code}</span>
+                <span dir="ltr" class="font-mono font-black text-white text-base">${$.code}</span>
               </div>
               <div class="flex items-center justify-between border-b border-emerald-500/30 pb-2">
                 <span class="text-xs">میزان تخفیف:</span>
@@ -886,18 +872,18 @@
                 ✓ اعمال ۲۰٪ تخفیف و علامت‌گذاری به عنوان استفاده شده
               </button>
             </div>
-          `)}}};L(),window.addEventListener("hashchange",L)}let H={};function ue(e){if(!e)return 0;let a=B[e.id]||0;return e.shapes&&e.shapes.forEach(r=>{a+=B[`${e.id}:${r.id}`]||0}),a}function Q(e){if(!e)return null;if(e.includes(":")){const[r,n]=e.split(":"),s=z.items.find(o=>o.id===r);if(!s)return null;const t=s.shapes?.find(o=>o.id===n)||s.shapes?.[0];return{key:e,id:s.id,title:`${s.title} (${t?.name||"کلاسیک"})`,image:t?.image||s.image,ingredients:t?.id==="heart"?"خمیر پیتزا طرح قلبی، "+(s.ingredients||""):s.ingredients,placeholderIcon:"🍕",price:t?.price||s.price}}const a=z.items.find(r=>r.id===e);return a?{key:e,id:a.id,title:a.title,image:a.image,ingredients:a.ingredients,placeholderIcon:a.placeholderIcon,price:a.price}:null}function xe(e){const a=document.getElementById("tray-modal");if(!a||a.classList.contains("hidden"))return!1;const r=document.getElementById(`tray-item-qty-${e}`);if(!r)return!1;const n=Q(e);if(!n)return!1;const s=B[e]||0,t=n.price?Number(n.price):0,o=J(),i=V();r.textContent=w(s);const d=document.getElementById(`tray-item-subtotal-${e}`);d&&(t>0?d.innerHTML=`
-        <span class="text-[11px] font-black text-amber-400 whitespace-nowrap">${S(t*s)}</span>
-        ${s>1?`<span class="text-[9px] sm:text-[10px] text-zinc-400 whitespace-nowrap leading-tight">(${S(t)} هر عدد)</span>`:""}
-      `:d.innerHTML=`<span class="text-[10px] text-zinc-400 font-light truncate max-w-[120px] block">${n.ingredients||"آتیش"}</span>`);const l=document.getElementById("tray-header-totals");l&&(l.textContent=`${w(o)} قلم غذا${i>0?` · ${S(i)}`:""}`);const c=document.getElementById("tray-total-card");c&&(c.className=`${i>0?"flex":"hidden"} mx-3 my-2 p-3 rounded-2xl bg-[#1b1b22] border border-amber-500/25 items-center justify-between shadow-md`);const x=document.getElementById("tray-total-card-count");x&&(x.textContent=`${w(o)} قلم غذا`);const $=document.getElementById("tray-total-card-price");return $&&($.textContent=S(i)),!0}function K(e){B[e]=(B[e]||0)+1,W();const a=document.getElementById("tray-modal");a&&!a.classList.contains("hidden")&&(xe(e)||R())}function Pe(e){if(!B[e])return;if(B[e]-=1,B[e]<=0){delete B[e],W(),R();return}W(),xe(e)||R()}function De(e){delete B[e],W(),R()}function Ne(){B={},W(),R()}function Fe(){const e=Object.keys(B);let a=`📋 پیش‌فاکتور اقلام سفارش - رستوران آتیش:
+          `)}}};S(),window.addEventListener("hashchange",S)}let N={};function me(e){if(!e)return 0;let a=L[e.id]||0;return e.shapes&&e.shapes.forEach(r=>{a+=L[`${e.id}:${r.id}`]||0}),a}function Y(e){if(!e)return null;if(e.includes(":")){const[r,n]=e.split(":"),s=C.items.find(o=>o.id===r);if(!s)return null;const t=s.shapes?.find(o=>o.id===n)||s.shapes?.[0];return{key:e,id:s.id,title:`${s.title} (${t?.name||"کلاسیک"})`,image:t?.image||s.image,ingredients:t?.id==="heart"?"خمیر پیتزا طرح قلبی، "+(s.ingredients||""):s.ingredients,placeholderIcon:"🍕",price:t?.price||s.price}}const a=C.items.find(r=>r.id===e);return a?{key:e,id:a.id,title:a.title,image:a.image,ingredients:a.ingredients,placeholderIcon:a.placeholderIcon,price:a.price}:null}function be(e){const a=document.getElementById("tray-modal");if(!a||a.classList.contains("hidden"))return!1;const r=document.getElementById(`tray-item-qty-${e}`);if(!r)return!1;const n=Y(e);if(!n)return!1;const s=L[e]||0,t=n.price?Number(n.price):0,o=G(),i=U();r.textContent=k(s);const d=document.getElementById(`tray-item-subtotal-${e}`);d&&(t>0?d.innerHTML=`
+        <span class="text-[11px] font-black text-amber-400 whitespace-nowrap">${B(t*s)}</span>
+        ${s>1?`<span class="text-[9px] sm:text-[10px] text-zinc-400 whitespace-nowrap leading-tight">(${B(t)} هر عدد)</span>`:""}
+      `:d.innerHTML=`<span class="text-[10px] text-zinc-400 font-light truncate max-w-[120px] block">${n.ingredients||"آتیش"}</span>`);const l=document.getElementById("tray-header-totals");l&&(l.textContent=`${k(o)} قلم غذا${i>0?` · ${B(i)}`:""}`);const c=document.getElementById("tray-total-card");c&&(c.className=`${i>0?"flex":"hidden"} mx-3 my-2 p-3 rounded-2xl bg-[#1b1b22] border border-amber-500/25 items-center justify-between shadow-md`);const u=document.getElementById("tray-total-card-count");u&&(u.textContent=`${k(o)} قلم غذا`);const I=document.getElementById("tray-total-card-price");return I&&(I.textContent=B(i)),!0}function J(e){L[e]=(L[e]||0)+1,q();const a=document.getElementById("tray-modal");a&&!a.classList.contains("hidden")&&(be(e)||F())}function je(e){if(!L[e])return;if(L[e]-=1,L[e]<=0){delete L[e],q(),F();return}q(),be(e)||F()}function Ae(e){delete L[e],q(),F()}function De(){L={},q(),F()}function Pe(){const e=Object.keys(L);let a=`📋 پیش‌فاکتور اقلام سفارش - رستوران آتیش:
 
-`,r=0;return e.forEach((n,s)=>{const t=Q(n);if(t){const o=B[n],i=t.price?Number(t.price):0,d=i*o;r+=d;const l=i>0?` (${S(d)})`:"";a+=`${w(s+1)}. ${t.title} × ${w(o)}${l}
+`,r=0;return e.forEach((n,s)=>{const t=Y(n);if(t){const o=L[n],i=t.price?Number(t.price):0,d=i*o;r+=d;const l=i>0?` (${B(d)})`:"";a+=`${k(s+1)}. ${t.title} × ${k(o)}${l}
 `}}),r>0&&(a+=`
-💰 جمع کل سفارش: ${S(r)}
+💰 جمع کل سفارش: ${B(r)}
 `),a+=`
 📍 آدرس: خیابان دولت تهران، محله دروس، روبه‌روی بانک ملت بین کوچه خرداد و معتمدی، پلاک ۱۰۰
 `,a+=`📞 تلفن سفارش مستقیم: ۰۲۱-۲۲۵۶۱۹۴۹
-`,a+="🛵 سفارش آنلاین در اسنپ‌فود: https://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/",a}function R(){const e=document.getElementById("tray-modal-box"),a=z?.restaurant||F;if(!e)return;const r=Object.keys(B),n=J();if(r.length===0){e.innerHTML=`
+`,a+="🛵 سفارش آنلاین در اسنپ‌فود: https://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/",a}function F(){const e=document.getElementById("tray-modal-box"),a=C?.restaurant||P;if(!e)return;const r=Object.keys(L),n=G();if(r.length===0){e.innerHTML=`
       <div class="p-6 text-center">
         <div class="w-14 h-14 mx-auto rounded-full bg-white/[0.05] flex items-center justify-center text-2xl mb-3">
           📋
@@ -911,18 +897,18 @@
           مشاهده منو و افزودن غذا
         </button>
       </div>
-    `,document.getElementById("close-empty-tray-btn")?.addEventListener("click",()=>{document.getElementById("tray-modal")?.classList.add("hidden")});return}const s=V();e.innerHTML=`
+    `,document.getElementById("close-empty-tray-btn")?.addEventListener("click",()=>{document.getElementById("tray-modal")?.classList.add("hidden")});return}const s=U();e.innerHTML=`
     <!-- Modal Header -->
     <div class="p-4 border-b border-white/[0.08] flex items-center justify-between bg-[#18181c]">
       <div class="flex items-center gap-2">
         <span class="text-xl">📋</span>
         <div>
           <h2 class="text-sm font-black text-white">لیست سفارش شما</h2>
-          <span id="tray-header-totals" class="text-[11px] text-amber-400 font-bold">${w(n)} قلم غذا${s>0?` · ${S(s)}`:""}</span>
+          <span id="tray-header-totals" class="text-[11px] text-amber-400 font-bold">${k(n)} قلم غذا${s>0?` · ${B(s)}`:""}</span>
         </div>
       </div>
       <button id="close-tray-btn" class="w-7 h-7 rounded-full bg-[#24242c] flex items-center justify-center text-zinc-400 hover:text-white transition">
-        ${f.close}
+        ${g.close}
       </button>
     </div>
 
@@ -936,7 +922,7 @@
 
     <!-- Items List -->
     <div class="px-3 py-1 flex flex-col gap-2 max-h-60 overflow-y-auto">
-      ${r.map(t=>{const o=Q(t);if(!o)return"";const i=B[t],d=P(o.image),l=o.price?Number(o.price):0;return`
+      ${r.map(t=>{const o=Y(t);if(!o)return"";const i=L[t],d=A(o.image),l=o.price?Number(o.price):0;return`
           <div class="flex items-center justify-between p-2.5 rounded-xl bg-[#202026] border border-white/[0.06]">
             <div class="flex items-center gap-2.5 min-w-0">
               <div class="w-10 h-10 rounded-lg overflow-hidden bg-black/40 flex-shrink-0 border border-white/[0.08]">
@@ -947,9 +933,9 @@
                 <div id="tray-item-subtotal-${t}" class="flex flex-col sm:flex-row sm:items-center items-start gap-0.5 sm:gap-1.5 mt-0.5">
                   ${l>0?`
                     <span class="text-[11px] font-black text-amber-400 whitespace-nowrap">
-                      ${S(l*i)}
+                      ${B(l*i)}
                     </span>
-                    ${i>1?`<span class="text-[9px] sm:text-[10px] text-zinc-400 whitespace-nowrap leading-tight">(${S(l)} هر عدد)</span>`:""}
+                    ${i>1?`<span class="text-[9px] sm:text-[10px] text-zinc-400 whitespace-nowrap leading-tight">(${B(l)} هر عدد)</span>`:""}
                   `:`
                     <span class="text-[10px] text-zinc-400 font-light truncate max-w-[120px] block">${o.ingredients||"آتیش"}</span>
                   `}
@@ -967,10 +953,10 @@
                   class="w-7 h-7 rounded-lg bg-white/[0.06] hover:bg-white/[0.15] active:scale-90 flex items-center justify-center text-zinc-300 hover:text-white transition"
                   aria-label="کاهش تعداد"
                 >
-                  <span class="pointer-events-none">${f.minus}</span>
+                  <span class="pointer-events-none">${g.minus}</span>
                 </button>
                 <span id="tray-item-qty-${t}" class="text-xs sm:text-sm font-black text-amber-400 px-1.5 min-w-[20px] text-center select-none pointer-events-none">
-                  ${w(i)}
+                  ${k(i)}
                 </span>
                 <button 
                   type="button"
@@ -979,7 +965,7 @@
                   class="w-7 h-7 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 active:scale-90 flex items-center justify-center text-amber-300 hover:text-white transition"
                   aria-label="افزایش تعداد"
                 >
-                  <span class="pointer-events-none">${f.plus}</span>
+                  <span class="pointer-events-none">${g.plus}</span>
                 </button>
               </div>
 
@@ -991,7 +977,7 @@
                 class="w-8 h-8 rounded-xl bg-red-500/10 hover:bg-red-500/20 border border-red-500/25 active:scale-90 flex items-center justify-center text-red-400 hover:text-red-300 transition"
                 aria-label="حذف این آیتم"
               >
-                <span class="pointer-events-none">${f.trash}</span>
+                <span class="pointer-events-none">${g.trash}</span>
               </button>
             </div>
           </div>
@@ -1004,11 +990,11 @@
         <span class="text-base">💳</span>
         <div>
           <span class="text-xs font-black text-white block">مجموع مبلغ سفارش:</span>
-          <span id="tray-total-card-count" class="text-[10px] text-zinc-400 font-light">${w(n)} قلم غذا</span>
+          <span id="tray-total-card-count" class="text-[10px] text-zinc-400 font-light">${k(n)} قلم غذا</span>
         </div>
       </div>
       <div class="text-left">
-        <span id="tray-total-card-price" class="text-sm sm:text-base font-black text-amber-400">${S(s)}</span>
+        <span id="tray-total-card-price" class="text-sm sm:text-base font-black text-amber-400">${B(s)}</span>
       </div>
     </div>
 
@@ -1019,7 +1005,7 @@
           href="tel:${a.phone}"
           class="py-2.5 px-2 rounded-xl bg-[#22c55e] hover:bg-[#16a34a] text-white font-black text-xs flex items-center justify-center gap-1.5 shadow-md shadow-emerald-500/25 active:scale-95 transition whitespace-nowrap"
         >
-          ${f.phone}
+          ${g.phone}
           <span>تماس و سفارش</span>
         </a>
 
@@ -1029,7 +1015,7 @@
           rel="noopener noreferrer"
           class="py-2.5 px-2 rounded-xl bg-[#ff00a6] hover:bg-[#e00092] text-white font-black text-xs flex items-center justify-center gap-1.5 shadow-md shadow-pink-500/25 active:scale-95 transition whitespace-nowrap"
         >
-          ${f.scooter}
+          ${g.scooter}
           <span>سفارش اسنپ‌فود</span>
         </a>
       </div>
@@ -1039,7 +1025,7 @@
           id="btn-copy-order" 
           class="py-2 rounded-xl bg-[#202028] hover:bg-[#282834] border border-white/[0.08] text-[11px] font-bold text-zinc-300 hover:text-white flex items-center justify-center gap-1 active:scale-95 transition"
         >
-          ${f.copy}
+          ${g.copy}
           <span>کپی لیست سفارش</span>
         </button>
 
@@ -1047,12 +1033,12 @@
           id="btn-clear-tray"
           class="py-2 rounded-xl bg-[#202028] hover:bg-red-500/10 border border-white/[0.08] hover:border-red-500/30 text-[11px] font-bold text-red-400 hover:text-red-300 flex items-center justify-center gap-1 active:scale-95 transition"
         >
-          ${f.trash}
+          ${g.trash}
           <span>خالی کردن لیست</span>
         </button>
       </div>
     </div>
-  `,document.getElementById("close-tray-btn")?.addEventListener("click",()=>{document.getElementById("tray-modal")?.classList.add("hidden")}),e.querySelectorAll("button[data-action]").forEach(t=>{t.addEventListener("click",o=>{o.stopPropagation(),o.preventDefault();const i=t.dataset.action,d=t.dataset.id;i==="increase"&&K(d),i==="decrease"&&Pe(d),i==="delete"&&De(d)})}),document.getElementById("btn-copy-order")?.addEventListener("click",()=>{navigator.clipboard?.writeText(Fe()).then(()=>{j("متن سفارش کپی شد")})}),document.getElementById("btn-clear-tray")?.addEventListener("click",()=>{Ne()})}function ge(e){return e?e.startsWith("./")?e.slice(1):e.startsWith("/")?e:"/"+e:""}function P(e){const a=ge(e);if(!a)return"";const r=a.split("/").pop();return r&&r!=="logo.webp"?`/images/thumbs/${r.replace(/\.(jpg|jpeg|png)$/i,".webp")}`:a}function se(e,a){if(!e)return;H[e.id]=a;const r=e.shapes?.find(i=>i.id===a)||e.shapes?.[0];if(!r)return;const n=document.getElementById(`card-img-${e.id}`);n&&(n.style.opacity="0.3",setTimeout(()=>{n.src=P(r.image),n.style.opacity="1"},120));const s=document.getElementById(`card-badge-${e.id}`);if(s){const i=r.badge||e.badge||"";s.textContent=i,s.className=i?"bg-black/90 text-amber-300 border border-amber-500/30 text-[9px] md:text-[10px] font-black px-2 py-0.5 rounded-lg shadow-sm whitespace-nowrap":"hidden"}const t=document.getElementById(`card-btn-text-${e.id}`);t&&(t.textContent=`افزودن ${r.shortName||r.name}`);const o=document.getElementById(`card-price-${e.id}`);if(o){const i=r.price||e.price;i&&(o.textContent=S(i))}e.shapes?.forEach(i=>{const d=document.getElementById(`card-dot-${e.id}-${i.id}`);d&&(d.className=`h-1.5 rounded-full transition-all duration-300 ${i.id===a?"bg-amber-400 w-4 shadow":"bg-white/40 w-1.5"}`)})}function He(e){const a=document.getElementById("item-modal"),r=document.getElementById("item-modal-box");if(!a||!r)return;const n=e.shapes&&e.shapes.length>1;let s=n?H[e.id]||"normal":null,t=n?e.shapes.find(l=>l.id===s)||e.shapes[0]:null;const o=t?t.image:e.image,i=P(o),d=t?.price||e.price;if(r.innerHTML=`
+  `,document.getElementById("close-tray-btn")?.addEventListener("click",()=>{document.getElementById("tray-modal")?.classList.add("hidden")}),e.querySelectorAll("button[data-action]").forEach(t=>{t.addEventListener("click",o=>{o.stopPropagation(),o.preventDefault();const i=t.dataset.action,d=t.dataset.id;i==="increase"&&J(d),i==="decrease"&&je(d),i==="delete"&&Ae(d)})}),document.getElementById("btn-copy-order")?.addEventListener("click",()=>{navigator.clipboard?.writeText(Pe()).then(()=>{T("متن سفارش کپی شد")})}),document.getElementById("btn-clear-tray")?.addEventListener("click",()=>{De()})}function ue(e){return e?e.startsWith("./")?e.slice(1):e.startsWith("/")?e:"/"+e:""}function A(e){const a=ue(e);if(!a)return"";const r=a.split("/").pop();return r&&r!=="logo.webp"?`/images/thumbs/${r.replace(/\.(jpg|jpeg|png)$/i,".webp")}`:a}function ae(e,a){if(!e)return;N[e.id]=a;const r=e.shapes?.find(i=>i.id===a)||e.shapes?.[0];if(!r)return;const n=document.getElementById(`card-img-${e.id}`);n&&(n.style.opacity="0.3",setTimeout(()=>{n.src=A(r.image),n.style.opacity="1"},120));const s=document.getElementById(`card-badge-${e.id}`);if(s){const i=r.badge||e.badge||"";s.textContent=i,s.className=i?"bg-black/90 text-amber-300 border border-amber-500/30 text-[9px] md:text-[10px] font-black px-2 py-0.5 rounded-lg shadow-sm whitespace-nowrap":"hidden"}const t=document.getElementById(`card-btn-text-${e.id}`);t&&(t.textContent=`افزودن ${r.shortName||r.name}`);const o=document.getElementById(`card-price-${e.id}`);if(o){const i=r.price||e.price;i&&(o.textContent=B(i))}e.shapes?.forEach(i=>{const d=document.getElementById(`card-dot-${e.id}-${i.id}`);d&&(d.className=`h-1.5 rounded-full transition-all duration-300 ${i.id===a?"bg-amber-400 w-4 shadow":"bg-white/40 w-1.5"}`)})}function Ne(e){const a=document.getElementById("item-modal"),r=document.getElementById("item-modal-box");if(!a||!r)return;const n=e.shapes&&e.shapes.length>1;let s=n?N[e.id]||"normal":null,t=n?e.shapes.find(l=>l.id===s)||e.shapes[0]:null;const o=t?t.image:e.image,i=A(o),d=t?.price||e.price;if(r.innerHTML=`
     <!-- Modal Photo Container with Touch Swipe and Arrow Controls -->
     <div class="relative w-full h-64 bg-gradient-to-b from-[#24242c] to-[#141417] overflow-hidden flex items-center justify-center select-none" id="modal-photo-container">
       <img 
@@ -1072,7 +1058,7 @@
         id="close-item-modal-btn" 
         class="absolute top-3 left-3 w-8 h-8 rounded-full bg-black/60 backdrop-blur-md text-white flex items-center justify-center border border-white/[0.15] z-30"
       >
-        ${f.close}
+        ${g.close}
       </button>
 
       <!-- Badges in Photo Top-Right -->
@@ -1110,7 +1096,7 @@
         <div class="flex items-center gap-1.5 flex-shrink-0">
           ${d?`
             <span id="modal-price-badge" class="text-xs sm:text-sm font-black text-amber-400 bg-amber-500/10 border border-amber-500/25 px-2.5 py-1 rounded-xl whitespace-nowrap">
-              ${S(d)}
+              ${B(d)}
             </span>
           `:""}
           ${e.tag?`<span class="text-[10px] font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded-full border border-red-500/20">${e.tag}</span>`:""}
@@ -1155,29 +1141,29 @@
           id="modal-add-tray-btn"
           class="w-full py-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black font-black text-sm flex items-center justify-center gap-1.5 shadow-md shadow-orange-500/25 transition"
         >
-          ${f.plus}
+          ${g.plus}
           <span id="modal-btn-label">
             ${n?`افزودن به لیست سفارش (${t.name})`:"افزودن به لیست سفارش"}
           </span>
         </button>
       </div>
     </div>
-  `,a.classList.remove("hidden"),n&&e.shapes.forEach(l=>{const c=new Image;c.src=P(l.image)}),document.getElementById("close-item-modal-btn")?.addEventListener("click",()=>{a.classList.add("hidden")}),n){const l=v=>{s=v,H[e.id]=v,t=e.shapes.find(u=>u.id===v)||e.shapes[0];const b=document.getElementById("modal-main-img"),L=P(t.image);b&&(b.style.opacity="0.5",setTimeout(()=>{b.src=L,b.style.opacity="1"},50));const m=document.getElementById("modal-badge");if(m){const u=t.badge||e.badge||"";m.textContent=u,m.className=u?"bg-black/85 text-amber-300 border border-amber-500/30 text-[10px] sm:text-[11px] font-black px-2.5 py-1 rounded-lg shadow-lg whitespace-nowrap":"hidden"}document.querySelectorAll("[data-dot-shape]").forEach(u=>{const p=u.dataset.dotShape===v;u.className=`h-2 rounded-full transition-all duration-300 ${p?"bg-amber-400 w-5 shadow":"bg-white/40 w-2"}`}),document.querySelectorAll("[data-modal-shape-btn]").forEach(u=>{const p=u.dataset.modalShapeBtn===v;u.className=`py-2.5 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-2 border transition-all ${p?"bg-amber-500 text-black border-amber-400 shadow-lg":"bg-[#222228] text-zinc-300 border-white/[0.08] hover:text-white hover:bg-white/[0.08]"}`});const k=document.getElementById("modal-btn-label");k&&(k.textContent=`افزودن به لیست سفارش (${t.name})`);const g=t.price||e.price,E=document.getElementById("modal-price-badge");E&&g&&(E.textContent=S(g)),se(e,v)},c=()=>{const b=(e.shapes.findIndex(L=>L.id===s)+1)%e.shapes.length;l(e.shapes[b].id)};document.querySelectorAll("[data-modal-shape-btn]").forEach(v=>{v.addEventListener("click",b=>{b.stopPropagation(),l(v.dataset.modalShapeBtn)})});let x=0;const $=document.getElementById("modal-photo-container");$?.addEventListener("touchstart",v=>{x=v.changedTouches[0].screenX},{passive:!0}),$?.addEventListener("touchend",v=>{const b=v.changedTouches[0].screenX;Math.abs(b-x)>40&&c()},{passive:!0})}document.getElementById("modal-add-tray-btn")?.addEventListener("click",()=>{let l=e.id,c=e.title;n&&t&&(l=`${e.id}:${t.id}`,c=`${e.title} (${t.name})`),K(l),a.classList.add("hidden"),j(`${c} به لیست اضافه شد`)})}function Y(){const e=document.getElementById("menu-container");if(!e||!z)return;const a=z.categories||[];let r=z.items||[];if(M){const n=Z(M);if(r=r.filter(s=>{const t=Z(s.title).includes(n),o=s.ingredients&&Z(s.ingredients).includes(n),i=a.find(l=>l.id===s.categoryId),d=i&&Z(i.name+" "+(i.title||"")).includes(n);return t||o||d}),r.length===0){e.innerHTML=`
+  `,a.classList.remove("hidden"),n&&e.shapes.forEach(l=>{const c=new Image;c.src=A(l.image)}),document.getElementById("close-item-modal-btn")?.addEventListener("click",()=>{a.classList.add("hidden")}),n){const l=h=>{s=h,N[e.id]=h,t=e.shapes.find(p=>p.id===h)||e.shapes[0];const m=document.getElementById("modal-main-img"),S=A(t.image);m&&(m.style.opacity="0.5",setTimeout(()=>{m.src=S,m.style.opacity="1"},50));const b=document.getElementById("modal-badge");if(b){const p=t.badge||e.badge||"";b.textContent=p,b.className=p?"bg-black/85 text-amber-300 border border-amber-500/30 text-[10px] sm:text-[11px] font-black px-2.5 py-1 rounded-lg shadow-lg whitespace-nowrap":"hidden"}document.querySelectorAll("[data-dot-shape]").forEach(p=>{const x=p.dataset.dotShape===h;p.className=`h-2 rounded-full transition-all duration-300 ${x?"bg-amber-400 w-5 shadow":"bg-white/40 w-2"}`}),document.querySelectorAll("[data-modal-shape-btn]").forEach(p=>{const x=p.dataset.modalShapeBtn===h;p.className=`py-2.5 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-2 border transition-all ${x?"bg-amber-500 text-black border-amber-400 shadow-lg":"bg-[#222228] text-zinc-300 border-white/[0.08] hover:text-white hover:bg-white/[0.08]"}`});const f=document.getElementById("modal-btn-label");f&&(f.textContent=`افزودن به لیست سفارش (${t.name})`);const y=t.price||e.price,$=document.getElementById("modal-price-badge");$&&y&&($.textContent=B(y)),ae(e,h)},c=()=>{const m=(e.shapes.findIndex(S=>S.id===s)+1)%e.shapes.length;l(e.shapes[m].id)};document.querySelectorAll("[data-modal-shape-btn]").forEach(h=>{h.addEventListener("click",m=>{m.stopPropagation(),l(h.dataset.modalShapeBtn)})});let u=0;const I=document.getElementById("modal-photo-container");I?.addEventListener("touchstart",h=>{u=h.changedTouches[0].screenX},{passive:!0}),I?.addEventListener("touchend",h=>{const m=h.changedTouches[0].screenX;Math.abs(m-u)>40&&c()},{passive:!0})}document.getElementById("modal-add-tray-btn")?.addEventListener("click",()=>{let l=e.id,c=e.title;n&&t&&(l=`${e.id}:${t.id}`,c=`${e.title} (${t.name})`),J(l),a.classList.add("hidden"),T(`${c} به لیست اضافه شد`)})}function Z(){const e=document.getElementById("menu-container");if(!e||!C)return;const a=C.categories||[];let r=C.items||[];if(z){const n=W(z);if(r=r.filter(s=>{const t=W(s.title).includes(n),o=s.ingredients&&W(s.ingredients).includes(n),i=a.find(l=>l.id===s.categoryId),d=i&&W(i.name+" "+(i.title||"")).includes(n);return t||o||d}),r.length===0){e.innerHTML=`
         <div class="flex flex-col items-center justify-center py-16 text-center text-zinc-400 glass-card rounded-2xl p-6">
           <span class="text-5xl mb-3">🔍</span>
-          <p class="text-base font-black text-white">غذایی مطابق «${re(M)}» پیدا نشد!</p>
+          <p class="text-base font-black text-white">غذایی مطابق «${ne(z)}» پیدا نشد!</p>
           <p class="text-xs text-zinc-400 mt-1 mb-4">می‌توانید کلمه دیگری مانند «پیتزا»، «برگر»، «پپرونی» یا «سوخاری» را جستجو فرمایید.</p>
           <button id="reset-search-btn" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-black text-xs font-black hover:opacity-90 transition shadow-md">
             نمایش کل منو
           </button>
         </div>
-      `,document.getElementById("reset-search-btn")?.addEventListener("click",()=>{M="";const s=document.getElementById("desktop-search-input"),t=document.getElementById("menu-search-input"),o=document.getElementById("clear-search-btn"),i=document.getElementById("clear-desktop-search-btn");s&&(s.value=""),t&&(t.value=""),o&&o.classList.add("hidden"),i&&i.classList.add("hidden"),Y()});return}e.innerHTML=`
+      `,document.getElementById("reset-search-btn")?.addEventListener("click",()=>{z="";const s=document.getElementById("desktop-search-input"),t=document.getElementById("menu-search-input"),o=document.getElementById("clear-search-btn"),i=document.getElementById("clear-desktop-search-btn");s&&(s.value=""),t&&(t.value=""),o&&o.classList.add("hidden"),i&&i.classList.add("hidden"),Z()});return}e.innerHTML=`
       <div class="flex items-center justify-between mb-4 p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs">
         <div class="flex items-center gap-2 text-amber-300 font-bold">
           <span>🔍</span>
-          <span>نتایج جستجو برای: «${re(M)}»</span>
+          <span>نتایج جستجو برای: «${ne(z)}»</span>
           <span class="bg-amber-500 text-black font-black text-[10px] px-2 py-0.5 rounded-full mr-1">
-            ${w(r.length)} غذا
+            ${k(r.length)} غذا
           </span>
         </div>
         <button id="reset-search-btn-top" class="text-zinc-400 hover:text-white text-[11px] underline">
@@ -1185,9 +1171,9 @@
         </button>
       </div>
       <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
-        ${r.map((s,t)=>de(s,t<4)).join("")}
+        ${r.map((s,t)=>ie(s,t<4)).join("")}
       </div>
-    `,document.getElementById("reset-search-btn-top")?.addEventListener("click",()=>{M="";const s=document.getElementById("desktop-search-input"),t=document.getElementById("menu-search-input"),o=document.getElementById("clear-search-btn"),i=document.getElementById("clear-desktop-search-btn");s&&(s.value=""),t&&(t.value=""),o&&o.classList.add("hidden"),i&&i.classList.add("hidden"),Y()}),le();return}e.innerHTML=a.map((n,s)=>{const t=r.filter(o=>o.categoryId===n.id);return t.length===0?"":`
+    `,document.getElementById("reset-search-btn-top")?.addEventListener("click",()=>{z="";const s=document.getElementById("desktop-search-input"),t=document.getElementById("menu-search-input"),o=document.getElementById("clear-search-btn"),i=document.getElementById("clear-desktop-search-btn");s&&(s.value=""),t&&(t.value=""),o&&o.classList.add("hidden"),i&&i.classList.add("hidden"),Z()}),oe();return}e.innerHTML=a.map((n,s)=>{const t=r.filter(o=>o.categoryId===n.id);return t.length===0?"":`
       <section class="mb-10 scroll-mt-28" id="sec-${n.id}">
         <!-- Section Header -->
         <div class="flex items-center justify-between mb-4 pb-2.5 border-b border-white/[0.08]">
@@ -1199,16 +1185,16 @@
             ${n.subtitle?`<span class="text-xs text-zinc-400 font-light mt-0.5">${n.subtitle}</span>`:""}
           </div>
           <span class="bg-[#18181c] text-amber-400 border border-white/[0.08] text-[11px] font-black px-3 py-1 rounded-full flex-shrink-0">
-            ${w(t.length)} غذا
+            ${k(t.length)} غذا
           </span>
         </div>
 
         <!-- Food Grid (Responsive: 2 cols on mobile, 3 on tablet, 4 on desktop) -->
         <div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
-          ${t.map((o,i)=>{const d=s===0&&i<4;return de(o,d)}).join("")}
+          ${t.map((o,i)=>{const d=s===0&&i<4;return ie(o,d)}).join("")}
         </div>
       </section>
-    `}).join(""),le()}function de(e,a=!1){const r=ue(e),n=e.shapes&&e.shapes.length>1,s=H[e.id]||"normal",t=n?e.shapes.find(x=>x.id===s)||e.shapes[0]:null,o=ge(t?t.image:e.image),i=P(t?t.image:e.image),d=t?.badge||e.badge,l=!!e.isChefRecommendation,c=a?'loading="eager" fetchpriority="high"':'loading="lazy"';return`
+    `}).join(""),oe()}function ie(e,a=!1){const r=me(e),n=e.shapes&&e.shapes.length>1,s=N[e.id]||"normal",t=n?e.shapes.find(u=>u.id===s)||e.shapes[0]:null,o=ue(t?t.image:e.image),i=A(t?t.image:e.image),d=t?.badge||e.badge,l=!!e.isChefRecommendation,c=a?'loading="eager" fetchpriority="high"':'loading="lazy"';return`
     <article 
       data-id="${e.id}" 
       class="food-card glass-card rounded-2xl overflow-hidden shadow-sm flex flex-col group transition-all duration-300 hover:border-amber-500/40 hover:-translate-y-1 hover:shadow-xl cursor-pointer text-right ${l?"border-amber-500/40 ring-1 ring-amber-500/25 shadow-amber-950/20":""}"
@@ -1259,16 +1245,16 @@
           id="card-tray-count-${e.id}" 
           class="${r>0?"flex":"hidden"} absolute top-2 left-2 bg-amber-500 text-black font-black text-[10px] md:text-xs w-5 h-5 md:w-6 md:h-6 rounded-full items-center justify-center shadow z-10 pointer-events-none"
         >
-          ${w(r)}
+          ${k(r)}
         </div>
 
         ${n?`
           <!-- Minimal Dots Indicator showing available photo shapes -->
           <div class="absolute bottom-2.5 inset-x-0 flex items-center justify-center gap-1.5 z-10 pointer-events-none">
-            ${e.shapes.map(x=>`
+            ${e.shapes.map(u=>`
               <span 
-                id="card-dot-${e.id}-${x.id}"
-                class="h-1.5 rounded-full transition-all duration-300 ${x.id===s?"bg-amber-400 w-4 shadow":"bg-white/40 w-1.5"}"
+                id="card-dot-${e.id}-${u.id}"
+                class="h-1.5 rounded-full transition-all duration-300 ${u.id===s?"bg-amber-400 w-4 shadow":"bg-white/40 w-1.5"}"
               ></span>
             `).join("")}
           </div>
@@ -1289,7 +1275,7 @@
         <div class="flex items-center justify-between gap-1 mb-2">
           ${e.price?`
             <span class="text-xs sm:text-sm font-black text-amber-400 whitespace-nowrap">
-              ${S(e.price)}
+              ${B(e.price)}
             </span>
           `:'<span class="text-[10px] text-zinc-500">-</span>'}
           ${e.tag?`<span class="text-[9px] font-bold text-red-400 bg-red-500/10 px-1.5 py-0.5 rounded-full border border-red-500/20">${e.tag}</span>`:""}
@@ -1302,7 +1288,7 @@
             data-id="${e.id}"
             class="w-full py-2 px-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-black font-black text-[11px] sm:text-xs flex items-center justify-center gap-1.5 shadow-sm transition"
           >
-            ${f.plus}
+            ${g.plus}
             <span id="card-btn-text-${e.id}">
               ${n?`افزودن ${t.shortName||t.name}`:"افزودن به لیست سفارش"}
             </span>
@@ -1310,4 +1296,4 @@
         </div>
       </div>
     </article>
-  `}function le(){document.querySelectorAll(".food-card").forEach(e=>{const a=e.dataset.id,r=z.items.find(t=>t.id===a);if(!r)return;let n=!1;if(e.addEventListener("click",t=>{if(n){n=!1;return}t.target.closest('button[data-action="add-tray"]')||t.target.closest("a")||He(r)}),r.shapes&&r.shapes.length>1){let t=0,o=0;const i=e.querySelector(`[data-photo-container="${r.id}"]`);i?.addEventListener("touchstart",l=>{t=l.changedTouches[0].screenX,o=l.changedTouches[0].screenY,n=!1},{passive:!0}),i?.addEventListener("touchend",l=>{const c=l.changedTouches[0].screenX,x=l.changedTouches[0].screenY,$=c-t,v=x-o;if(Math.abs($)>30&&Math.abs($)>Math.abs(v)){n=!0;const L=(H[r.id]||"normal")==="normal"?"heart":"normal";se(r,L),setTimeout(()=>{n=!1},200)}},{passive:!0});let d=!1;i?.addEventListener("mousedown",l=>{d=!0,t=l.screenX,n=!1}),i?.addEventListener("mouseup",l=>{if(!d)return;d=!1;const c=l.screenX;if(Math.abs(c-t)>30){n=!0;const $=(H[r.id]||"normal")==="normal"?"heart":"normal";se(r,$),setTimeout(()=>{n=!1},200)}}),i?.addEventListener("mouseleave",()=>{d=!1})}e.querySelector('button[data-action="add-tray"]')?.addEventListener("click",t=>{t.stopPropagation();let o=a,i=r.title;if(r.shapes&&r.shapes.length>1){const d=H[r.id]||"normal",l=r.shapes.find(c=>c.id===d)||r.shapes[0];o=`${r.id}:${d}`,i=`${r.title} (${l.name})`}K(o),j(`${i} به لیست اضافه شد`)})})}function Re(){if("serviceWorker"in navigator&&window.location.protocol.startsWith("http")&&(navigator.serviceWorker.addEventListener("controllerchange",()=>{window._swReloading||(window._swReloading=!0,window.location.reload())}),window.addEventListener("load",()=>{navigator.serviceWorker.register("/sw.js").then(c=>{c.update()}).catch(c=>{console.log("SW registration error:",c)})})),window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone===!0)return;const a=/iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase()),r=document.getElementById("btn-install-pwa"),n=document.getElementById("pwa-install-banner"),s=document.getElementById("pwa-banner-install-btn"),t=document.getElementById("pwa-banner-close-btn"),o=document.getElementById("ios-install-modal"),i=document.getElementById("close-ios-modal-btn"),d=document.getElementById("confirm-ios-modal-btn");a&&(r?.classList.remove("hidden"),r?.classList.add("flex"),n?.classList.remove("hidden")),window.addEventListener("beforeinstallprompt",c=>{c.preventDefault(),_=c,r?.classList.remove("hidden"),r?.classList.add("flex"),n?.classList.remove("hidden")});const l=async()=>{if(a){o?.classList.remove("hidden");return}if(_){_.prompt();const{outcome:c}=await _.userChoice;c==="accepted"&&(r?.classList.add("hidden"),n?.classList.add("hidden"),j("اپلیکیشن با موفقیت نصب شد")),_=null}else j("برای نصب، از منوی مرورگر گزینه Add to Home Screen را بزنید.")};r?.addEventListener("click",l),s?.addEventListener("click",l),t?.addEventListener("click",()=>{n?.classList.add("hidden")}),i?.addEventListener("click",()=>{o?.classList.add("hidden")}),d?.addEventListener("click",()=>{o?.classList.add("hidden")}),o?.addEventListener("click",c=>{c.target===o&&o.classList.add("hidden")})}function _e(){if(typeof window>"u")return;const e=[];(z.items||[]).forEach(s=>{s.image&&e.push(P(s.image)),s.shapes&&s.shapes.forEach(t=>{t.image&&e.push(P(t.image))})});const a=[...new Set(e)];let r=0;function n(){if(r>=a.length)return;const s=a.slice(r,r+4);r+=4,s.forEach(t=>{const o=new Image;o.decoding="async",o.src=t}),r<a.length&&("requestIdleCallback"in window?requestIdleCallback(n,{timeout:1e3}):setTimeout(n,200))}"requestIdleCallback"in window?requestIdleCallback(n,{timeout:1500}):setTimeout(n,350)}Ce();be();Re();_e();
+  `}function oe(){document.querySelectorAll(".food-card").forEach(e=>{const a=e.dataset.id,r=C.items.find(t=>t.id===a);if(!r)return;let n=!1;if(e.addEventListener("click",t=>{if(n){n=!1;return}t.target.closest('button[data-action="add-tray"]')||t.target.closest("a")||Ne(r)}),r.shapes&&r.shapes.length>1){let t=0,o=0;const i=e.querySelector(`[data-photo-container="${r.id}"]`);i?.addEventListener("touchstart",l=>{t=l.changedTouches[0].screenX,o=l.changedTouches[0].screenY,n=!1},{passive:!0}),i?.addEventListener("touchend",l=>{const c=l.changedTouches[0].screenX,u=l.changedTouches[0].screenY,I=c-t,h=u-o;if(Math.abs(I)>30&&Math.abs(I)>Math.abs(h)){n=!0;const S=(N[r.id]||"normal")==="normal"?"heart":"normal";ae(r,S),setTimeout(()=>{n=!1},200)}},{passive:!0});let d=!1;i?.addEventListener("mousedown",l=>{d=!0,t=l.screenX,n=!1}),i?.addEventListener("mouseup",l=>{if(!d)return;d=!1;const c=l.screenX;if(Math.abs(c-t)>30){n=!0;const I=(N[r.id]||"normal")==="normal"?"heart":"normal";ae(r,I),setTimeout(()=>{n=!1},200)}}),i?.addEventListener("mouseleave",()=>{d=!1})}e.querySelector('button[data-action="add-tray"]')?.addEventListener("click",t=>{t.stopPropagation();let o=a,i=r.title;if(r.shapes&&r.shapes.length>1){const d=N[r.id]||"normal",l=r.shapes.find(c=>c.id===d)||r.shapes[0];o=`${r.id}:${d}`,i=`${r.title} (${l.name})`}J(o),T(`${i} به لیست اضافه شد`)})})}function Fe(){if("serviceWorker"in navigator&&window.location.protocol.startsWith("http")&&(navigator.serviceWorker.addEventListener("controllerchange",()=>{window._swReloading||(window._swReloading=!0,window.location.reload())}),window.addEventListener("load",()=>{navigator.serviceWorker.register("/sw.js").then(c=>{c.update()}).catch(c=>{console.log("SW registration error:",c)})})),window.matchMedia("(display-mode: standalone)").matches||window.navigator.standalone===!0)return;const a=/iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase()),r=document.getElementById("btn-install-pwa"),n=document.getElementById("pwa-install-banner"),s=document.getElementById("pwa-banner-install-btn"),t=document.getElementById("pwa-banner-close-btn"),o=document.getElementById("ios-install-modal"),i=document.getElementById("close-ios-modal-btn"),d=document.getElementById("confirm-ios-modal-btn");a&&(r?.classList.remove("hidden"),r?.classList.add("flex"),n?.classList.remove("hidden")),window.addEventListener("beforeinstallprompt",c=>{c.preventDefault(),H=c,r?.classList.remove("hidden"),r?.classList.add("flex"),n?.classList.remove("hidden")});const l=async()=>{if(a){o?.classList.remove("hidden");return}if(H){H.prompt();const{outcome:c}=await H.userChoice;c==="accepted"&&(r?.classList.add("hidden"),n?.classList.add("hidden"),T("اپلیکیشن با موفقیت نصب شد")),H=null}else T("برای نصب، از منوی مرورگر گزینه Add to Home Screen را بزنید.")};r?.addEventListener("click",l),s?.addEventListener("click",l),t?.addEventListener("click",()=>{n?.classList.add("hidden")}),i?.addEventListener("click",()=>{o?.classList.add("hidden")}),d?.addEventListener("click",()=>{o?.classList.add("hidden")}),o?.addEventListener("click",c=>{c.target===o&&o.classList.add("hidden")})}function He(){if(typeof window>"u")return;const e=[];(C.items||[]).forEach(s=>{s.image&&e.push(A(s.image)),s.shapes&&s.shapes.forEach(t=>{t.image&&e.push(A(t.image))})});const a=[...new Set(e)];let r=0;function n(){if(r>=a.length)return;const s=a.slice(r,r+4);r+=4,s.forEach(t=>{const o=new Image;o.decoding="async",o.src=t}),r<a.length&&("requestIdleCallback"in window?requestIdleCallback(n,{timeout:1e3}):setTimeout(n,200))}"requestIdleCallback"in window?requestIdleCallback(n,{timeout:1500}):setTimeout(n,350)}Be();pe();Fe();He();

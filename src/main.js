@@ -142,7 +142,6 @@ function getChristmasSeasonState() {
 }
 
 let christmasState = getChristmasSeasonState();
-let xmasMotionPaused = localStorage.getItem('atish_xmas_motion_paused') === 'true';
 
 const SANTA_HAT_SVG = `
   <svg viewBox="0 0 64 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -193,14 +192,13 @@ function initChristmasEffects() {
   const themeMeta = document.querySelector('meta[name="theme-color"]');
 
   if (!christmasState.isActive) {
-    root.classList.remove('theme-christmas', 'xmas-motion-paused');
+    root.classList.remove('theme-christmas');
     document.getElementById('xmas-snow-layer')?.remove();
     if (themeMeta) themeMeta.setAttribute('content', '#0e0e10');
     return;
   }
 
   root.classList.add('theme-christmas');
-  root.classList.toggle('xmas-motion-paused', xmasMotionPaused);
   if (themeMeta) themeMeta.setAttribute('content', '#0d1311');
 
   // Inject lightweight GPU-composited snowfall layer once
@@ -724,20 +722,6 @@ function renderApp() {
             ${ICONS.instagram}
             <span>اینستاگرام</span>
           </a>
-
-          ${isXmas ? `
-          <!-- Christmas Snow & Lights Pause/Play Control (WCAG 2.2.2) -->
-          <button
-            type="button"
-            id="btn-toggle-xmas-motion"
-            aria-label="${xmasMotionPaused ? 'پخش افکت برف و چراغ‌های کریسمس' : 'توقف افکت برف و چراغ‌های کریسمس'}"
-            title="${xmasMotionPaused ? 'پخش برف و چراغانی' : 'توقف برف و چراغانی'}"
-            class="h-9 px-2.5 rounded-full bg-red-500/15 border border-amber-400/35 text-amber-200 hover:bg-red-500/25 hover:text-white flex items-center gap-1 text-[11px] font-bold transition flex-shrink-0"
-          >
-            <span aria-hidden="true">${xmasMotionPaused ? '❄️' : '✨'}</span>
-            <span class="hidden sm:inline" id="xmas-motion-label">${xmasMotionPaused ? 'پخش برف' : 'توقف برف'}</span>
-          </button>
-          ` : ''}
 
           <!-- PWA Install Button -->
           <button 
@@ -1330,27 +1314,6 @@ function setupEventListeners() {
         window.scrollTo({ top: elementPosition - offset, behavior: 'smooth' });
       }
     });
-  });
-
-  // Christmas Snow & Lights Pause/Resume Toggle (WCAG 2.2.2)
-  const xmasMotionBtn = document.getElementById('btn-toggle-xmas-motion');
-  xmasMotionBtn?.addEventListener('click', () => {
-    xmasMotionPaused = !xmasMotionPaused;
-    try {
-      localStorage.setItem('atish_xmas_motion_paused', String(xmasMotionPaused));
-    } catch (e) {}
-    document.documentElement.classList.toggle('xmas-motion-paused', xmasMotionPaused);
-
-    const iconSpan = xmasMotionBtn.querySelector('span[aria-hidden="true"]');
-    const labelSpan = document.getElementById('xmas-motion-label');
-    if (iconSpan) iconSpan.textContent = xmasMotionPaused ? '❄️' : '✨';
-    if (labelSpan) labelSpan.textContent = xmasMotionPaused ? 'پخش برف' : 'توقف برف';
-    xmasMotionBtn.setAttribute(
-      'aria-label',
-      xmasMotionPaused ? 'پخش افکت برف و چراغ‌های کریسمس' : 'توقف افکت برف و چراغ‌های کریسمس'
-    );
-    xmasMotionBtn.setAttribute('title', xmasMotionPaused ? 'پخش برف و چراغانی' : 'توقف برف و چراغانی');
-    showToast(xmasMotionPaused ? 'افکت برف و چراغانی متوقف شد' : 'افکت برف و چراغانی فعال شد ❄️');
   });
 
   const openTrayBtn = document.getElementById('open-tray-btn');
