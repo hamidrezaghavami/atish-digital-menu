@@ -2,7 +2,7 @@
 ### منوی دیجیتال و کاتالوگ تعاملی فست‌فود و گریل آتیش
 
 [![Live Menu](https://img.shields.io/badge/Official%20Menu-Atish%20Restaurant-e11d48?style=for-the-badge)](https://pizzaatish.s3-website.ir-central1.arvanstorage.ir)
-[![Snappfood Rating](https://img.shields.io/badge/Snappfood%20Rating-⭐%204.4%20%2F%205-ff00a6?style=for-the-badge)](https://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/)
+[![Snappfood Rating](https://img.shields.io/badge/Snappfood%20Rating-⭐%204.5%20%2F%205-ff00a6?style=for-the-badge)](https://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/)
 [![Location](https://img.shields.io/badge/Location-Tehran%20%7C%20Dowlat%20%26%20Darrous-00b4d8?style=for-the-badge)](https://pizzaatish.s3-website.ir-central1.arvanstorage.ir)
 [![Experience](https://img.shields.io/badge/Experience-Instant%20Mobile%20PWA-5A0FC8?style=for-the-badge)](https://pizzaatish.s3-website.ir-central1.arvanstorage.ir)
 
@@ -67,7 +67,7 @@ Founded with a passion for genuine fire-grilled cuisine, **Atish Fast Food & Gri
 * **Direct Order Hotline:** `۰۲۱-۲۲۵۶۱۹۴۹` / `02122561949`
 * **Operating Hours:** Open daily from 11:30 AM to 11:15 PM  
   *(همه روزه از ساعت ۱۱:۳۰ صبح تا ۲۳:۱۵ شب)*
-* **Online Delivery:** [Order on Snappfood (⭐ 4.4)](https://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/)
+* **Online Delivery:** [Order on Snappfood (⭐ 4.5)](https://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/)
 * **Official Instagram:** [@atishfood](https://instagram.com/atishfood)
 
 ---

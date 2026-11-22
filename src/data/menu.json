@@ -12,7 +12,7 @@
     "instagramUrl": "https://instagram.com/atishfood",
     "workingHours": "همه روزه از ۱۱:۳۰ صبح تا ۲۳:۱۵ شب",
     "address": "خیابان دولت تهران، محله دروس، خیابان کلاهدوز (دولت)، روبه‌روی بانک ملت بین کوچه خرداد و معتمدی، پلاک ۱۰۰",
-    "rating": "۴.۴",
+    "rating": "۴.۵",
     "currency": "تومان"
   },
   "categories": [
@@ -269,7 +269,7 @@
       "title": "همبرگر",
       "tag": null,
       "badge": null,
-      "price": 549000,
+      "price": 629000,
       "ingredients": "یک عدد برگر دست ساز گوشت گوساله ۱۵۰ گرمی، گوجه، کاهو، خیارشور، پیاز، سس مخصوص، نان برگر",
       "image": "images/burger.webp",
       "placeholderIcon": "🍔"
@@ -281,7 +281,7 @@
       "title": "چیزبرگر",
       "tag": null,
       "badge": null,
-      "price": 599000,
+      "price": 649000,
       "ingredients": "یک عدد برگر دست ساز گوشت گوساله ۱۵۰ گرمی، پنیر گودا، خیارشور، گوجه، کاهو، سس مخصوص، نان برگر",
       "image": "images/cheese-burger.webp",
       "placeholderIcon": "🍔"
@@ -293,7 +293,7 @@
       "title": "قارچ برگر",
       "tag": null,
       "badge": null,
-      "price": 639000,
+      "price": 659000,
       "ingredients": "یک عدد برگر دست ساز گوشت گوساله ۱۵۰ گرمی، قارچ، پنیر، پیاز، گوجه، کاهو، خیارشور، نان برگر",
       "image": "images/mashroom-burger.webp",
       "placeholderIcon": "🍔"
@@ -317,7 +317,7 @@
       "title": "دبل برگر",
       "tag": null,
       "badge": null,
-      "price": 849000,
+      "price": 869000,
       "ingredients": "دو عدد برگر ۱۲۰ گرمی ، کاهو ، گوجه ، خیارشور ، نان برگر ، سس ساندویچ",
       "image": "images/double-burger.webp",
       "placeholderIcon": "🍔"
@@ -341,7 +341,7 @@
       "title": "آتیش برگر",
       "tag": null,
       "badge": null,
-      "price": 689000,
+      "price": 799000,
       "ingredients": "یک عدد برگر دست ساز گوشت گوساله ۱۵۰ گرمی، ۱۵۰ گرم فیله مرغ گریل، پنیر گودا، خیارشور، گوجه، کاهو، سس مخصوص، نان برگر",
       "image": "images/atish-burger.webp",
       "placeholderIcon": "🍔"
@@ -353,7 +353,7 @@
       "title": "زینگر",
       "tag": null,
       "badge": null,
-      "price": 619000,
+      "price": 599000,
       "ingredients": "۱۳۰ گرم فیله مرغ سوخاری تند، کاهو، گوجه، سس مخصوص، نان برگر",
       "image": "images/Zinger.webp",
       "placeholderIcon": "🍔"
@@ -401,7 +401,7 @@
       "title": "سوپرسوپریم",
       "tag": null,
       "badge": null,
-      "price": 710000,
+      "price": 761000,
       "ingredients": "۱۲۰ گرم فیله مرغ سوخاری، ۲ ورق ژامبون گوشت ، پنیر گودا، کاهو، گوجه، نان باگت",
       "image": "./images/jambon-sandwhich.webp",
       "placeholderIcon": "🌭"
@@ -485,7 +485,7 @@
       "title": "نوشابه خانواده",
       "tag": null,
       "badge": null,
-      "price": 122000,
+      "price": 140400,
       "ingredients": "",
       "image": "./images/Big-Coke.webp",
       "placeholderIcon": "🥤"
@@ -497,7 +497,7 @@
       "title": "نوشابه کوچک",
       "tag": null,
       "badge": null,
-      "price": 92500,
+      "price": 92550,
       "ingredients": "",
       "image": "./images/Coke.webp",
       "placeholderIcon": "🥤"
