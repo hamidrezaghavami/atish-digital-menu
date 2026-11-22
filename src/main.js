@@ -849,7 +849,7 @@ function renderApp() {
       </section>
 
       <!-- Sticky Category Bar (Responsive: scrollable on mobile, centered/wrap on desktop) -->
-      <nav class="sticky top-[58px] md:top-[65px] z-30 bg-[#0c0c0e]/95 backdrop-blur-md -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 border-y border-white/[0.08] mb-6">
+      <nav class="sticky sticky-category-nav z-30 bg-[#0c0c0e]/95 backdrop-blur-md -mx-4 sm:-mx-6 lg:-mx-8 px-4 sm:px-6 lg:px-8 py-3 border-y border-white/[0.08] mb-6">
         <div id="category-bar" class="w-full max-w-7xl mx-auto flex items-center gap-2 overflow-x-auto no-scrollbar md:flex-wrap md:justify-center">
           ${categories.map(cat => {
             const isActive = currentCategory === cat.id;
@@ -1488,6 +1488,19 @@ function setupEventListeners() {
       selectDeliveryNeighborhood(text.dataset.id);
     });
   });
+
+  // Keep --header-height synced with actual sticky header height so category bar never overlaps
+  const mainHeader = document.querySelector('header');
+  const syncHeaderHeight = () => {
+    if (!mainHeader) return;
+    document.documentElement.style.setProperty('--header-height', `${Math.ceil(mainHeader.getBoundingClientRect().height)}px`);
+  };
+  syncHeaderHeight();
+  if (mainHeader && typeof ResizeObserver !== 'undefined') {
+    const headerObserver = new ResizeObserver(syncHeaderHeight);
+    headerObserver.observe(mainHeader);
+  }
+  window.addEventListener('resize', syncHeaderHeight, { passive: true });
 
   // Initialize VIP 20% Offer & Cashier System
   initVipOfferSystem();

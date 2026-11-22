@@ -387,21 +387,27 @@ html.theme-christmas .contact-nav {
   border-color: rgba(251, 191, 36, 0.22);
 }
 
-/* Top Christmas Fairy Lights Garland */
+/* Top Christmas Fairy Lights Garland (Absolute Overlay — Zero Header Height Bloat) */
 .xmas-lights-bar {
-  position: relative;
+  position: absolute;
+  top: 0;
+  inset-inline: 0;
   width: 100%;
-  height: 18px;
+  height: 15px;
   overflow: hidden;
   pointer-events: none;
-  margin-top: -12px;
-  margin-bottom: 4px;
+  z-index: 2;
 }
 
 .xmas-lights-svg {
   width: 100%;
-  height: 18px;
+  height: 15px;
   display: block;
+}
+
+/* Always align sticky category bar flush under actual header height */
+.sticky-category-nav {
+  top: var(--header-height, 60px);
 }
 
 .xmas-bulb {
