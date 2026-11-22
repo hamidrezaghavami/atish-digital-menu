@@ -74,6 +74,166 @@ function saveTray() {
   updateTrayUI();
 }
 
+// =========================================================================
+// YEARLY CHRISTMAS THEME ENGINE (Auto-Active: Nov 22 – Jan 5, Asia/Tehran)
+// =========================================================================
+function getChristmasSeasonState() {
+  const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+  const themeOverride = params?.get('theme')?.toLowerCase();
+
+  let year, month, day;
+  let isActive = false;
+
+  // Use native Temporal PlainMonthDay/PlainDate when available (no timezone drift)
+  if (typeof Temporal !== 'undefined' && Temporal.Now && Temporal.PlainMonthDay && Temporal.PlainDate) {
+    const today = Temporal.Now.zonedDateTimeISO('Asia/Tehran').toPlainDate();
+    year = today.year;
+    month = today.month;
+    day = today.day;
+
+    const seasonStart = Temporal.PlainMonthDay.from({ month: 11, day: 22, calendar: 'iso8601' })
+      .toPlainDate({ year });
+    const seasonEnd = Temporal.PlainMonthDay.from({ month: 1, day: 5, calendar: 'iso8601' })
+      .toPlainDate({ year });
+
+    isActive =
+      Temporal.PlainDate.compare(today, seasonStart) >= 0 ||
+      Temporal.PlainDate.compare(today, seasonEnd) <= 0;
+  } else {
+    // Lightweight fallback for browsers without native Temporal (e.g. Safari)
+    const isoDate = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tehran' }).format(new Date());
+    [year, month, day] = isoDate.split('-').map(Number);
+    isActive = (month === 11 && day >= 22) || month === 12 || (month === 1 && day <= 5);
+  }
+
+  if (themeOverride === 'christmas') isActive = true;
+  if (themeOverride === 'normal') isActive = false;
+
+  // Calculate festive countdown label for the hero seasonal badge
+  let countdownText = 'جشنواره زمستانی و کریسمس آتیش';
+  if (isActive) {
+    const todayUtc = Date.UTC(year, month - 1, day);
+    if ((month === 11 && day >= 22) || (month === 12 && day < 25)) {
+      const xmasUtc = Date.UTC(year, 11, 25);
+      const daysLeft = Math.max(0, Math.round((xmasUtc - todayUtc) / 86400000));
+      countdownText = `تا کریسمس ${toPersianDigits(daysLeft)} روز مانده`;
+    } else if (month === 12 && day === 25) {
+      countdownText = 'کریسمس مبارک! با طعم گرم آتیش';
+    } else if (month === 12 && day > 25) {
+      const newYearUtc = Date.UTC(year + 1, 0, 1);
+      const daysLeft = Math.max(1, Math.round((newYearUtc - todayUtc) / 86400000));
+      countdownText = `تا سال نو میلادی ${toPersianDigits(daysLeft)} روز مانده`;
+    } else if (month === 1 && day <= 5) {
+      const endUtc = Date.UTC(year, 0, 5);
+      const daysLeft = Math.max(0, Math.round((endUtc - todayUtc) / 86400000));
+      countdownText = daysLeft === 0
+        ? 'سال نو میلادی مبارک! آخرین روز تم زمستانی'
+        : `سال نو میلادی مبارک · ${toPersianDigits(daysLeft)} روز تا پایان فصل جشن`;
+    }
+  }
+
+  return {
+    isActive,
+    year,
+    month,
+    day,
+    countdownText
+  };
+}
+
+let christmasState = getChristmasSeasonState();
+let xmasMotionPaused = localStorage.getItem('atish_xmas_motion_paused') === 'true';
+
+const SANTA_HAT_SVG = `
+  <svg viewBox="0 0 64 52" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M10 38 C16 14, 38 6, 54 16 C48 16, 44 22, 46 30 C36 28, 22 31, 10 38 Z" fill="#dc2626"/>
+    <path d="M18 35 C23 18, 38 11, 50 16 C42 14, 30 20, 24 34 Z" fill="#ef4444" opacity="0.65"/>
+    <rect x="6" y="34" width="44" height="11" rx="5.5" fill="#f8fafc"/>
+    <circle cx="55" cy="18" r="6" fill="#ffffff"/>
+  </svg>
+`;
+
+function renderChristmasLightsGarland() {
+  const bulbs = [
+    { x: 40, y: 12, color: '#ef4444', cls: 'xmas-bulb-a' },
+    { x: 110, y: 14, color: '#fbbf24', cls: 'xmas-bulb-b' },
+    { x: 185, y: 11, color: '#22c55e', cls: 'xmas-bulb-c' },
+    { x: 260, y: 14, color: '#f97316', cls: 'xmas-bulb-a' },
+    { x: 340, y: 11, color: '#ef4444', cls: 'xmas-bulb-b' },
+    { x: 420, y: 14, color: '#fde047', cls: 'xmas-bulb-c' },
+    { x: 500, y: 11, color: '#22c55e', cls: 'xmas-bulb-a' },
+    { x: 580, y: 14, color: '#ef4444', cls: 'xmas-bulb-b' },
+    { x: 660, y: 11, color: '#fbbf24', cls: 'xmas-bulb-c' },
+    { x: 740, y: 14, color: '#22c55e', cls: 'xmas-bulb-a' },
+    { x: 820, y: 11, color: '#ef4444', cls: 'xmas-bulb-b' },
+    { x: 900, y: 14, color: '#fde047', cls: 'xmas-bulb-c' },
+    { x: 980, y: 11, color: '#22c55e', cls: 'xmas-bulb-a' },
+    { x: 1060, y: 14, color: '#ef4444', cls: 'xmas-bulb-b' },
+    { x: 1140, y: 11, color: '#fbbf24', cls: 'xmas-bulb-c' }
+  ];
+
+  return `
+    <div class="xmas-lights-bar" aria-hidden="true">
+      <svg class="xmas-lights-svg" viewBox="0 0 1200 18" preserveAspectRatio="none">
+        <path d="M0 3 Q75 14 150 4 T300 4 T450 4 T600 4 T750 4 T900 4 T1050 4 T1200 4" fill="none" stroke="rgba(161,161,170,0.42)" stroke-width="1.4"/>
+        ${bulbs.map(b => `
+          <g class="xmas-bulb ${b.cls}">
+            <circle cx="${b.x}" cy="${b.y}" r="5.5" fill="${b.color}" opacity="0.22"/>
+            <circle cx="${b.x}" cy="${b.y}" r="2.8" fill="${b.color}"/>
+            <circle cx="${b.x - 0.7}" cy="${b.y - 0.8}" r="0.9" fill="#ffffff" opacity="0.85"/>
+          </g>
+        `).join('')}
+      </svg>
+    </div>
+  `;
+}
+
+function initChristmasEffects() {
+  const root = document.documentElement;
+  const themeMeta = document.querySelector('meta[name="theme-color"]');
+
+  if (!christmasState.isActive) {
+    root.classList.remove('theme-christmas', 'xmas-motion-paused');
+    document.getElementById('xmas-snow-layer')?.remove();
+    if (themeMeta) themeMeta.setAttribute('content', '#0e0e10');
+    return;
+  }
+
+  root.classList.add('theme-christmas');
+  root.classList.toggle('xmas-motion-paused', xmasMotionPaused);
+  if (themeMeta) themeMeta.setAttribute('content', '#0d1311');
+
+  // Inject lightweight GPU-composited snowfall layer once
+  if (!document.getElementById('xmas-snow-layer')) {
+    const snowLayer = document.createElement('div');
+    snowLayer.id = 'xmas-snow-layer';
+    snowLayer.className = 'xmas-snow-layer';
+    snowLayer.setAttribute('aria-hidden', 'true');
+
+    const flakesCount = window.innerWidth < 640 ? 18 : 26;
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < flakesCount; i++) {
+      const flake = document.createElement('span');
+      flake.className = 'xmas-snowflake';
+      const x = ((i * 37 + 11) % 98) + 1;
+      const size = 3 + (i % 4) * 1.4;
+      const dur = 9 + (i % 6) * 2.2;
+      const delay = -((i * 1.7) % 14);
+      const drift = (i % 2 === 0 ? 1 : -1) * (14 + (i % 4) * 8);
+      const alpha = 0.4 + (i % 4) * 0.14;
+      flake.style.setProperty('--x', `${x}%`);
+      flake.style.setProperty('--size', `${size}px`);
+      flake.style.setProperty('--dur', `${dur}s`);
+      flake.style.setProperty('--delay', `${delay}s`);
+      flake.style.setProperty('--drift', `${drift}px`);
+      flake.style.setProperty('--alpha', `${alpha.toFixed(2)}`);
+      frag.appendChild(flake);
+    }
+    snowLayer.appendChild(frag);
+    document.body.appendChild(snowLayer);
+  }
+}
+
 // Check restaurant open status based on Iran standard time (Asia/Tehran)
 // Hours: 11:30 AM to 23:15 PM daily
 function getRestaurantOpenStatus() {
@@ -464,24 +624,30 @@ function renderApp() {
   const app = document.getElementById('app');
   if (!app) return;
 
+  christmasState = getChristmasSeasonState();
+  initChristmasEffects();
+
   const restaurant = menuData?.restaurant || CONFIG;
   const categories = menuData?.categories || [];
   const trayCount = getTrayTotalCount();
   const openStatus = getRestaurantOpenStatus();
+  const isXmas = christmasState.isActive;
 
   app.innerHTML = `
     <!-- Responsive Header (Mobile + Desktop) -->
     <header class="sticky top-0 z-40 glass-header border-b border-white/[0.08] px-4 sm:px-6 lg:px-8 py-3">
+      ${isXmas ? renderChristmasLightsGarland() : ''}
       <div class="w-full max-w-7xl mx-auto flex items-center justify-between gap-4">
         
         <!-- Logo & Title -->
         <a href="#" id="header-logo-link" class="flex items-center gap-2 min-w-0" title="آتیش">
-          <div class="w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0 drop-shadow-[0_0_12px_rgba(245,158,11,0.6)]">
+          <div class="xmas-logo-wrap w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0 drop-shadow-[0_0_12px_rgba(245,158,11,0.6)]">
             <img 
               src="${logoImg}" 
               alt="${restaurant.name}" 
               class="w-full h-full object-contain cursor-pointer select-none"
             />
+            ${isXmas ? `<span class="xmas-santa-hat">${SANTA_HAT_SVG}</span>` : ''}
           </div>
           <div class="flex flex-col text-right min-w-0">
             <div class="text-xs sm:text-sm md:text-base font-black text-white tracking-tight flex items-center gap-1.5 truncate">
@@ -489,7 +655,7 @@ function renderApp() {
               <span id="header-status-dot" class="w-2 h-2 rounded-full ${openStatus.dotClass} flex-shrink-0" title="${openStatus.text}"></span>
             </div>
             <div class="text-[10px] sm:text-[11px] md:text-xs text-amber-400 font-medium truncate hidden sm:block">
-              ${restaurant.brandSubtitle}
+              ${isXmas ? '🎄 فصل جشن زمستانی و کریسمس آتیش' : restaurant.brandSubtitle}
             </div>
           </div>
         </a>
@@ -559,6 +725,20 @@ function renderApp() {
             <span>اینستاگرام</span>
           </a>
 
+          ${isXmas ? `
+          <!-- Christmas Snow & Lights Pause/Play Control (WCAG 2.2.2) -->
+          <button
+            type="button"
+            id="btn-toggle-xmas-motion"
+            aria-label="${xmasMotionPaused ? 'پخش افکت برف و چراغ‌های کریسمس' : 'توقف افکت برف و چراغ‌های کریسمس'}"
+            title="${xmasMotionPaused ? 'پخش برف و چراغانی' : 'توقف برف و چراغانی'}"
+            class="h-9 px-2.5 rounded-full bg-red-500/15 border border-amber-400/35 text-amber-200 hover:bg-red-500/25 hover:text-white flex items-center gap-1 text-[11px] font-bold transition flex-shrink-0"
+          >
+            <span aria-hidden="true">${xmasMotionPaused ? '❄️' : '✨'}</span>
+            <span class="hidden sm:inline" id="xmas-motion-label">${xmasMotionPaused ? 'پخش برف' : 'توقف برف'}</span>
+          </button>
+          ` : ''}
+
           <!-- PWA Install Button -->
           <button 
             id="btn-install-pwa" 
@@ -621,11 +801,20 @@ function renderApp() {
     <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 pb-28 md:pb-16">
 
       <!-- Hero Section (Clean & Responsive: 2 cols on Desktop, NO duplicate call/snapp buttons) -->
-      <section class="relative rounded-3xl overflow-hidden glass-card p-4 sm:p-6 lg:p-8 mb-6 border border-white/[0.08] shadow-2xl text-right">
+      <section class="relative rounded-3xl overflow-hidden glass-card ${isXmas ? 'xmas-hero-card' : ''} p-4 sm:p-6 lg:p-8 mb-6 border border-white/[0.08] shadow-2xl text-right">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
           
           <!-- Hero Text & Concept Info (7 cols on desktop, RTL Right) -->
           <div class="md:col-span-7 flex flex-col justify-center order-2 md:order-1">
+            ${isXmas ? `
+            <!-- Yearly Christmas Season Banner (Auto-Active: Nov 22 – Jan 5) -->
+            <div class="xmas-season-banner inline-flex flex-wrap items-center gap-2 self-start px-3.5 py-1.5 rounded-2xl mb-3">
+              <span class="text-sm" aria-hidden="true">🎄</span>
+              <span class="text-[11px] sm:text-xs font-black text-amber-200">${christmasState.countdownText}</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-500/25 border border-red-400/35 text-red-200">۱ آذر تا ۱۵ دی</span>
+            </div>
+            ` : ''}
+
             <!-- Badges Bar -->
             <div class="flex flex-wrap items-center gap-2 mb-3">
               <span id="restaurant-status-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold ${openStatus.badgeClass}" title="${openStatus.tooltip}">
@@ -642,7 +831,7 @@ function renderApp() {
 
             <!-- Big Title -->
             <h1 class="text-xl sm:text-2xl lg:text-4xl font-black text-white leading-tight mb-2.5">
-              طعم اصیل و لذیذ <span class="text-gradient-fire">پیتزا آتیش</span>
+              ${isXmas ? 'گرمای زمستون با <span class="text-gradient-fire">پیتزا آتیش</span> ❄️' : 'طعم اصیل و لذیذ <span class="text-gradient-fire">پیتزا آتیش</span>'}
             </h1>
             
             <p class="text-zinc-300 text-xs sm:text-sm lg:text-base leading-relaxed font-light max-w-2xl">
@@ -652,12 +841,17 @@ function renderApp() {
 
           <!-- 3D Burger Artwork Showcase (5 cols on desktop, Left Side) -->
           <div class="md:col-span-5 order-1 md:order-2">
-            <div class="relative w-full rounded-2xl overflow-hidden shadow-2xl border border-white/[0.1] aspect-[16/10] md:aspect-square bg-black group">
+            <div class="relative w-full rounded-2xl overflow-hidden shadow-2xl border ${isXmas ? 'border-amber-400/25' : 'border-white/[0.1]'} aspect-[16/10] md:aspect-square bg-black group">
               <img 
                 src="/images/atish-hero-3d.jpg" 
                 alt="کانسپت سه بعدی آتیش برگر"
                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
               />
+              ${isXmas ? `
+                <div class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-red-600/85 border border-amber-300/45 text-white text-[10px] font-black shadow-lg backdrop-blur-sm">
+                  🎄 ویژه شب‌های زمستانی
+                </div>
+              ` : ''}
               <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex items-end p-4">
                 <div class="text-right">
                   <span class="text-[11px] font-bold text-amber-400">امضای فست‌فود آتیش</span>
@@ -680,7 +874,7 @@ function renderApp() {
                 data-category="${cat.id}" 
                 class="cat-btn flex-shrink-0 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 flex items-center gap-2 ${
                   isActive 
-                    ? 'bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 text-black shadow-md shadow-orange-500/30' 
+                    ? 'cat-btn-active bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 text-black shadow-md shadow-orange-500/30' 
                     : 'bg-[#18181c] text-zinc-300 border border-white/[0.08] hover:bg-[#24242a] hover:text-white'
                 }"
               >
@@ -734,12 +928,12 @@ function renderApp() {
           <!-- Column 1: Brand & Bio -->
           <div>
             <div class="flex items-center gap-2.5 mb-2.5">
-              <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-500 to-orange-600 flex items-center justify-center text-black font-black text-base shadow-md">
-                🔥
+              <div class="w-9 h-9 rounded-xl ${isXmas ? 'bg-gradient-to-br from-red-600 via-red-700 to-emerald-700 text-white' : 'bg-gradient-to-br from-amber-500 to-orange-600 text-black'} flex items-center justify-center font-black text-base shadow-md">
+                ${isXmas ? '🎄' : '🔥'}
               </div>
               <div>
                 <h3 class="text-sm md:text-base font-black text-white">${restaurant.brandTitle}</h3>
-                <span class="text-[11px] text-zinc-400">${restaurant.tagline}</span>
+                <span class="text-[11px] text-zinc-400">${isXmas ? 'تم ویژه کریسمس و سال نو · فعال هر سال از ۲۲ نوامبر تا ۵ ژانویه' : restaurant.tagline}</span>
               </div>
             </div>
             <p class="text-xs text-zinc-400 leading-relaxed font-light">
@@ -810,10 +1004,13 @@ function renderApp() {
     ${(typeof navigator === 'undefined' || navigator.onLine !== false) ? `
       <div id="atish-mascot-greeting" class="mascot-container" aria-label="شخصیت آتیش">
         <div id="mascot-speech-bubble" class="mascot-bubble">
-          <span>سلام! خوش اومدید 🔥</span>
+          <span>${isXmas ? 'سلام! زمستون و کریسمستون گرم و دلچسب 🎄🔥' : 'سلام! خوش اومدید 🔥'}</span>
           <button id="close-mascot-bubble-btn" class="mascot-bubble-close" aria-label="بستن پیام">✕</button>
         </div>
-        <img src="/images/atish-mascot.webp" alt="شخصیت آتیش" class="mascot-avatar" draggable="false" />
+        <div class="relative">
+          <img src="/images/atish-mascot.webp" alt="شخصیت آتیش" class="mascot-avatar" draggable="false" />
+          ${isXmas ? `<span class="xmas-mascot-hat">${SANTA_HAT_SVG}</span>` : ''}
+        </div>
       </div>
     ` : ''}
 
@@ -1115,9 +1312,9 @@ function setupEventListeners() {
   catButtons.forEach(btn => {
     btn.addEventListener('click', () => {
       catButtons.forEach(b => {
-        b.className = 'cat-btn flex-shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold transition-all duration-200 flex items-center gap-1.5 bg-[#18181c] text-zinc-300 border border-white/[0.08] hover:bg-[#24242a] hover:text-white';
+        b.className = 'cat-btn flex-shrink-0 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 flex items-center gap-2 bg-[#18181c] text-zinc-300 border border-white/[0.08] hover:bg-[#24242a] hover:text-white';
       });
-      btn.className = 'cat-btn flex-shrink-0 px-3.5 py-2 rounded-xl text-xs font-bold transition-all duration-200 flex items-center gap-1.5 bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 text-black shadow-md shadow-orange-500/30';
+      btn.className = 'cat-btn cat-btn-active flex-shrink-0 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 flex items-center gap-2 bg-gradient-to-r from-amber-400 via-orange-500 to-red-500 text-black shadow-md shadow-orange-500/30';
 
       if (searchQuery) {
         clearAllSearch();
@@ -1133,6 +1330,27 @@ function setupEventListeners() {
         window.scrollTo({ top: elementPosition - offset, behavior: 'smooth' });
       }
     });
+  });
+
+  // Christmas Snow & Lights Pause/Resume Toggle (WCAG 2.2.2)
+  const xmasMotionBtn = document.getElementById('btn-toggle-xmas-motion');
+  xmasMotionBtn?.addEventListener('click', () => {
+    xmasMotionPaused = !xmasMotionPaused;
+    try {
+      localStorage.setItem('atish_xmas_motion_paused', String(xmasMotionPaused));
+    } catch (e) {}
+    document.documentElement.classList.toggle('xmas-motion-paused', xmasMotionPaused);
+
+    const iconSpan = xmasMotionBtn.querySelector('span[aria-hidden="true"]');
+    const labelSpan = document.getElementById('xmas-motion-label');
+    if (iconSpan) iconSpan.textContent = xmasMotionPaused ? '❄️' : '✨';
+    if (labelSpan) labelSpan.textContent = xmasMotionPaused ? 'پخش برف' : 'توقف برف';
+    xmasMotionBtn.setAttribute(
+      'aria-label',
+      xmasMotionPaused ? 'پخش افکت برف و چراغ‌های کریسمس' : 'توقف افکت برف و چراغ‌های کریسمس'
+    );
+    xmasMotionBtn.setAttribute('title', xmasMotionPaused ? 'پخش برف و چراغانی' : 'توقف برف و چراغانی');
+    showToast(xmasMotionPaused ? 'افکت برف و چراغانی متوقف شد' : 'افکت برف و چراغانی فعال شد ❄️');
   });
 
   const openTrayBtn = document.getElementById('open-tray-btn');
@@ -1173,11 +1391,17 @@ function setupEventListeners() {
 
   if (mascotEl && mascotBubble) {
     const textSpan = mascotBubble.querySelector('span');
-    const messages = [
-      'سلام! خوش اومدید 🔥',
-      'منوی تازه و داغ آتیش رو ببینید 🍕',
-      'برای سفارش تلفنی یا اسنپ‌فود در خدمتیم 🛵'
-    ];
+    const messages = christmasState.isActive
+      ? [
+          'سلام! زمستون و کریسمستون گرم و دلچسب 🎄🔥',
+          'پیتزاهای داغ آتیش تو هوای سرد می‌چسبه ❄️🍕',
+          'برای سفارش گرم تلفنی یا اسنپ‌فود در خدمتیم 🎅🛵'
+        ]
+      : [
+          'سلام! خوش اومدید 🔥',
+          'منوی تازه و داغ آتیش رو ببینید 🍕',
+          'برای سفارش تلفنی یا اسنپ‌فود در خدمتیم 🛵'
+        ];
 
     const timeouts = [];
 

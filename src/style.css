@@ -314,3 +314,207 @@
   background: rgba(255, 255, 255, 0.3);
   color: #fff;
 }
+
+/* =========================================================================
+   ATISH YEARLY CHRISTMAS THEME (Auto-Active: Nov 22 – Jan 5, Asia/Tehran)
+   Luxury Dark Winter Hearth: Deep Pine, Warm Crimson, Champagne Gold & Snow
+   ========================================================================= */
+
+html.theme-christmas body {
+  background-color: #0b0f0e;
+  background-image:
+    radial-gradient(ellipse 80% 45% at 50% -10%, rgba(185, 28, 28, 0.22), transparent 65%),
+    radial-gradient(ellipse 65% 45% at 15% 15%, rgba(16, 95, 58, 0.20), transparent 60%),
+    radial-gradient(ellipse 60% 40% at 85% 20%, rgba(217, 119, 6, 0.12), transparent 60%);
+  background-attachment: scroll;
+}
+
+html.theme-christmas #app {
+  position: relative;
+  z-index: 1;
+}
+
+html.theme-christmas .glass-header {
+  background: rgba(13, 19, 17, 0.92);
+  border-bottom-color: rgba(251, 191, 36, 0.22);
+  box-shadow: 0 6px 28px rgba(0, 0, 0, 0.45);
+}
+
+/* Frosted Festive Hero Surface (keeps original dark card color) */
+html.theme-christmas .xmas-hero-card {
+  position: relative;
+  border-color: rgba(220, 38, 38, 0.32) !important;
+  box-shadow:
+    0 20px 50px -15px rgba(0, 0, 0, 0.75),
+    0 0 36px -12px rgba(220, 38, 38, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+html.theme-christmas .xmas-hero-card::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent 5%, #dc2626 25%, #fbbf24 50%, #16a34a 75%, transparent 95%);
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 2;
+}
+
+html.theme-christmas .text-gradient-fire {
+  background: linear-gradient(135deg, #fef08a 0%, #fbbf24 40%, #ef4444 85%, #fca5a5 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Festive Active Category Pill */
+html.theme-christmas .cat-btn.cat-btn-active {
+  background: linear-gradient(135deg, #dc2626 0%, #b91c1c 52%, #d97706 100%) !important;
+  color: #ffffff !important;
+  border: 1px solid rgba(253, 224, 71, 0.45) !important;
+  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.35), 0 0 12px rgba(251, 191, 36, 0.2) !important;
+}
+
+/* Festive Sticky Category Bar & Bottom Nav */
+html.theme-christmas nav.sticky {
+  background: rgba(11, 15, 14, 0.95);
+  border-color: rgba(251, 191, 36, 0.14);
+}
+
+html.theme-christmas .contact-nav {
+  background: rgba(15, 22, 20, 0.95);
+  border-color: rgba(251, 191, 36, 0.22);
+}
+
+/* Top Christmas Fairy Lights Garland */
+.xmas-lights-bar {
+  position: relative;
+  width: 100%;
+  height: 18px;
+  overflow: hidden;
+  pointer-events: none;
+  margin-top: -12px;
+  margin-bottom: 4px;
+}
+
+.xmas-lights-svg {
+  width: 100%;
+  height: 18px;
+  display: block;
+}
+
+.xmas-bulb {
+  opacity: 0.92;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.theme-christmas:not(.xmas-motion-paused) .xmas-bulb-a {
+    animation: xmasWarmTwinkle 4.2s ease-in-out infinite;
+  }
+  html.theme-christmas:not(.xmas-motion-paused) .xmas-bulb-b {
+    animation: xmasWarmTwinkle 4.8s ease-in-out 1.4s infinite;
+  }
+  html.theme-christmas:not(.xmas-motion-paused) .xmas-bulb-c {
+    animation: xmasWarmTwinkle 5.4s ease-in-out 2.6s infinite;
+  }
+}
+
+@keyframes xmasWarmTwinkle {
+  0%, 100% { opacity: 0.95; transform: scale(1); }
+  50% { opacity: 0.48; transform: scale(0.88); }
+}
+
+/* Santa Hat Overlay on Logo & Mascot */
+.xmas-logo-wrap {
+  position: relative;
+}
+
+.xmas-santa-hat {
+  position: absolute;
+  top: -9px;
+  right: -5px;
+  width: 24px;
+  height: 20px;
+  pointer-events: none;
+  transform: rotate(12deg);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.55));
+}
+
+.xmas-mascot-hat {
+  position: absolute;
+  top: -12px;
+  right: 10px;
+  width: 34px;
+  height: 28px;
+  pointer-events: none;
+  transform: rotate(10deg);
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.55));
+}
+
+/* Snowfall Layer (Behind Cards — Compositor-Only transform & opacity, zero layout thrash) */
+.xmas-snow-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+  contain: strict;
+}
+
+.xmas-snowflake {
+  position: absolute;
+  top: -12px;
+  left: var(--x, 50%);
+  width: var(--size, 5px);
+  height: var(--size, 5px);
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.95) 0%, rgba(226, 232, 240, 0.45) 65%, transparent 100%);
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html.theme-christmas:not(.xmas-motion-paused) .xmas-snowflake {
+    animation: xmasSnowFall var(--dur, 12s) linear var(--delay, 0s) infinite;
+  }
+}
+
+html.xmas-motion-paused .xmas-snow-layer {
+  display: none;
+}
+
+@keyframes xmasSnowFall {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -5vh, 0);
+  }
+  10% {
+    opacity: var(--alpha, 0.75);
+  }
+  50% {
+    transform: translate3d(var(--drift, 18px), 52vh, 0);
+  }
+  90% {
+    opacity: var(--alpha, 0.65);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(calc(var(--drift, 18px) * -0.5), 106vh, 0);
+  }
+}
+
+/* Holiday Season Countdown Ribbon Pill */
+.xmas-season-banner {
+  background: linear-gradient(135deg, rgba(153, 27, 27, 0.35) 0%, rgba(20, 83, 45, 0.35) 55%, rgba(180, 83, 9, 0.28) 100%);
+  border: 1px solid rgba(251, 191, 36, 0.32);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+/* Mascot Festive Bubble */
+html.theme-christmas .mascot-bubble {
+  border-color: rgba(239, 68, 68, 0.75);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.65), 0 0 14px rgba(220, 38, 38, 0.3);
+}
