@@ -368,18 +368,74 @@ html.theme-christmas .text-gradient-fire {
   -webkit-text-fill-color: transparent;
 }
 
-/* Festive Active Category Pill */
+/* Festive Active & Inactive Category Pills (Christmas Theme Only) */
+html.theme-christmas .sticky-category-nav {
+  top: calc(var(--header-height, 64px) + 10px);
+  margin-inline: 0 !important;
+  padding: 0.55rem 0.75rem !important;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(251, 191, 36, 0.22) !important;
+  background: linear-gradient(
+    135deg,
+    rgba(15, 29, 24, 0.74) 0%,
+    rgba(30, 17, 21, 0.72) 52%,
+    rgba(15, 26, 22, 0.78) 100%
+  ) !important;
+  backdrop-filter: blur(20px) saturate(145%);
+  -webkit-backdrop-filter: blur(20px) saturate(145%);
+  box-shadow:
+    0 14px 36px -10px rgba(0, 0, 0, 0.65),
+    0 0 24px -10px rgba(220, 38, 38, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  html.theme-christmas .sticky-category-nav {
+    border-radius: 1.5rem;
+    padding: 0.625rem 0.875rem !important;
+  }
+}
+
+html.theme-christmas .sticky-category-nav::before {
+  content: '';
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 1.5px;
+  background: linear-gradient(
+    90deg,
+    transparent 6%,
+    rgba(220, 38, 38, 0.7) 26%,
+    rgba(251, 191, 36, 0.8) 50%,
+    rgba(22, 163, 74, 0.7) 74%,
+    transparent 94%
+  );
+  pointer-events: none;
+}
+
+html.theme-christmas .sticky-category-nav .cat-btn:not(.cat-btn-active) {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #e4e4e7 !important;
+  border-radius: 0.85rem;
+}
+
+html.theme-christmas .sticky-category-nav .cat-btn:not(.cat-btn-active):hover {
+  background: rgba(220, 38, 38, 0.16) !important;
+  border-color: rgba(251, 191, 36, 0.35) !important;
+  color: #ffffff !important;
+}
+
 html.theme-christmas .cat-btn.cat-btn-active {
   background: linear-gradient(135deg, #dc2626 0%, #b91c1c 52%, #d97706 100%) !important;
   color: #ffffff !important;
   border: 1px solid rgba(253, 224, 71, 0.45) !important;
-  box-shadow: 0 6px 20px rgba(220, 38, 38, 0.35), 0 0 12px rgba(251, 191, 36, 0.2) !important;
-}
-
-/* Festive Sticky Category Bar & Bottom Nav */
-html.theme-christmas nav.sticky {
-  background: rgba(11, 15, 14, 0.95);
-  border-color: rgba(251, 191, 36, 0.14);
+  border-radius: 0.85rem;
+  box-shadow:
+    0 6px 20px rgba(220, 38, 38, 0.38),
+    0 0 12px rgba(251, 191, 36, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28) !important;
 }
 
 html.theme-christmas .contact-nav {
