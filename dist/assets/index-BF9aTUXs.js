@@ -374,6 +374,8 @@
             <p class="text-zinc-300 text-xs sm:text-sm lg:text-base leading-relaxed font-light max-w-2xl">
               پیتزاهای پرملات آمریکایی و ایتالیایی پخته‌شده در فر لینکولن و برگرهای دست‌ساز با گوشت خالص. سفارش آنلاین دلیوری با اسنپ‌فود یا سفارش مستقیم تلفنی با پیک گرم.
             </p>
+
+            
           </div>
 
           <!-- 3D Burger Artwork Showcase (5 cols on desktop, Left Side) -->
@@ -642,6 +644,8 @@
         </button>
       </div>
     </div>
+
+    
 
     
 

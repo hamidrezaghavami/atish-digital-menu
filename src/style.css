@@ -591,3 +591,131 @@ html.theme-christmas .mascot-bubble {
   border-color: rgba(239, 68, 68, 0.75);
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.65), 0 0 14px rgba(220, 38, 38, 0.3);
 }
+
+/* =========================================================================
+   ATISH SPIN-THE-WHEEL HERO PROMO BOX & INTERACTIVE WHEEL MODAL
+   ========================================================================= */
+.spin-hero-box {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(185, 28, 28, 0.28) 0%, rgba(28, 22, 26, 0.92) 50%, rgba(217, 119, 6, 0.26) 100%);
+  border: 1.5px solid rgba(251, 191, 36, 0.48);
+  box-shadow:
+    0 10px 30px -8px rgba(220, 38, 38, 0.35),
+    0 0 22px -6px rgba(251, 191, 36, 0.32),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.spin-hero-box:hover {
+  transform: translateY(-2px);
+  border-color: rgba(253, 224, 71, 0.78);
+  box-shadow:
+    0 14px 36px -8px rgba(220, 38, 38, 0.48),
+    0 0 28px -4px rgba(251, 191, 36, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+.spin-hero-sheen {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    110deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.16) 48%,
+    rgba(253, 224, 71, 0.22) 52%,
+    transparent 78%
+  );
+  transform: translate3d(-120%, 0, 0);
+}
+
+.spin-hero-sparkle {
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .spin-hero-sheen {
+    animation: spinHeroSheen 3.8s ease-in-out infinite;
+  }
+  .spin-mini-wheel {
+    animation: spinMiniIdle 10s linear infinite;
+  }
+  .spin-hero-sparkle {
+    animation: spinSparklePulse 2.8s ease-in-out infinite;
+  }
+}
+
+@keyframes spinHeroSheen {
+  0%, 55% { transform: translate3d(-120%, 0, 0); }
+  100% { transform: translate3d(130%, 0, 0); }
+}
+
+@keyframes spinMiniIdle {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinSparklePulse {
+  0%, 100% { opacity: 0.45; transform: scale(0.88); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+/* Wheel Container & Rotation */
+.spin-wheel-stage {
+  position: relative;
+  width: min(310px, 82vw);
+  height: min(310px, 82vw);
+  margin-inline: auto;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.spin-wheel-rotor {
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  cursor: pointer;
+  will-change: transform;
+  filter: drop-shadow(0 14px 28px rgba(0, 0, 0, 0.65)) drop-shadow(0 0 18px rgba(220, 38, 38, 0.28));
+}
+
+.spin-wheel-pointer {
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 42px;
+  height: 52px;
+  z-index: 10;
+  pointer-events: none;
+  filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.55));
+}
+
+.spin-wheel-center-btn {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 64px;
+  height: 64px;
+  border-radius: 9999px;
+  z-index: 10;
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #fef3c7 65%, #f59e0b 100%);
+  border: 4px solid #dc2626;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.5), inset 0 2px 4px rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.18s ease;
+}
+
+.spin-wheel-center-btn:hover:not(:disabled) {
+  transform: translate(-50%, -50%) scale(1.07);
+}
+
+.spin-wheel-center-btn:active:not(:disabled) {
+  transform: translate(-50%, -50%) scale(0.95);
+}

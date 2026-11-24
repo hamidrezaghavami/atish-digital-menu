@@ -854,6 +854,45 @@ function renderApp() {
             <p class="text-zinc-300 text-xs sm:text-sm lg:text-base leading-relaxed font-light max-w-2xl">
               پیتزاهای پرملات آمریکایی و ایتالیایی پخته‌شده در فر لینکولن و برگرهای دست‌ساز با گوشت خالص. سفارش آنلاین دلیوری با اسنپ‌فود یا سفارش مستقیم تلفنی با پیک گرم.
             </p>
+
+            ${/* [DISABLED UNTIL BACKEND CONNECTED - Shiny Interactive Spin-the-Wheel Hero Box]
+            <!-- Shiny Interactive Spin-the-Wheel Hero Box -->
+            <button
+              type="button"
+              id="btn-open-spin-wheel"
+              class="spin-hero-box mt-4 w-full sm:w-auto sm:max-w-lg rounded-2xl p-3 sm:p-3.5 text-right flex items-center justify-between gap-3 cursor-pointer group"
+            >
+              <span class="spin-hero-sheen" aria-hidden="true"></span>
+              <div class="relative z-[1] flex items-center gap-3 min-w-0">
+                <div class="relative flex-shrink-0 w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center">
+                  <svg class="spin-mini-wheel w-full h-full drop-shadow-[0_0_10px_rgba(251,191,36,0.5)]" viewBox="0 0 64 64" aria-hidden="true">
+                    <circle cx="32" cy="32" r="29" fill="#b91c1c" stroke="#fbbf24" stroke-width="3"/>
+                    <path d="M32 32 L32 6 A26 26 0 0 1 50.4 13.6 Z" fill="#dc2626"/>
+                    <path d="M32 32 L50.4 13.6 A26 26 0 0 1 58 32 Z" fill="#fff7ed"/>
+                    <path d="M32 32 L58 32 A26 26 0 0 1 50.4 50.4 Z" fill="#dc2626"/>
+                    <path d="M32 32 L50.4 50.4 A26 26 0 0 1 32 58 Z" fill="#fff7ed"/>
+                    <path d="M32 32 L32 58 A26 26 0 0 1 13.6 50.4 Z" fill="#dc2626"/>
+                    <path d="M32 32 L13.6 50.4 A26 26 0 0 1 6 32 Z" fill="#fff7ed"/>
+                    <path d="M32 32 L6 32 A26 26 0 0 1 13.6 13.6 Z" fill="#f59e0b"/>
+                    <path d="M32 32 L13.6 13.6 A26 26 0 0 1 32 6 Z" fill="#fff7ed"/>
+                    <circle cx="32" cy="32" r="7" fill="#ffffff" stroke="#dc2626" stroke-width="2.5"/>
+                  </svg>
+                  <span class="spin-hero-sparkle absolute -top-1 -right-1 text-amber-300 text-xs" aria-hidden="true">✦</span>
+                  <span class="spin-hero-sparkle absolute -bottom-0.5 -left-1 text-yellow-200 text-[10px]" aria-hidden="true">✨</span>
+                </div>
+                <div class="min-w-0">
+                  <div class="flex flex-wrap items-center gap-1.5">
+                    <span class="text-xs sm:text-sm font-black text-white">گردونه شانس آتیش</span>
+                    <span class="px-2 py-0.5 rounded-full text-[10px] font-black bg-gradient-to-r from-amber-400 to-orange-500 text-black shadow-sm">تا ۳۰٪ تخفیف</span>
+                  </div>
+                  <p class="text-[11px] text-amber-100/85 mt-0.5 truncate">بچرخون و کد تخفیف اختصاصی سفارش بعدی رو بگیر!</p>
+                </div>
+              </div>
+              <span class="relative z-[1] flex-shrink-0 px-3 py-2 rounded-xl bg-gradient-to-r from-red-600 via-red-500 to-amber-500 text-white font-black text-[11px] sm:text-xs shadow-lg shadow-red-600/30 group-hover:scale-105 transition">
+                بچرخون ✨
+              </span>
+            </button>
+            */ ''}
           </div>
 
           <!-- 3D Burger Artwork Showcase (5 cols on desktop, Left Side) -->
@@ -1178,6 +1217,51 @@ function renderApp() {
         </div>
         
         <div id="cashier-modal-body"></div>
+      </div>
+    </div>
+    */ ''}
+
+    ${/* [DISABLED UNTIL BACKEND CONNECTED - Interactive 8-Slice Spin-the-Wheel Modal]
+    <!-- Interactive 8-Slice Spin-the-Wheel Modal -->
+    <div id="spin-wheel-modal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity">
+      <div class="w-full max-w-md bg-[#141418] border-t sm:border border-amber-400/35 rounded-t-3xl sm:rounded-3xl max-h-[94vh] overflow-y-auto shadow-2xl p-5 text-right">
+        <!-- Modal Header -->
+        <div class="flex items-center justify-between pb-3 border-b border-white/[0.08] mb-4">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-red-600 via-red-500 to-amber-500 flex items-center justify-center text-white font-black text-base shadow-md">
+              🎡
+            </div>
+            <div>
+              <h2 class="text-sm sm:text-base font-black text-white">گردونه شانس آتیش</h2>
+              <span class="text-[10px] text-amber-300 font-medium">شانست رو امتحان کن · تا ۳۰٪ تخفیف ویژه</span>
+            </div>
+          </div>
+          <button id="close-spin-modal-btn" type="button" class="w-8 h-8 rounded-full bg-white/[0.08] flex items-center justify-center text-zinc-400 hover:text-white transition" aria-label="بستن">
+            ✕
+          </button>
+        </div>
+
+        <!-- Wheel Stage -->
+        <div class="pt-3 pb-2 flex flex-col items-center">
+          <div class="spin-wheel-stage">
+            <!-- Top Red Teardrop Pointer -->
+            <svg class="spin-wheel-pointer" viewBox="0 0 44 54" fill="none" aria-hidden="true">
+              <path d="M22 52 L8 26 A16 16 0 1 1 36 26 Z" fill="#dc2626" stroke="#ffffff" stroke-width="2.5"/>
+              <circle cx="22" cy="18" r="6" fill="#ffffff"/>
+            </svg>
+
+            <!-- Rotating 8-Slice SVG Wheel -->
+            <div id="spin-wheel-rotor" class="spin-wheel-rotor" role="button" tabindex="0" aria-label="چرخاندن گردونه شانس"></div>
+
+            <!-- Center Flame Spin Trigger -->
+            <button id="spin-wheel-center-btn" type="button" class="spin-wheel-center-btn" aria-label="بچرخون">
+              <img src="${logoImg}" alt="آتیش" class="w-9 h-9 object-contain pointer-events-none select-none" />
+            </button>
+          </div>
+        </div>
+
+        <!-- Action / Result Area -->
+        <div id="spin-wheel-result" class="mt-4"></div>
       </div>
     </div>
     */ ''}
@@ -1536,6 +1620,9 @@ function setupEventListeners() {
     headerObserver.observe(mainHeader);
   }
   window.addEventListener('resize', syncHeaderHeight, { passive: true });
+
+  // [DISABLED UNTIL BACKEND CONNECTED - Spin-the-Wheel Promo System]
+  // initSpinWheelSystem();
 
   // [DISABLED UNTIL FURTHER NOTICE - QR Discount & 5-Tap Cashier System]
   // initVipOfferSystem();
@@ -2093,6 +2180,296 @@ function initVipOfferSystem() {
 
   checkCashierHash();
   window.addEventListener('hashchange', checkCashierHash);
+}
+*/
+
+/* [DISABLED UNTIL BACKEND CONNECTED - ArvanCloud Edge Function Spin-the-Wheel]
+// =========================================================================
+// ATISH SPIN-THE-WHEEL PROMO ENGINE (8 Slices: 5%, 10%, 20%, 30% + 4 Fun)
+// =========================================================================
+// Planned Server-Side Rules (ArvanCloud Edge Function - Secret Key lives ONLY in Arvan Env):
+// - 1 spin per device
+// - Global Depletion Quotas (50 total): 5% = 20, 10% = 15, 20% = 10, 30% = 5
+// - When any discount tier hits 0 remaining, backend excludes it and forces other slices
+// - Auto-expires automatically 3 days after the user receives the code (no ticking countdown shown)
+// - Cashier portal verification marks code "redeemed" permanently on the backend
+const SPIN_CODE_TTL_MS = 3 * 24 * 60 * 60 * 1000; // 3 days automatic expiry
+
+const SPIN_WHEEL_SLICES = [
+  { id: 'disc-30', label: '۳۰٪ تخفیف', isWin: true, discount: 30, maxGlobal: 5, fill: '#b91c1c', textFill: '#fef08a', sub: 'جایزه بزرگ! ۳۰٪ تخفیف ویژه سفارش بعدی 🔥' },
+  { id: 'miss-next', label: 'دفعه بعد!', isWin: false, fill: '#fff7ed', textFill: '#991b1b', sub: 'این بار شانس یار نبود! دفعه بعد حتماً برنده می‌شی 😅' },
+  { id: 'disc-10', label: '۱۰٪ تخفیف', isWin: true, discount: 10, maxGlobal: 15, fill: '#dc2626', textFill: '#ffffff', sub: 'تبریک! ۱۰٪ تخفیف ویژه سفارش تلفنی آتیش 🎉' },
+  { id: 'try-steak', label: 'پیتزا استیک', isWin: false, fill: '#fff7ed', textFill: '#7f1d1d', itemId: 'ip-5', sub: 'تخفیف نیفتاد ولی حتماً «پیتزا استیک ایتالیایی» آتیش رو امتحان کن! 🍕' },
+  { id: 'disc-20', label: '۲۰٪ تخفیف', isWin: true, discount: 20, maxGlobal: 10, fill: '#b91c1c', textFill: '#fde68a', sub: 'فوق‌العاده! ۲۰٪ تخفیف اختصاصی برای سفارش بعدی شما 🔥' },
+  { id: 'miss-empty', label: 'پوچ شد!', isWin: false, fill: '#fff7ed', textFill: '#991b1b', sub: 'این دور پوچ بود 🙈 ولی پیتزاهای داغ آتیش همیشه منتظرتونن!' },
+  { id: 'disc-5', label: '۵٪ تخفیف', isWin: true, discount: 5, maxGlobal: 20, fill: '#dc2626', textFill: '#ffffff', sub: 'عالی! ۵٪ تخفیف ویژه روی سفارش تلفنی بعدی شما ✨' },
+  { id: 'try-burger', label: 'آتیش برگر', isWin: false, fill: '#fff7ed', textFill: '#7f1d1d', itemId: 'b-7', sub: 'تخفیف نیفتاد اما امضای سرآشپز یعنی «آتیش برگر» رو از دست نده! 🍔' }
+];
+
+// Note: Secret key & signing live strictly in ArvanCloud Edge Function (/api/spin) — NEVER in frontend/repo!
+async function requestSpinFromBackend() {
+  const res = await fetch('/api/spin', { method: 'POST', headers: { 'Content-Type': 'application/json' } });
+  if (!res.ok) throw new Error('Spin API unavailable');
+  return res.json(); // Expected: { sliceId, code, issuedAt, expiresAt }
+}
+
+function buildSpinWheelSvg() {
+  const cx = 180;
+  const cy = 180;
+  const r = 154;
+  const sliceAngle = 360 / SPIN_WHEEL_SLICES.length; // 45 deg
+
+  const polar = (angleDeg, radius) => {
+    const rad = ((angleDeg - 90) * Math.PI) / 180;
+    return {
+      x: cx + radius * Math.cos(rad),
+      y: cy + radius * Math.sin(rad)
+    };
+  };
+
+  const slicesMarkup = SPIN_WHEEL_SLICES.map((slice, i) => {
+    const startAngle = i * sliceAngle;
+    const endAngle = (i + 1) * sliceAngle;
+    const midAngle = startAngle + sliceAngle / 2;
+    const p1 = polar(startAngle, r);
+    const p2 = polar(endAngle, r);
+    const labelPos = polar(midAngle, r * 0.64);
+    const pathD = `M ${cx} ${cy} L ${p1.x.toFixed(2)} ${p1.y.toFixed(2)} A ${r} ${r} 0 0 1 ${p2.x.toFixed(2)} ${p2.y.toFixed(2)} Z`;
+
+    return `
+      <g>
+        <path d="${pathD}" fill="${slice.fill}" stroke="#7f1d1d" stroke-width="1.5"/>
+        <text
+          x="${labelPos.x.toFixed(2)}"
+          y="${labelPos.y.toFixed(2)}"
+          fill="${slice.textFill}"
+          font-family="Vazirmatn, sans-serif"
+          font-weight="900"
+          font-size="14"
+          text-anchor="middle"
+          dominant-baseline="middle"
+          transform="rotate(${(midAngle - 90).toFixed(1)}, ${labelPos.x.toFixed(2)}, ${labelPos.y.toFixed(2)})"
+        >${slice.label}</text>
+      </g>
+    `;
+  }).join('');
+
+  const bulbsMarkup = Array.from({ length: 16 }, (_, idx) => {
+    const pos = polar(idx * 22.5, 166);
+    const isGold = idx % 2 === 0;
+    return `<circle cx="${pos.x.toFixed(2)}" cy="${pos.y.toFixed(2)}" r="3.6" fill="${isGold ? '#fef08a' : '#ffffff'}" opacity="0.95"/>`;
+  }).join('');
+
+  return `
+    <svg viewBox="0 0 360 360" class="w-full h-full block" aria-hidden="true">
+      <circle cx="${cx}" cy="${cy}" r="175" fill="#dc2626" stroke="#fbbf24" stroke-width="4"/>
+      <circle cx="${cx}" cy="${cy}" r="158" fill="#7f1d1d"/>
+      ${slicesMarkup}
+      ${bulbsMarkup}
+    </svg>
+  `;
+}
+
+function initSpinWheelSystem() {
+  const openBtn = document.getElementById('btn-open-spin-wheel');
+  const modal = document.getElementById('spin-wheel-modal');
+  const closeBtn = document.getElementById('close-spin-modal-btn');
+  const rotor = document.getElementById('spin-wheel-rotor');
+  const centerBtn = document.getElementById('spin-wheel-center-btn');
+  const resultBox = document.getElementById('spin-wheel-result');
+
+  if (!modal || !rotor || !resultBox) return;
+
+  rotor.innerHTML = buildSpinWheelSvg();
+
+  let isSpinning = false;
+  let currentRotation = 0;
+
+  const getSavedSpin = () => {
+    try {
+      const raw = localStorage.getItem('atish_spin_result');
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  };
+
+  const renderIdleState = () => {
+    resultBox.innerHTML = `
+      <div class="text-center space-y-2.5">
+        <p class="text-xs text-zinc-300 leading-relaxed">
+          روی گردونه یا دکمه زیر کلیک کن! ۴ خانه تخفیف <strong class="text-amber-300">۵٪، ۱۰٪، ۲۰٪ و ۳۰٪</strong> منتظر شانس توئه.
+        </p>
+        <button
+          id="spin-wheel-cta-btn"
+          type="button"
+          class="w-full py-3 rounded-xl bg-gradient-to-r from-red-600 via-red-500 to-amber-500 hover:brightness-110 text-white font-black text-sm shadow-lg shadow-red-600/30 transition active:scale-[0.98]"
+        >
+          🎡 چرخاندن گردونه شانس
+        </button>
+      </div>
+    `;
+    document.getElementById('spin-wheel-cta-btn')?.addEventListener('click', startSpin);
+  };
+
+  const renderResultState = (slice, code, expiresAt) => {
+    const restaurantPhone = menuData?.restaurant?.phone || CONFIG.phoneNumber || '02122561949';
+    const isExpired = expiresAt && Date.now() > expiresAt;
+
+    if (slice.isWin) {
+      resultBox.innerHTML = `
+        <div class="p-4 rounded-2xl bg-gradient-to-b from-red-950/50 to-[#18181c] border border-amber-400/45 text-center space-y-3 shadow-xl">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-400/20 border border-amber-400/40 text-amber-300 text-xs font-black">
+            <span>${isExpired ? '⌛' : '🎉'}</span>
+            <span>${isExpired ? 'مهلت ۳ روزه این کد به پایان رسیده است' : `برنده ${toPersianDigits(slice.discount)}٪ تخفیف شدی!`}</span>
+          </div>
+          <p class="text-xs text-zinc-200 leading-relaxed">${slice.sub}</p>
+
+          ${!isExpired ? `
+            <div class="p-3 rounded-xl bg-black/70 border border-amber-400/40 flex items-center justify-between gap-2 max-w-xs mx-auto">
+              <span dir="ltr" class="font-mono font-black text-lg text-amber-300 tracking-wider select-all">${code}</span>
+              <button id="copy-spin-code-btn" type="button" class="px-3 py-1.5 rounded-lg bg-gradient-to-r from-amber-400 to-orange-500 text-black font-black text-xs hover:brightness-110 transition">
+                کپی
+              </button>
+            </div>
+
+            <p class="text-[11px] text-zinc-300 font-bold">
+              مهلت استفاده: ۳ روز (پس از ۳ روز به‌صورت خودکار منقضی می‌شود)
+            </p>
+
+            <a href="tel:${restaurantPhone}" class="w-full py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-black text-xs transition flex items-center justify-center gap-1.5 shadow-md">
+              <span>📞</span>
+              <span>تماس و ثبت سفارش با تخفیف (۰۲۱-۲۲۵۶۱۹۴۹)</span>
+            </a>
+          ` : ''}
+        </div>
+      `;
+
+      document.getElementById('copy-spin-code-btn')?.addEventListener('click', () => {
+        navigator.clipboard?.writeText(`کد تخفیف ${toPersianDigits(slice.discount)}٪ آتیش: ${code}`).then(() => {
+          showToast('کد تخفیف کپی شد ✓');
+        }).catch(() => {
+          showToast(`کد: ${code}`);
+        });
+      });
+    } else {
+      const targetItem = slice.itemId ? menuData.items?.find(i => i.id === slice.itemId) : null;
+      resultBox.innerHTML = `
+        <div class="p-4 rounded-2xl bg-[#1b1b22] border border-white/[0.12] text-center space-y-3">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/[0.08] text-zinc-200 text-xs font-black">
+            <span>${slice.label}</span>
+          </div>
+          <p class="text-xs text-zinc-300 leading-relaxed">${slice.sub}</p>
+          ${targetItem ? `
+            <button id="spin-view-item-btn" type="button" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-amber-400 to-orange-500 text-black font-black text-xs transition hover:brightness-105">
+              مشاهده ${targetItem.title} در منو 🍽️
+            </button>
+          ` : ''}
+        </div>
+      `;
+
+      if (targetItem) {
+        document.getElementById('spin-view-item-btn')?.addEventListener('click', () => {
+          modal.classList.add('hidden');
+          openItemModal(targetItem);
+        });
+      }
+    }
+  };
+
+  async function startSpin() {
+    if (isSpinning) return;
+
+    const existing = getSavedSpin();
+    if (existing) {
+      const savedSlice = SPIN_WHEEL_SLICES.find(s => s.id === existing.sliceId);
+      if (savedSlice) {
+        renderResultState(savedSlice, existing.code, existing.expiresAt);
+        return;
+      }
+    }
+
+    isSpinning = true;
+    if (centerBtn) centerBtn.disabled = true;
+
+    resultBox.innerHTML = `
+      <div class="py-3 text-center">
+        <div class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500/15 border border-amber-400/30 text-amber-300 text-xs font-black">
+          <span>✨</span>
+          <span>گردونه در حال چرخش... ببینیم شانست چیه!</span>
+        </div>
+      </div>
+    `;
+
+    try {
+      const data = await requestSpinFromBackend();
+      const sliceIndex = SPIN_WHEEL_SLICES.findIndex(s => s.id === data.sliceId);
+      const chosenSlice = SPIN_WHEEL_SLICES[sliceIndex >= 0 ? sliceIndex : 1];
+      const sliceAngle = 360 / SPIN_WHEEL_SLICES.length;
+      const sliceCenter = (sliceIndex >= 0 ? sliceIndex : 1) * sliceAngle + sliceAngle / 2;
+      const safeOffset = (Math.random() - 0.5) * 20;
+      const targetMod = (360 - sliceCenter + safeOffset + 360) % 360;
+      const currentMod = ((currentRotation % 360) + 360) % 360;
+      const deltaToTarget = (targetMod - currentMod + 360) % 360;
+
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      currentRotation += (prefersReduced ? 0 : 6 * 360) + deltaToTarget;
+
+      rotor.style.transition = prefersReduced
+        ? 'none'
+        : 'transform 4.6s cubic-bezier(0.12, 0.88, 0.16, 1)';
+      rotor.style.transform = `rotate(${currentRotation.toFixed(2)}deg)`;
+
+      const finishSpin = () => {
+        isSpinning = false;
+        if (centerBtn) centerBtn.disabled = false;
+        const expiresAt = data.expiresAt || (Date.now() + SPIN_CODE_TTL_MS);
+        try {
+          localStorage.setItem('atish_spin_result', JSON.stringify({
+            sliceId: chosenSlice.id,
+            code: data.code || null,
+            issuedAt: data.issuedAt || Date.now(),
+            expiresAt
+          }));
+        } catch (e) {}
+        renderResultState(chosenSlice, data.code || null, expiresAt);
+      };
+
+      if (prefersReduced) finishSpin();
+      else setTimeout(finishSpin, 4700);
+    } catch (err) {
+      isSpinning = false;
+      if (centerBtn) centerBtn.disabled = false;
+      showToast('خطا در اتصال به سرور گردونه');
+      renderIdleState();
+    }
+  }
+
+  const openModal = () => {
+    const saved = getSavedSpin();
+    if (saved) {
+      const savedSlice = SPIN_WHEEL_SLICES.find(s => s.id === saved.sliceId);
+      if (savedSlice) renderResultState(savedSlice, saved.code, saved.expiresAt);
+      else renderIdleState();
+    } else {
+      renderIdleState();
+    }
+    modal.classList.remove('hidden');
+  };
+
+  openBtn?.addEventListener('click', openModal);
+  closeBtn?.addEventListener('click', () => { if (!isSpinning) modal.classList.add('hidden'); });
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal && !isSpinning) modal.classList.add('hidden');
+  });
+  rotor.addEventListener('click', startSpin);
+  rotor.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      startSpin();
+    }
+  });
+  centerBtn?.addEventListener('click', startSpin);
 }
 */
 
