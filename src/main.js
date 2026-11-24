@@ -202,29 +202,70 @@ function initChristmasEffects() {
   root.classList.add('theme-christmas');
   if (themeMeta) themeMeta.setAttribute('content', '#0d1311');
 
-  // Inject lightweight GPU-composited snowfall layer once
+  // Inject lightweight GPU-composited multi-shape snowfall layer (strictly behind cards)
   if (!document.getElementById('xmas-snow-layer')) {
     const snowLayer = document.createElement('div');
     snowLayer.id = 'xmas-snow-layer';
     snowLayer.className = 'xmas-snow-layer';
     snowLayer.setAttribute('aria-hidden', 'true');
 
-    const flakesCount = window.innerWidth < 640 ? 18 : 26;
+    // Crisp vector snow crystals, 4-point frost glints, and diagonal frost flecks
+    const FLAKE_SVGS = {
+      crystal: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M12 2v20M2 12h20M4.93 4.93l14.14 14.14M19.07 4.93L4.93 19.07"/><path d="M9.5 4.5L12 7l2.5-2.5M9.5 19.5L12 17l2.5 2.5M4.5 9.5L7 12l-2.5 2.5M19.5 9.5L17 12l2.5 2.5"/></svg>`,
+      star: `<svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 0L11.6 8.4L20 10L11.6 11.6L10 20L8.4 11.6L0 10L8.4 8.4Z"/></svg>`,
+      cross: `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M3 3l10 10M13 3L3 13"/></svg>`
+    };
+
+    const isMobile = window.innerWidth < 640;
+    const flakesCount = isMobile ? 34 : 56;
     const frag = document.createDocumentFragment();
+
     for (let i = 0; i < flakesCount; i++) {
       const flake = document.createElement('span');
-      flake.className = 'xmas-snowflake';
-      const x = ((i * 37 + 11) % 98) + 1;
-      const size = 3 + (i % 4) * 1.4;
-      const dur = 9 + (i % 6) * 2.2;
-      const delay = -((i * 1.7) % 14);
-      const drift = (i % 2 === 0 ? 1 : -1) * (14 + (i % 4) * 8);
-      const alpha = 0.4 + (i % 4) * 0.14;
-      flake.style.setProperty('--x', `${x}%`);
-      flake.style.setProperty('--size', `${size}px`);
-      flake.style.setProperty('--dur', `${dur}s`);
-      flake.style.setProperty('--delay', `${delay}s`);
+      const mod = i % 10;
+      let kind = 'dot';
+      if (mod === 0 || mod === 4) kind = 'crystal';
+      else if (mod === 2 || mod === 7) kind = 'star';
+      else if (mod === 5) kind = 'cross';
+
+      flake.className = `xmas-snowflake xmas-flake-${kind}`;
+
+      // Golden-ratio horizontal scatter for natural, non-repeating spread
+      const x = ((i * 61.8034 + 7) % 98) + 1;
+      const dur =
+        kind === 'dot'
+          ? 13 + (i % 7) * 2.1
+          : kind === 'crystal'
+            ? 11 + (i % 5) * 2.2
+            : 10 + (i % 6) * 1.9;
+      const delay = -((i * 1.37) % dur);
+      const drift = (i % 2 === 0 ? 1 : -1) * (12 + (i % 5) * 7);
+      const rot = (i % 2 === 0 ? 1 : -1) * (120 + (i % 4) * 60);
+
+      let size, alpha;
+      if (kind === 'crystal') {
+        size = 10 + (i % 4) * 2;
+        alpha = 0.58 + (i % 3) * 0.14;
+        flake.innerHTML = FLAKE_SVGS.crystal;
+      } else if (kind === 'star') {
+        size = 7 + (i % 4) * 1.6;
+        alpha = 0.52 + (i % 3) * 0.15;
+        flake.innerHTML = FLAKE_SVGS.star;
+      } else if (kind === 'cross') {
+        size = 6.5 + (i % 3) * 1.5;
+        alpha = 0.45 + (i % 3) * 0.14;
+        flake.innerHTML = FLAKE_SVGS.cross;
+      } else {
+        size = 2.2 + (i % 4) * 0.9;
+        alpha = 0.34 + (i % 4) * 0.14;
+      }
+
+      flake.style.setProperty('--x', `${x.toFixed(2)}%`);
+      flake.style.setProperty('--size', `${size.toFixed(1)}px`);
+      flake.style.setProperty('--dur', `${dur.toFixed(1)}s`);
+      flake.style.setProperty('--delay', `${delay.toFixed(2)}s`);
       flake.style.setProperty('--drift', `${drift}px`);
+      flake.style.setProperty('--rot', `${rot}deg`);
       flake.style.setProperty('--alpha', `${alpha.toFixed(2)}`);
       frag.appendChild(flake);
     }
