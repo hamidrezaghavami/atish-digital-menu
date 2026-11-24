@@ -832,15 +832,6 @@ function renderApp() {
           
           <!-- Hero Text & Concept Info (7 cols on desktop, RTL Right) -->
           <div class="md:col-span-7 flex flex-col justify-center order-2 md:order-1">
-            ${isXmas ? `
-            <!-- Yearly Christmas Season Banner (Auto-Active: Nov 22 – Jan 5) -->
-            <div class="xmas-season-banner inline-flex flex-wrap items-center gap-2 self-start px-3.5 py-1.5 rounded-2xl mb-3">
-              <span class="text-sm" aria-hidden="true">🎄</span>
-              <span class="text-[11px] sm:text-xs font-black text-amber-200">${christmasState.countdownText}</span>
-              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-red-500/25 border border-red-400/35 text-red-200">۱ آذر تا ۱۵ دی</span>
-            </div>
-            ` : ''}
-
             <!-- Badges Bar -->
             <div class="flex flex-wrap items-center gap-2 mb-3">
               <span id="restaurant-status-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold ${openStatus.badgeClass}" title="${openStatus.tooltip}">

@@ -586,13 +586,6 @@ html.theme-christmas .contact-nav {
   }
 }
 
-/* Holiday Season Countdown Ribbon Pill */
-.xmas-season-banner {
-  background: linear-gradient(135deg, rgba(153, 27, 27, 0.35) 0%, rgba(20, 83, 45, 0.35) 55%, rgba(180, 83, 9, 0.28) 100%);
-  border: 1px solid rgba(251, 191, 36, 0.32);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 6px 20px rgba(0, 0, 0, 0.25);
-}
-
 /* Mascot Festive Bubble */
 html.theme-christmas .mascot-bubble {
   border-color: rgba(239, 68, 68, 0.75);
