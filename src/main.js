@@ -1687,7 +1687,7 @@ function sha256Sync(ascii) {
   return result;
 }
 
-const ATISH_OFFER_SALT = '430802b15c708a5315088e1bfa96046983a92af6ff3a558b';
+const ATISH_OFFER_SALT = ''; // [REMOVED FROM PUBLIC REPO - keep secrets strictly in ArvanCloud Edge Env]
 
 function computeChecksum9(payload) {
   let h = 0x811c9dc5;
@@ -2187,13 +2187,17 @@ function initVipOfferSystem() {
 // =========================================================================
 // ATISH SPIN-THE-WHEEL PROMO ENGINE (8 Slices: 5%, 10%, 20%, 30% + 4 Fun)
 // =========================================================================
-// Planned Server-Side Rules (ArvanCloud Edge Function - Secret Key lives ONLY in Arvan Env):
+// Planned Server-Side Rules (ArvanCloud Edge Function — ZERO secrets in public repo/frontend):
+// - Code Format: 1 BIG uppercase letter (A-Z, excluding I/O) + 8 digits -> e.g. K48-912-607
+// - Uncrackable Security: CSPRNG random generation (2.4B space) + server-side HMAC-SHA256 with
+//   256-bit secret key stored ONLY in ArvanCloud Environment Secrets + private server-side lookup
 // - 1 spin per device
 // - Global Depletion Quotas (50 total): 5% = 20, 10% = 15, 20% = 10, 30% = 5
 // - When any discount tier hits 0 remaining, backend excludes it and forces other slices
 // - Auto-expires automatically 3 days after the user receives the code (no ticking countdown shown)
-// - Cashier portal verification marks code "redeemed" permanently on the backend
+// - Cashier portal verification checks live server & marks code "redeemed" permanently
 const SPIN_CODE_TTL_MS = 3 * 24 * 60 * 60 * 1000; // 3 days automatic expiry
+const SPIN_CODE_PATTERN = /^[A-Z][0-9]{2}-[0-9]{3}-[0-9]{3}$/; // e.g. K48-912-607
 
 const SPIN_WHEEL_SLICES = [
   { id: 'disc-30', label: '۳۰٪ تخفیف', isWin: true, discount: 30, maxGlobal: 5, fill: '#b91c1c', textFill: '#fef08a', sub: 'جایزه بزرگ! ۳۰٪ تخفیف ویژه سفارش بعدی 🔥' },
