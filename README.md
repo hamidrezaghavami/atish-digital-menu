@@ -1,10 +1,10 @@
 # 🔥 Atish Digital Menu & Guest Experience
 ### منوی دیجیتال و کاتالوگ تعاملی فست‌فود و گریل آتیش
 
-[![Live Menu](https://img.shields.io/badge/Official%20Menu-Atish%20Restaurant-e11d48?style=for-the-badge)](https://pizzaatish.s3-website.ir-central1.arvanstorage.ir)
+[![Live Menu](https://img.shields.io/badge/Official%20Menu-pizzaatish.ir-e11d48?style=for-the-badge)](https://pizzaatish.ir)
 [![Snappfood Rating](https://img.shields.io/badge/Snappfood%20Rating-⭐%204.5%20%2F%205-ff00a6?style=for-the-badge)](https://snappfood.ir/restaurant/menu/پیتزا_آتیش-r-p44gzx/)
-[![Location](https://img.shields.io/badge/Location-Tehran%20%7C%20Dowlat%20%26%20Darrous-00b4d8?style=for-the-badge)](https://pizzaatish.s3-website.ir-central1.arvanstorage.ir)
-[![Experience](https://img.shields.io/badge/Experience-Instant%20Mobile%20PWA-5A0FC8?style=for-the-badge)](https://pizzaatish.s3-website.ir-central1.arvanstorage.ir)
+[![Location](https://img.shields.io/badge/Location-Tehran%20%7C%20Dowlat%20%26%20Darrous-00b4d8?style=for-the-badge)](https://pizzaatish.ir)
+[![Experience](https://img.shields.io/badge/Experience-Instant%20Mobile%20PWA-5A0FC8?style=for-the-badge)](https://pizzaatish.ir)
 
 Welcome to the official digital menu and interactive customer showcase for **Atish Fast Food & Grill (فست‌فود و گریل آتیش)** — a premier culinary destination in North Tehran renowned for flame-grilled gourmet burgers, oven-baked artisan pizzas, and handcrafted fast food.
 
@@ -14,8 +14,7 @@ Crafted to provide a seamless, premium dining experience: scan a table QR code, 
 
 ## 🌐 Instant Online Access
 
-* **Digital Menu Link:** [pizzaatish.s3-website.ir-central1.arvanstorage.ir](https://pizzaatish.s3-website.ir-central1.arvanstorage.ir)
-* **Official Web Domain:** `pizzaatish.ir` *(Coming soon)*
+* **Official Digital Menu:** [pizzaatish.ir](https://pizzaatish.ir)
 * **Accessibility:** 100% accessible across all nationwide mobile networks and broadband providers without any interruption or VPN requirements.
 
 ---
