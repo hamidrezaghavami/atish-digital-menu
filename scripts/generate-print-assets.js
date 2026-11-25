@@ -1,184 +1,420 @@
 import fs from 'fs';
 import path from 'path';
+import { execFileSync } from 'child_process';
 import QRCode from 'qrcode';
 import sharp from 'sharp';
 
-const targetUrl = 'https://pizzaatish.s3-website.ir-central1.arvanstorage.ir';
-const outDir = path.resolve('public/print-assets');
+const TARGET_URL = 'https://pizzaatish.ir';
+const OUT_DIR = path.resolve('Design');
+const LOGO_PATH = path.resolve('public/images/logo.webp');
+const BRAVE_BIN = '/Applications/Brave Browser.app/Contents/MacOS/Brave Browser';
 
-if (!fs.existsSync(outDir)) {
-  fs.mkdirSync(outDir, { recursive: true });
+if (!fs.existsSync(OUT_DIR)) {
+  fs.mkdirSync(OUT_DIR, { recursive: true });
+}
+
+function renderWithBrave(htmlPath, pdfPath, pngPath, cssWidth, cssHeight) {
+  const fileUrl = `file://${htmlPath}`;
+
+  // 1. Exact physical mm Vector Print PDF (for print shops / چاپخانه)
+  execFileSync(
+    BRAVE_BIN,
+    [
+      '--headless=new',
+      '--disable-gpu',
+      '--no-sandbox',
+      '--run-all-compositor-stages-before-draw',
+      '--virtual-time-budget=4000',
+      '--no-pdf-header-footer',
+      `--print-to-pdf=${pdfPath}`,
+      fileUrl,
+    ],
+    { stdio: 'pipe' }
+  );
+
+  // 2. High-DPI PNG (>300 DPI) — cssWidth >= 560 avoids macOS Chromium min-window-width quirk
+  execFileSync(
+    BRAVE_BIN,
+    [
+      '--headless=new',
+      '--disable-gpu',
+      '--no-sandbox',
+      '--hide-scrollbars',
+      '--run-all-compositor-stages-before-draw',
+      '--virtual-time-budget=4000',
+      '--force-device-scale-factor=2',
+      `--window-size=${cssWidth},${cssHeight}`,
+      `--screenshot=${pngPath}`,
+      fileUrl,
+    ],
+    { stdio: 'pipe' }
+  );
 }
 
 async function run() {
-  console.log('Generating QR codes for:', targetUrl);
+  console.log('Generating static permanent QR codes for:', TARGET_URL);
 
-  // 1. Generate standalone high-res QR Code (PNG & SVG) with High error correction
-  const qrPngBuffer = await QRCode.toBuffer(targetUrl, {
-    errorCorrectionLevel: 'H',
+  // 1. Standalone high-res QR Code (PNG & SVG) — static permanent link
+  const qrPngBuffer = await QRCode.toBuffer(TARGET_URL, {
+    errorCorrectionLevel: 'Q',
     type: 'png',
     margin: 2,
-    scale: 12,
+    width: 1600,
     color: {
-      dark: '#111827',
-      light: '#ffffff'
-    }
+      dark: '#141c2c',
+      light: '#ffffff',
+    },
   });
-  fs.writeFileSync(path.join(outDir, 'qr-code-standalone.png'), qrPngBuffer);
+  fs.writeFileSync(path.join(OUT_DIR, 'pizzaatish-qr.png'), qrPngBuffer);
 
-  const qrSvgString = await QRCode.toString(targetUrl, {
-    errorCorrectionLevel: 'H',
+  const qrSvgString = await QRCode.toString(TARGET_URL, {
+    errorCorrectionLevel: 'Q',
+    type: 'svg',
+    margin: 0,
+    color: {
+      dark: '#141c2c',
+      light: '#ffffff',
+    },
+  });
+  const qrSvgStandalone = await QRCode.toString(TARGET_URL, {
+    errorCorrectionLevel: 'Q',
     type: 'svg',
     margin: 2,
     color: {
-      dark: '#111827',
-      light: '#ffffff'
-    }
+      dark: '#141c2c',
+      light: '#ffffff',
+    },
   });
-  fs.writeFileSync(path.join(outDir, 'qr-code-standalone.svg'), qrSvgString);
-  console.log('✓ Saved standalone QR codes (PNG & SVG)');
+  fs.writeFileSync(path.join(OUT_DIR, 'pizzaatish-qr.svg'), qrSvgStandalone);
+  console.log('✓ Saved standalone QR codes (pizzaatish-qr.png & pizzaatish-qr.svg)');
 
-  // 2. Generate Minimalist Standalone Table Stand (A6: 1240 x 1748 px @ 300 DPI)
-  // Clean, modern, luxury dark aesthetic with crisp typography
-  const qrCardBuffer = await sharp(qrPngBuffer)
-    .resize(750, 750)
-    .toBuffer();
+  // Convert Atish color logo to crisp PNG base64 for embedding
+  const logoPngBuffer = await sharp(LOGO_PATH).png().toBuffer();
+  const logoDataUri = `data:image/png;base64,${logoPngBuffer.toString('base64')}`;
 
-  const standSvg = `
-  <svg width="1240" height="1748" viewBox="0 0 1240 1748" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#181518" />
-        <stop offset="50%" stop-color="#0e0e10" />
-        <stop offset="100%" stop-color="#141113" />
-      </linearGradient>
-      <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#f59e0b" />
-        <stop offset="100%" stop-color="#ea580c" />
-      </linearGradient>
-      <filter id="cardShadow" x="-10%" y="-10%" width="120%" height="120%">
-        <feDropShadow dx="0" dy="16" stdDeviation="24" flood-color="#000" flood-opacity="0.6" />
-        <feDropShadow dx="0" dy="0" stdDeviation="12" flood-color="#f59e0b" flood-opacity="0.15" />
-      </filter>
-    </defs>
+  // ============================================================
+  // DESIGN 1: Die-Cut Rounded Sticker (70mm x 85mm @ 300+ DPI)
+  // Screen viewport: 560 x 680 CSS px (exact 70:85 ratio, 2x = 1120x1360 px)
+  // ============================================================
+  const stickerHtml = `<!DOCTYPE html>
+<html lang="fa" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Vazirmatn:wght@600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    @page {
+      size: 70mm 85mm;
+      margin: 0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      font-family: 'Vazirmatn', sans-serif;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      overflow: hidden;
+    }
+    .canvas {
+      width: 100vw;
+      height: 100vh;
+      padding: 4.8vw;
+      background: #ffffff;
+      display: flex;
+      align-items: stretch;
+      justify-content: stretch;
+    }
+    .sticker-frame {
+      flex: 1;
+      border: 3.8vw solid #141c2c;
+      border-radius: 9vw;
+      background: #ffffff;
+      padding: 5.5vw 6vw 4.5vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .header-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 3.4vw;
+      width: 100%;
+    }
+    .logo-img {
+      width: 14.2vw;
+      height: 14.2vw;
+      object-fit: contain;
+      flex-shrink: 0;
+    }
+    .brand-title {
+      font-family: 'Vazirmatn', sans-serif;
+      font-weight: 900;
+      font-size: 11.4vw;
+      line-height: 1;
+      color: #141c2c;
+      direction: rtl;
+      padding-top: 1vw;
+    }
+    .qr-wrap {
+      width: 71vw;
+      height: 71vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .qr-wrap svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .footer-line {
+      display: flex;
+      flex-direction: row-reverse;
+      align-items: center;
+      justify-content: center;
+      gap: 2.2vw;
+      width: 100%;
+      padding-top: 0.6vw;
+    }
+    .footer-fa {
+      font-size: 4.1vw;
+      font-weight: 800;
+      color: #141c2c;
+      direction: rtl;
+    }
+    .footer-dot {
+      width: 1.4vw;
+      height: 1.4vw;
+      border-radius: 50%;
+      background: #ea580c;
+      display: inline-block;
+      flex-shrink: 0;
+    }
+    .footer-url {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 3.9vw;
+      font-weight: 800;
+      letter-spacing: 0.25vw;
+      color: #334155;
+      direction: ltr;
+    }
+  </style>
+</head>
+<body>
+  <div class="canvas">
+    <div class="sticker-frame">
+      <div class="header-row">
+        <img class="logo-img" src="${logoDataUri}" alt="Atish Logo" />
+        <div class="brand-title">پیتزا آتیش</div>
+      </div>
 
-    <!-- Background -->
-    <rect width="1240" height="1748" fill="url(#bgGrad)" />
+      <div class="qr-wrap">
+        ${qrSvgString}
+      </div>
 
-    <!-- Subtle Border Accent -->
-    <rect x="40" y="40" width="1160" height="1668" rx="36" fill="none" stroke="rgba(245,158,11,0.25)" stroke-width="2" />
-    <rect x="48" y="48" width="1144" height="1652" rx="28" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+      <div class="footer-line">
+        <span class="footer-fa">اسکن برای منو</span>
+        <span class="footer-dot"></span>
+        <span class="footer-url">pizzaatish.ir</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>`;
 
-    <!-- Top Badge / Flame -->
-    <g transform="translate(620, 160)">
-      <circle cx="0" cy="0" r="48" fill="#231d1d" stroke="#f59e0b" stroke-width="2" />
-      <text x="0" y="16" font-family="'Vazirmatn', sans-serif" font-size="44" text-anchor="middle" fill="#f59e0b">🔥</text>
-    </g>
+  const stickerHtmlPath = path.join(OUT_DIR, '_tmp-sticker.html');
+  const stickerPdfPath = path.join(OUT_DIR, 'sticker-atish-7x8.5cm.pdf');
+  const stickerPngPath = path.join(OUT_DIR, 'sticker-atish-7x8.5cm.png');
+  fs.writeFileSync(stickerHtmlPath, stickerHtml);
 
-    <!-- Restaurant Name -->
-    <text x="620" y="295" font-family="'Vazirmatn', sans-serif" font-weight="900" font-size="62" text-anchor="middle" fill="#ffffff" letter-spacing="1">
-      فست‌فود و گریل آتیش
-    </text>
+  // Exact 70:85 ratio => 560 x 680 CSS px => @2x = 1120 x 1360 px (>400 DPI at 70x85mm!)
+  renderWithBrave(stickerHtmlPath, stickerPdfPath, stickerPngPath, 560, 680);
+  fs.unlinkSync(stickerHtmlPath);
+  console.log('✓ Generated sticker-atish-7x8.5cm.pdf & .png');
 
-    <!-- Subtitle -->
-    <text x="620" y="365" font-family="'Vazirmatn', sans-serif" font-weight="700" font-size="32" text-anchor="middle" fill="url(#goldGrad)">
-      منوی دیجیتال و سفارش روی میز
-    </text>
+  // ============================================================
+  // DESIGN 2: Minimalist Table Stand Card (A6: 105mm x 148mm)
+  // Screen viewport: 630 x 888 CSS px (exact 105:148 ratio, 2x = 1260x1776 px)
+  // ============================================================
+  const tableHtml = `<!DOCTYPE html>
+<html lang="fa" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700;800;900&family=Vazirmatn:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    @page {
+      size: 105mm 148mm;
+      margin: 0;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      font-family: 'Vazirmatn', sans-serif;
+      color: #18181b;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      overflow: hidden;
+    }
+    .card {
+      width: 100vw;
+      height: 100vh;
+      background: #ffffff;
+      padding: 12vw 10vw 11vw;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+    }
+    .top-brand {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 2.2vw;
+    }
+    .top-logo {
+      width: 8.2vw;
+      height: 8.2vw;
+      object-fit: contain;
+    }
+    .top-name {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 3.9vw;
+      letter-spacing: 0.55vw;
+      color: #18181b;
+      direction: ltr;
+    }
+    .headline-group {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.4vw;
+      margin-top: -1vw;
+    }
+    .headline {
+      font-family: 'Vazirmatn', sans-serif;
+      font-weight: 900;
+      font-size: 8.4vw;
+      line-height: 1.24;
+      color: #18181b;
+      direction: rtl;
+    }
+    .headline-accent {
+      color: #ea580c;
+    }
+    .domain-sub {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 3.1vw;
+      letter-spacing: 0.6vw;
+      color: #3f3f46;
+      margin-top: 1.8vw;
+      direction: ltr;
+    }
+    .qr-box {
+      width: 50vw;
+      height: 50vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1vw 0;
+    }
+    .qr-box svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .footer-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1.6vw;
+      width: 100%;
+      direction: rtl;
+    }
+    .footer-title {
+      font-size: 3.4vw;
+      font-weight: 800;
+      color: #18181b;
+    }
+    .footer-meta {
+      font-size: 2.75vw;
+      font-weight: 600;
+      color: #71717a;
+      line-height: 1.65;
+    }
+    .ltr {
+      direction: ltr;
+      unicode-bidi: isolate;
+      display: inline-block;
+      color: #3f3f46;
+      font-weight: 700;
+    }
+    .ltr-en {
+      direction: ltr;
+      unicode-bidi: isolate;
+      display: inline-block;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      color: #3f3f46;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="top-brand">
+      <img class="top-logo" src="${logoDataUri}" alt="Atish Logo" />
+      <span class="top-name">PIZZA ATISH</span>
+    </div>
 
-    <!-- Instruction Badge -->
-    <g transform="translate(620, 440)">
-      <rect x="-260" y="-24" width="520" height="48" rx="24" fill="rgba(255,255,255,0.08)" stroke="rgba(255,255,255,0.12)" stroke-width="1" />
-      <text x="0" y="10" font-family="'Vazirmatn', sans-serif" font-weight="500" font-size="22" text-anchor="middle" fill="#d1d5db">
-        دوربین گوشی را روی بارکد بگیرید
-      </text>
-    </g>
+    <div class="headline-group">
+      <div class="headline">
+        منوی دیجیتال<br />
+        <span class="headline-accent">پیتزا آتیش</span><br />
+        اسکن کنید
+      </div>
+      <div class="domain-sub">PIZZAATISH.IR</div>
+    </div>
 
-    <!-- White Card Background for QR Code (High Scannability) -->
-    <rect x="180" y="520" width="880" height="880" rx="44" fill="#ffffff" filter="url(#cardShadow)" />
+    <div class="qr-box">
+      ${qrSvgString}
+    </div>
 
-    <!-- Inner subtle corner frames on QR card -->
-    <rect x="210" y="550" width="820" height="820" rx="24" fill="none" stroke="#f3f4f6" stroke-width="2" />
+    <div class="footer-block">
+      <div class="footer-title">دوربین گوشی را روی کد بگیرید</div>
+      <div class="footer-meta">
+        سفارش تلفنی و پیک سریع: <span class="ltr">۰۲۱-۲۲۵۶۱۹۴۹</span><br />
+        اینستاگرام: <span class="ltr-en">@atishfood</span>
+      </div>
+    </div>
+  </div>
+</body>
+</html>`;
 
-    <!-- Bottom Action Details -->
-    <text x="620" y="1480" font-family="'Vazirmatn', sans-serif" font-weight="700" font-size="28" text-anchor="middle" fill="#f3f4f6">
-      پیتزا ناپلی و آمریکایی · برگر دست‌ساز · سوخاری
-    </text>
+  const tableHtmlPath = path.join(OUT_DIR, '_tmp-table-stand.html');
+  const tablePdfPath = path.join(OUT_DIR, 'table-stand-A6.pdf');
+  const tablePngPath = path.join(OUT_DIR, 'table-stand-A6.png');
+  fs.writeFileSync(tableHtmlPath, tableHtml);
 
-    <text x="620" y="1540" font-family="'Vazirmatn', sans-serif" font-weight="600" font-size="24" text-anchor="middle" fill="#a1a1aa">
-      سفارش تلفنی و پیک سریع: ۰۲۱-۲۲۵۶۱۹۴۹
-    </text>
-
-    <g transform="translate(620, 1610)">
-      <rect x="-160" y="-20" width="320" height="40" rx="20" fill="rgba(245,158,11,0.15)" stroke="rgba(245,158,11,0.3)" stroke-width="1" />
-      <text x="0" y="8" font-family="'Vazirmatn', sans-serif" font-weight="600" font-size="20" text-anchor="middle" fill="#fbbf24">
-        📶 اینترنت وای‌فای رایگان
-      </text>
-    </g>
-  </svg>
-  `;
-
-  // Composite QR code on top of the Stand SVG
-  await sharp(Buffer.from(standSvg))
-    .composite([
-      {
-        input: qrCardBuffer,
-        top: 585,
-        left: 245
-      }
-    ])
-    .png()
-    .toFile(path.join(outDir, 'table-stand-A6.png'));
-  console.log('✓ Generated table-stand-A6.png (1240x1748 @ 300DPI)');
-
-  // 3. Generate Minimalist Round Box Sticker (750 x 750 px)
-  const stickerQrBuffer = await sharp(qrPngBuffer)
-    .resize(460, 460)
-    .toBuffer();
-
-  const stickerSvg = `
-  <svg width="750" height="750" viewBox="0 0 750 750" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-      <linearGradient id="stickerBg" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="#1c1618" />
-        <stop offset="100%" stop-color="#0a0a0c" />
-      </linearGradient>
-    </defs>
-    <!-- Circle Outer Border -->
-    <circle cx="375" cy="375" r="365" fill="url(#stickerBg)" stroke="#f59e0b" stroke-width="6" />
-    <circle cx="375" cy="375" r="350" fill="none" stroke="rgba(255,255,255,0.15)" stroke-width="1.5" />
-
-    <!-- Top Text -->
-    <text x="375" y="85" font-family="'Vazirmatn', sans-serif" font-weight="900" font-size="34" text-anchor="middle" fill="#ffffff">
-      🔥 فست‌فود و گریل آتیش
-    </text>
-    <text x="375" y="125" font-family="'Vazirmatn', sans-serif" font-weight="600" font-size="20" text-anchor="middle" fill="#f59e0b">
-      اسکن کنید و منوی داغ رو ببینید
-    </text>
-
-    <!-- White Base for QR -->
-    <rect x="125" y="145" width="500" height="500" rx="32" fill="#ffffff" />
-
-    <!-- Bottom Contact -->
-    <text x="375" y="695" font-family="'Vazirmatn', sans-serif" font-weight="800" font-size="26" text-anchor="middle" fill="#fbbf24">
-      تلفن سفارشات: ۰۲۱-۲۲۵۶۱۹۴۹
-    </text>
-  </svg>
-  `;
-
-  await sharp(Buffer.from(stickerSvg))
-    .composite([
-      {
-        input: stickerQrBuffer,
-        top: 165,
-        left: 145
-      }
-    ])
-    .png()
-    .toFile(path.join(outDir, 'box-sticker-round.png'));
-  console.log('✓ Generated box-sticker-round.png (750x750 @ 300DPI)');
+  // Exact 105:148 ratio => 630 x 888 CSS px => @2x = 1260 x 1776 px (>300 DPI at A6!)
+  renderWithBrave(tableHtmlPath, tablePdfPath, tablePngPath, 630, 888);
+  fs.unlinkSync(tableHtmlPath);
+  console.log('✓ Generated table-stand-A6.pdf & .png');
 }
 
-run().catch(err => {
+run().catch((err) => {
   console.error(err);
   process.exit(1);
 });
