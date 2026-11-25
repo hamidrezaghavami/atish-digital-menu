@@ -848,7 +848,7 @@ function renderApp() {
 
             <!-- Big Title -->
             <h1 class="text-xl sm:text-2xl lg:text-4xl font-black text-white leading-tight mb-2.5">
-              ${isXmas ? 'گرمای زمستون با <span class="text-gradient-fire">پیتزا آتیش</span> ❄️' : 'طعم اصیل و لذیذ <span class="text-gradient-fire">پیتزا آتیش</span>'}
+              ${isXmas ? 'گرمای زمستون با <span class="text-gradient-fire">آتیش</span> ❄️' : 'طعم اصیل و لذیذ <span class="text-gradient-fire">آتیش</span>'}
             </h1>
             
             <p class="text-zinc-300 text-xs sm:text-sm lg:text-base leading-relaxed font-light max-w-2xl">

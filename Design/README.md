@@ -1,4 +1,4 @@
-# Pizza Atish — Print & QR Designs (`https://pizzaatish.ir`)
+# ATISH (آتیش) — Print & QR Designs (`https://pizzaatish.ir`)
 
 All QR codes in this folder are **static, permanent links** to **`https://pizzaatish.ir`**.
 

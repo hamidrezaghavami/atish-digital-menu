@@ -245,7 +245,7 @@ window.addEventListener('appinstalled', () => {
   installPwaBtn.hidden = true;
   installPwaTopBtn.hidden = true;
   installedBadge.hidden = false;
-  announce('اپلیکیشن صندوق پیتزا آتیش روی کامپیوتر نصب شد.');
+  announce('اپلیکیشن صندوق آتیش روی کامپیوتر نصب شد.');
 });
 
 async function handleInstallClick() {

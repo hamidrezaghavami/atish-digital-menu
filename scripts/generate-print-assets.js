@@ -155,11 +155,11 @@ async function run() {
     .brand-title {
       font-family: 'Vazirmatn', sans-serif;
       font-weight: 900;
-      font-size: 11.4vw;
+      font-size: 14.5vw;
       line-height: 1;
       color: #141c2c;
       direction: rtl;
-      padding-top: 1vw;
+      padding-top: 0.8vw;
     }
     .qr-wrap {
       width: 71vw;
@@ -211,7 +211,7 @@ async function run() {
     <div class="sticker-frame">
       <div class="header-row">
         <img class="logo-img" src="${logoDataUri}" alt="Atish Logo" />
-        <div class="brand-title">پیتزا آتیش</div>
+        <div class="brand-title">آتیش</div>
       </div>
 
       <div class="qr-wrap">
@@ -376,13 +376,13 @@ async function run() {
   <div class="card">
     <div class="top-brand">
       <img class="top-logo" src="${logoDataUri}" alt="Atish Logo" />
-      <span class="top-name">PIZZA ATISH</span>
+      <span class="top-name">ATISH</span>
     </div>
 
     <div class="headline-group">
       <div class="headline">
         منوی دیجیتال<br />
-        <span class="headline-accent">پیتزا آتیش</span><br />
+        <span class="headline-accent">آتیش</span><br />
         اسکن کنید
       </div>
       <div class="domain-sub">PIZZAATISH.IR</div>

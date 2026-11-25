@@ -1,7 +1,7 @@
 {
-  "name": "صندوق پیتزا آتیش | Staff",
+  "name": "صندوق آتیش | ATISH Staff",
   "short_name": "صندوق آتیش",
-  "description": "پنل اختصاصی صندوق‌دار و مدیریت تخفیف‌های پیتزا آتیش",
+  "description": "پنل اختصاصی صندوق‌دار و مدیریت تخفیف‌های آتیش",
   "start_url": "/",
   "id": "/",
   "display": "standalone",
