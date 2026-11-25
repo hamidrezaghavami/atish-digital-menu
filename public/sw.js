@@ -1,4 +1,4 @@
-const CACHE_NAME = 'atish-menu-v22';
+const CACHE_NAME = 'atish-menu-v23';
 
 // Core shell assets to pre-cache immediately on install
 const PRECACHE_ASSETS = [

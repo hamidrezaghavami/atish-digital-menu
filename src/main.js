@@ -681,13 +681,13 @@ function renderApp() {
         
         <!-- Logo & Title -->
         <a href="#" id="header-logo-link" class="flex items-center gap-2 min-w-0" title="آتیش">
-          <div class="xmas-logo-wrap w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0 drop-shadow-[0_0_12px_rgba(245,158,11,0.6)]">
+          <div class="xmas-logo-wrap w-9 h-9 sm:w-10 sm:h-10 flex-shrink-0">
             <img 
               src="${logoImg}" 
               alt="${restaurant.name}" 
-              class="w-full h-full object-contain cursor-pointer select-none"
+              class="relative z-[1] w-full h-full object-contain cursor-pointer select-none"
             />
-            ${isXmas ? `<span class="xmas-santa-hat">${SANTA_HAT_SVG}</span>` : ''}
+            ${isXmas ? `<span class="xmas-santa-hat z-[2]">${SANTA_HAT_SVG}</span>` : ''}
           </div>
           <div class="flex flex-col text-right min-w-0">
             <div class="text-xs sm:text-sm md:text-base font-black text-white tracking-tight flex items-center gap-1.5 truncate">
@@ -987,7 +987,7 @@ function renderApp() {
               </div>
               <div>
                 <h3 class="text-sm md:text-base font-black text-white">${restaurant.brandTitle}</h3>
-                <span class="text-[11px] text-zinc-400">${isXmas ? 'تم ویژه کریسمس و سال نو · فعال هر سال از ۲۲ نوامبر تا ۵ ژانویه' : restaurant.tagline}</span>
+                <span class="text-[11px] text-zinc-400">${restaurant.tagline}</span>
               </div>
             </div>
             <p class="text-xs text-zinc-400 leading-relaxed font-light">

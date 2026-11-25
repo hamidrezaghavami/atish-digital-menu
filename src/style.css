@@ -489,9 +489,25 @@ html.theme-christmas .contact-nav {
   50% { opacity: 0.48; transform: scale(0.88); }
 }
 
-/* Santa Hat Overlay on Logo & Mascot */
+/* Santa Hat Overlay on Logo & Mascot + Seamless Feathered Radial Halo */
 .xmas-logo-wrap {
   position: relative;
+  isolation: isolate;
+}
+
+.xmas-logo-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    rgba(245, 158, 11, 0.28) 0%,
+    rgba(234, 88, 12, 0.1) 42%,
+    rgba(234, 88, 12, 0) 70%
+  );
+  pointer-events: none;
+  z-index: 0;
 }
 
 .xmas-santa-hat {
