@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>صندوق و پنل فروش پیتزا آتیش | Atish POS</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="theme-color" content="#0c0c0f" />
+  <meta name="color-scheme" content="dark" />
+
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+  <link rel="icon" type="image/webp" href="/icons/logo.webp" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;700;800&family=Vazirmatn:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/src/styles.css" />
+</head>
+<body>
+  <div id="sr-announcer" class="visually-hidden" aria-live="polite"></div>
+
+  <!-- =========================================================
+       VIEW 1: FIRST-TIME DEVICE ACTIVATION (PIN ONCE)
+       ========================================================= -->
+  <main id="auth-screen" class="auth-screen" hidden>
+    <section class="auth-card" aria-labelledby="auth-heading">
+      <div class="auth-logo-wrap">
+        <img src="/icons/logo.webp" alt="لوگوی پیتزا آتیش" class="auth-logo" width="68" height="68" />
+      </div>
+      <h1 id="auth-heading" class="auth-title">فعال‌سازی صندوق پیتزا آتیش</h1>
+      <p class="auth-subtitle">فقط یک‌بار رمز صندوق را وارد کنید — پس از ورود، این کامپیوتر همیشه متصل می‌ماند.</p>
+
+      <div id="demo-auth-pill" class="demo-pill" hidden>
+        حالت پیش‌نمایش لوکال · رمز دمو صندوق: <strong dir="ltr">1234</strong>
+      </div>
+
+      <form id="auth-form" class="auth-form" novalidate>
+        <div class="field">
+          <label for="cashier-pin" class="field-label">رمز ۴ رقمی صندوق</label>
+          <span id="cashier-pin-hint" class="field-hint">۴ رقم عددی (فارسی یا انگلیسی)</span>
+          <input
+            id="cashier-pin"
+            name="pin"
+            type="password"
+            inputmode="numeric"
+            autocomplete="one-time-code"
+            maxlength="4"
+            pattern="[0-9۰-۹]{4}"
+            required
+            placeholder="••••"
+            dir="ltr"
+            aria-describedby="cashier-pin-hint"
+            data-error="cashier-pin-error"
+            class="pin-input"
+          />
+          <div id="cashier-pin-error" class="error-msg">
+            <span role="img" aria-label="خطا">⚠️</span> لطفاً رمز ۴ رقمی معتبر وارد کنید.
+          </div>
+        </div>
+
+        <div id="auth-server-error" class="inline-alert inline-alert--error" hidden></div>
+
+        <button type="submit" class="btn btn-primary btn-lg">
+          ورود و ذخیره روی این دستگاه
+        </button>
+      </form>
+
+      <p class="auth-foot">staff.pizzaatish.ir · پنل اختصاصی فروش و صندوق</p>
+    </section>
+  </main>
+
+  <!-- =========================================================
+       VIEW 2: FULL E-COMMERCE POS SHELL (ONLY DISCOUNTS ACTIVE)
+       ========================================================= -->
+  <div id="app-shell" class="pos-layout" hidden>
+    <!-- Right Sidebar (Desktop Windows POS) -->
+    <aside class="sidebar" aria-label="منوی پنل فروش و صندوق">
+      <button type="button" id="brand-home-btn" class="sidebar-brand" aria-label="بازگشت به صفحه اصلی صندوق">
+        <img src="/icons/logo.webp" alt="آتیش" class="brand-logo" width="42" height="42" />
+        <div class="brand-text">
+          <span class="brand-name">پیتزا آتیش POS</span>
+          <span class="status-line">
+            <span id="sidebar-status-dot" class="status-dot" aria-hidden="true"></span>
+            <span id="sidebar-status-text">صندوق آنلاین</span>
+          </span>
+        </div>
+      </button>
+
+      <div class="sidebar-group-label">بخش فعال</div>
+      <nav class="sidebar-nav" aria-label="بخش‌های پنل">
+        <button type="button" class="side-nav-item is-active" data-tab="discounts" aria-current="page">
+          <span class="side-nav-main">
+            <span class="side-nav-icon" aria-hidden="true">🎟️</span>
+            <span>کد تخفیف</span>
+          </span>
+          <span class="state-pill state-pill--active">فعال</span>
+        </button>
+
+        <div class="sidebar-group-label sidebar-group-label--spaced">فروش آنلاین (فعلاً خاموش)</div>
+
+        <button type="button" class="side-nav-item is-locked" data-tab="orders">
+          <span class="side-nav-main">
+            <span class="side-nav-icon" aria-hidden="true">🛵</span>
+            <span>سفارش آنلاین</span>
+          </span>
+          <span class="state-pill state-pill--off" data-ecom-badge>🔒 خاموش</span>
+        </button>
+
+        <button type="button" class="side-nav-item is-locked" data-tab="menu">
+          <span class="side-nav-main">
+            <span class="side-nav-icon" aria-hidden="true">🍽️</span>
+            <span>مدیریت منو</span>
+          </span>
+          <span class="state-pill state-pill--off" data-ecom-badge>🔒 خاموش</span>
+        </button>
+
+        <button type="button" class="side-nav-item is-locked" data-tab="sales">
+          <span class="side-nav-main">
+            <span class="side-nav-icon" aria-hidden="true">💳</span>
+            <span>گزارش فروش</span>
+          </span>
+          <span class="state-pill state-pill--off" data-ecom-badge>🔒 خاموش</span>
+        </button>
+      </nav>
+
+      <!-- Bottom Sidebar Utilities: Install as Windows App + Owner Settings -->
+      <div class="sidebar-footer">
+        <button type="button" id="install-pwa-btn" class="install-card-btn">
+          <span class="install-icon" aria-hidden="true">💻</span>
+          <span class="install-copy">
+            <strong>نصب روی کامپیوتر</strong>
+            <span>ذخیره به‌صورت اپ ویندوز</span>
+          </span>
+        </button>
+        <div id="installed-badge" class="installed-pill" hidden>
+          ✅ نصب‌شده به‌صورت اپ دسکتاپ
+        </div>
+
+        <button type="button" id="open-owner-btn" class="owner-foot-btn">
+          <span aria-hidden="true">🔒</span>
+          <span>تنظیمات مدیریت</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- Main Column -->
+    <div class="main-column">
+      <!-- Slim Top Status Bar -->
+      <header class="topbar">
+        <div class="topbar-inner">
+          <button type="button" id="mobile-brand-home-btn" class="mobile-brand-btn mobile-only" aria-label="صفحه اصلی صندوق">
+            <img src="/icons/logo.webp" alt="آتیش" width="32" height="32" />
+            <span>پیتزا آتیش POS</span>
+          </button>
+
+          <div class="topbar-mode-note">
+            <span id="top-mode-dot" class="mode-dot" aria-hidden="true"></span>
+            <span id="mode-banner-text">
+              وضعیت سیستم: <strong>فقط بخش «کد تخفیف» فعال است</strong> · فروش آنلاین خاموش
+            </span>
+          </div>
+
+          <div class="topbar-actions">
+            <span id="demo-badge" class="demo-badge" hidden>نسخه دمو</span>
+            <button type="button" id="install-pwa-top-btn" class="btn-install-mini mobile-only">
+              <span aria-hidden="true">⬇️</span>
+              <span>نصب اپ</span>
+            </button>
+            <button type="button" id="open-owner-mobile-btn" class="btn-icon-pill mobile-only">
+              <span aria-hidden="true">🔒</span>
+              <span>مدیریت</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Mobile Horizontal Tabs (hidden on desktop) -->
+        <nav class="mobile-tabs" aria-label="تب‌های موبایل">
+          <button type="button" class="mobile-tab is-active" data-tab="discounts">🎟️ کد تخفیف</button>
+          <button type="button" class="mobile-tab is-locked" data-tab="orders">🔒 سفارش آنلاین</button>
+          <button type="button" class="mobile-tab is-locked" data-tab="menu">🔒 منو</button>
+          <button type="button" class="mobile-tab is-locked" data-tab="sales">🔒 فروش</button>
+        </nav>
+      </header>
+
+      <!-- Workspace Content -->
+      <main class="workspace">
+        <!-- =================================================
+             TAB 1: DISCOUNTS (ACTIVE CASHIER WORKSPACE)
+             ================================================= -->
+        <section id="tab-discounts" class="tab-panel">
+          <div class="verify-card">
+            <div class="verify-head">
+              <div>
+                <h1 class="verify-title">بررسی و ثبت کد تخفیف مشتری</h1>
+                <p class="verify-sub">کد تخفیف مشتری را وارد کنید تا اعتبار و درصد آن فوری نمایش داده شود.</p>
+              </div>
+              <span id="wheel-live-pill" class="wheel-pill wheel-pill--on">گردونه فعال است</span>
+            </div>
+
+            <form id="verify-form" class="verify-form" novalidate>
+              <div class="field">
+                <label for="code-input" class="field-label">کد تخفیف</label>
+                <span id="code-hint" class="field-hint">
+                  مثال: <strong dir="ltr">K48-912-607</strong> — خط تیره خودکار قرار می‌گیرد (اعداد فارسی هم قبول است)
+                </span>
+                <div class="code-input-row">
+                  <input
+                    id="code-input"
+                    name="code"
+                    type="text"
+                    inputmode="text"
+                    autocomplete="off"
+                    autocapitalize="characters"
+                    spellcheck="false"
+                    maxlength="11"
+                    required
+                    pattern="[A-Za-z][0-9]{2}-[0-9]{3}-[0-9]{3}"
+                    placeholder="K48-912-607"
+                    dir="ltr"
+                    aria-describedby="code-hint"
+                    data-error="code-error"
+                    class="code-input"
+                  />
+                  <button type="button" id="clear-input-btn" class="clear-btn" aria-label="پاک کردن کد" hidden>✕</button>
+                </div>
+                <div id="code-error" class="error-msg">
+                  <span role="img" aria-label="خطا">⚠️</span> فرمت کد باید یک حرف انگلیسی و ۸ رقم باشد (مثال: K48-912-607).
+                </div>
+              </div>
+
+              <button type="submit" id="check-btn" class="btn btn-primary btn-xl">
+                بررسی کد تخفیف
+              </button>
+            </form>
+
+            <!-- Localhost Demo Quick-Test Chips -->
+            <div id="demo-chips-bar" class="demo-chips-bar" hidden>
+              <span class="demo-chips-label">تست سریع روی لوکال:</span>
+              <div class="demo-chips">
+                <button type="button" class="demo-chip demo-chip--valid" data-demo-code="K48-912-607">K48-912-607 (معتبر ۲۰٪)</button>
+                <button type="button" class="demo-chip demo-chip--valid" data-demo-code="A15-304-882">A15-304-882 (معتبر ۳۰٪)</button>
+                <button type="button" class="demo-chip demo-chip--used" data-demo-code="T77-402-911">T77-402-911 (مصرف‌شده)</button>
+                <button type="button" class="demo-chip demo-chip--expired" data-demo-code="P33-108-290">P33-108-290 (منقضی)</button>
+                <button type="button" class="demo-chip demo-chip--invalid" data-demo-code="Z99-000-111">Z99-000-111 (اشتباه)</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Instant Full-Color Result Card -->
+          <section id="result-panel" class="result-panel" aria-live="polite" hidden></section>
+
+          <!-- Today's Redeemed Log -->
+          <section class="log-card" aria-labelledby="log-heading">
+            <div class="log-head">
+              <h2 id="log-heading" class="log-title">کدهای ثبت‌شده امروز</h2>
+              <span id="today-count-pill" class="count-pill">۰ مورد</span>
+            </div>
+            <div id="log-list" class="log-list"></div>
+          </section>
+        </section>
+
+        <!-- =================================================
+             TAB 2: ONLINE ORDERS (LOCKED BY DEFAULT)
+             ================================================= -->
+        <section id="tab-orders" class="tab-panel" hidden>
+          <div class="locked-module-card" data-locked-view>
+            <div class="locked-icon" aria-hidden="true">🔒</div>
+            <span class="locked-pill">بخش فروش آنلاین غیرفعال است</span>
+            <h1 class="locked-title">سفارش‌های آنلاین فعلاً خاموش است</h1>
+            <p class="locked-desc">
+              در حال حاضر فقط بخش <strong>«کد تخفیف»</strong> برای صندوق‌دار فعال می‌باشد.
+              وقتی فروش آنلاین و درگاه پرداخت روی <strong dir="ltr">pizzaatish.ir</strong> روشن شود، سفارش‌های مشتریان همراه با زنگ هشدار همین‌جا نمایش داده می‌شوند.
+            </p>
+            <button type="button" class="btn btn-primary btn-lg back-to-discounts-btn">
+              بازگشت به بخش کد تخفیف
+            </button>
+          </div>
+
+          <!-- Dimmed Future Preview Skeleton (visual clarity without confusion) -->
+          <div class="future-preview-wrap" aria-hidden="true">
+            <div class="future-preview-label">پیش‌نمایش ساختار آینده (غیرفعال)</div>
+            <article class="order-mock-card">
+              <div class="order-mock-top">
+                <span class="order-num">#۱۰۴۲ · پرداخت اینترنتی موفق</span>
+                <span class="order-status-pill">در انتظار تایید صندوق</span>
+              </div>
+              <p class="order-items">۱× پیتزا استیک ایتالیایی · ۱× آتیش برگر · ۲× کوکاکولا</p>
+              <div class="order-mock-foot">
+                <span class="order-total">۱,۲۸۵,۰۰۰ تومان</span>
+                <div class="order-mock-actions">
+                  <button type="button" class="btn btn-success btn-sm" disabled>پذیرش سفارش</button>
+                  <button type="button" class="btn btn-ghost btn-sm" disabled>چاپ فیش</button>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <!-- =================================================
+             TAB 3: MENU & AVAILABILITY (LOCKED BY DEFAULT)
+             ================================================= -->
+        <section id="tab-menu" class="tab-panel" hidden>
+          <div class="locked-module-card" data-locked-view>
+            <div class="locked-icon" aria-hidden="true">🔒</div>
+            <span class="locked-pill">بخش فروش آنلاین غیرفعال است</span>
+            <h1 class="locked-title">مدیریت موجودی منو فعلاً خاموش است</h1>
+            <p class="locked-desc">
+              در حال حاضر فقط بخش <strong>«کد تخفیف»</strong> فعال است. پس از فعال‌سازی سفارش آنلاین، از این بخش می‌توانید غذاهای تمام‌شده را با یک کلیک موقتاً ناموجود کنید.
+            </p>
+            <button type="button" class="btn btn-primary btn-lg back-to-discounts-btn">
+              بازگشت به بخش کد تخفیف
+            </button>
+          </div>
+        </section>
+
+        <!-- =================================================
+             TAB 4: SALES & PAYMENTS (LOCKED BY DEFAULT)
+             ================================================= -->
+        <section id="tab-sales" class="tab-panel" hidden>
+          <div class="locked-module-card" data-locked-view>
+            <div class="locked-icon" aria-hidden="true">🔒</div>
+            <span class="locked-pill">بخش فروش آنلاین غیرفعال است</span>
+            <h1 class="locked-title">گزارش فروش و تراکنش‌ها فعلاً خاموش است</h1>
+            <p class="locked-desc">
+              در حال حاضر فقط بخش <strong>«کد تخفیف»</strong> فعال است. پس از اتصال به درگاه پرداخت آنلاین، جمع فروش روزانه و گزارش تراکنش‌ها در این بخش نمایش داده می‌شود.
+            </p>
+            <button type="button" class="btn btn-primary btn-lg back-to-discounts-btn">
+              بازگشت به بخش کد تخفیف
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       NATIVE MODAL: INSTALL AS WINDOWS DESKTOP APP GUIDE
+       ========================================================= -->
+  <dialog id="install-modal" class="owner-dialog" closedby="any" aria-labelledby="install-modal-title">
+    <div class="dialog-head">
+      <h1 id="install-modal-title" class="dialog-title">💻 نصب صندوق آتیش روی کامپیوتر</h1>
+      <form method="dialog">
+        <button type="submit" value="close" class="dialog-close-btn" aria-label="بستن راهنما">✕</button>
+      </form>
+    </div>
+    <div class="dialog-body">
+      <p class="dialog-subtitle">
+        برای اینکه صندوق‌دار همیشه با یک کلیک مثل یک نرم‌افزار ویندوز وارد شود (بدون باز کردن مرورگر):
+      </p>
+      <ol class="install-steps">
+        <li>
+          <strong>ویندوز و مک (Chrome / Edge / Brave):</strong>
+          <span>روی آیکون نصب (<strong>⊕</strong> یا نمایشگر کوچک) در سمت راست نوار آدرس بالای مرورگر کلیک کنید و <strong>Install</strong> را بزنید.</span>
+        </li>
+        <li>
+          <strong>مک (Safari):</strong>
+          <span>از منوی بالای صفحه <strong>File → Add to Dock</strong> را انتخاب کنید.</span>
+        </li>
+        <li>
+          <strong>همیشه آماده کار:</strong>
+          <span>آیکون <strong>پیتزا آتیش</strong> روی دسکتاپ/تسک‌بار ذخیره می‌شود و صندوق‌دار با یک کلیک مستقیم وارد صفحه کد تخفیف می‌شود.</span>
+        </li>
+      </ol>
+      <form method="dialog">
+        <button type="submit" value="ok" class="btn btn-primary btn-lg">متوجه شدم</button>
+      </form>
+    </div>
+  </dialog>
+
+  <!-- =========================================================
+       NATIVE MODAL: OWNER MANAGEMENT PANEL
+       ========================================================= -->
+  <dialog id="owner-modal" class="owner-dialog" closedby="any" aria-labelledby="owner-modal-title">
+    <div class="dialog-head">
+      <h1 id="owner-modal-title" class="dialog-title">🔒 پنل مدیریت آتیش</h1>
+      <form method="dialog">
+        <button type="submit" value="close" class="dialog-close-btn" aria-label="بستن پنل مدیریت">✕</button>
+      </form>
+    </div>
+
+    <!-- Step A: Owner PIN Gate -->
+    <div id="owner-pin-gate" class="dialog-body">
+      <p class="dialog-subtitle">برای مشاهده آمار جوایز و کنترل بخش‌های سیستم، رمز مدیریت را وارد کنید.</p>
+      <div id="demo-owner-pill" class="demo-pill" hidden>
+        رمز دمو مدیریت: <strong dir="ltr">9999</strong>
+      </div>
+      <form id="owner-pin-form" class="owner-pin-form" novalidate>
+        <div class="field">
+          <label for="owner-pin-input" class="field-label">رمز مدیریت</label>
+          <span id="owner-pin-hint" class="field-hint">۴ رقم عددی</span>
+          <input
+            id="owner-pin-input"
+            type="password"
+            inputmode="numeric"
+            maxlength="4"
+            pattern="[0-9۰-۹]{4}"
+            required
+            autofocus
+            placeholder="••••"
+            dir="ltr"
+            aria-describedby="owner-pin-hint"
+            data-error="owner-pin-error"
+            class="pin-input"
+          />
+          <div id="owner-pin-error" class="error-msg">
+            <span role="img" aria-label="خطا">⚠️</span> لطفاً رمز ۴ رقمی مدیریت را وارد کنید.
+          </div>
+        </div>
+        <div id="owner-pin-server-error" class="inline-alert inline-alert--error" hidden></div>
+        <button type="submit" class="btn btn-primary btn-lg">باز کردن پنل مدیریت</button>
+      </form>
+    </div>
+
+    <!-- Step B: Owner Controls & Stock -->
+    <div id="owner-dashboard" class="dialog-body" hidden>
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <span class="kpi-label">ثبت‌شده امروز</span>
+          <strong id="kpi-today" class="kpi-value">۰</strong>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-label">کل کدهای مصرف‌شده</span>
+          <strong id="kpi-total" class="kpi-value">۰</strong>
+        </div>
+      </div>
+
+      <div class="owner-section">
+        <h2 class="owner-section-title">سقف باقی‌مانده جوایز گردونه</h2>
+        <div id="stock-bars" class="stock-bars"></div>
+      </div>
+
+      <div class="owner-section">
+        <h2 class="owner-section-title">کلیدهای اصلی سیستم</h2>
+
+        <label class="switch-row">
+          <div class="switch-copy">
+            <strong>گردونه شانس در سایت اصلی</strong>
+            <span>روشن یا خاموش کردن صدور کد تخفیف جدید</span>
+          </div>
+          <input type="checkbox" id="toggle-wheel" class="toggle-input" />
+        </label>
+
+        <div class="switch-row switch-row--disabled" aria-disabled="true">
+          <div class="switch-copy">
+            <strong>بخش فروش آنلاین (E-Commerce)</strong>
+            <span>خاموش · پس از اتصال درگاه پرداخت فعال می‌شود</span>
+          </div>
+          <span class="state-pill state-pill--off">خاموش</span>
+        </div>
+      </div>
+
+      <div class="owner-footer-actions">
+        <button type="button" id="reset-demo-btn" class="btn btn-ghost btn-sm" hidden>بازنشانی داده‌های دمو</button>
+        <button type="button" id="logout-device-btn" class="btn btn-danger-outline btn-sm">خروج این دستگاه</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script type="module" src="/src/app.js"></script>
+</body>
+</html>

@@ -68,3 +68,37 @@ jobs:
             --endpoint-url=https://s3.ir-central1.arvanstorage.ir \
             --acl public-read \
             --cache-control "public, max-age=86400, stale-while-revalidate=86400"
+
+      - name: Deploy staff POS PWA to ArvanCloud S3 (staff.pizzaatish.ir)
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.ARVAN_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.ARVAN_SECRET_KEY }}
+          AWS_DEFAULT_REGION: ir-central1
+        run: |
+          # 1. Sync staff assets & icons
+          aws s3 sync staff/ s3://staff-pizzaatish \
+            --endpoint-url=https://s3.ir-central1.arvanstorage.ir \
+            --delete \
+            --acl public-read \
+            --cache-control "public, max-age=3600, must-revalidate" \
+            --exclude "index.html" \
+            --exclude "sw.js" \
+            --exclude "manifest.json"
+
+          # 2. Upload staff index.html with no-cache
+          aws s3 cp staff/index.html s3://staff-pizzaatish/index.html \
+            --endpoint-url=https://s3.ir-central1.arvanstorage.ir \
+            --acl public-read \
+            --cache-control "public, max-age=0, must-revalidate"
+
+          # 3. Upload staff Service Worker with no-cache
+          aws s3 cp staff/sw.js s3://staff-pizzaatish/sw.js \
+            --endpoint-url=https://s3.ir-central1.arvanstorage.ir \
+            --acl public-read \
+            --cache-control "public, max-age=0, must-revalidate"
+
+          # 4. Upload staff manifest.json
+          aws s3 cp staff/manifest.json s3://staff-pizzaatish/manifest.json \
+            --endpoint-url=https://s3.ir-central1.arvanstorage.ir \
+            --acl public-read \
+            --cache-control "public, max-age=86400, stale-while-revalidate=86400"
