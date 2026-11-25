@@ -855,7 +855,6 @@ function renderApp() {
               پیتزاهای پرملات آمریکایی و ایتالیایی پخته‌شده در فر لینکولن و برگرهای دست‌ساز با گوشت خالص. سفارش آنلاین دلیوری با اسنپ‌فود یا سفارش مستقیم تلفنی با پیک گرم.
             </p>
 
-            ${/* [DISABLED UNTIL BACKEND CONNECTED - Shiny Interactive Spin-the-Wheel Hero Box]
             <!-- Shiny Interactive Spin-the-Wheel Hero Box -->
             <button
               type="button"
@@ -892,7 +891,6 @@ function renderApp() {
                 بچرخون ✨
               </span>
             </button>
-            */ ''}
           </div>
 
           <!-- 3D Burger Artwork Showcase (5 cols on desktop, Left Side) -->
@@ -1221,7 +1219,6 @@ function renderApp() {
     </div>
     */ ''}
 
-    ${/* [DISABLED UNTIL BACKEND CONNECTED - Interactive 8-Slice Spin-the-Wheel Modal]
     <!-- Interactive 8-Slice Spin-the-Wheel Modal -->
     <div id="spin-wheel-modal" class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity">
       <div class="w-full max-w-md bg-[#141418] border-t sm:border border-amber-400/35 rounded-t-3xl sm:rounded-3xl max-h-[94vh] overflow-y-auto shadow-2xl p-5 text-right">
@@ -1264,7 +1261,6 @@ function renderApp() {
         <div id="spin-wheel-result" class="mt-4"></div>
       </div>
     </div>
-    */ ''}
 
     <!-- Toast Notification -->
     <div id="toast-notification" class="fixed top-16 left-1/2 -translate-x-1/2 z-50 pointer-events-none opacity-0 -translate-y-4 bg-emerald-500 text-white font-black text-xs px-3.5 py-2 rounded-xl shadow-xl flex items-center gap-1.5">
@@ -1621,8 +1617,8 @@ function setupEventListeners() {
   }
   window.addEventListener('resize', syncHeaderHeight, { passive: true });
 
-  // [DISABLED UNTIL BACKEND CONNECTED - Spin-the-Wheel Promo System]
-  // initSpinWheelSystem();
+  // Live Spin-the-Wheel Promo System (connected to ArvanCloud Edge Function)
+  initSpinWheelSystem();
 
   // [DISABLED UNTIL FURTHER NOTICE - QR Discount & 5-Tap Cashier System]
   // initVipOfferSystem();
@@ -2183,19 +2179,16 @@ function initVipOfferSystem() {
 }
 */
 
-/* [DISABLED UNTIL BACKEND CONNECTED - ArvanCloud Edge Function Spin-the-Wheel]
 // =========================================================================
 // ATISH SPIN-THE-WHEEL PROMO ENGINE (8 Slices: 5%, 10%, 20%, 30% + 4 Fun)
 // =========================================================================
-// Planned Server-Side Rules (ArvanCloud Edge Function — ZERO secrets in public repo/frontend):
+// Server-Side Rules (ArvanCloud Edge Function — ZERO secrets in public repo/frontend):
 // - Code Format: 1 BIG uppercase letter (A-Z, excluding I/O) + 8 digits -> e.g. K48-912-607
-// - Uncrackable Security: CSPRNG random generation (2.4B space) + server-side HMAC-SHA256 with
-//   256-bit secret key stored ONLY in ArvanCloud Environment Secrets + private server-side lookup
+// - Uncrackable Security: CSPRNG random generation + private server-side vault
 // - 1 spin per device
 // - Global Depletion Quotas (50 total): 5% = 20, 10% = 15, 20% = 10, 30% = 5
-// - When any discount tier hits 0 remaining, backend excludes it and forces other slices
-// - Auto-expires automatically 3 days after the user receives the code (no ticking countdown shown)
-// - Cashier portal verification checks live server & marks code "redeemed" permanently
+// - Auto-expires automatically 3 days after the user receives the code
+const SPIN_API_BASE = 'https://atish-api.hamidrghavami-srvao.arvanedge.ir';
 const SPIN_CODE_TTL_MS = 3 * 24 * 60 * 60 * 1000; // 3 days automatic expiry
 const SPIN_CODE_PATTERN = /^[A-Z][0-9]{2}-[0-9]{3}-[0-9]{3}$/; // e.g. K48-912-607
 
@@ -2210,11 +2203,17 @@ const SPIN_WHEEL_SLICES = [
   { id: 'try-burger', label: 'آتیش برگر', isWin: false, fill: '#fff7ed', textFill: '#7f1d1d', itemId: 'b-7', sub: 'تخفیف نیفتاد اما امضای سرآشپز یعنی «آتیش برگر» رو از دست نده! 🍔' }
 ];
 
-// Note: Secret key & signing live strictly in ArvanCloud Edge Function (/api/spin) — NEVER in frontend/repo!
+// Note: All secrets & quota enforcement live strictly in ArvanCloud Edge Function — NEVER in frontend/repo!
 async function requestSpinFromBackend() {
-  const res = await fetch('/api/spin', { method: 'POST', headers: { 'Content-Type': 'application/json' } });
-  if (!res.ok) throw new Error('Spin API unavailable');
-  return res.json(); // Expected: { sliceId, code, issuedAt, expiresAt }
+  const res = await fetch(`${SPIN_API_BASE}/api/spin`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' }
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok || !data.ok) {
+    throw new Error(data.reason === 'disabled' ? 'disabled' : 'Spin API unavailable');
+  }
+  return data; // { ok, sliceId, code, percent, issuedAt, expiresAt }
 }
 
 function buildSpinWheelSvg() {
@@ -2474,8 +2473,17 @@ function initSpinWheelSystem() {
     }
   });
   centerBtn?.addEventListener('click', startSpin);
+
+  // Respect live Owner ON/OFF master switch from staff.pizzaatish.ir
+  fetch(`${SPIN_API_BASE}/api/wheel-status`)
+    .then(r => r.json())
+    .then(status => {
+      if (status && status.wheelEnabled === false && !getSavedSpin()) {
+        openBtn?.classList.add('hidden');
+      }
+    })
+    .catch(() => {});
 }
-*/
 
 let itemSelectedShape = {}; // itemId -> shapeId ('normal' | 'heart')
 
