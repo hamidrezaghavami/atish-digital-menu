@@ -299,9 +299,21 @@ export async function getDashboardSummary() {
 export async function updateSettings(partial) {
   if (IS_DEMO) {
     const state = loadDemoState();
-    state.settings = { ...state.settings, ...partial };
+    if (typeof partial.wheelEnabled === 'boolean') {
+      state.settings.wheelEnabled = partial.wheelEnabled;
+    }
+    if (partial.caps && typeof partial.caps === 'object') {
+      for (const pct of [5, 10, 20, 30]) {
+        const rawVal = partial.caps[pct] ?? partial.caps[String(pct)];
+        if (rawVal === undefined) continue;
+        const parsedMax = Math.floor(Number(rawVal));
+        if (!Number.isFinite(parsedMax) || parsedMax < 0 || parsedMax > 500) continue;
+        if (!state.caps[pct]) state.caps[pct] = { max: parsedMax, issued: 0 };
+        else state.caps[pct].max = parsedMax;
+      }
+    }
     saveDemoState(state);
-    return state.settings;
+    return { ok: true, settings: state.settings, caps: state.caps };
   }
 
   const { data } = await apiFetch('/api/staff/settings', {
@@ -309,5 +321,5 @@ export async function updateSettings(partial) {
     body: partial,
     useOwnerToken: true,
   });
-  return data.settings || partial;
+  return data;
 }

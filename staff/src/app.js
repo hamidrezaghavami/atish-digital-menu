@@ -210,6 +210,9 @@ const ownerDashboard = document.getElementById('owner-dashboard');
 const kpiToday = document.getElementById('kpi-today');
 const kpiTotal = document.getElementById('kpi-total');
 const stockBars = document.getElementById('stock-bars');
+const capsForm = document.getElementById('caps-form');
+const capsSaveStatus = document.getElementById('caps-save-status');
+const saveCapsBtn = document.getElementById('save-caps-btn');
 const toggleWheel = document.getElementById('toggle-wheel');
 const resetDemoBtn = document.getElementById('reset-demo-btn');
 const logoutDeviceBtn = document.getElementById('logout-device-btn');
@@ -326,14 +329,31 @@ async function refreshDashboardData() {
 
   stockBars.innerHTML = [5, 10, 20, 30]
     .map((pct) => {
-      const cap = summary.caps[pct];
+      const cap = summary.caps[pct] || summary.caps[String(pct)] || { max: 0, issued: 0 };
       const remaining = Math.max(0, cap.max - cap.issued);
-      const fillPct = Math.round((remaining / cap.max) * 100);
+      const fillPct = cap.max > 0 ? Math.min(100, Math.round((remaining / cap.max) * 100)) : 0;
       return `
         <div class="stock-item">
           <div class="stock-meta">
-            <span>تخفیف ${toPersianDigits(pct)}٪</span>
-            <span>${toPersianDigits(remaining)} از ${toPersianDigits(cap.max)} باقی‌مانده</span>
+            <div>
+              <span>تخفیف ${toPersianDigits(pct)}٪</span>
+              <span class="stock-sub"> · ${toPersianDigits(remaining)} باقی‌مانده (${toPersianDigits(cap.issued)} صادرشده)</span>
+            </div>
+            <label class="stock-cap-editor">
+              <span>سقف:</span>
+              <input
+                type="number"
+                class="cap-input"
+                name="cap-${pct}"
+                data-cap-pct="${pct}"
+                min="0"
+                max="500"
+                step="1"
+                value="${cap.max}"
+                dir="ltr"
+                aria-label="سقف تعداد تخفیف ${pct} درصد"
+              />
+            </label>
           </div>
           <div class="stock-track">
             <div class="stock-fill" style="width: ${fillPct}%"></div>
@@ -607,6 +627,7 @@ function openOwnerModal() {
   ownerPinGate.hidden = false;
   ownerDashboard.hidden = true;
   ownerPinServerError.hidden = true;
+  if (capsSaveStatus) capsSaveStatus.hidden = true;
   ownerPinForm.reset();
   ownerPinInput.classList.remove('user-invalid-fallback');
   setTimeout(() => syncFieldAria(ownerPinInput), 0);
@@ -650,6 +671,39 @@ ownerPinForm.addEventListener('submit', async (e) => {
 toggleWheel.addEventListener('change', async () => {
   await updateSettings({ wheelEnabled: toggleWheel.checked });
   await refreshDashboardData();
+});
+
+capsForm?.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  capsSaveStatus.hidden = true;
+  capsSaveStatus.classList.remove('is-error');
+  saveCapsBtn.disabled = true;
+
+  const caps = {};
+  capsForm.querySelectorAll('[data-cap-pct]').forEach((input) => {
+    const pct = input.dataset.capPct;
+    const val = Math.max(0, Math.min(500, Math.floor(Number(toEnglishDigits(input.value)) || 0)));
+    caps[pct] = val;
+  });
+
+  try {
+    const res = await updateSettings({ caps });
+    if (res && res.ok === false) {
+      capsSaveStatus.textContent = res.error || 'خطا در ذخیره سقف جوایز.';
+      capsSaveStatus.classList.add('is-error');
+      capsSaveStatus.hidden = false;
+    } else {
+      await refreshDashboardData();
+      capsSaveStatus.textContent = '✅ سقف جوایز ذخیره شد (کدهای قبلی بدون تغییر حفظ شدند).';
+      capsSaveStatus.hidden = false;
+    }
+  } catch {
+    capsSaveStatus.textContent = 'خطا در ارتباط با سرور.';
+    capsSaveStatus.classList.add('is-error');
+    capsSaveStatus.hidden = false;
+  } finally {
+    saveCapsBtn.disabled = false;
+  }
 });
 
 resetDemoBtn.addEventListener('click', async () => {
