@@ -855,11 +855,11 @@ function renderApp() {
               پیتزاهای پرملات آمریکایی و ایتالیایی پخته‌شده در فر لینکولن و برگرهای دست‌ساز با گوشت خالص. سفارش آنلاین دلیوری با اسنپ‌فود یا سفارش مستقیم تلفنی با پیک گرم.
             </p>
 
-            <!-- Shiny Interactive Spin-the-Wheel Hero Box -->
+            <!-- Shiny Interactive Spin-the-Wheel Hero Box (hidden by default; shown ONLY when Owner turns wheel ON in staff.pizzaatish.ir) -->
             <button
               type="button"
               id="btn-open-spin-wheel"
-              class="spin-hero-box mt-4 w-full sm:w-auto sm:max-w-lg rounded-2xl p-3 sm:p-3.5 text-right flex items-center justify-between gap-3 cursor-pointer group"
+              class="hidden spin-hero-box mt-4 w-full sm:w-auto sm:max-w-lg rounded-2xl p-3 sm:p-3.5 text-right flex items-center justify-between gap-3 cursor-pointer group"
             >
               <span class="spin-hero-sheen" aria-hidden="true"></span>
               <div class="relative z-[1] flex items-center gap-3 min-w-0">
@@ -2474,15 +2474,19 @@ function initSpinWheelSystem() {
   });
   centerBtn?.addEventListener('click', startSpin);
 
-  // Respect live Owner ON/OFF master switch from staff.pizzaatish.ir
+  // Hidden by default — only reveal when Owner has turned Spin-the-Wheel ON in staff.pizzaatish.ir
   fetch(`${SPIN_API_BASE}/api/wheel-status`)
     .then(r => r.json())
     .then(status => {
-      if (status && status.wheelEnabled === false && !getSavedSpin()) {
+      if (status && status.wheelEnabled === true) {
+        openBtn?.classList.remove('hidden');
+      } else {
         openBtn?.classList.add('hidden');
       }
     })
-    .catch(() => {});
+    .catch(() => {
+      openBtn?.classList.add('hidden');
+    });
 }
 
 let itemSelectedShape = {}; // itemId -> shapeId ('normal' | 'heart')

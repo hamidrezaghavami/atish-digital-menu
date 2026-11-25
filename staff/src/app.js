@@ -219,6 +219,7 @@ const logoutDeviceBtn = document.getElementById('logout-device-btn');
 
 let activePendingCode = null;
 let deferredInstallPrompt = null;
+let lastWheelEnabled = false;
 
 // =========================================================
 // PWA WINDOWS DESKTOP APP INSTALL HANDLER
@@ -298,12 +299,14 @@ function switchTab(tabName) {
 async function refreshDashboardData() {
   const summary = await getDashboardSummary();
 
-  wheelLivePill.textContent = summary.settings.wheelEnabled
+  lastWheelEnabled = Boolean(summary.settings.wheelEnabled);
+  wheelLivePill.textContent = lastWheelEnabled
     ? 'گردونه فعال است'
-    : 'گردونه متوقف شده';
+    : 'گردونه فعلاً خاموش است';
   wheelLivePill.className = `wheel-pill ${
-    summary.settings.wheelEnabled ? 'wheel-pill--on' : 'wheel-pill--off'
+    lastWheelEnabled ? 'wheel-pill--on' : 'wheel-pill--off'
   }`;
+  updateNetworkStatus();
 
   todayCountPill.textContent = `${toPersianDigits(summary.todayCount)} مورد`;
   if (!summary.recentLog.length) {
@@ -511,14 +514,18 @@ function goHome() {
 function updateNetworkStatus() {
   const online = navigator.onLine !== false;
   sidebarStatusDot?.classList.toggle('is-offline', !online);
-  topModeDot?.classList.toggle('is-offline', !online);
+  topModeDot?.classList.toggle('is-offline', !online || !lastWheelEnabled);
   if (sidebarStatusText) {
     sidebarStatusText.textContent = online ? 'صندوق آنلاین' : 'آفلاین (بدون اینترنت)';
   }
   if (modeBannerText) {
-    modeBannerText.innerHTML = online
-      ? 'وضعیت سیستم: <strong>فقط بخش «کد تخفیف» فعال است</strong> · فروش آنلاین خاموش'
-      : 'اتصال اینترنت قطع است · <strong>لطفاً وای‌فای صندوق را بررسی کنید</strong>';
+    if (!online) {
+      modeBannerText.innerHTML = 'اتصال اینترنت قطع است · <strong>لطفاً وای‌فای صندوق را بررسی کنید</strong>';
+    } else if (lastWheelEnabled) {
+      modeBannerText.innerHTML = 'وضعیت سیستم: <strong>فقط بخش «کد تخفیف» فعال است</strong> · فروش آنلاین خاموش';
+    } else {
+      modeBannerText.innerHTML = 'وضعیت سیستم: <strong>تخفیف و فروش آنلاین فعلاً خاموش است</strong> · آماده فعال‌سازی از مدیریت';
+    }
   }
 }
 

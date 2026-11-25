@@ -1,4 +1,4 @@
-const CACHE_NAME = 'atish-staff-pos-v5';
+const CACHE_NAME = 'atish-staff-pos-v6';
 
 self.addEventListener('install', () => {
   self.skipWaiting();
