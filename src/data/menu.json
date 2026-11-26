@@ -900,14 +900,14 @@
       "optionsLabel": "انتخاب طعم هی‌دی:",
       "price": 101000,
       "ingredients": "",
-      "image": "./images/Delester.webp",
+      "image": "./images/HeyDay-Lemon.webp",
       "placeholderIcon": "🥤",
       "shapes": [
         {
           "id": "lemon",
           "name": "هی‌دی لیمو",
           "shortName": "لیمو",
-          "image": "./images/Delester.webp",
+          "image": "./images/HeyDay-Lemon.webp",
           "badge": null,
           "price": 101000
         },
@@ -923,7 +923,7 @@
           "id": "tropical",
           "name": "هی‌دی استوایی",
           "shortName": "استوایی",
-          "image": "./images/Delester.webp",
+          "image": "./images/HeyDay-Tropical.webp",
           "badge": null,
           "price": 101000
         },
