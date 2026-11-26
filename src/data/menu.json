@@ -478,7 +478,7 @@
       "badge": null,
       "price": 889000,
       "ingredients": "خمیر پیتزا ایتالیایی (۳۰ سانتی)، سوسیس اسلایس، قارچ تازه، پنیر پیتزا، سس مخصوص",
-      "image": null,
+      "image": "./images/Sosis-Mushroom-Italian.webp",
       "placeholderIcon": "🍕"
     },
     {
@@ -490,7 +490,7 @@
       "badge": null,
       "price": 710000,
       "ingredients": "خمیر پیتزا ایتالیایی (۳۰ سانتی)، قارچ تازه، پنیر موزارلا و چدار",
-      "image": null,
+      "image": "./images/Mushroom-Cheese-Italian.webp",
       "placeholderIcon": "🍄"
     },
     {
