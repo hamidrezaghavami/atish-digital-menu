@@ -660,14 +660,14 @@
       "optionsLabel": "انتخاب نوع ساندویچ ژامبون:",
       "price": 499000,
       "ingredients": "ژامبون گوشت ۹۰٪، کاهو، گوجه، خیارشور، سس مخصوص، نان باگت (تنوری با پنیر گودا یا سرد کلاسیک)",
-      "image": "./images/jambon-sandwhich.webp",
+      "image": "./images/Jambon-Meat.webp",
       "placeholderIcon": "🥪",
       "shapes": [
         {
           "id": "hot",
           "name": "ژامبون تنوری",
           "shortName": "تنوری",
-          "image": "./images/jambon-sandwhich.webp",
+          "image": "./images/Jambon-Meat.webp",
           "badge": "🔥 تنوری با پنیر",
           "price": 499000
         },
@@ -675,7 +675,7 @@
           "id": "cold",
           "name": "ژامبون سرد",
           "shortName": "سرد",
-          "image": "./images/jambon-sandwhich.webp",
+          "image": "./images/Jambon-Meat.webp",
           "badge": "❄️ سرد کلاسیک",
           "price": 399000
         }
@@ -750,7 +750,7 @@
       "badge": null,
       "price": 269000,
       "ingredients": "خمیر تازه پخته‌شده در فر با کره سیر معطر و پنیر پیتزا",
-      "image": null,
+      "image": "./images/Garlic-Bread.webp",
       "placeholderIcon": "🧄"
     },
     {
@@ -763,14 +763,14 @@
       "optionsLabel": "انتخاب نوع مرغ سالاد:",
       "price": 650000,
       "ingredients": "کاهو تازه، گوجه گیلاسی، نان تست طعم‌دار، پنیر پارمزان و سس مخصوص با مرغ سوخاری یا گریل",
-      "image": null,
+      "image": "./images/Salad-Crispy.webp",
       "placeholderIcon": "🥗",
       "shapes": [
         {
           "id": "crispy",
           "name": "با مرغ سوخاری",
           "shortName": "مرغ سوخاری",
-          "image": null,
+          "image": "./images/Salad-Crispy.webp",
           "badge": "🍗 مرغ سوخاری",
           "price": 650000
         },
@@ -778,7 +778,7 @@
           "id": "grilled",
           "name": "با مرغ گریل",
           "shortName": "مرغ گریل",
-          "image": null,
+          "image": "./images/Salad-Grilled.webp",
           "badge": "🔥 مرغ گریل",
           "price": 650000
         }
@@ -793,7 +793,7 @@
       "badge": null,
       "price": 90000,
       "ingredients": "سالاد کلم تازه و سس مخصوص خانگی",
-      "image": null,
+      "image": "./images/Coleslaw.webp",
       "placeholderIcon": "🥬"
     },
     {
