@@ -2964,8 +2964,10 @@ function openItemModal(item) {
   if (item?.title) trackMenuEvent('item', item.title);
 
   const hasShapes = item.shapes && item.shapes.length > 1;
-  let activeShapeId = hasShapes ? (itemSelectedShape[item.id] || item.shapes[0].id) : null;
-  let activeShape = hasShapes ? (item.shapes.find(s => s.id === activeShapeId) || item.shapes[0]) : null;
+  const isStaticOptions = Boolean(item.staticOptions);
+  const hasInteractiveShapes = hasShapes && !isStaticOptions;
+  let activeShapeId = hasInteractiveShapes ? (itemSelectedShape[item.id] || item.shapes[0].id) : null;
+  let activeShape = hasInteractiveShapes ? (item.shapes.find(s => s.id === activeShapeId) || item.shapes[0]) : null;
   const initialImg = activeShape ? activeShape.image : item.image;
   const thumbSrc = getThumbSrc(initialImg);
   const currentPrice = activeShape?.price || item.price;
@@ -3009,7 +3011,7 @@ function openItemModal(item) {
         </span>
       </div>
 
-      ${hasShapes ? `
+      ${hasInteractiveShapes ? `
         <!-- Swipe Dots Indicator -->
         <div class="absolute bottom-3 inset-x-0 flex items-center justify-center gap-1.5 z-20 pointer-events-none">
           ${item.shapes.map(s => `
@@ -3035,7 +3037,25 @@ function openItemModal(item) {
         </div>
       </div>
 
-      ${hasShapes ? `
+      ${hasShapes ? (isStaticOptions ? `
+        <!-- Static Read-Only Price List -->
+        <div class="mb-4 bg-white/[0.03] p-2.5 rounded-2xl border border-white/[0.08]">
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[11px] text-amber-300 font-bold flex items-center gap-1">
+              <span>✨</span>
+              <span>${item.optionsLabel || 'لیست طعم‌ها و قیمت:'}</span>
+            </span>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            ${item.shapes.map(s => `
+              <div class="py-2 px-2.5 rounded-xl text-xs font-black flex flex-col items-center justify-center gap-0.5 border bg-[#222228] text-zinc-100 border-white/[0.08] select-none">
+                <span>${s.name}</span>
+                ${s.price ? `<span class="text-[10px] font-bold text-amber-400">${formatPrice(s.price)}</span>` : ''}
+              </div>
+            `).join('')}
+          </div>
+        </div>
+      ` : `
         <!-- Interactive Option Selector Buttons -->
         <div class="mb-4 bg-white/[0.03] p-2.5 rounded-2xl border border-white/[0.08]">
           <div class="flex items-center justify-between mb-2">
@@ -3055,13 +3075,13 @@ function openItemModal(item) {
                   class="py-2 px-2.5 rounded-xl text-xs font-black flex flex-col items-center justify-center gap-0.5 border transition-all ${isActive ? 'bg-amber-500 text-black border-amber-400 shadow-lg' : 'bg-[#222228] text-zinc-300 border-white/[0.08] hover:text-white hover:bg-white/[0.08]'}"
                 >
                   <span>${s.name}</span>
-                  ${s.price ? `<span class="text-[10px] font-bold ${isActive ? 'text-black/75' : 'text-amber-400/90'}">${formatPrice(s.price)}</span>` : ''}
+                  ${s.price ? `<span data-shape-price class="text-[10px] font-bold ${isActive ? 'text-black/75' : 'text-amber-400/90'}">${formatPrice(s.price)}</span>` : ''}
                 </button>
               `;
             }).join('')}
           </div>
         </div>
-      ` : ''}
+      `) : ''}
 
       ${item.ingredients && item.categoryId !== 'drinks' ? `
         <div class="mb-4">
@@ -3079,7 +3099,7 @@ function openItemModal(item) {
         >
           ${ICONS.plus}
           <span id="modal-btn-label">
-            ${hasShapes ? `افزودن به لیست سفارش (${activeShape.name})` : 'افزودن به لیست سفارش'}
+            ${hasInteractiveShapes ? `افزودن به لیست سفارش (${activeShape.name})` : 'افزودن به لیست سفارش'}
           </span>
         </button>
       </div>
@@ -3089,7 +3109,7 @@ function openItemModal(item) {
   modal.classList.remove('hidden');
 
   // Pre-warm other shapes so switching is 0ms instant
-  if (hasShapes) {
+  if (hasInteractiveShapes) {
     item.shapes.forEach(s => {
       const pre = new Image();
       pre.src = getThumbSrc(s.image);
@@ -3100,7 +3120,7 @@ function openItemModal(item) {
     modal.classList.add('hidden');
   });
 
-  if (hasShapes) {
+  if (hasInteractiveShapes) {
     const updateModalShape = (newShapeId) => {
       activeShapeId = newShapeId;
       itemSelectedShape[item.id] = newShapeId;
@@ -3134,7 +3154,11 @@ function openItemModal(item) {
       // Update buttons
       document.querySelectorAll('[data-modal-shape-btn]').forEach(btn => {
         const isCurrent = btn.dataset.modalShapeBtn === newShapeId;
-        btn.className = `py-2.5 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-2 border transition-all ${isCurrent ? 'bg-amber-500 text-black border-amber-400 shadow-lg' : 'bg-[#222228] text-zinc-300 border-white/[0.08] hover:text-white hover:bg-white/[0.08]'}`;
+        btn.className = `py-2 px-2.5 rounded-xl text-xs font-black flex flex-col items-center justify-center gap-0.5 border transition-all ${isCurrent ? 'bg-amber-500 text-black border-amber-400 shadow-lg' : 'bg-[#222228] text-zinc-300 border-white/[0.08] hover:text-white hover:bg-white/[0.08]'}`;
+        const priceSpan = btn.querySelector('[data-shape-price]');
+        if (priceSpan) {
+          priceSpan.className = `text-[10px] font-bold ${isCurrent ? 'text-black/75' : 'text-amber-400/90'}`;
+        }
       });
 
       // Update button label
@@ -3185,7 +3209,7 @@ function openItemModal(item) {
   document.getElementById('modal-add-tray-btn')?.addEventListener('click', () => {
     let key = item.id;
     let addedTitle = item.title;
-    if (hasShapes && activeShape) {
+    if (hasInteractiveShapes && activeShape) {
       key = `${item.id}:${activeShape.id}`;
       addedTitle = `${item.title} (${activeShape.name})`;
     }
@@ -3307,7 +3331,7 @@ function renderMenuItems() {
 
 function renderFoodCard(item, isTop = false) {
   const countInTray = getItemTrayCount(item);
-  const hasShapes = item.shapes && item.shapes.length > 1;
+  const hasShapes = item.shapes && item.shapes.length > 1 && !item.staticOptions;
   const activeShapeId = hasShapes ? (itemSelectedShape[item.id] || item.shapes[0].id) : 'normal';
   const activeShape = hasShapes ? (item.shapes.find(s => s.id === activeShapeId) || item.shapes[0]) : null;
   const fullImgSrc = getImgSrc(activeShape ? activeShape.image : item.image);
@@ -3445,7 +3469,7 @@ function attachCardEvents() {
     });
 
     // Touch swipe & mouse drag on card photo for shape swapping
-    if (item.shapes && item.shapes.length > 1) {
+    if (item.shapes && item.shapes.length > 1 && !item.staticOptions) {
       let cardStartX = 0;
       let cardStartY = 0;
       const photoEl = card.querySelector(`[data-photo-container="${item.id}"]`);
@@ -3503,7 +3527,7 @@ function attachCardEvents() {
       e.stopPropagation();
       let key = id;
       let toastTitle = item.title;
-      if (item.shapes && item.shapes.length > 1) {
+      if (item.shapes && item.shapes.length > 1 && !item.staticOptions) {
         const activeShapeId = itemSelectedShape[item.id] || item.shapes[0].id;
         const shape = item.shapes.find(s => s.id === activeShapeId) || item.shapes[0];
         key = `${item.id}:${shape.id}`;
