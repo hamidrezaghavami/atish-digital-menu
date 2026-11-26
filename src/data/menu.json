@@ -27,14 +27,14 @@
       "id": "family-pizzas",
       "name": "پیتزا خانواده",
       "icon": "🍕",
-      "title": "پیتزاهای خانواده",
+      "title": "پیتزاهای خانواده (۲۹×۳۶)",
       "subtitle": ""
     },
     {
       "id": "italian-pizzas",
       "name": "پیتزا ایتالیایی",
       "icon": "🍕",
-      "title": "پیتزاهای ایتالیایی",
+      "title": "پیتزاهای ایتالیایی (۳۰ سانتی)",
       "subtitle": ""
     },
     {
@@ -60,9 +60,9 @@
     },
     {
       "id": "sides",
-      "name": "پیش‌ غذا",
+      "name": "پیش‌غذا و سالاد",
       "icon": "🍟",
-      "title": "پیش‌ غذا",
+      "title": "پیش‌غذا و سالاد",
       "subtitle": ""
     },
     {
@@ -82,8 +82,9 @@
       "title": "پیتزا آمریکایی مخصوص",
       "tag": null,
       "badge": "دارای طرح قلبی ❤️",
+      "optionsLabel": "انتخاب مدل و شکل پیتزا:",
       "price": 749000,
-      "ingredients": "خمیر پیتزا پنجره ای آمریکایی، مرغ، ژامبون گوشت 90%، قارچ، فلفل دلمه ای، پنیر پیتزا",
+      "ingredients": "خمیر پیتزا پنجره ای آمریکایی (۲۴×۱۸)، مرغ، ژامبون گوشت ۹۰٪، قارچ، فلفل دلمه ای، پنیر پیتزا",
       "image": "./images/Makhsos-American.webp",
       "placeholderIcon": "🍕",
       "shapes": [
@@ -115,8 +116,9 @@
       "title": "پیتزا پپرونی",
       "tag": null,
       "badge": "دارای طرح قلبی ❤️",
+      "optionsLabel": "انتخاب مدل و شکل پیتزا:",
       "price": 739000,
-      "ingredients": "خمیر پیتزا پنجره ای آمریکایی، پپرونی 90%، فلفل دلمه ای، پنیر پیتزا",
+      "ingredients": "خمیر پیتزا پنجره ای آمریکایی (۲۴×۱۸)، پپرونی ۹۰٪، فلفل دلمه ای، پنیر پیتزا",
       "image": "./images/Peperoni-American-Pizza.webp",
       "placeholderIcon": "🍕",
       "shapes": [
@@ -149,7 +151,7 @@
       "tag": null,
       "badge": null,
       "price": 749000,
-      "ingredients": "خمیر پیتزا پنجره ای آمریکایی، مرغ نگینی شده، قارچ، پنیر پیتزا",
+      "ingredients": "خمیر پیتزا پنجره ای آمریکایی (۲۴×۱۸)، مرغ نگینی شده، قارچ، پنیر پیتزا",
       "image": "./images/Chicken-American-Pizza.webp",
       "placeholderIcon": "🍕"
     },
@@ -162,7 +164,7 @@
       "tag": null,
       "badge": null,
       "price": 879000,
-      "ingredients": "خمیر پیتزا پنجره ای آمریکایی، گوشت گوساله ریش ریش شده، قارچ، پنیر پیتزا",
+      "ingredients": "خمیر پیتزا پنجره ای آمریکایی (۲۴×۱۸)، گوشت گوساله ریش ریش شده، قارچ، پنیر پیتزا",
       "image": "./images/meat-American-Pizza.webp",
       "placeholderIcon": "🍕"
     },
@@ -174,7 +176,7 @@
       "tag": null,
       "badge": null,
       "price": 599000,
-      "ingredients": "خمیر پیتزا آمریکایی، ذرت، نخود فرنگی، هویج، قارچ، فلفل دلمه ای، پنیر پیتزا",
+      "ingredients": "خمیر پیتزا آمریکایی (۲۴×۱۸)، ذرت، نخود فرنگی، هویج، قارچ، فلفل دلمه ای، پنیر پیتزا",
       "image": "./images/Sabzi-American.webp",
       "placeholderIcon": "🍕"
     },
@@ -186,7 +188,7 @@
       "tag": null,
       "badge": null,
       "price": 610000,
-      "ingredients": "خمیر آمریکایی ، قارچ ، سوسیس اسلایس ، پنیر میکس ، سس مخصوص آتیش",
+      "ingredients": "خمیر آمریکایی (۲۴×۱۸)، قارچ، سوسیس اسلایس، پنیر میکس، سس مخصوص آتیش",
       "image": "images/american-Sosis-mashroom.webp",
       "placeholderIcon": "🍕"
     },
@@ -198,7 +200,7 @@
       "tag": null,
       "badge": null,
       "price": 499000,
-      "ingredients": "خمیر پیتزا آمریکایی، قارچ، پنیر پیتزا",
+      "ingredients": "خمیر پیتزا آمریکایی (۲۴×۱۸)، قارچ، پنیر پیتزا",
       "image": "./images/Mashroom-Pizza.webp",
       "placeholderIcon": "🍕"
     },
@@ -206,13 +208,178 @@
       "id": "fp-1",
       "categoryId": "family-pizzas",
       "isFeatured": true,
+      "isChefRecommendation": true,
       "title": "پیتزا چهارطعم خانواده",
       "tag": null,
       "badge": null,
       "price": 1549000,
-      "ingredients": "ترکیبی از چهار طعم مختلف پیتزا با قابلیت انتخاب و تغییر طعم‌ها به سلیقه شما.",
+      "ingredients": "پیتزا پنجره‌ای آمریکایی خانواده (۲۹×۳۶) با ترکیب چهار طعم مختلف به انتخاب شما",
       "image": "./images/4F-Family.webp",
       "placeholderIcon": "🍕"
+    },
+    {
+      "id": "fp-2",
+      "categoryId": "family-pizzas",
+      "isFeatured": false,
+      "title": "پیتزا مرغ خانواده",
+      "tag": null,
+      "badge": "۳ طعم انتخابی ✨",
+      "optionsLabel": "انتخاب ترکیب پیتزا مرغ خانواده:",
+      "price": 1549000,
+      "ingredients": "خمیر پنجره‌ای آمریکایی خانواده (۲۹×۳۶) با مرغ طعم‌دار و پنیر پیتزا فراوان",
+      "image": "./images/Chicken-family.webp",
+      "placeholderIcon": "🍕",
+      "shapes": [
+        {
+          "id": "chicken-mushroom",
+          "name": "مرغ و قارچ",
+          "shortName": "مرغ و قارچ",
+          "image": "./images/Chicken-family.webp",
+          "badge": null,
+          "price": 1549000
+        },
+        {
+          "id": "pepperoni-chicken",
+          "name": "پپرونی و مرغ",
+          "shortName": "پپرونی و مرغ",
+          "image": "./images/Chicken-family.webp",
+          "badge": null,
+          "price": 1510000
+        },
+        {
+          "id": "chicken-veg",
+          "name": "مرغ و سبزیجات",
+          "shortName": "مرغ و سبزیجات",
+          "image": "./images/Chicken-family.webp",
+          "badge": null,
+          "price": 1449000
+        }
+      ]
+    },
+    {
+      "id": "fp-3",
+      "categoryId": "family-pizzas",
+      "isFeatured": false,
+      "title": "پیتزا مخصوص و پپرونی خانواده",
+      "tag": null,
+      "badge": "۳ طعم انتخابی ✨",
+      "optionsLabel": "انتخاب نوع پیتزا خانواده:",
+      "price": 1449000,
+      "ingredients": "خمیر پنجره‌ای آمریکایی خانواده (۲۹×۳۶) — مخصوص، پپرونی یا ترکیب مخصوص و پپرونی",
+      "image": "./images/Makhsos-American.webp",
+      "placeholderIcon": "🍕",
+      "shapes": [
+        {
+          "id": "makhsos",
+          "name": "مخصوص خانواده",
+          "shortName": "مخصوص",
+          "image": "./images/Makhsos-American.webp",
+          "badge": null,
+          "price": 1449000
+        },
+        {
+          "id": "pepperoni",
+          "name": "پپرونی خانواده",
+          "shortName": "پپرونی",
+          "image": "./images/Peperoni-American-Pizza.webp",
+          "badge": null,
+          "price": 1469000
+        },
+        {
+          "id": "makhsos-pep",
+          "name": "مخصوص و پپرونی",
+          "shortName": "مخصوص و پپرونی",
+          "image": "./images/Makhsos-American.webp",
+          "badge": null,
+          "price": 1449000
+        }
+      ]
+    },
+    {
+      "id": "fp-4",
+      "categoryId": "family-pizzas",
+      "isFeatured": false,
+      "title": "پیتزا گوشت خانواده",
+      "tag": null,
+      "badge": "۵ ترکیب انتخابی ✨",
+      "optionsLabel": "انتخاب ترکیب گوشت خانواده:",
+      "price": 1949000,
+      "ingredients": "خمیر پنجره‌ای آمریکایی خانواده با گوشت گوساله ریش‌ریش و طعم‌های ترکیبی دلخواه",
+      "image": "./images/meat-American-Pizza.webp",
+      "placeholderIcon": "🍕",
+      "shapes": [
+        {
+          "id": "meat-mushroom",
+          "name": "گوشت و قارچ",
+          "shortName": "گوشت و قارچ",
+          "image": "./images/meat-American-Pizza.webp",
+          "badge": null,
+          "price": 1949000
+        },
+        {
+          "id": "meat-chicken",
+          "name": "گوشت و مرغ",
+          "shortName": "گوشت و مرغ",
+          "image": "./images/meat-American-Pizza.webp",
+          "badge": null,
+          "price": 1849000
+        },
+        {
+          "id": "meat-makhsos",
+          "name": "گوشت و مخصوص",
+          "shortName": "گوشت و مخصوص",
+          "image": "./images/meat-American-Pizza.webp",
+          "badge": null,
+          "price": 1849000
+        },
+        {
+          "id": "meat-pep",
+          "name": "گوشت و پپرونی",
+          "shortName": "گوشت و پپرونی",
+          "image": "./images/meat-American-Pizza.webp",
+          "badge": null,
+          "price": 1749000
+        },
+        {
+          "id": "meat-veg",
+          "name": "گوشت و سبزیجات",
+          "shortName": "گوشت و سبزیجات",
+          "image": "./images/meat-American-Pizza.webp",
+          "badge": null,
+          "price": 1629000
+        }
+      ]
+    },
+    {
+      "id": "fp-5",
+      "categoryId": "family-pizzas",
+      "isFeatured": false,
+      "title": "پیتزا سبزیجات خانواده",
+      "tag": null,
+      "badge": "۲ طعم انتخابی ✨",
+      "optionsLabel": "انتخاب نوع سبزیجات خانواده:",
+      "price": 1155000,
+      "ingredients": "خمیر پنجره‌ای آمریکایی خانواده (۲۹×۳۶) با سبزیجات تازه و پنیر پیتزا",
+      "image": "./images/Vegtables-Family-Pizza.webp",
+      "placeholderIcon": "🍕",
+      "shapes": [
+        {
+          "id": "veg-only",
+          "name": "سبزیجات خانواده",
+          "shortName": "سبزیجات",
+          "image": "./images/Vegtables-Family-Pizza.webp",
+          "badge": null,
+          "price": 1155000
+        },
+        {
+          "id": "makhsos-veg",
+          "name": "مخصوص و سبزیجات",
+          "shortName": "مخصوص و سبزیجات",
+          "image": "./images/Vegtables-Family-Pizza.webp",
+          "badge": null,
+          "price": 1399000
+        }
+      ]
     },
     {
       "id": "ip-1",
@@ -222,7 +389,7 @@
       "tag": null,
       "badge": null,
       "price": 989000,
-      "ingredients": "خمیر پیتزا ایتالیایی، مرغ، ژامبون گوشت 90%، قارچ، فلفل دلمه ای، زیتون، پنیر پیتزا",
+      "ingredients": "خمیر پیتزا ایتالیایی (۳۰ سانتی)، مرغ، ژامبون گوشت ۹۰٪، قارچ، فلفل دلمه ای، زیتون، پنیر پیتزا",
       "image": "./images/Atish-Italian.webp",
       "placeholderIcon": "🍕"
     },
@@ -234,7 +401,7 @@
       "tag": null,
       "badge": null,
       "price": 989000,
-      "ingredients": "خمیر پیتزا ایتالیایی، پپرونی 90%، فلفل دلمه ای، پنیر پیتزا",
+      "ingredients": "خمیر پیتزا ایتالیایی (۳۰ سانتی)، پپرونی ۹۰٪، فلفل دلمه ای، پنیر پیتزا",
       "image": "./images/Peperoni-Italian.webp",
       "placeholderIcon": "🍕"
     },
@@ -242,25 +409,89 @@
       "id": "ip-3",
       "categoryId": "italian-pizzas",
       "isFeatured": false,
-      "title": "پیتزا مرغ و قارچ ایتالیایی",
+      "title": "پیتزا مرغ ایتالیایی",
       "tag": null,
       "badge": null,
       "price": 979000,
-      "ingredients": "خمیر پیتزا ایتالیایی، مرغ، قارچ، زیتون، فلفل دلمه ای، پنیر پیتزا",
+      "ingredients": "خمیر پیتزا ایتالیایی (۳۰ سانتی)، مرغ، قارچ، زیتون، فلفل دلمه ای، پنیر پیتزا",
       "image": "./images/Chicken-Italian.webp",
+      "placeholderIcon": "🍕"
+    },
+    {
+      "id": "ip-4",
+      "categoryId": "italian-pizzas",
+      "isFeatured": false,
+      "title": "پیتزا سوخاری ایتالیایی",
+      "tag": null,
+      "badge": null,
+      "price": 989000,
+      "ingredients": "خمیر پیتزا ایتالیایی (۳۰ سانتی)، فیله مرغ سوخاری ترد، قارچ، فلفل دلمه ای، پنیر پیتزا",
+      "image": "./images/Italian-pizza-crunchy.webp",
       "placeholderIcon": "🍕"
     },
     {
       "id": "ip-5",
       "categoryId": "italian-pizzas",
       "isFeatured": false,
+      "isChefRecommendation": true,
       "title": "پیتزا استیک ایتالیایی",
       "tag": null,
-      "badge": null,
+      "badge": "۳ طعم استیک ✨",
+      "optionsLabel": "انتخاب طعم استیک ایتالیایی:",
       "price": 1089000,
-      "ingredients": "خمیر پیتزا ایتالیایی، گوشت گوساله تکه ای، قارچ، زیتون، فلفل دلمه ای، پنیر پیتزا",
+      "ingredients": "خمیر پیتزا ایتالیایی (۳۰ سانتی)، گوشت گوساله تکه ای، قارچ، زیتون، فلفل دلمه ای، پنیر پیتزا",
       "image": "images/Steak-Italian-Pizza.webp",
+      "placeholderIcon": "🍕",
+      "shapes": [
+        {
+          "id": "classic",
+          "name": "استیک کلاسیک",
+          "shortName": "کلاسیک",
+          "image": "images/Steak-Italian-Pizza.webp",
+          "badge": null,
+          "price": 1089000
+        },
+        {
+          "id": "garlic-steak",
+          "name": "سیر و استیک",
+          "shortName": "سیر و استیک",
+          "image": "images/Steak-Italian-Pizza.webp",
+          "badge": "🧄 سیر و استیک",
+          "price": 1099000
+        },
+        {
+          "id": "jalapeno-steak",
+          "name": "استیک و هالوپینو",
+          "shortName": "با هالوپینو",
+          "image": "images/Steak-Italian-Pizza.webp",
+          "badge": "🌶️ تند هالوپینو",
+          "price": 1109000
+        }
+      ]
+    },
+    {
+      "id": "ip-6",
+      "categoryId": "italian-pizzas",
+      "isFeatured": false,
+      "title": "پیتزا قارچ و سوسیس ایتالیایی",
+      "tag": null,
+      "badge": null,
+      "price": 889000,
+      "ingredients": "خمیر پیتزا ایتالیایی (۳۰ سانتی)، سوسیس اسلایس، قارچ تازه، پنیر پیتزا، سس مخصوص",
+      "image": null,
       "placeholderIcon": "🍕"
+    },
+    {
+      "id": "ip-7",
+      "categoryId": "italian-pizzas",
+      "isFeatured": false,
+      "title": "پیتزا قارچ و پنیر ایتالیایی",
+      "tag": null,
+      "badge": null,
+      "price": 710000,
+      "ingredients": "خمیر پیتزا ایتالیایی (۳۰ سانتی)، قارچ تازه، پنیر موزارلا و چدار",
+      "image": null,
+      "placeholderIcon": "🍄"
     },
     {
       "id": "b-1",
@@ -306,7 +537,7 @@
       "tag": null,
       "badge": null,
       "price": 889000,
-      "ingredients": "دو عدد گوشت برگر ۱۲۰ گرمی ، نان برگر ، پیاز ، کاهو ، گوجه ، خیار شور ، پنیر گودا ، سس ساندویچ",
+      "ingredients": "دو عدد گوشت برگر ۱۲۰ گرمی، نان برگر، پیاز، کاهو، گوجه، خیار شور، پنیر گودا، سس ساندویچ",
       "image": "images/double-cheese-burger.webp",
       "placeholderIcon": "🍔"
     },
@@ -318,7 +549,7 @@
       "tag": null,
       "badge": null,
       "price": 869000,
-      "ingredients": "دو عدد برگر ۱۲۰ گرمی ، کاهو ، گوجه ، خیارشور ، نان برگر ، سس ساندویچ",
+      "ingredients": "دو عدد گوشت برگر ۱۲۰ گرمی، کاهو، گوجه، خیارشور، نان برگر، سس ساندویچ",
       "image": "images/double-burger.webp",
       "placeholderIcon": "🍔"
     },
@@ -330,7 +561,7 @@
       "tag": null,
       "badge": null,
       "price": 899000,
-      "ingredients": "دو عدد برگر ۱۲۰ گرمی ، پیاز ، قارچ ، پنیر گودا ، نان برگر ، سس مخصوص",
+      "ingredients": "دو عدد گوشت برگر ۱۲۰ گرمی، پیاز، قارچ، پنیر گودا، نان برگر، سس مخصوص",
       "image": "images/double-Mashroom-burger.webp",
       "placeholderIcon": "🍔"
     },
@@ -338,6 +569,7 @@
       "id": "b-7",
       "categoryId": "burgers",
       "isFeatured": false,
+      "isChefRecommendation": true,
       "title": "آتیش برگر",
       "tag": null,
       "badge": null,
@@ -362,7 +594,7 @@
       "id": "b-9",
       "categoryId": "sandwiches",
       "isFeatured": false,
-      "title": "گریل",
+      "title": "ساندویچ مرغ گریل با پنیر",
       "tag": null,
       "badge": null,
       "price": 649000,
@@ -374,11 +606,11 @@
       "id": "b-10",
       "categoryId": "sandwiches",
       "isFeatured": false,
-      "title": "رست بیف",
+      "title": "ساندویچ رست بیف",
       "tag": null,
       "badge": null,
       "price": 699000,
-      "ingredients": "کاهو ، گوجه ، خیارشور ، ۸۰ گرم گوشت گوساله مزه دار ، قارچ سس مخصوص و نان باگت",
+      "ingredients": "کاهو، گوجه، خیارشور، ۸۰ گرم گوشت گوساله مزه دار، قارچ، سس مخصوص و نان باگت",
       "image": "images/RoastBeef.webp",
       "placeholderIcon": "🌭"
     },
@@ -386,7 +618,7 @@
       "id": "sw-1",
       "categoryId": "sandwiches",
       "isFeatured": true,
-      "title": "فیله سوخاری با پنیر",
+      "title": "فیله سوخاری با پنیر گودا",
       "tag": null,
       "badge": null,
       "price": 699000,
@@ -398,11 +630,11 @@
       "id": "sw-2",
       "categoryId": "sandwiches",
       "isFeatured": false,
-      "title": "سوپرسوپریم",
+      "title": "ساندویچ سوپرسوپریم",
       "tag": null,
       "badge": null,
       "price": 761000,
-      "ingredients": "۱۲۰ گرم فیله مرغ سوخاری، ۲ ورق ژامبون گوشت ، پنیر گودا، کاهو، گوجه، نان باگت",
+      "ingredients": "۱۲۰ گرم فیله مرغ سوخاری، ۲ ورق ژامبون گوشت، پنیر گودا، کاهو، گوجه، نان باگت",
       "image": "./images/jambon-sandwhich.webp",
       "placeholderIcon": "🌭"
     },
@@ -410,13 +642,44 @@
       "id": "sw-3",
       "categoryId": "sandwiches",
       "isFeatured": false,
-      "title": "هات داگ",
+      "title": "ساندویچ هات داگ مخصوص",
       "tag": null,
       "badge": null,
       "price": 529000,
       "ingredients": "یک عدد هات داگ ۹۰٪، قارچ، پنیر گودا، کاهو، گوجه، سس مخصوص، نان باگت",
       "image": "images/Hotdog.webp",
       "placeholderIcon": "🌭"
+    },
+    {
+      "id": "sw-4",
+      "categoryId": "sandwiches",
+      "isFeatured": false,
+      "title": "ساندویچ ژامبون گوشت",
+      "tag": null,
+      "badge": "تنوری و سرد ✨",
+      "optionsLabel": "انتخاب نوع ساندویچ ژامبون:",
+      "price": 499000,
+      "ingredients": "ژامبون گوشت ۹۰٪، کاهو، گوجه، خیارشور، سس مخصوص، نان باگت (تنوری با پنیر گودا یا سرد کلاسیک)",
+      "image": "./images/jambon-sandwhich.webp",
+      "placeholderIcon": "🥪",
+      "shapes": [
+        {
+          "id": "hot",
+          "name": "ژامبون تنوری",
+          "shortName": "تنوری",
+          "image": "./images/jambon-sandwhich.webp",
+          "badge": "🔥 تنوری با پنیر",
+          "price": 499000
+        },
+        {
+          "id": "cold",
+          "name": "ژامبون سرد",
+          "shortName": "سرد",
+          "image": "./images/jambon-sandwhich.webp",
+          "badge": "❄️ سرد کلاسیک",
+          "price": 399000
+        }
+      ]
     },
     {
       "id": "fr-1",
@@ -458,7 +721,7 @@
       "id": "sd-1",
       "categoryId": "sides",
       "isFeatured": true,
-      "title": "سیب زمینی سرخ‌کرده",
+      "title": "سیب زمینی سرخ‌کرده ساده",
       "tag": null,
       "badge": null,
       "price": 339000,
@@ -479,40 +742,200 @@
       "placeholderIcon": "🍟"
     },
     {
+      "id": "sd-3",
+      "categoryId": "sides",
+      "isFeatured": false,
+      "title": "نان سیر",
+      "tag": null,
+      "badge": null,
+      "price": 269000,
+      "ingredients": "خمیر تازه پخته‌شده در فر با کره سیر معطر و پنیر پیتزا",
+      "image": null,
+      "placeholderIcon": "🧄"
+    },
+    {
+      "id": "sd-4",
+      "categoryId": "sides",
+      "isFeatured": false,
+      "title": "سالاد مخصوص آتیش",
+      "tag": null,
+      "badge": "سوخاری و گریل ✨",
+      "optionsLabel": "انتخاب نوع مرغ سالاد:",
+      "price": 650000,
+      "ingredients": "کاهو تازه، گوجه گیلاسی، نان تست طعم‌دار، پنیر پارمزان و سس مخصوص با مرغ سوخاری یا گریل",
+      "image": null,
+      "placeholderIcon": "🥗",
+      "shapes": [
+        {
+          "id": "crispy",
+          "name": "با مرغ سوخاری",
+          "shortName": "مرغ سوخاری",
+          "image": null,
+          "badge": "🍗 مرغ سوخاری",
+          "price": 650000
+        },
+        {
+          "id": "grilled",
+          "name": "با مرغ گریل",
+          "shortName": "مرغ گریل",
+          "image": null,
+          "badge": "🔥 مرغ گریل",
+          "price": 650000
+        }
+      ]
+    },
+    {
+      "id": "sd-5",
+      "categoryId": "sides",
+      "isFeatured": false,
+      "title": "سالاد کلم",
+      "tag": null,
+      "badge": null,
+      "price": 90000,
+      "ingredients": "سالاد کلم تازه و سس مخصوص خانگی",
+      "image": null,
+      "placeholderIcon": "🥬"
+    },
+    {
       "id": "dr-1",
       "categoryId": "drinks",
       "isFeatured": true,
       "title": "نوشابه خانواده",
       "tag": null,
-      "badge": null,
+      "badge": "۴ طعم ✨",
+      "optionsLabel": "انتخاب طعم نوشابه خانواده:",
       "price": 140400,
       "ingredients": "",
       "image": "./images/Big-Coke.webp",
-      "placeholderIcon": "🥤"
+      "placeholderIcon": "🥤",
+      "shapes": [
+        {
+          "id": "coke",
+          "name": "کوکاکولا",
+          "shortName": "کوکاکولا",
+          "image": "./images/Big-Coke.webp",
+          "badge": null,
+          "price": 140400
+        },
+        {
+          "id": "zero",
+          "name": "کوکاکولا زیرو",
+          "shortName": "زیرو",
+          "image": "./images/Big-Coke.webp",
+          "badge": null,
+          "price": 140400
+        },
+        {
+          "id": "fanta",
+          "name": "فانتا پرتقالی",
+          "shortName": "فانتا",
+          "image": "./images/Big-Coke.webp",
+          "badge": null,
+          "price": 122100
+        },
+        {
+          "id": "sprite",
+          "name": "اسپرایت",
+          "shortName": "اسپرایت",
+          "image": "./images/Big-Coke.webp",
+          "badge": null,
+          "price": 122100
+        }
+      ]
     },
     {
       "id": "dr-2",
       "categoryId": "drinks",
       "isFeatured": false,
-      "title": "نوشابه کوچک",
+      "title": "نوشابه قوطی",
       "tag": null,
-      "badge": null,
+      "badge": "۴ طعم ✨",
+      "optionsLabel": "انتخاب طعم نوشابه قوطی:",
       "price": 92550,
       "ingredients": "",
       "image": "./images/Coke.webp",
-      "placeholderIcon": "🥤"
+      "placeholderIcon": "🥤",
+      "shapes": [
+        {
+          "id": "coke",
+          "name": "کوکاکولا",
+          "shortName": "کوکاکولا",
+          "image": "./images/Coke.webp",
+          "badge": null,
+          "price": 92550
+        },
+        {
+          "id": "fanta",
+          "name": "فانتا پرتقالی",
+          "shortName": "فانتا",
+          "image": "./images/Coke.webp",
+          "badge": null,
+          "price": 92550
+        },
+        {
+          "id": "sprite",
+          "name": "اسپرایت",
+          "shortName": "اسپرایت",
+          "image": "./images/Coke.webp",
+          "badge": null,
+          "price": 92550
+        },
+        {
+          "id": "zero",
+          "name": "کوکاکولا زیرو",
+          "shortName": "زیرو",
+          "image": "./images/Coke.webp",
+          "badge": null,
+          "price": 107000
+        }
+      ]
     },
     {
       "id": "dr-3",
       "categoryId": "drinks",
       "isFeatured": false,
-      "title": "دلستر",
+      "title": "ماءالشعیر قوطی (دلستر)",
       "tag": null,
-      "badge": null,
+      "badge": "۴ طعم ✨",
+      "optionsLabel": "انتخاب طعم هی‌دی:",
       "price": 101000,
       "ingredients": "",
       "image": "./images/Delester.webp",
-      "placeholderIcon": "🥤"
+      "placeholderIcon": "🥤",
+      "shapes": [
+        {
+          "id": "lemon",
+          "name": "هی‌دی لیمو",
+          "shortName": "لیمو",
+          "image": "./images/Delester.webp",
+          "badge": null,
+          "price": 101000
+        },
+        {
+          "id": "peach",
+          "name": "هی‌دی هلو",
+          "shortName": "هلو",
+          "image": "./images/Delester.webp",
+          "badge": null,
+          "price": 101000
+        },
+        {
+          "id": "tropical",
+          "name": "هی‌دی استوایی",
+          "shortName": "استوایی",
+          "image": "./images/Delester.webp",
+          "badge": null,
+          "price": 101000
+        },
+        {
+          "id": "classic",
+          "name": "هی‌دی کلاسیک",
+          "shortName": "کلاسیک",
+          "image": "./images/Delester.webp",
+          "badge": null,
+          "price": 90000
+        }
+      ]
     },
     {
       "id": "dr-4",

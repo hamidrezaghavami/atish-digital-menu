@@ -2920,7 +2920,7 @@ function updateCardShapeUI(item, shapeId) {
   if (!shape) return;
 
   const cardImg = document.getElementById(`card-img-${item.id}`);
-  if (cardImg) {
+  if (cardImg && shape.image) {
     cardImg.style.opacity = '0.3';
     setTimeout(() => {
       cardImg.src = getThumbSrc(shape.image);
@@ -2964,7 +2964,7 @@ function openItemModal(item) {
   if (item?.title) trackMenuEvent('item', item.title);
 
   const hasShapes = item.shapes && item.shapes.length > 1;
-  let activeShapeId = hasShapes ? (itemSelectedShape[item.id] || 'normal') : null;
+  let activeShapeId = hasShapes ? (itemSelectedShape[item.id] || item.shapes[0].id) : null;
   let activeShape = hasShapes ? (item.shapes.find(s => s.id === activeShapeId) || item.shapes[0]) : null;
   const initialImg = activeShape ? activeShape.image : item.image;
   const thumbSrc = getThumbSrc(initialImg);
@@ -3036,14 +3036,14 @@ function openItemModal(item) {
       </div>
 
       ${hasShapes ? `
-        <!-- Interactive Shape Selector Buttons (Swipe or Click) -->
+        <!-- Interactive Option Selector Buttons -->
         <div class="mb-4 bg-white/[0.03] p-2.5 rounded-2xl border border-white/[0.08]">
           <div class="flex items-center justify-between mb-2">
             <span class="text-[11px] text-amber-300 font-bold flex items-center gap-1">
               <span>✨</span>
-              <span>انتخاب مدل و شکل پیتزا:</span>
+              <span>${item.optionsLabel || 'انتخاب طعم / مدل:'}</span>
             </span>
-            <span class="text-[10px] text-zinc-400 font-light">با کشیدن عکس هم تغییر می‌کند</span>
+            <span class="text-[10px] text-zinc-400 font-light">لمس کنید</span>
           </div>
           <div class="grid grid-cols-2 gap-2" id="modal-shapes-group">
             ${item.shapes.map(s => {
@@ -3052,9 +3052,10 @@ function openItemModal(item) {
                 <button 
                   type="button" 
                   data-modal-shape-btn="${s.id}"
-                  class="py-2.5 px-3 rounded-xl text-xs font-black flex items-center justify-center border transition-all ${isActive ? 'bg-amber-500 text-black border-amber-400 shadow-lg' : 'bg-[#222228] text-zinc-300 border-white/[0.08] hover:text-white hover:bg-white/[0.08]'}"
+                  class="py-2 px-2.5 rounded-xl text-xs font-black flex flex-col items-center justify-center gap-0.5 border transition-all ${isActive ? 'bg-amber-500 text-black border-amber-400 shadow-lg' : 'bg-[#222228] text-zinc-300 border-white/[0.08] hover:text-white hover:bg-white/[0.08]'}"
                 >
                   <span>${s.name}</span>
+                  ${s.price ? `<span class="text-[10px] font-bold ${isActive ? 'text-black/75' : 'text-amber-400/90'}">${formatPrice(s.price)}</span>` : ''}
                 </button>
               `;
             }).join('')}
@@ -3307,10 +3308,11 @@ function renderMenuItems() {
 function renderFoodCard(item, isTop = false) {
   const countInTray = getItemTrayCount(item);
   const hasShapes = item.shapes && item.shapes.length > 1;
-  const activeShapeId = itemSelectedShape[item.id] || 'normal';
+  const activeShapeId = hasShapes ? (itemSelectedShape[item.id] || item.shapes[0].id) : 'normal';
   const activeShape = hasShapes ? (item.shapes.find(s => s.id === activeShapeId) || item.shapes[0]) : null;
   const fullImgSrc = getImgSrc(activeShape ? activeShape.image : item.image);
   const imgSrc = getThumbSrc(activeShape ? activeShape.image : item.image);
+  const displayPrice = (activeShape && activeShape.price) ? activeShape.price : item.price;
   const badgeText = activeShape?.badge || item.badge;
   const isChef = !!item.isChefRecommendation;
   const loadingAttrs = isTop 
@@ -3341,10 +3343,11 @@ function renderFoodCard(item, isTop = false) {
             <span class="text-3xl filter drop-shadow">${item.placeholderIcon || '🍔'}</span>
           </div>
         ` : `
-          <div class="w-full h-full flex flex-col items-center justify-center bg-gradient-to-b from-[#24242c] to-[#161619] relative">
-            <div class="w-12 h-12 md:w-16 md:h-16 rounded-full bg-white/[0.05] border border-white/[0.08] flex items-center justify-center shadow-inner group-hover:scale-110 transition-transform duration-300">
-              <span class="text-2xl md:text-4xl filter drop-shadow">${item.placeholderIcon || '🍔'}</span>
+          <div class="w-full h-full flex flex-col items-center justify-center relative overflow-hidden" style="background: radial-gradient(circle at 50% 42%, rgba(245, 158, 11, 0.22) 0%, rgba(234, 88, 12, 0.08) 46%, #141418 100%);">
+            <div class="w-14 h-14 md:w-16 md:h-16 rounded-2xl bg-gradient-to-br from-amber-500/20 to-orange-600/10 border border-amber-400/25 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+              <span class="text-3xl md:text-4xl filter drop-shadow">${item.placeholderIcon || '🔥'}</span>
             </div>
+            <span class="mt-2 text-[10px] font-bold tracking-wide text-amber-300/75">آتیش · تازه و گرم</span>
           </div>
         `}
 
@@ -3396,9 +3399,9 @@ function renderFoodCard(item, isTop = false) {
 
         <!-- Dedicated Price Row: clean separation, fully visible -->
         <div class="flex items-center justify-between gap-1 mb-2">
-          ${item.price ? `
-            <span class="text-xs sm:text-sm font-black text-amber-400 whitespace-nowrap">
-              ${formatPrice(item.price)}
+          ${displayPrice ? `
+            <span id="card-price-${item.id}" class="text-xs sm:text-sm font-black text-amber-400 whitespace-nowrap">
+              ${formatPrice(displayPrice)}
             </span>
           ` : '<span class="text-[10px] text-zinc-500">-</span>'}
           ${item.tag ? `<span class="text-[9px] font-bold text-red-400 bg-red-500/10 px-1.5 py-0.5 rounded-full border border-red-500/20">${item.tag}</span>` : ''}
@@ -3460,8 +3463,9 @@ function attachCardEvents() {
         const deltaY = cardEndY - cardStartY;
         if (Math.abs(deltaX) > 30 && Math.abs(deltaX) > Math.abs(deltaY)) {
           isCardSwiped = true;
-          const currentShape = itemSelectedShape[item.id] || 'normal';
-          const nextShape = currentShape === 'normal' ? 'heart' : 'normal';
+          const currentShape = itemSelectedShape[item.id] || item.shapes[0].id;
+          const idx = Math.max(0, item.shapes.findIndex(s => s.id === currentShape));
+          const nextShape = item.shapes[(idx + 1) % item.shapes.length].id;
           updateCardShapeUI(item, nextShape);
           setTimeout(() => { isCardSwiped = false; }, 200);
         }
@@ -3481,8 +3485,9 @@ function attachCardEvents() {
         const cardEndX = e.screenX;
         if (Math.abs(cardEndX - cardStartX) > 30) {
           isCardSwiped = true;
-          const currentShape = itemSelectedShape[item.id] || 'normal';
-          const nextShape = currentShape === 'normal' ? 'heart' : 'normal';
+          const currentShape = itemSelectedShape[item.id] || item.shapes[0].id;
+          const idx = Math.max(0, item.shapes.findIndex(s => s.id === currentShape));
+          const nextShape = item.shapes[(idx + 1) % item.shapes.length].id;
           updateCardShapeUI(item, nextShape);
           setTimeout(() => { isCardSwiped = false; }, 200);
         }
@@ -3499,9 +3504,9 @@ function attachCardEvents() {
       let key = id;
       let toastTitle = item.title;
       if (item.shapes && item.shapes.length > 1) {
-        const activeShapeId = itemSelectedShape[item.id] || 'normal';
+        const activeShapeId = itemSelectedShape[item.id] || item.shapes[0].id;
         const shape = item.shapes.find(s => s.id === activeShapeId) || item.shapes[0];
-        key = `${item.id}:${activeShapeId}`;
+        key = `${item.id}:${shape.id}`;
         toastTitle = `${item.title} (${shape.name})`;
       }
       addItemToTray(key);
