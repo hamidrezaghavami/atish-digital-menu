@@ -915,7 +915,7 @@
           "id": "peach",
           "name": "هی‌دی هلو",
           "shortName": "هلو",
-          "image": "./images/Delester.webp",
+          "image": "./images/HeyDay-Lemon.webp",
           "badge": null,
           "price": 101000
         },
@@ -923,7 +923,7 @@
           "id": "tropical",
           "name": "هی‌دی استوایی",
           "shortName": "استوایی",
-          "image": "./images/HeyDay-Tropical.webp",
+          "image": "./images/HeyDay-Lemon.webp",
           "badge": null,
           "price": 101000
         },
@@ -931,7 +931,7 @@
           "id": "classic",
           "name": "هی‌دی کلاسیک",
           "shortName": "کلاسیک",
-          "image": "./images/Delester.webp",
+          "image": "./images/HeyDay-Lemon.webp",
           "badge": null,
           "price": 90000
         }

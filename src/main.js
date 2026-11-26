@@ -3055,7 +3055,7 @@ function openItemModal(item) {
                   class="py-2 px-2.5 rounded-xl text-xs font-black flex flex-col items-center justify-center gap-0.5 border transition-all ${isActive ? 'bg-amber-500 text-black border-amber-400 shadow-lg' : 'bg-[#222228] text-zinc-300 border-white/[0.08] hover:text-white hover:bg-white/[0.08]'}"
                 >
                   <span>${s.name}</span>
-                  ${s.price ? `<span class="text-[10px] font-bold ${isActive ? 'text-black/75' : 'text-amber-400/90'}">${formatPrice(s.price)}</span>` : ''}
+                  ${s.price ? `<span data-shape-price class="text-[10px] font-bold ${isActive ? 'text-black/75' : 'text-amber-400/90'}">${formatPrice(s.price)}</span>` : ''}
                 </button>
               `;
             }).join('')}
@@ -3134,7 +3134,11 @@ function openItemModal(item) {
       // Update buttons
       document.querySelectorAll('[data-modal-shape-btn]').forEach(btn => {
         const isCurrent = btn.dataset.modalShapeBtn === newShapeId;
-        btn.className = `py-2.5 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-2 border transition-all ${isCurrent ? 'bg-amber-500 text-black border-amber-400 shadow-lg' : 'bg-[#222228] text-zinc-300 border-white/[0.08] hover:text-white hover:bg-white/[0.08]'}`;
+        btn.className = `py-2 px-2.5 rounded-xl text-xs font-black flex flex-col items-center justify-center gap-0.5 border transition-all ${isCurrent ? 'bg-amber-500 text-black border-amber-400 shadow-lg' : 'bg-[#222228] text-zinc-300 border-white/[0.08] hover:text-white hover:bg-white/[0.08]'}`;
+        const priceSpan = btn.querySelector('[data-shape-price]');
+        if (priceSpan) {
+          priceSpan.className = `text-[10px] font-bold ${isCurrent ? 'text-black/75' : 'text-amber-400/90'}`;
+        }
       });
 
       // Update button label
