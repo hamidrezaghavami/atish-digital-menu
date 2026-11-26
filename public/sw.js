@@ -1,76 +1,24 @@
-const CACHE_NAME = 'atish-menu-v34';
+const CACHE_NAME = 'atish-menu-v35';
 
-// Core shell assets to pre-cache immediately on install
+// Core shell + self-hosted Persian font (~80KB total) to pre-cache immediately on install.
+// Menu dish images are cached on-demand as the user scrolls so first load stays ultra-light on mobile data.
 const PRECACHE_ASSETS = [
   '/',
   '/index.html',
   '/manifest.json',
+  '/fonts/vazirmatn.css',
+  '/fonts/vazirmatn-arabic.woff2',
+  '/fonts/vazirmatn-latin.woff2',
   '/icons/icon-192.png',
   '/icons/icon-512.png',
   '/icons/apple-touch-icon.png',
   '/images/logo.webp',
-  '/images/atish-hero-3d.jpg',
-  '/images/atish-burger.jpg'
-];
-
-// Menu food thumbnails to warm into offline CacheStorage in background (ultralight ~25KB each)
-const MENU_IMAGES = [
-  "/images/thumbs/Makhsos-American.webp",
-  "/images/thumbs/heart-normal.webp",
-  "/images/thumbs/Peperoni-American-Pizza.webp",
-  "/images/thumbs/heart-peperoni.webp",
-  "/images/thumbs/Chicken-American-Pizza.webp",
-  "/images/thumbs/meat-American-Pizza.webp",
-  "/images/thumbs/Sabzi-American.webp",
-  "/images/thumbs/american-Sosis-mashroom.webp",
-  "/images/thumbs/Mashroom-Pizza.webp",
-  "/images/thumbs/4F-Family.webp",
-  "/images/thumbs/Makhsos-Peperoni-Family.webp",
-  "/images/thumbs/Atish-Italian.webp",
-  "/images/thumbs/Peperoni-Italian.webp",
-  "/images/thumbs/Chicken-Italian.webp",
-  "/images/thumbs/Steak-Italian-Pizza.webp",
-  "/images/thumbs/Sosis-Mushroom-Italian.webp",
-  "/images/thumbs/Mushroom-Cheese-Italian.webp",
-  "/images/thumbs/burger.webp",
-  "/images/thumbs/cheese-burger.webp",
-  "/images/thumbs/mashroom-burger.webp",
-  "/images/thumbs/double-cheese-burger.webp",
-  "/images/thumbs/double-burger.webp",
-  "/images/thumbs/double-Mashroom-burger.webp",
-  "/images/thumbs/atish-burger.webp",
-  "/images/thumbs/Zinger.webp",
-  "/images/thumbs/Giril.webp",
-  "/images/thumbs/RoastBeef.webp",
-  "/images/thumbs/file.webp",
-  "/images/thumbs/jambon-sandwhich.webp",
-  "/images/thumbs/Jambon-Meat.webp",
-  "/images/thumbs/Hotdog.webp",
-  "/images/thumbs/Crispy-Chicken-Tenders.webp",
-  "/images/thumbs/4-Crispe.webp",
-  "/images/thumbs/Mashroom.webp",
-  "/images/thumbs/French-Fries.webp",
-  "/images/thumbs/Fries-Special.webp",
-  "/images/thumbs/Garlic-Bread.webp",
-  "/images/thumbs/Salad-Crispy.webp",
-  "/images/thumbs/Salad-Grilled.webp",
-  "/images/thumbs/Coleslaw-v2.webp",
-  "/images/thumbs/Big-Coke.webp",
-  "/images/thumbs/Coke.webp",
-  "/images/thumbs/HeyDay-Lemon.webp",
-  "/images/thumbs/Dogh.webp",
-  "/images/thumbs/Water.webp"
+  '/images/atish-hero-3d.jpg'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(async (cache) => {
-      await cache.addAll(PRECACHE_ASSETS);
-      // Background pre-fetch of all menu food images into cache
-      MENU_IMAGES.forEach((img) => {
-        cache.add(img).catch(() => {});
-      });
-    })
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(PRECACHE_ASSETS))
   );
   self.skipWaiting();
 });

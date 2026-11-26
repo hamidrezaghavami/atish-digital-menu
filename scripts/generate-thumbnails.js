@@ -10,7 +10,7 @@ if (!fs.existsSync(thumbsDir)) {
 }
 
 const files = fs.readdirSync(imagesDir);
-console.log(`Generating 420px thumbnails for images in ${imagesDir}...`);
+console.log(`Generating 320px lightweight thumbnails for images in ${imagesDir}...`);
 
 let totalOriginalSize = 0;
 let totalThumbSize = 0;
@@ -32,11 +32,11 @@ for (const file of files) {
   try {
     const buffer = await sharp(srcPath)
       .resize({
-        width: 420,
+        width: 320,
         withoutEnlargement: true,
         fit: 'inside'
       })
-      .webp({ quality: 80, effort: 5 })
+      .webp({ quality: 75, effort: 6 })
       .toBuffer();
 
     fs.writeFileSync(destPath, buffer);

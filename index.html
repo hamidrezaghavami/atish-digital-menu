@@ -77,10 +77,9 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/icons/icon-192.png" />
   <link rel="icon" type="image/webp" href="/images/logo.webp" />
 
-  <!-- Persian Font (Vazirmatn) - Optimized Essential Weights (400, 700, 900) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;900&display=swap" rel="stylesheet" />
+  <!-- Self-Hosted Persian Font (Vazirmatn Variable) — 100% ArvanCloud Iran CDN, zero Google Fonts latency -->
+  <link rel="preload" href="/fonts/vazirmatn-arabic.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="stylesheet" href="/fonts/vazirmatn.css" />
 
   <!-- Custom CSS -->
   <link rel="stylesheet" href="/src/style.css" />
