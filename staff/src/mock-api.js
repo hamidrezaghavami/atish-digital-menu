@@ -323,3 +323,37 @@ export async function updateSettings(partial) {
   });
   return data;
 }
+
+export async function getOwnerMetrics() {
+  if (IS_DEMO) {
+    return {
+      ok: true,
+      today: { visits: 42, calls: 7, snappfood: 11, items: 96 },
+      totals: { visits: 318, calls: 49, snappfood: 84, instagram: 27, itemViews: 612 },
+      last7Days: [
+        { date: '11-20', label: '11-20', visits: 31 },
+        { date: '11-21', label: '11-21', visits: 48 },
+        { date: '11-22', label: '11-22', visits: 64 },
+        { date: '11-23', label: '11-23', visits: 45 },
+        { date: '11-24', label: '11-24', visits: 52 },
+        { date: '11-25', label: '11-25', visits: 36 },
+        { date: '11-26', label: '11-26', visits: 42 },
+      ],
+      hourly: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 12, 24, 38, 29, 15, 11, 16, 28, 49, 62, 54, 33, 14],
+      topItems: [
+        { name: 'پیتزا استیک ایتالیایی', count: 84 },
+        { name: 'آتیش برگر', count: 72 },
+        { name: 'پیتزا آمریکایی مخصوص', count: 61 },
+        { name: 'پیتزا پپرونی', count: 55 },
+        { name: 'سیب‌زمینی ویژه', count: 44 },
+      ],
+    };
+  }
+
+  try {
+    const { data } = await apiFetch('/api/staff/metrics', { useOwnerToken: true });
+    return data;
+  } catch {
+    return { ok: false, error: 'خطا در دریافت آمار.' };
+  }
+}

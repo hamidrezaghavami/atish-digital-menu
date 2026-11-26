@@ -1620,8 +1620,45 @@ function setupEventListeners() {
   // Live Spin-the-Wheel Promo System (connected to ArvanCloud Edge Function)
   initSpinWheelSystem();
 
+  // Lightweight privacy-friendly menu telemetry (Owner-only analytics on staff.pizzaatish.ir)
+  initMenuAnalytics();
+
   // [DISABLED UNTIL FURTHER NOTICE - QR Discount & 5-Tap Cashier System]
   // initVipOfferSystem();
+}
+
+function trackMenuEvent(type, label = '') {
+  try {
+    const host = window.location.hostname;
+    if (host === 'localhost' || host === '127.0.0.1') return;
+    fetch(`${SPIN_API_BASE}/api/track`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(label ? { type, label } : { type }),
+      keepalive: true,
+    }).catch(() => {});
+  } catch {}
+}
+
+let menuAnalyticsBound = false;
+function initMenuAnalytics() {
+  try {
+    if (!sessionStorage.getItem('atish_visit_tracked')) {
+      sessionStorage.setItem('atish_visit_tracked', '1');
+      trackMenuEvent('visit');
+    }
+  } catch {}
+
+  if (menuAnalyticsBound) return;
+  menuAnalyticsBound = true;
+  document.addEventListener('click', (e) => {
+    const link = e.target?.closest?.('a[href]');
+    if (!link) return;
+    const href = link.getAttribute('href') || '';
+    if (href.startsWith('tel:')) trackMenuEvent('call');
+    else if (href.includes('snappfood.ir')) trackMenuEvent('snappfood');
+    else if (href.includes('instagram.com')) trackMenuEvent('instagram');
+  }, { passive: true });
 }
 
 /* [DISABLED UNTIL FURTHER NOTICE - Uncomment this block, the import at top, the modals in renderApp(), and initVipOfferSystem() above to re-enable]
@@ -2924,6 +2961,7 @@ function openItemModal(item) {
   const box = document.getElementById('item-modal-box');
   const restaurant = menuData?.restaurant || CONFIG;
   if (!modal || !box) return;
+  if (item?.title) trackMenuEvent('item', item.title);
 
   const hasShapes = item.shapes && item.shapes.length > 1;
   let activeShapeId = hasShapes ? (itemSelectedShape[item.id] || 'normal') : null;

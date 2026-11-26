@@ -413,47 +413,119 @@
       </form>
     </div>
 
-    <!-- Step B: Owner Controls & Stock -->
+    <!-- Step B: Owner Controls, Stock & Grafana-Style Live Analytics (OWNER PIN ONLY) -->
     <div id="owner-dashboard" class="dialog-body" hidden>
-      <div class="kpi-grid">
-        <div class="kpi-card">
-          <span class="kpi-label">ثبت‌شده امروز</span>
-          <strong id="kpi-today" class="kpi-value">۰</strong>
-        </div>
-        <div class="kpi-card">
-          <span class="kpi-label">کل کدهای مصرف‌شده</span>
-          <strong id="kpi-total" class="kpi-value">۰</strong>
-        </div>
+      <!-- Owner Sub-Tabs -->
+      <div class="owner-subtabs" role="tablist" aria-label="بخش‌های پنل مدیریت">
+        <button type="button" class="owner-subtab is-active" data-owner-tab="analytics" role="tab" aria-selected="true">
+          📊 آمار و نمودارها
+        </button>
+        <button type="button" class="owner-subtab" data-owner-tab="controls" role="tab" aria-selected="false">
+          ⚙️ تنظیمات و جوایز
+        </button>
       </div>
 
-      <div class="owner-section">
-        <h2 class="owner-section-title">سقف جوایز گردونه (قابل ویرایش · کدهای قبلی حفظ می‌شوند)</h2>
-        <form id="caps-form" class="caps-form">
-          <div id="stock-bars" class="stock-bars"></div>
-          <div id="caps-save-status" class="caps-status" hidden></div>
-          <button type="submit" id="save-caps-btn" class="btn btn-primary btn-sm">
-            ذخیره سقف جوایز
+      <!-- OWNER TAB 1: GRAFANA-STYLE METRICS & CHARTS -->
+      <div id="owner-tab-analytics" class="owner-tab-pane">
+        <div class="metrics-toolbar">
+          <span class="metrics-live-badge">
+            <span class="metrics-dot" aria-hidden="true"></span>
+            آمار زنده منوی pizzaatish.ir
+          </span>
+          <button type="button" id="refresh-metrics-btn" class="btn btn-ghost btn-xs">
+            🔄 بروزرسانی
           </button>
-        </form>
+        </div>
+
+        <div class="metrics-kpi-grid">
+          <div class="metric-tile metric-tile--amber">
+            <span class="metric-tile-label">بازدید امروز</span>
+            <strong id="m-visits-today" class="metric-tile-val">۰</strong>
+          </div>
+          <div class="metric-tile metric-tile--blue">
+            <span class="metric-tile-label">کل بازدیدها</span>
+            <strong id="m-visits-total" class="metric-tile-val">۰</strong>
+          </div>
+          <div class="metric-tile metric-tile--green">
+            <span class="metric-tile-label">کلیک تماس</span>
+            <strong id="m-calls-total" class="metric-tile-val">۰</strong>
+          </div>
+          <div class="metric-tile metric-tile--pink">
+            <span class="metric-tile-label">کلیک اسنپ‌فود</span>
+            <strong id="m-snapp-total" class="metric-tile-val">۰</strong>
+          </div>
+        </div>
+
+        <!-- 7-Day Traffic Bar Chart -->
+        <div class="grafana-panel">
+          <div class="grafana-panel-head">
+            <h2 class="grafana-panel-title">نمودار بازدید ۷ روز اخیر</h2>
+            <span class="grafana-panel-sub">ساعات تهران</span>
+          </div>
+          <div id="chart-7days" class="bar-chart-7d"></div>
+        </div>
+
+        <!-- Peak Hours Chart (11:00 - 23:00) -->
+        <div class="grafana-panel">
+          <div class="grafana-panel-head">
+            <h2 class="grafana-panel-title">ساعات شلوغی منو (۱۱ تا ۲۳)</h2>
+            <span class="grafana-panel-sub">بیشترین بازدید</span>
+          </div>
+          <div id="chart-hours" class="hour-chart"></div>
+        </div>
+
+        <!-- Top Viewed Dishes -->
+        <div class="grafana-panel">
+          <div class="grafana-panel-head">
+            <h2 class="grafana-panel-title">پربازدیدترین غذاها</h2>
+            <span id="m-items-total" class="grafana-panel-sub">۰ مشاهده</span>
+          </div>
+          <div id="chart-top-items" class="top-items-list"></div>
+        </div>
       </div>
 
-      <div class="owner-section">
-        <h2 class="owner-section-title">کلیدهای اصلی سیستم</h2>
-
-        <label class="switch-row">
-          <div class="switch-copy">
-            <strong>گردونه شانس در سایت اصلی</strong>
-            <span>روشن یا خاموش کردن صدور کد تخفیف جدید</span>
+      <!-- OWNER TAB 2: EXISTING DISCOUNT CAPS & MASTER SWITCHES -->
+      <div id="owner-tab-controls" class="owner-tab-pane" hidden>
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <span class="kpi-label">ثبت‌شده امروز</span>
+            <strong id="kpi-today" class="kpi-value">۰</strong>
           </div>
-          <input type="checkbox" id="toggle-wheel" class="toggle-input" />
-        </label>
-
-        <div class="switch-row switch-row--disabled" aria-disabled="true">
-          <div class="switch-copy">
-            <strong>بخش فروش آنلاین (E-Commerce)</strong>
-            <span>خاموش · پس از اتصال درگاه پرداخت فعال می‌شود</span>
+          <div class="kpi-card">
+            <span class="kpi-label">کل کدهای مصرف‌شده</span>
+            <strong id="kpi-total" class="kpi-value">۰</strong>
           </div>
-          <span class="state-pill state-pill--off">خاموش</span>
+        </div>
+
+        <div class="owner-section">
+          <h2 class="owner-section-title">سقف جوایز گردونه (قابل ویرایش · کدهای قبلی حفظ می‌شوند)</h2>
+          <form id="caps-form" class="caps-form">
+            <div id="stock-bars" class="stock-bars"></div>
+            <div id="caps-save-status" class="caps-status" hidden></div>
+            <button type="submit" id="save-caps-btn" class="btn btn-primary btn-sm">
+              ذخیره سقف جوایز
+            </button>
+          </form>
+        </div>
+
+        <div class="owner-section">
+          <h2 class="owner-section-title">کلیدهای اصلی سیستم</h2>
+
+          <label class="switch-row">
+            <div class="switch-copy">
+              <strong>گردونه شانس در سایت اصلی</strong>
+              <span>روشن یا خاموش کردن صدور کد تخفیف جدید</span>
+            </div>
+            <input type="checkbox" id="toggle-wheel" class="toggle-input" />
+          </label>
+
+          <div class="switch-row switch-row--disabled" aria-disabled="true">
+            <div class="switch-copy">
+              <strong>بخش فروش آنلاین (E-Commerce)</strong>
+              <span>خاموش · پس از اتصال درگاه پرداخت فعال می‌شود</span>
+            </div>
+            <span class="state-pill state-pill--off">خاموش</span>
+          </div>
         </div>
       </div>
 

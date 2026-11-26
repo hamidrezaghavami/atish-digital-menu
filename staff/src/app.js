@@ -4,6 +4,7 @@ import {
   authenticateOwner,
   checkDiscountCode,
   getDashboardSummary,
+  getOwnerMetrics,
   isDeviceAuthenticated,
   logoutDevice,
   redeemDiscountCode,
@@ -216,6 +217,17 @@ const saveCapsBtn = document.getElementById('save-caps-btn');
 const toggleWheel = document.getElementById('toggle-wheel');
 const resetDemoBtn = document.getElementById('reset-demo-btn');
 const logoutDeviceBtn = document.getElementById('logout-device-btn');
+const ownerTabAnalytics = document.getElementById('owner-tab-analytics');
+const ownerTabControls = document.getElementById('owner-tab-controls');
+const refreshMetricsBtn = document.getElementById('refresh-metrics-btn');
+const mVisitsToday = document.getElementById('m-visits-today');
+const mVisitsTotal = document.getElementById('m-visits-total');
+const mCallsTotal = document.getElementById('m-calls-total');
+const mSnappTotal = document.getElementById('m-snapp-total');
+const mItemsTotal = document.getElementById('m-items-total');
+const chart7Days = document.getElementById('chart-7days');
+const chartHours = document.getElementById('chart-hours');
+const chartTopItems = document.getElementById('chart-top-items');
 
 let activePendingCode = null;
 let deferredInstallPrompt = null;
@@ -671,9 +683,102 @@ ownerPinForm.addEventListener('submit', async (e) => {
   }
 
   await refreshDashboardData();
+  switchOwnerSubTab('analytics');
   ownerPinGate.hidden = true;
   ownerDashboard.hidden = false;
+  refreshOwnerMetrics();
 });
+
+function switchOwnerSubTab(tabName) {
+  document.querySelectorAll('[data-owner-tab]').forEach((btn) => {
+    const active = btn.dataset.ownerTab === tabName;
+    btn.classList.toggle('is-active', active);
+    btn.setAttribute('aria-selected', active ? 'true' : 'false');
+  });
+  if (ownerTabAnalytics) ownerTabAnalytics.hidden = tabName !== 'analytics';
+  if (ownerTabControls) ownerTabControls.hidden = tabName !== 'controls';
+}
+
+document.querySelectorAll('[data-owner-tab]').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    switchOwnerSubTab(btn.dataset.ownerTab);
+    if (btn.dataset.ownerTab === 'analytics') refreshOwnerMetrics();
+  });
+});
+
+async function refreshOwnerMetrics() {
+  if (!chart7Days) return;
+  if (refreshMetricsBtn) refreshMetricsBtn.disabled = true;
+  const res = await getOwnerMetrics();
+  if (refreshMetricsBtn) refreshMetricsBtn.disabled = false;
+
+  if (!res || !res.ok) {
+    chart7Days.innerHTML = `<div class="metrics-empty" style="grid-column:1/-1">امکان دریافت آمار نبود.</div>`;
+    return;
+  }
+
+  mVisitsToday.textContent = toPersianDigits(res.today?.visits || 0);
+  mVisitsTotal.textContent = toPersianDigits(res.totals?.visits || 0);
+  mCallsTotal.textContent = toPersianDigits(res.totals?.calls || 0);
+  mSnappTotal.textContent = toPersianDigits(res.totals?.snappfood || 0);
+  mItemsTotal.textContent = `${toPersianDigits(res.totals?.itemViews || 0)} مشاهده`;
+
+  // 7-day vertical bars
+  const days = res.last7Days || [];
+  const maxDay = Math.max(1, ...days.map((d) => d.visits || 0));
+  chart7Days.innerHTML = days
+    .map((d) => {
+      const pct = Math.max(5, Math.round(((d.visits || 0) / maxDay) * 100));
+      return `
+        <div class="bar-col">
+          <span class="bar-val">${toPersianDigits(d.visits || 0)}</span>
+          <div class="bar-stick" style="height: ${pct}%"></div>
+          <span class="bar-date">${d.label}</span>
+        </div>`;
+    })
+    .join('');
+
+  // Peak hours (11:00 to 23:00 Tehran)
+  const hourly = Array.isArray(res.hourly) ? res.hourly : Array(24).fill(0);
+  const openSlice = [];
+  for (let h = 11; h <= 23; h++) openSlice.push({ h, v: hourly[h] || 0 });
+  const maxH = Math.max(1, ...openSlice.map((x) => x.v));
+  chartHours.innerHTML = openSlice
+    .map(({ h, v }) => {
+      const pct = Math.max(6, Math.round((v / maxH) * 100));
+      return `
+        <div class="hour-col" title="ساعت ${toPersianDigits(h)}: ${toPersianDigits(v)} بازدید">
+          <div class="hour-bar" style="height: ${pct}%"></div>
+          <span class="hour-label">${toPersianDigits(h)}</span>
+        </div>`;
+    })
+    .join('');
+
+  // Top viewed dishes
+  const top = res.topItems || [];
+  if (!top.length) {
+    chartTopItems.innerHTML = `<div class="metrics-empty">هنوز بازدیدی ثبت نشده — به‌محض مرور منو توسط مشتریان، پرطرفدارترین غذاها اینجا نمایش داده می‌شوند.</div>`;
+  } else {
+    const maxItem = Math.max(1, top[0].count || 1);
+    chartTopItems.innerHTML = top
+      .map((item) => {
+        const pct = Math.max(8, Math.round((item.count / maxItem) * 100));
+        return `
+          <div class="top-item-row">
+            <div class="top-item-meta">
+              <span>${item.name}</span>
+              <span>${toPersianDigits(item.count)} بار</span>
+            </div>
+            <div class="top-item-track">
+              <div class="top-item-fill" style="width: ${pct}%"></div>
+            </div>
+          </div>`;
+      })
+      .join('');
+  }
+}
+
+refreshMetricsBtn?.addEventListener('click', refreshOwnerMetrics);
 
 toggleWheel.addEventListener('change', async () => {
   await updateSettings({ wheelEnabled: toggleWheel.checked });
