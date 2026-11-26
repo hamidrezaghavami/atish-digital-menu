@@ -266,14 +266,14 @@
       "optionsLabel": "انتخاب نوع پیتزا خانواده:",
       "price": 1449000,
       "ingredients": "خمیر پنجره‌ای آمریکایی خانواده (۲۹×۳۶) — مخصوص، پپرونی یا ترکیب مخصوص و پپرونی",
-      "image": "./images/Makhsos-American.webp",
+      "image": "./images/Makhsos-Peperoni-Family.webp",
       "placeholderIcon": "🍕",
       "shapes": [
         {
           "id": "makhsos",
           "name": "مخصوص خانواده",
           "shortName": "مخصوص",
-          "image": "./images/Makhsos-American.webp",
+          "image": "./images/Makhsos-Peperoni-Family.webp",
           "badge": null,
           "price": 1449000
         },
@@ -281,7 +281,7 @@
           "id": "pepperoni",
           "name": "پپرونی خانواده",
           "shortName": "پپرونی",
-          "image": "./images/Peperoni-American-Pizza.webp",
+          "image": "./images/Makhsos-Peperoni-Family.webp",
           "badge": null,
           "price": 1469000
         },
@@ -289,7 +289,7 @@
           "id": "makhsos-pep",
           "name": "مخصوص و پپرونی",
           "shortName": "مخصوص و پپرونی",
-          "image": "./images/Makhsos-American.webp",
+          "image": "./images/Makhsos-Peperoni-Family.webp",
           "badge": null,
           "price": 1449000
         }
