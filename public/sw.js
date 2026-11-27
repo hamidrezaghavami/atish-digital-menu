@@ -1,4 +1,4 @@
-const CACHE_NAME = 'atish-menu-v35';
+const CACHE_NAME = 'atish-menu-v36';
 
 // Core shell + self-hosted Persian font (~80KB total) to pre-cache immediately on install.
 // Menu dish images are cached on-demand as the user scrolls so first load stays ultra-light on mobile data.

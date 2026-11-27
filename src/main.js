@@ -1069,8 +1069,8 @@ function renderApp() {
     ` : ''}
 
     <!-- Item Detail Sheet Modal -->
-    <div id="item-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-end sm:items-center justify-center p-0 sm:p-4 transition-opacity">
-      <div id="item-modal-box" class="w-full max-w-md bg-[#18181c] border-t sm:border border-white/[0.1] rounded-t-3xl sm:rounded-3xl max-h-[90vh] overflow-y-auto shadow-2xl transform transition-transform">
+    <div id="item-modal" class="fixed inset-0 z-50 hidden bg-black/85 flex items-end sm:items-center justify-center p-0 sm:p-4">
+      <div id="item-modal-box" class="w-full max-w-md bg-[#18181c] border-t sm:border border-white/[0.1] rounded-t-3xl sm:rounded-3xl max-h-[90vh] overflow-y-auto shadow-2xl">
       </div>
     </div>
 
@@ -2921,11 +2921,11 @@ function updateCardShapeUI(item, shapeId) {
 
   const cardImg = document.getElementById(`card-img-${item.id}`);
   if (cardImg && shape.image) {
-    cardImg.style.opacity = '0.3';
-    setTimeout(() => {
-      cardImg.src = getThumbSrc(shape.image);
-      cardImg.style.opacity = '1';
-    }, 120);
+    const nextThumb = getThumbSrc(shape.image);
+    if (cardImg.dataset.thumb !== nextThumb) {
+      cardImg.dataset.thumb = nextThumb;
+      cardImg.src = nextThumb;
+    }
   }
 
   const badgeEl = document.getElementById(`card-badge-${item.id}`);
@@ -3052,7 +3052,7 @@ function openItemModal(item) {
                 <button 
                   type="button" 
                   data-modal-shape-btn="${s.id}"
-                  class="py-2 px-2.5 rounded-xl text-xs font-black flex flex-col items-center justify-center gap-0.5 border transition-all ${isActive ? 'bg-amber-500 text-black border-amber-400 shadow-lg' : 'bg-[#222228] text-zinc-300 border-white/[0.08] hover:text-white hover:bg-white/[0.08]'}"
+                  class="py-2 px-2.5 rounded-xl text-xs font-black flex flex-col items-center justify-center gap-0.5 border transition-colors duration-100 touch-manipulation select-none ${isActive ? 'bg-amber-500 text-black border-amber-400 shadow-lg' : 'bg-[#222228] text-zinc-300 border-white/[0.08] hover:text-white hover:bg-white/[0.08]'}"
                 >
                   <span>${s.name}</span>
                   ${s.price ? `<span data-shape-price class="text-[10px] font-bold ${isActive ? 'text-black/75' : 'text-amber-400/90'}">${formatPrice(s.price)}</span>` : ''}
@@ -3088,11 +3088,12 @@ function openItemModal(item) {
 
   modal.classList.remove('hidden');
 
-  // Pre-warm other shapes so switching is 0ms instant
+  // Pre-warm unique other shape images only once so switching is 0ms instant
   if (hasShapes) {
-    item.shapes.forEach(s => {
+    const uniqueThumbs = new Set(item.shapes.map(s => getThumbSrc(s.image)).filter(src => src && src !== thumbSrc));
+    uniqueThumbs.forEach(src => {
       const pre = new Image();
-      pre.src = getThumbSrc(s.image);
+      pre.src = src;
     });
   }
 
@@ -3101,24 +3102,27 @@ function openItemModal(item) {
   });
 
   if (hasShapes) {
+    const modalButtons = Array.from(box.querySelectorAll('[data-modal-shape-btn]'));
+    const modalDots = Array.from(box.querySelectorAll('[data-dot-shape]'));
+    const imgEl = document.getElementById('modal-main-img');
+    const badgeEl = document.getElementById('modal-badge');
+    const btnLabel = document.getElementById('modal-btn-label');
+    const modalPriceEl = document.getElementById('modal-price-badge');
+
     const updateModalShape = (newShapeId) => {
+      if (newShapeId === activeShapeId) return;
       activeShapeId = newShapeId;
       itemSelectedShape[item.id] = newShapeId;
       activeShape = item.shapes.find(s => s.id === newShapeId) || item.shapes[0];
 
-      // Update image instantly using cached thumbnail
-      const imgEl = document.getElementById('modal-main-img');
+      // Update image ONLY when the image URL actually changes (0ms instant swap, no flicker/lag)
       const shapeThumb = getThumbSrc(activeShape.image);
-      if (imgEl) {
-        imgEl.style.opacity = '0.5';
-        setTimeout(() => {
-          imgEl.src = shapeThumb;
-          imgEl.style.opacity = '1';
-        }, 50);
+      if (imgEl && shapeThumb && imgEl.dataset.thumb !== shapeThumb) {
+        imgEl.dataset.thumb = shapeThumb;
+        imgEl.src = shapeThumb;
       }
 
       // Update badge
-      const badgeEl = document.getElementById('modal-badge');
       if (badgeEl) {
         const text = activeShape.badge || item.badge || '';
         badgeEl.textContent = text;
@@ -3126,36 +3130,34 @@ function openItemModal(item) {
       }
 
       // Update dots
-      document.querySelectorAll('[data-dot-shape]').forEach(dot => {
+      for (const dot of modalDots) {
         const isCurrent = dot.dataset.dotShape === newShapeId;
-        dot.className = `h-2 rounded-full transition-all duration-300 ${isCurrent ? 'bg-amber-400 w-5 shadow' : 'bg-white/40 w-2'}`;
-      });
+        dot.className = `h-2 rounded-full transition-all duration-150 ${isCurrent ? 'bg-amber-400 w-5 shadow' : 'bg-white/40 w-2'}`;
+      }
 
-      // Update buttons
-      document.querySelectorAll('[data-modal-shape-btn]').forEach(btn => {
+      // Update buttons instantaneously (color-only transition, no layout/GPU thrash)
+      for (const btn of modalButtons) {
         const isCurrent = btn.dataset.modalShapeBtn === newShapeId;
-        btn.className = `py-2 px-2.5 rounded-xl text-xs font-black flex flex-col items-center justify-center gap-0.5 border transition-all ${isCurrent ? 'bg-amber-500 text-black border-amber-400 shadow-lg' : 'bg-[#222228] text-zinc-300 border-white/[0.08] hover:text-white hover:bg-white/[0.08]'}`;
+        btn.className = `py-2 px-2.5 rounded-xl text-xs font-black flex flex-col items-center justify-center gap-0.5 border transition-colors duration-100 touch-manipulation select-none ${isCurrent ? 'bg-amber-500 text-black border-amber-400 shadow-lg' : 'bg-[#222228] text-zinc-300 border-white/[0.08] hover:text-white hover:bg-white/[0.08]'}`;
         const priceSpan = btn.querySelector('[data-shape-price]');
         if (priceSpan) {
           priceSpan.className = `text-[10px] font-bold ${isCurrent ? 'text-black/75' : 'text-amber-400/90'}`;
         }
-      });
+      }
 
       // Update button label
-      const btnLabel = document.getElementById('modal-btn-label');
       if (btnLabel) {
         btnLabel.textContent = `افزودن به لیست سفارش (${activeShape.name})`;
       }
 
       // Update price badge if price differs per shape
       const shapePrice = activeShape.price || item.price;
-      const modalPriceEl = document.getElementById('modal-price-badge');
       if (modalPriceEl && shapePrice) {
         modalPriceEl.textContent = formatPrice(shapePrice);
       }
 
-      // Also sync card on main grid
-      updateCardShapeUI(item, newShapeId);
+      // Sync card on main grid without blocking tap paint
+      requestAnimationFrame(() => updateCardShapeUI(item, newShapeId));
     };
 
     const toggleModalNextShape = () => {
@@ -3164,7 +3166,7 @@ function openItemModal(item) {
       updateModalShape(item.shapes[nextIndex].id);
     };
 
-    document.querySelectorAll('[data-modal-shape-btn]').forEach(btn => {
+    modalButtons.forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
         updateModalShape(btn.dataset.modalShapeBtn);
